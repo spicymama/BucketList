@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nqW-Sj-713">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
@@ -11,7 +11,7 @@
         <!--Login Page-->
         <scene sceneID="2tq-o7-TLo">
             <objects>
-                <viewController id="sAk-Yb-wYd" customClass="LoginViewController" customModule="BucketListWireFrame" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="sAk-Yb-wYd" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nmO-MS-kv3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -35,17 +35,11 @@
                                         <rect key="frame" x="0.0" y="191.5" width="286" height="63.5"/>
                                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                                         <state key="normal" title="Login"/>
-                                        <connections>
-                                            <segue destination="w5y-0N-fcy" kind="show" id="ec3-aW-Tmn"/>
-                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LWD-Mr-AkS">
                                         <rect key="frame" x="0.0" y="287" width="286" height="63.5"/>
                                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                                         <state key="normal" title="Create Account"/>
-                                        <connections>
-                                            <segue destination="7Wb-53-asb" kind="show" id="nVY-TC-zG3"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -101,9 +95,6 @@
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ro-Vu-Wg3">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="207"/>
-                                            <connections>
-                                                <segue destination="Dfs-Se-84L" kind="show" id="3Xl-9S-psV"/>
-                                            </connections>
                                         </button>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="oWw-cq-4es">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="207"/>
@@ -178,9 +169,6 @@
                                 <rect key="frame" x="116" y="7" width="278" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <connections>
-                                    <segue destination="OzM-B4-Em6" kind="show" id="PdA-by-zrB"/>
-                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
@@ -198,7 +186,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="CpU-j0-4f1">
-                                <rect key="frame" x="0.0" y="88" width="414" height="672"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="672"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="I9R-Te-kQV">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="128"/>
@@ -287,7 +275,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Profile Page" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O58-8n-naU">
-                                <rect key="frame" x="161.5" y="56" width="91" height="20.5"/>
+                                <rect key="frame" x="161.5" y="12" width="91" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -373,10 +361,10 @@
                                 </prototypes>
                             </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="eSd-wO-W7m">
-                                <rect key="frame" x="64" y="108.5" width="286" height="181"/>
+                                <rect key="frame" x="64" y="64.5" width="286" height="225"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="41" translatesAutoresizingMaskIntoConstraints="NO" id="Uhs-0j-Bhm">
-                                        <rect key="frame" x="0.0" y="0.0" width="269.5" height="150"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="269.5" height="194"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="No6-bB-eeE">
                                                 <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
@@ -393,7 +381,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="6eE-kH-dmH">
-                                        <rect key="frame" x="0.0" y="151" width="235" height="30"/>
+                                        <rect key="frame" x="0.0" y="195" width="235" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0UV-oB-TI1">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
@@ -406,16 +394,10 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B6E-El-mMT">
                                                 <rect key="frame" x="100" y="0.0" width="62" height="30"/>
                                                 <state key="normal" title="Message"/>
-                                                <connections>
-                                                    <segue destination="lnm-no-mio" kind="show" id="BQa-rx-DjT"/>
-                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wJx-g9-wpS">
                                                 <rect key="frame" x="178" y="0.0" width="57" height="30"/>
                                                 <state key="normal" title="My Lists"/>
-                                                <connections>
-                                                    <segue destination="6ss-Xz-etm" kind="show" id="aPW-RM-PFz"/>
-                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -543,7 +525,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="messages.png" translatesAutoresizingMaskIntoConstraints="NO" id="gN1-m4-b7f">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vEh-ah-zGH"/>
@@ -570,7 +552,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DE8-ia-nyo">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="246" id="df5-Lm-IPE">
@@ -582,36 +564,16 @@
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RgU-hC-ozN">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="246"/>
-                                                    <connections>
-                                                        <segue destination="13c-zy-O76" kind="show" id="77J-bh-aHd"/>
-                                                    </connections>
                                                 </button>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="38" translatesAutoresizingMaskIntoConstraints="NO" id="Oh1-TO-SJ5">
                                                     <rect key="frame" x="20" y="11" width="374" height="224"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5Xg-Ek-EFI">
-                                                            <rect key="frame" x="0.0" y="33.5" width="157" height="157"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="374" height="224"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="5Xg-Ek-EFI" secondAttribute="height" multiplier="1:1" id="LaR-l6-tQX"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="u6i-f4-pLw">
-                                                            <rect key="frame" x="195" y="61.5" width="179" height="101.5"/>
-                                                            <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z3y-FF-wRk">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="179" height="30"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                                                    <nil key="textColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Latest Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rah-cz-eDz">
-                                                                    <rect key="frame" x="0.0" y="80" width="179" height="21.5"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                                    <nil key="textColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                            </subviews>
-                                                        </stackView>
                                                     </subviews>
                                                 </stackView>
                                             </subviews>
@@ -647,16 +609,16 @@
             </objects>
             <point key="canvasLocation" x="2336" y="-710"/>
         </scene>
-        <!--Sign Up View Controller-->
+        <!--View Controller-->
         <scene sceneID="YyH-m8-hsI">
             <objects>
-                <viewController id="7Wb-53-asb" customClass="SignUpViewController" customModule="BucketListWireFrame" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="7Wb-53-asb" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Q0n-Wc-lI1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="h9t-kx-yaU">
-                                <rect key="frame" x="96" y="152" width="222" height="474"/>
+                                <rect key="frame" x="96" y="108" width="222" height="474"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dao-AD-eDZ">
                                         <rect key="frame" x="0.0" y="0.0" width="222" height="34"/>
@@ -740,7 +702,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="sAk-Yb-wYd" kind="relationship" relationship="rootViewController" id="r8M-rx-Llg"/>
+                        <segue destination="sAk-Yb-wYd" kind="relationship" relationship="rootViewController" id="r8j-cm-j2i"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cua-0C-B0A" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
