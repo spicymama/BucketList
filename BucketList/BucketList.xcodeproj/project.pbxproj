@@ -21,11 +21,14 @@
 		AA8E96A126810CFE003DC8DA /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E96A026810CFE003DC8DA /* Notifier.swift */; };
 		AA8E96A326810D03003DC8DA /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E96A226810D03003DC8DA /* Messages.swift */; };
 		AA8E96A526810D05003DC8DA /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E96A426810D05003DC8DA /* Login.swift */; };
-		AA8E96A826810D14003DC8DA /* Friends.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E96A726810D14003DC8DA /* Friends.swift */; };
 		AA8E96AB26810D68003DC8DA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E96AA26810D68003DC8DA /* User.swift */; };
 		AA8E96AD26810D6F003DC8DA /* Bucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E96AC26810D6F003DC8DA /* Bucket.swift */; };
 		AA8E96B026810DBE003DC8DA /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E96AF26810DBE003DC8DA /* Model.swift */; };
-		AA9BB5BC268110BD00A66D3E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA9BB5BB268110BD00A66D3E /* GoogleService-Info.plist */; };
+		EAFAAAAC26813F3500381999 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAFAAAAB26813F3500381999 /* GoogleService-Info.plist */; };
+		EAFAAACC2681432A00381999 /* FeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFAAACB2681432A00381999 /* FeedTableViewController.swift */; };
+		EAFAAAD02681434E00381999 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFAAACF2681434E00381999 /* ProfileTableViewController.swift */; };
+		EAFAAAD62681446800381999 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFAAAD52681446800381999 /* FeedTableViewCell.swift */; };
+		EAFAAADA2681447400381999 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFAAAD92681447400381999 /* ProfileTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,13 +47,16 @@
 		AA8E96A026810CFE003DC8DA /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
 		AA8E96A226810D03003DC8DA /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
 		AA8E96A426810D05003DC8DA /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
-		AA8E96A726810D14003DC8DA /* Friends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friends.swift; sourceTree = "<group>"; };
 		AA8E96AA26810D68003DC8DA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AA8E96AC26810D6F003DC8DA /* Bucket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bucket.swift; sourceTree = "<group>"; };
 		AA8E96AF26810DBE003DC8DA /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		AA9BB5BB268110BD00A66D3E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Firebase GoogleService-Info/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C3188C93C2B51D68B5DDF585 /* Pods-BucketList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BucketList.release.xcconfig"; path = "Target Support Files/Pods-BucketList/Pods-BucketList.release.xcconfig"; sourceTree = "<group>"; };
 		D3317EECED0B32C26F983252 /* Pods_BucketList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BucketList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EAFAAAAB26813F3500381999 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EAFAAACB2681432A00381999 /* FeedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewController.swift; sourceTree = "<group>"; };
+		EAFAAACF2681434E00381999 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
+		EAFAAAD52681446800381999 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
+		EAFAAAD92681447400381999 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		F53BB64563576D97B8BB2B09 /* Pods-BucketList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BucketList.debug.xcconfig"; path = "Target Support Files/Pods-BucketList/Pods-BucketList.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -95,11 +101,12 @@
 		AA02FF7726810500004EA782 /* BucketList */ = {
 			isa = PBXGroup;
 			children = (
-				AA9BB5BB268110BD00A66D3E /* GoogleService-Info.plist */,
+				EAFAAAAB26813F3500381999 /* GoogleService-Info.plist */,
 				AA8E96A926810D4F003DC8DA /* Models */,
 				AA8E96AE26810DAD003DC8DA /* Model Controllers */,
 				AA8E969926810C38003DC8DA /* View Controllers */,
 				AA67204A26810709003D43A0 /* Storyboards */,
+				EAFAAAD42681443900381999 /* Custom Cells */,
 				AA02FF8C2681051C004EA782 /* Resources */,
 			);
 			path = BucketList;
@@ -164,6 +171,7 @@
 		AA8E969926810C38003DC8DA /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				EAFAAAC62681406A00381999 /* Feed */,
 				AA8E96A626810D0B003DC8DA /* Friends */,
 				AA8E969D26810CB8003DC8DA /* Buckets */,
 				AA8E969C26810CA4003DC8DA /* Notifier */,
@@ -208,7 +216,7 @@
 		AA8E96A626810D0B003DC8DA /* Friends */ = {
 			isa = PBXGroup;
 			children = (
-				AA8E96A726810D14003DC8DA /* Friends.swift */,
+				EAFAAACF2681434E00381999 /* ProfileTableViewController.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -228,6 +236,23 @@
 				AA8E96AF26810DBE003DC8DA /* Model.swift */,
 			);
 			path = "Model Controllers";
+			sourceTree = "<group>";
+		};
+		EAFAAAC62681406A00381999 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				EAFAAACB2681432A00381999 /* FeedTableViewController.swift */,
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
+		EAFAAAD42681443900381999 /* Custom Cells */ = {
+			isa = PBXGroup;
+			children = (
+				EAFAAAD52681446800381999 /* FeedTableViewCell.swift */,
+				EAFAAAD92681447400381999 /* ProfileTableViewCell.swift */,
+			);
+			path = "Custom Cells";
 			sourceTree = "<group>";
 		};
 		ECE8AD985990C774F3D4A6FD /* Pods */ = {
@@ -299,7 +324,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA67204E268107A7003D43A0 /* josh.storyboard in Resources */,
-				AA9BB5BC268110BD00A66D3E /* GoogleService-Info.plist in Resources */,
+				EAFAAAAC26813F3500381999 /* GoogleService-Info.plist in Resources */,
 				AA02FF8526810501004EA782 /* LaunchScreen.storyboard in Resources */,
 				AA672050268107AD003D43A0 /* gavin.storyboard in Resources */,
 				AA02FF8226810501004EA782 /* Assets.xcassets in Resources */,
@@ -359,12 +384,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA8E96A326810D03003DC8DA /* Messages.swift in Sources */,
+				EAFAAAD62681446800381999 /* FeedTableViewCell.swift in Sources */,
 				AA8E96A526810D05003DC8DA /* Login.swift in Sources */,
-				AA8E96A826810D14003DC8DA /* Friends.swift in Sources */,
 				AA02FF7926810500004EA782 /* AppDelegate.swift in Sources */,
 				AA8E96AB26810D68003DC8DA /* User.swift in Sources */,
 				AA8E96B026810DBE003DC8DA /* Model.swift in Sources */,
+				EAFAAAD02681434E00381999 /* ProfileTableViewController.swift in Sources */,
+				EAFAAACC2681432A00381999 /* FeedTableViewController.swift in Sources */,
 				AA8E96A126810CFE003DC8DA /* Notifier.swift in Sources */,
+				EAFAAADA2681447400381999 /* ProfileTableViewCell.swift in Sources */,
 				AA8E96AD26810D6F003DC8DA /* Bucket.swift in Sources */,
 				AA8E969F26810CF6003DC8DA /* Buckets.swift in Sources */,
 				AA02FF7B26810500004EA782 /* SceneDelegate.swift in Sources */,
@@ -518,6 +546,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XA96DJZ7VH;
 				INFOPLIST_FILE = BucketList/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -538,6 +567,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XA96DJZ7VH;
 				INFOPLIST_FILE = BucketList/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

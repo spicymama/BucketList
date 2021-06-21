@@ -5,4 +5,10 @@
 //  Created by Ethan Andersen on 6/21/21.
 //
 
-import Foundation
+import UIKit
+import Firebase
+
+class User {
+    
+    
+}
