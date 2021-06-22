@@ -7,6 +7,8 @@
 
 import UIKit
 
+/// Provides the login authentication, and produces some data for the initial creation
+
 class LoginViewController: UIViewController {
     
     
