@@ -39,6 +39,5 @@ class FeedTableViewCell: UITableViewCell {
         postDetailTextView.text = "Details about the thing"
        
     }
-}
 
 }

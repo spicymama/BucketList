@@ -29,6 +29,8 @@
 		EAFAAAD02681434E00381999 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFAAACF2681434E00381999 /* ProfileTableViewController.swift */; };
 		EAFAAAD62681446800381999 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFAAAD52681446800381999 /* FeedTableViewCell.swift */; };
 		EAFAAADA2681447400381999 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFAAAD92681447400381999 /* ProfileTableViewCell.swift */; };
+		EAFAAAE12682316600381999 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFAAAE02682316600381999 /* UserController.swift */; };
+		EAFAAAE42682320D00381999 /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFAAAE32682320D00381999 /* ProfileCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +59,8 @@
 		EAFAAACF2681434E00381999 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		EAFAAAD52681446800381999 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
 		EAFAAAD92681447400381999 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
+		EAFAAAE02682316600381999 /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
+		EAFAAAE32682320D00381999 /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		F53BB64563576D97B8BB2B09 /* Pods-BucketList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BucketList.debug.xcconfig"; path = "Target Support Files/Pods-BucketList/Pods-BucketList.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -234,6 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				AA8E96AF26810DBE003DC8DA /* Model.swift */,
+				EAFAAAE02682316600381999 /* UserController.swift */,
 			);
 			path = "Model Controllers";
 			sourceTree = "<group>";
@@ -251,6 +256,7 @@
 			children = (
 				EAFAAAD52681446800381999 /* FeedTableViewCell.swift */,
 				EAFAAAD92681447400381999 /* ProfileTableViewCell.swift */,
+				EAFAAAE32682320D00381999 /* ProfileCollectionViewCell.swift */,
 			);
 			path = "Custom Cells";
 			sourceTree = "<group>";
@@ -387,6 +393,8 @@
 				EAFAAAD62681446800381999 /* FeedTableViewCell.swift in Sources */,
 				AA8E96A526810D05003DC8DA /* Login.swift in Sources */,
 				AA02FF7926810500004EA782 /* AppDelegate.swift in Sources */,
+				EAFAAAE42682320D00381999 /* ProfileCollectionViewCell.swift in Sources */,
+				EAFAAAE12682316600381999 /* UserController.swift in Sources */,
 				AA8E96AB26810D68003DC8DA /* User.swift in Sources */,
 				AA8E96B026810DBE003DC8DA /* Model.swift in Sources */,
 				EAFAAAD02681434E00381999 /* ProfileTableViewController.swift in Sources */,

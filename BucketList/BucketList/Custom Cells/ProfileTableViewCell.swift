@@ -14,7 +14,6 @@ class ProfileTableViewCell: UITableViewCell {
         @IBOutlet weak var usernameLabel: UILabel!
         @IBOutlet weak var publicListTableView: UITableView!
         @IBOutlet weak var imageView1: UIImageView!
-        @IBOutlet weak var scrollView: UIScrollView!
         @IBOutlet weak var achievementLabel: UILabel!
         @IBOutlet weak var collectionView: UICollectionView!
         
