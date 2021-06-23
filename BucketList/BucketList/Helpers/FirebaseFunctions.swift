@@ -84,10 +84,10 @@ class FirebaseFunctions {
                 guard let data = document!.data() else { return }
                 
                 // Data to Collect
-                let firstName = data["firstName"] as! String
-                let lastName = data["lastName"] as! String
-                let username = data["username"] as! String
-                let uid = data["uid"] as! String
+                let firstName: String = data["firstName"] as? String ?? "First Name"
+                let lastName: String = data["lastName"] as? String ?? "Last Name"
+                let username: String = data["username"] as? String ?? "User Name"
+                let uid: String = data["uid"] as? String ?? "uid"
                 
                 🐶(User(firstName: firstName, lastName: lastName, username: username, uid: uid))
             }
@@ -149,7 +149,7 @@ class FirebaseFunctions {
                 let firstName: String = data["firstName"] as? String ?? "First Name"
                 let lastName: String = data["lastName"] as? String ?? "Last Name"
                 let username: String = data["username"] as? String ?? "User Name"
-                let uid: String = data["uid"] as! String
+                let uid: String = data["uid"] as? String ?? "uid"
                 
                 let friendsID: String = data["friendsID"] as? String ?? "You have no friends"
                 var friendsList = FriendsList()
@@ -178,8 +178,8 @@ class FirebaseFunctions {
             } else {
                 guard let data = document?.data() else { return }
                 
-                let friends = data["friends"] as! [String]
-                let blocked = data["blocked"] as! [String]
+                let friends: [String] = data["friends"] as? [String] ?? []
+                let blocked: [String] = data["blocked"] as? [String] ?? []
                 
                 group.notify(queue: DispatchQueue.main) {
                     🐶(FriendsList(friends: friends, blocked: blocked))
