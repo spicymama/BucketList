@@ -13,22 +13,24 @@ class LoadUsersTableViewController: UITableViewController {
         super.viewDidLoad()
         self.fetchUsersData()
     } // End of View did load
-
     
     // MARK: - Properties
-    var usersData: [String] = []
+    var users: [User] = []
     
     // MARK: - Table view data source
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return usersData.count
+        return users.count
     } // End of Number of rows
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "userDataCell", for: indexPath)
-        let userData = self.usersData[indexPath.row]
+        let user = self.users[indexPath.row]
         
-        cell.textLabel?.text = userData
+        let userName = (user.firstName + " " + user.lastName)
+        let friendCount: Int = 0
+        
+        cell.textLabel?.text = userName
+        cell.detailTextLabel?.text = String(friendCount)
         
         return cell
     } // End of Cell for row at
@@ -36,10 +38,10 @@ class LoadUsersTableViewController: UITableViewController {
     
     // MARK: - Functions
     func fetchUsersData() {
-        FirebaseFunctions.fetchUsersData { usersData in
-            self.usersData = usersData
+        FirebaseFunctions.fetchUsersData { usersNames in
+            self.users = usersNames
             self.tableView.reloadData()
         }
     } // End of Function fetchUsersData
-
+    
 } // End of Class LoadUsersTableView

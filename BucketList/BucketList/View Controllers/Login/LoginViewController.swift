@@ -21,10 +21,10 @@ class LoginViewController: UIViewController {
     // MARK: - Lifecylce
     override func viewDidLoad() {
         super.viewDidLoad()
-        loginFunc()
+        konamiLoginFunc()
     } // End of Function
     
-    func loginFunc() {
+    func konamiLoginFunc() {
         emailField.text = "AndersenEthanG@gmail.com"
         passwordField.text  = "Str0ngP@ssw0rd."
     }
@@ -37,12 +37,11 @@ class LoginViewController: UIViewController {
             FirebaseFunctions.signInUser(email: emailField.text!, password: passwordField.text!, 🐶: { result in
                 switch result {
                 case .success(_):
-                    // TODO - Make this work somehow
                     let storyBoard: UIStoryboard = UIStoryboard(name: "Authenticate", bundle: nil)
                     let vs = storyBoard.instantiateViewController(withIdentifier: "AccountVC")
                     self.navigationController?.pushViewController(vs, animated: true)
                 case .failure(_):
-                    // TODO - Turn this into an alert
+                    // TODO: - Turn this into an alert
                     print("You failed!!! See error whatever something going on here for details... If you ever see this... The project never saw the light of day...")
                 } // End of Switch
             })

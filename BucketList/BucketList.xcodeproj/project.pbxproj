@@ -20,6 +20,7 @@
 		AA25B50B26823B4E00B0E13F /* LoadUsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B50A26823B4E00B0E13F /* LoadUsersTableViewController.swift */; };
 		AA25B512268250B500B0E13F /* FirebaseFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B510268250B500B0E13F /* FirebaseFunctions.swift */; };
 		AA25B513268250B500B0E13F /* PasswordValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B511268250B500B0E13F /* PasswordValidator.swift */; };
+		AA25B51726837F3100B0E13F /* ethanUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B51626837F3100B0E13F /* ethanUserController.swift */; };
 		AA67204C268107A2003D43A0 /* Authenticate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA67204B268107A2003D43A0 /* Authenticate.storyboard */; };
 		AA67204E268107A7003D43A0 /* josh.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA67204D268107A7003D43A0 /* josh.storyboard */; };
 		AA672050268107AD003D43A0 /* gavin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA67204F268107AD003D43A0 /* gavin.storyboard */; };
@@ -49,6 +50,7 @@
 		AA25B50A26823B4E00B0E13F /* LoadUsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadUsersTableViewController.swift; sourceTree = "<group>"; };
 		AA25B510268250B500B0E13F /* FirebaseFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseFunctions.swift; sourceTree = "<group>"; };
 		AA25B511268250B500B0E13F /* PasswordValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordValidator.swift; sourceTree = "<group>"; };
+		AA25B51626837F3100B0E13F /* ethanUserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ethanUserController.swift; sourceTree = "<group>"; };
 		AA67204B268107A2003D43A0 /* Authenticate.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Authenticate.storyboard; sourceTree = "<group>"; };
 		AA67204D268107A7003D43A0 /* josh.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = josh.storyboard; sourceTree = "<group>"; };
 		AA67204F268107AD003D43A0 /* gavin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = gavin.storyboard; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				AA8E96AF26810DBE003DC8DA /* Model.swift */,
+				AA25B51626837F3100B0E13F /* ethanUserController.swift */,
 			);
 			path = "Model Controllers";
 			sourceTree = "<group>";
@@ -400,6 +403,7 @@
 				AA02FF7926810500004EA782 /* AppDelegate.swift in Sources */,
 				AA8E96AB26810D68003DC8DA /* User.swift in Sources */,
 				AA8E96B026810DBE003DC8DA /* Model.swift in Sources */,
+				AA25B51726837F3100B0E13F /* ethanUserController.swift in Sources */,
 				AA25B513268250B500B0E13F /* PasswordValidator.swift in Sources */,
 				AA8E96A126810CFE003DC8DA /* Notifier.swift in Sources */,
 				AA25B512268250B500B0E13F /* FirebaseFunctions.swift in Sources */,

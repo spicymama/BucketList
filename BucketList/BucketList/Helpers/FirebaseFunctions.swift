@@ -10,6 +10,7 @@ import Firebase
 
 class FirebaseFunctions {
     
+    // MARK: - Create User
     static func createUser(email: String, password: String, firstName: String, lastName: String, dob: Date, username: String) {
         // This creates the user
         Auth.auth().createUser(withEmail: email, password: password) { result, 🛑 in
@@ -70,7 +71,7 @@ class FirebaseFunctions {
     } // End of Function Sign In
     
     
-    // MARK: - Fetch Data
+    // MARK: - Fetch Current User Data
     static func fetchCurrentUserData(🐶: @escaping ( [String : Any] ) -> Void) {
         // Get current user UID
         let uid = Auth.auth().currentUser?.uid
@@ -86,7 +87,9 @@ class FirebaseFunctions {
         } // End of getDocument
     } // End of Function fetchData
     
-    static func fetchUsersData(🐶: @escaping ( [String] ) -> Void) {
+    
+    // MARK: - Fetch all Users data
+    static func fetchUsersData(🐶: @escaping ( [User] ) -> Void) {
         Firestore.firestore().collection("users").getDocuments { snapshot, 🛑 in
             if let 🛑 = 🛑 {
                 print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
@@ -97,16 +100,22 @@ class FirebaseFunctions {
                 for document in snapshot.documents {
                     userIds.append(document.documentID)
                 }
-                var usersData: [String] = []
+                var usersData: [User] = []
                 let group = DispatchGroup()
                 
+                var fetchedUser: User?
                 for i in userIds {
                     group.enter()
                     FirebaseFunctions.fetchUserData(uid: i) { data in
                         // Any data to return from Firebase
-                        let firstName: String = data["firstName"] as! String
-                        let lastName: String = data["lastName"] as! String
-                        usersData.append(firstName + " " + lastName)
+                        fetchedUser?.allPictures = [UIImage(named: "swing")]
+                        fetchedUser?.bucketIDs = data["bucketIDs"] as! [String]
+                        fetchedUser?.firstName = data["firstName"] as! String
+                        fetchedUser?.lastName = data["lastName"] as! String
+                        fetchedUser?.dob = data["dob"] as! String
+                        fetchedUser?.username = data["username"] as! String
+                        
+                         usersData.append(fetchedUser!)
                         
                         group.leave()
                     }
@@ -117,7 +126,9 @@ class FirebaseFunctions {
             } // End of Snapshot
         }
     } // End of FetchUsers Function
-
+    
+    
+    // MARK: - Fetch User Data
     static func fetchUserData(uid: String ,🐶: @escaping ( [String : Any] ) -> Void) {
         // Get current user UID
         let uid = uid
@@ -129,6 +140,23 @@ class FirebaseFunctions {
             } else {
                 // dataInfo is the user information
                 🐶(document!.data()!)
+            }
+        } // End of getDocument
+    } // End of Function fetchData
+    
+    
+    // MARK: - Fetch Friends
+    static func fetchFriends(uid: String ,🐶: @escaping ( User ) -> Void) {
+        // Get current user UID
+        let uid = uid
+        // Fetch data
+        let userData = Firestore.firestore().collection("friends").document(uid)
+        userData.getDocument { ( document, 🛑 ) in
+            if let 🛑 = 🛑 {
+                print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
+            } else {
+//                let friend =
+//                🐶(friend)
             }
         } // End of getDocument
     } // End of Function fetchData
