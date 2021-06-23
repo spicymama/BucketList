@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+/*
 class UserController {
     
     static let shared = UserController()
@@ -17,3 +17,4 @@ class UserController {
     let justin = User(name: "Justin Webster", username: "justHustlin", profilePicture: UIImage(named: "justin"), allPictures: [UIImage(named:"swing"), UIImage(named: "tattoo"), UIImage(named: "gorgeousGirlfriend"), UIImage(named: "lift"), UIImage(named:"tree")], goals: ["Open a bottle with teeth", "Get super cool coding job", "Fist fight Batman"], acheivements: ["Have cool glasses", "Help old lady across the street", "Create a bucket list"])
     
 }
+*/

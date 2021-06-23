@@ -36,24 +36,26 @@ class ProfileTableViewCell: UITableViewCell {
      
         func updateViews(){
             profilePic.image = currentUser?.profilePicture
-            usernameLabel.text = currentUser?.username
-            imageView1.image = currentUser?.allPictures[3]
-            achievementLabel.text = currentUser?.acheivements[0]
+            usernameLabel.text = currentUser?.firstName
+            imageView1.image = currentUser?.allPictures[0]
             collectionView.contentSize = CGSize(width: 2000, height: 100)
             collectionView.addSubview(UIImageView())
-
+            print(currentUser?.firstName)
+            print(currentUser?.lastName)
+            
             
         }
     }
 
     extension ProfileTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return currentUser?.acheivements.count ?? 5
+            return 5
         }
         
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath) as? ProfileCollectionViewCell else {return UICollectionViewCell()}
-            let text = UserController.shared.users[indexPath.row].acheivements[indexPath.row]
+            let text = "Recent Accomplishment..."
+                //UserController.shared.users[indexPath.row].acheivements[indexPath.row]
             cell.text = text
             
             return cell

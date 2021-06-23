@@ -6,3 +6,13 @@
 //
 
 import Foundation
+
+class List {
+    var title: String
+    var list: [String]
+    
+    init(title: String, list: [String]) {
+        self.title = title
+        self.list = list
+    }
+}

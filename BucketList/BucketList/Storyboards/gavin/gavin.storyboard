@@ -12,7 +12,7 @@
         <!--Feed Table View Controller-->
         <scene sceneID="3VG-UV-F1z">
             <objects>
-                <tableViewController id="opJ-De-DRE" customClass="FeedTableViewController" customModule="Bucket_List_Collection_View" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="opJ-De-DRE" customClass="FeedTableViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="1Gk-y4-gEj">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -23,7 +23,7 @@
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="postCell" rowHeight="673" id="MVV-Cc-VtN" customClass="FeedTableViewCell" customModule="Bucket_List_Collection_View" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="postCell" rowHeight="673" id="MVV-Cc-VtN" customClass="FeedTableViewCell" customModule="BucketList" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="414" height="673"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MVV-Cc-VtN" id="DH5-O2-ycd">
@@ -127,11 +127,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="htB-JK-RIf">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" image="magnifyingglass" catalog="system" id="c0d-nh-Bfk">
-                            <connections>
-                                <action selector="searchButtonTapped:" destination="opJ-De-DRE" id="kSB-e3-37N"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" image="magnifyingglass" catalog="system" id="c0d-nh-Bfk"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="wq5-b4-SBd">
                             <rect key="frame" x="140.5" y="5" width="133" height="34"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -151,8 +147,7 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="searchBar" destination="zjU-ay-atC" id="Vhb-TO-109"/>
-                        <outlet property="segmentController" destination="wq5-b4-SBd" id="UCB-Xs-RAr"/>
-                        <outlet property="segmentedController" destination="wq5-b4-SBd" id="9eH-Wm-SQK"/>
+                        <outlet property="segmentedController" destination="wq5-b4-SBd" id="AoU-yj-dZw"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wvp-MC-GHZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -162,13 +157,13 @@
         <!--Profile Table View Controller-->
         <scene sceneID="62U-z0-5BH">
             <objects>
-                <tableViewController id="VCE-1y-bWj" customClass="ProfileTableViewController" customModule="Bucket_List_Collection_View" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="VCE-1y-bWj" customClass="ProfileTableViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="88K-HQ-9KX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="profileCell" rowHeight="1524" id="JvO-Gt-bal" customClass="ProfileTableViewCell" customModule="Bucket_List_Collection_View" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="profileCell" rowHeight="1524" id="JvO-Gt-bal" customClass="ProfileTableViewCell" customModule="BucketList" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="1524"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JvO-Gt-bal" id="Rhz-g4-lEk">
@@ -205,7 +200,7 @@
                                                         <constraint firstAttribute="height" constant="382" id="2Zq-of-aD8"/>
                                                     </constraints>
                                                     <prototypes>
-                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="78" id="Sb4-hQ-KNF">
+                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="profileAchievementCell" rowHeight="78" id="Sb4-hQ-KNF">
                                                             <rect key="frame" x="0.0" y="28" width="378" height="78"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Sb4-hQ-KNF" id="PdA-l3-WwJ">
@@ -246,7 +241,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bc0-kd-qro">
                                                     <rect key="frame" x="0.0" y="1027" width="378" height="390"/>
                                                     <subviews>
-                                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="nG2-04-GbM" customClass="CollectionViewController" customModule="Bucket_List_Collection_View" customModuleProvider="target">
+                                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="nG2-04-GbM">
                                                             <rect key="frame" x="8" y="8" width="362" height="130"/>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <constraints>
@@ -259,7 +254,7 @@
                                                                 <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                             </collectionViewFlowLayout>
                                                             <cells>
-                                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="ProfileCollectionViewCell" reuseIdentifier="collectionViewCell" id="Jad-tg-yHz" customClass="ProfileCollectionViewCell" customModule="Bucket_List_Collection_View" customModuleProvider="target">
+                                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="ProfileCollectionViewCell" reuseIdentifier="collectionViewCell" id="Jad-tg-yHz" customClass="ProfileCollectionViewCell" customModule="BucketList" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="-1.5" width="371" height="133"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="2Kh-G8-ct6">

@@ -23,7 +23,7 @@ class FeedTableViewCell: UITableViewCell {
     @IBAction func profileButtonTapped(_ sender: Any) {
     }
     
-    var user: User? {
+    var post: Post? {
         didSet {
           updateViews()
      
@@ -31,12 +31,13 @@ class FeedTableViewCell: UITableViewCell {
     }
 
     func updateViews() {
-        guard let user = user else {return}
-        profilePic.image = user.profilePicture
-        usernameLabel.text = "\(user.username) checked something off his list"
-        postImageView.image = user.allPictures[0]
-        goalLabel.text = user.goals[0]
-        postDetailTextView.text = "Details about the thing"
+        guard let post = post else {return}
+        
+        profilePic.image = UIImage(named: "peace")
+        usernameLabel.text = "Gavin checked something off his list"
+        postImageView.image = UIImage(named: "lift")
+        goalLabel.text = post.title
+        postDetailTextView.text = post.description
        
     }
 
