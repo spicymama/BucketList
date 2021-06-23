@@ -13,14 +13,22 @@
 		AA02FF8026810500004EA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA02FF7E26810500004EA782 /* Main.storyboard */; };
 		AA02FF8226810501004EA782 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA02FF8126810501004EA782 /* Assets.xcassets */; };
 		AA02FF8526810501004EA782 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA02FF8326810501004EA782 /* LaunchScreen.storyboard */; };
-		AA67204C268107A2003D43A0 /* ethan.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA67204B268107A2003D43A0 /* ethan.storyboard */; };
+		AA25B4F726814A5300B0E13F /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B4F626814A5300B0E13F /* SignUpViewController.swift */; };
+		AA25B504268156F400B0E13F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B503268156F400B0E13F /* LoginViewController.swift */; };
+		AA25B5062681577300B0E13F /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B5052681577300B0E13F /* AccountViewController.swift */; };
+		AA25B5082682397D00B0E13F /* LoadUsers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA25B5072682397D00B0E13F /* LoadUsers.storyboard */; };
+		AA25B50B26823B4E00B0E13F /* LoadUsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B50A26823B4E00B0E13F /* LoadUsersTableViewController.swift */; };
+		AA25B512268250B500B0E13F /* FirebaseFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B510268250B500B0E13F /* FirebaseFunctions.swift */; };
+		AA25B513268250B500B0E13F /* PasswordValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B511268250B500B0E13F /* PasswordValidator.swift */; };
+		AA25B51726837F3100B0E13F /* ethanUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B51626837F3100B0E13F /* ethanUserController.swift */; };
+		AA25B52026838B4200B0E13F /* FriendsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B51F26838B4200B0E13F /* FriendsList.swift */; };
+		AA67204C268107A2003D43A0 /* Authenticate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA67204B268107A2003D43A0 /* Authenticate.storyboard */; };
 		AA67204E268107A7003D43A0 /* josh.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA67204D268107A7003D43A0 /* josh.storyboard */; };
 		AA672050268107AD003D43A0 /* gavin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA67204F268107AD003D43A0 /* gavin.storyboard */; };
 		AA672052268107B4003D43A0 /* justin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA672051268107B4003D43A0 /* justin.storyboard */; };
 		AA8E969F26810CF6003DC8DA /* Buckets.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E969E26810CF6003DC8DA /* Buckets.swift */; };
 		AA8E96A126810CFE003DC8DA /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E96A026810CFE003DC8DA /* Notifier.swift */; };
 		AA8E96A326810D03003DC8DA /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E96A226810D03003DC8DA /* Messages.swift */; };
-		AA8E96A526810D05003DC8DA /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E96A426810D05003DC8DA /* Login.swift */; };
 		AA8E96A826810D14003DC8DA /* Friends.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E96A726810D14003DC8DA /* Friends.swift */; };
 		AA8E96AB26810D68003DC8DA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E96AA26810D68003DC8DA /* User.swift */; };
 		AA8E96AD26810D6F003DC8DA /* Bucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E96AC26810D6F003DC8DA /* Bucket.swift */; };
@@ -36,14 +44,22 @@
 		AA02FF8126810501004EA782 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AA02FF8426810501004EA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AA02FF8626810501004EA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AA67204B268107A2003D43A0 /* ethan.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ethan.storyboard; sourceTree = "<group>"; };
+		AA25B4F626814A5300B0E13F /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		AA25B503268156F400B0E13F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		AA25B5052681577300B0E13F /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		AA25B5072682397D00B0E13F /* LoadUsers.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoadUsers.storyboard; sourceTree = "<group>"; };
+		AA25B50A26823B4E00B0E13F /* LoadUsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadUsersTableViewController.swift; sourceTree = "<group>"; };
+		AA25B510268250B500B0E13F /* FirebaseFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseFunctions.swift; sourceTree = "<group>"; };
+		AA25B511268250B500B0E13F /* PasswordValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordValidator.swift; sourceTree = "<group>"; };
+		AA25B51626837F3100B0E13F /* ethanUserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ethanUserController.swift; sourceTree = "<group>"; };
+		AA25B51F26838B4200B0E13F /* FriendsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsList.swift; sourceTree = "<group>"; };
+		AA67204B268107A2003D43A0 /* Authenticate.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Authenticate.storyboard; sourceTree = "<group>"; };
 		AA67204D268107A7003D43A0 /* josh.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = josh.storyboard; sourceTree = "<group>"; };
 		AA67204F268107AD003D43A0 /* gavin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = gavin.storyboard; sourceTree = "<group>"; };
 		AA672051268107B4003D43A0 /* justin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = justin.storyboard; sourceTree = "<group>"; };
 		AA8E969E26810CF6003DC8DA /* Buckets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buckets.swift; sourceTree = "<group>"; };
 		AA8E96A026810CFE003DC8DA /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
 		AA8E96A226810D03003DC8DA /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
-		AA8E96A426810D05003DC8DA /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		AA8E96A726810D14003DC8DA /* Friends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friends.swift; sourceTree = "<group>"; };
 		AA8E96AA26810D68003DC8DA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AA8E96AC26810D6F003DC8DA /* Bucket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bucket.swift; sourceTree = "<group>"; };
@@ -100,6 +116,7 @@
 				AA8E96AE26810DAD003DC8DA /* Model Controllers */,
 				AA8E969926810C38003DC8DA /* View Controllers */,
 				AA67204A26810709003D43A0 /* Storyboards */,
+				AA25B4FC26814ADF00B0E13F /* Helpers */,
 				AA02FF8C2681051C004EA782 /* Resources */,
 			);
 			path = BucketList;
@@ -114,6 +131,23 @@
 				AA02FF8626810501004EA782 /* Info.plist */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		AA25B4FC26814ADF00B0E13F /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				AA25B510268250B500B0E13F /* FirebaseFunctions.swift */,
+				AA25B511268250B500B0E13F /* PasswordValidator.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		AA25B50926823B2300B0E13F /* Load Users */ = {
+			isa = PBXGroup;
+			children = (
+				AA25B50A26823B4E00B0E13F /* LoadUsersTableViewController.swift */,
+			);
+			path = "Load Users";
 			sourceTree = "<group>";
 		};
 		AA67204A26810709003D43A0 /* Storyboards */ = {
@@ -132,7 +166,8 @@
 		AA672053268107D2003D43A0 /* ethan */ = {
 			isa = PBXGroup;
 			children = (
-				AA67204B268107A2003D43A0 /* ethan.storyboard */,
+				AA67204B268107A2003D43A0 /* Authenticate.storyboard */,
+				AA25B5072682397D00B0E13F /* LoadUsers.storyboard */,
 			);
 			path = ethan;
 			sourceTree = "<group>";
@@ -164,6 +199,7 @@
 		AA8E969926810C38003DC8DA /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				AA25B50926823B2300B0E13F /* Load Users */,
 				AA8E96A626810D0B003DC8DA /* Friends */,
 				AA8E969D26810CB8003DC8DA /* Buckets */,
 				AA8E969C26810CA4003DC8DA /* Notifier */,
@@ -176,7 +212,9 @@
 		AA8E969A26810C8F003DC8DA /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				AA8E96A426810D05003DC8DA /* Login.swift */,
+				AA25B4F626814A5300B0E13F /* SignUpViewController.swift */,
+				AA25B503268156F400B0E13F /* LoginViewController.swift */,
+				AA25B5052681577300B0E13F /* AccountViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -218,6 +256,7 @@
 			children = (
 				AA8E96AA26810D68003DC8DA /* User.swift */,
 				AA8E96AC26810D6F003DC8DA /* Bucket.swift */,
+				AA25B51F26838B4200B0E13F /* FriendsList.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -226,6 +265,7 @@
 			isa = PBXGroup;
 			children = (
 				AA8E96AF26810DBE003DC8DA /* Model.swift */,
+				AA25B51626837F3100B0E13F /* ethanUserController.swift */,
 			);
 			path = "Model Controllers";
 			sourceTree = "<group>";
@@ -305,7 +345,8 @@
 				AA02FF8226810501004EA782 /* Assets.xcassets in Resources */,
 				AA02FF8026810500004EA782 /* Main.storyboard in Resources */,
 				AA672052268107B4003D43A0 /* justin.storyboard in Resources */,
-				AA67204C268107A2003D43A0 /* ethan.storyboard in Resources */,
+				AA25B5082682397D00B0E13F /* LoadUsers.storyboard in Resources */,
+				AA67204C268107A2003D43A0 /* Authenticate.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,15 +399,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA25B4F726814A5300B0E13F /* SignUpViewController.swift in Sources */,
 				AA8E96A326810D03003DC8DA /* Messages.swift in Sources */,
-				AA8E96A526810D05003DC8DA /* Login.swift in Sources */,
+				AA25B52026838B4200B0E13F /* FriendsList.swift in Sources */,
+				AA25B5062681577300B0E13F /* AccountViewController.swift in Sources */,
 				AA8E96A826810D14003DC8DA /* Friends.swift in Sources */,
 				AA02FF7926810500004EA782 /* AppDelegate.swift in Sources */,
 				AA8E96AB26810D68003DC8DA /* User.swift in Sources */,
 				AA8E96B026810DBE003DC8DA /* Model.swift in Sources */,
+				AA25B51726837F3100B0E13F /* ethanUserController.swift in Sources */,
+				AA25B513268250B500B0E13F /* PasswordValidator.swift in Sources */,
 				AA8E96A126810CFE003DC8DA /* Notifier.swift in Sources */,
+				AA25B512268250B500B0E13F /* FirebaseFunctions.swift in Sources */,
 				AA8E96AD26810D6F003DC8DA /* Bucket.swift in Sources */,
+				AA25B50B26823B4E00B0E13F /* LoadUsersTableViewController.swift in Sources */,
 				AA8E969F26810CF6003DC8DA /* Buckets.swift in Sources */,
+				AA25B504268156F400B0E13F /* LoginViewController.swift in Sources */,
 				AA02FF7B26810500004EA782 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
