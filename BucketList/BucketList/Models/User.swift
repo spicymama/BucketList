@@ -13,13 +13,22 @@ class User {
     var username: String
     var firstName: String
     var lastName: String
-    var dob: String
+    var dob: String?
     var profilePicture: UIImage?
     var allPictures: [UIImage?]
-    var bucketIDs: [String]
-    var friends: [String]
+    var bucketIDs: [String]?
+    var friendsList: FriendsList?
     
-    init(firstName: String, lastName: String, username: String, profilePicture: UIImage?, allPictures: [UIImage?], dob: String, bucketIDs: [String], uid: String = UUID().uuidString, friends: [String] = []) {
+    init(firstName: String = "",
+         lastName: String = "",
+         username: String = "",
+         profilePicture: UIImage? = UIImage(),
+         allPictures: [UIImage?] = [],
+         dob: String = "",
+         bucketIDs: [String] = [],
+         uid: String = UUID().uuidString,
+         friendsList: FriendsList = FriendsList())
+    {
         self.firstName = firstName
         self.lastName = lastName
         self.username = username
@@ -28,7 +37,7 @@ class User {
         self.dob = dob
         self.bucketIDs = bucketIDs
         self.uid = uid
-        self.friends = friends
+        self.friendsList = friendsList
     } // End of initializers
     
 } // End of User Class

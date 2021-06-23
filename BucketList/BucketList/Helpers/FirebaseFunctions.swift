@@ -72,7 +72,7 @@ class FirebaseFunctions {
     
     
     // MARK: - Fetch Current User Data
-    static func fetchCurrentUserData(🐶: @escaping ( [String : Any] ) -> Void) {
+    static func fetchCurrentUserData(🐶: @escaping ( User ) -> Void) {
         // Get current user UID
         let uid = Auth.auth().currentUser?.uid
         // Fetch data
@@ -81,8 +81,15 @@ class FirebaseFunctions {
             if let 🛑 = 🛑 {
                 print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
             } else {
-                // dataInfo is the user information
-                🐶(document!.data()!)
+                guard let data = document!.data() else { return }
+                
+                // Data to Collect
+                let firstName = data["firstName"] as! String
+                let lastName = data["lastName"] as! String
+                let username = data["username"] as! String
+                let uid = data["uid"] as! String
+                
+                🐶(User(firstName: firstName, lastName: lastName, username: username, uid: uid))
             }
         } // End of getDocument
     } // End of Function fetchData
@@ -103,19 +110,17 @@ class FirebaseFunctions {
                 var usersData: [User] = []
                 let group = DispatchGroup()
                 
-                var fetchedUser: User?
                 for i in userIds {
                     group.enter()
                     FirebaseFunctions.fetchUserData(uid: i) { data in
-                        // Any data to return from Firebase
-                        fetchedUser?.allPictures = [UIImage(named: "swing")]
-                        fetchedUser?.bucketIDs = data["bucketIDs"] as! [String]
-                        fetchedUser?.firstName = data["firstName"] as! String
-                        fetchedUser?.lastName = data["lastName"] as! String
-                        fetchedUser?.dob = data["dob"] as! String
-                        fetchedUser?.username = data["username"] as! String
                         
-                         usersData.append(fetchedUser!)
+                        // Any data to return from Firebase
+                        let uid = data.uid
+                        let firstName = data.firstName
+                        let lastName = data.lastName
+                        let username = data.username
+                        
+                        usersData.append(User(firstName: firstName, lastName: lastName, username: username, uid: uid))
                         
                         group.leave()
                     }
@@ -129,7 +134,7 @@ class FirebaseFunctions {
     
     
     // MARK: - Fetch User Data
-    static func fetchUserData(uid: String ,🐶: @escaping ( [String : Any] ) -> Void) {
+    static func fetchUserData(uid: String ,🐶: @escaping ( User ) -> Void) {
         // Get current user UID
         let uid = uid
         // Fetch data
@@ -138,15 +143,31 @@ class FirebaseFunctions {
             if let 🛑 = 🛑 {
                 print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
             } else {
-                // dataInfo is the user information
-                🐶(document!.data()!)
+                guard let data = document?.data() else { return }
+                
+                // Data to collect
+                let firstName: String = data["firstName"] as? String ?? "First Name"
+                let lastName: String = data["lastName"] as? String ?? "Last Name"
+                let username: String = data["username"] as? String ?? "User Name"
+                let uid: String = data["uid"] as! String
+                
+                let friendsID: String = data["friendsID"] as? String ?? "You have no friends"
+                var friendsList = FriendsList()
+                FirebaseFunctions.fetchFriends(uid: friendsID) { fetchedFriendsList in
+                    friendsList = fetchedFriendsList
+                }
+                
+                🐶(User(firstName: firstName, lastName: lastName, username: username, uid: uid, friendsList: friendsList))
             }
         } // End of getDocument
     } // End of Function fetchData
     
     
     // MARK: - Fetch Friends
-    static func fetchFriends(uid: String ,🐶: @escaping ( User ) -> Void) {
+    static func fetchFriends(uid: String ,🐶: @escaping ( FriendsList ) -> Void) {
+        let group = DispatchGroup()
+        group.enter()
+        
         // Get current user UID
         let uid = uid
         // Fetch data
@@ -155,10 +176,16 @@ class FirebaseFunctions {
             if let 🛑 = 🛑 {
                 print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
             } else {
-//                let friend =
-//                🐶(friend)
+                guard let data = document?.data() else { return }
+                
+                let friends = data["friends"] as! [String]
+                let blocked = data["blocked"] as! [String]
+                
+                group.notify(queue: DispatchQueue.main) {
+                    🐶(FriendsList(friends: friends, blocked: blocked))
+                }
             }
-        } // End of getDocument
-    } // End of Function fetchData
+        } // End of Get Document
+    } // End of Function fetch friends
     
 } // End of Class

@@ -21,6 +21,7 @@
 		AA25B512268250B500B0E13F /* FirebaseFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B510268250B500B0E13F /* FirebaseFunctions.swift */; };
 		AA25B513268250B500B0E13F /* PasswordValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B511268250B500B0E13F /* PasswordValidator.swift */; };
 		AA25B51726837F3100B0E13F /* ethanUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B51626837F3100B0E13F /* ethanUserController.swift */; };
+		AA25B52026838B4200B0E13F /* FriendsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B51F26838B4200B0E13F /* FriendsList.swift */; };
 		AA67204C268107A2003D43A0 /* Authenticate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA67204B268107A2003D43A0 /* Authenticate.storyboard */; };
 		AA67204E268107A7003D43A0 /* josh.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA67204D268107A7003D43A0 /* josh.storyboard */; };
 		AA672050268107AD003D43A0 /* gavin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA67204F268107AD003D43A0 /* gavin.storyboard */; };
@@ -51,6 +52,7 @@
 		AA25B510268250B500B0E13F /* FirebaseFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseFunctions.swift; sourceTree = "<group>"; };
 		AA25B511268250B500B0E13F /* PasswordValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordValidator.swift; sourceTree = "<group>"; };
 		AA25B51626837F3100B0E13F /* ethanUserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ethanUserController.swift; sourceTree = "<group>"; };
+		AA25B51F26838B4200B0E13F /* FriendsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsList.swift; sourceTree = "<group>"; };
 		AA67204B268107A2003D43A0 /* Authenticate.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Authenticate.storyboard; sourceTree = "<group>"; };
 		AA67204D268107A7003D43A0 /* josh.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = josh.storyboard; sourceTree = "<group>"; };
 		AA67204F268107AD003D43A0 /* gavin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = gavin.storyboard; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 			children = (
 				AA8E96AA26810D68003DC8DA /* User.swift */,
 				AA8E96AC26810D6F003DC8DA /* Bucket.swift */,
+				AA25B51F26838B4200B0E13F /* FriendsList.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 			files = (
 				AA25B4F726814A5300B0E13F /* SignUpViewController.swift in Sources */,
 				AA8E96A326810D03003DC8DA /* Messages.swift in Sources */,
+				AA25B52026838B4200B0E13F /* FriendsList.swift in Sources */,
 				AA25B5062681577300B0E13F /* AccountViewController.swift in Sources */,
 				AA8E96A826810D14003DC8DA /* Friends.swift in Sources */,
 				AA02FF7926810500004EA782 /* AppDelegate.swift in Sources */,

@@ -26,11 +26,14 @@ class LoadUsersTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "userDataCell", for: indexPath)
         let user = self.users[indexPath.row]
         
-        let userName = (user.firstName + " " + user.lastName)
-        let friendCount: Int = 0
+        // Data to update
+        let usersName = (user.firstName + " " + user.lastName)
         
-        cell.textLabel?.text = userName
-        cell.detailTextLabel?.text = String(friendCount)
+        // Friend count
+        let friendCount = user.friendsList?.friends.count
+        
+        cell.textLabel?.text = usersName
+        cell.detailTextLabel?.text = String(friendCount!)
         
         return cell
     } // End of Cell for row at

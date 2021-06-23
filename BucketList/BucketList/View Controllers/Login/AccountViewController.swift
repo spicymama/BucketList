@@ -25,8 +25,8 @@ class AccountViewController: UIViewController {
         // Fetch data
         FirebaseFunctions.fetchCurrentUserData { data in
             // Update outlets
-            self.firstNameLabel.text = (data["firstName"] as! String)
-            self.lastNameLabel.text = (data["lastName"] as! String)
+            self.firstNameLabel.text = data.firstName
+            self.lastNameLabel.text = data.lastName
         }
     } // End of Function fetch data
     
