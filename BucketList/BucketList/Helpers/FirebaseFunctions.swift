@@ -188,4 +188,77 @@ class FirebaseFunctions {
         } // End of Get Document
     } // End of Function fetch friends
     
+    
+    // MARK: - Create Post
+    static func createPost(title: String, description: String, imageID: String, progress: Bool) {
+        
+        let uid = Auth.auth().currentUser?.uid
+        let postID = UUID().uuidString
+        Firestore.firestore().collection("posts").document(postID).setData( [
+            "commentsID" : postID,
+            "creatorID" : uid!,
+            "photoID" : imageID,
+            "title" : title,
+            "postNote" : description,
+            "reactionsArr" : [],
+            "timeStamp" : Date()
+        ]) { err in
+            if let err = err {
+                print("Error in \(#function)\(#line) : \(err.localizedDescription) \n---\n \(err)")
+            } else {
+                print("Post for user \(uid ?? "") was created")
+            }
+        }
+    } // End of Create Post
+    
+    
+    // MARK: - Fetch All Posts
+    static func fetchAllPosts(completion: @escaping ([Post] ) -> Void) {
+        Firestore.firestore().collectionGroup("posts").addSnapshotListener { (QuerySnapshot, error) in
+            guard let documents = QuerySnapshot?.documents else {
+                print("No Documents")
+                return
+            }
+            if let snapshot = QuerySnapshot {
+                var postIDs: [String] = []
+                for document in snapshot.documents {
+                    postIDs.append(document.documentID)
+                }
+                let group = DispatchGroup()
+                
+                var postsData: [Post] = []
+                for i in postIDs {
+                    group.enter()
+                    FirebaseFunctions.fetchPost(uid: i) { data in
+                        let postID: String = data["commentsID"] as! String
+                        let postDecription: String = data["postNote"] as! String
+                        let postTitle: String = data["title"] as? String ?? "Title"
+                        let photoID: String = "swing"
+                        let creatorID: String = (data["creatorID"] as? String)!
+                        let post = Post(commentsID: postID, photoID: photoID, description: postDecription, title: postTitle, creatorID: creatorID)
+                        postsData.append(post)
+                        group.leave()
+                    }
+                }
+                group.notify(queue: DispatchQueue.main) {
+                    completion(postsData)
+                }
+            }
+        }
+    } // End of Fetch all posts
+    
+    
+    // MARK: - FetchPost
+    static func fetchPost(uid: String, completion: @escaping ( [String : Any])-> Void) {
+        let uid = uid
+        let postData = Firestore.firestore().collection("posts").document(uid)
+        postData.getDocument { (document, error) in
+            if let error = error {
+                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+            } else {
+                completion(document!.data()!)
+            }
+        }
+    } // End of Fetch Post
+
 } // End of Class
