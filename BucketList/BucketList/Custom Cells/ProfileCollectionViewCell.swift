@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class ProfileCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var label: UILabel!

@@ -141,7 +141,11 @@
                             </connections>
                         </segmentedControl>
                         <rightBarButtonItems>
-                            <barButtonItem image="list.bullet" catalog="system" id="cZW-16-CfV"/>
+                            <barButtonItem image="list.bullet" catalog="system" id="cZW-16-CfV">
+                                <connections>
+                                    <segue destination="9Kw-23-inO" kind="show" id="N1l-FI-KxH"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem image="envelope" catalog="system" id="YuF-LK-v45"/>
                         </rightBarButtonItems>
                     </navigationItem>
@@ -201,7 +205,7 @@
                                                         <constraint firstAttribute="height" constant="382" id="2Zq-of-aD8"/>
                                                     </constraints>
                                                     <prototypes>
-                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="profileAchievementCell" rowHeight="78" id="Sb4-hQ-KNF">
+                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="recentPostCell" rowHeight="78" id="Sb4-hQ-KNF" customClass="RecentPostsTableViewCell" customModule="BucketList" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="28" width="378" height="78"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Sb4-hQ-KNF" id="PdA-l3-WwJ">
@@ -318,6 +322,7 @@
                                     <outlet property="achievementLabel" destination="Ftt-Fr-751" id="Fri-As-pnK"/>
                                     <outlet property="collectionView" destination="nG2-04-GbM" id="vKD-Ik-F7q"/>
                                     <outlet property="imageView1" destination="wfO-4Q-2eM" id="STq-fx-WCV"/>
+                                    <outlet property="lilTableView" destination="r6z-CN-4Nn" id="qOT-Xq-oPn"/>
                                     <outlet property="profilePic" destination="Bzz-X6-Ob0" id="o6W-Xb-DgJ"/>
                                     <outlet property="publicListTableView" destination="r6z-CN-4Nn" id="LTk-wx-rfV"/>
                                     <outlet property="usernameLabel" destination="JCy-zC-u9a" id="HVT-dG-HGP"/>
@@ -334,6 +339,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="raV-FJ-IIw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6388.4057971014499" y="77.678571428571431"/>
+        </scene>
+        <!--Bucket List Table View Controller-->
+        <scene sceneID="yC8-xz-MxS">
+            <objects>
+                <tableViewController id="9Kw-23-inO" customClass="BucketListTableViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Vtm-6w-b9F">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="listItemCell" id="EOc-hM-WUv">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EOc-hM-WUv" id="1c2-Do-PUG">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="9Kw-23-inO" id="J2k-LQ-VbY"/>
+                            <outlet property="delegate" destination="9Kw-23-inO" id="zXn-L5-3we"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="N6t-Te-7PE"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MDE-Dq-kZC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5572" y="-600"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="cJm-8W-dhs">

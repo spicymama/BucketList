@@ -7,21 +7,25 @@
 
 import UIKit
 
+
 class ProfileTableViewCell: UITableViewCell {
 
     static let shared = ProfileTableViewCell()
+    
         @IBOutlet weak var profilePic: UIImageView!
         @IBOutlet weak var usernameLabel: UILabel!
         @IBOutlet weak var publicListTableView: UITableView!
         @IBOutlet weak var imageView1: UIImageView!
         @IBOutlet weak var achievementLabel: UILabel!
         @IBOutlet weak var collectionView: UICollectionView!
-        
-        var strings = ["Climb Mountain", "Go to Disneyland", "Fly in a small plane", "see a whale"]
+        @IBOutlet weak var lilTableView: UITableView!
+    
+        var strings = ["Climb Mountain", "Go to Disneyland", "Fly in a small plane", "see a whale", "Hug a panda"]
         
         override func awakeFromNib() {
             super.awakeFromNib()
-           
+            lilTableView.delegate = self
+            lilTableView.dataSource = self
             collectionView.delegate = self
             collectionView.dataSource = self
         }
@@ -63,3 +67,16 @@ class ProfileTableViewCell: UITableViewCell {
         
         
 }
+
+extension ProfileTableViewCell: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView = ProfileTableViewCell.shared.lilTableView, numberOfRowsInSection section: Int) -> Int {
+        strings.count
+    }
+    
+    func tableView(_ tableView: UITableView = ProfileTableViewCell.shared.lilTableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell { guard let cell = tableView.dequeueReusableCell(withIdentifier: "recentPostCell", for: indexPath) as? RecentPostsTableViewCell else {return UITableViewCell()}
+    let string = strings[indexPath.row]
+    cell.string = string
+    return cell
+}
+    }
+
