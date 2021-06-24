@@ -21,32 +21,28 @@ class ProfileTableViewCell: UITableViewCell {
         
         override func awakeFromNib() {
             super.awakeFromNib()
+           
             collectionView.delegate = self
             collectionView.dataSource = self
         }
        
-        
-        
-        var currentUser: User? {
-            didSet {
-                updateViews()
-            }
-        }
-         var count = 0
-     
-        func updateViews(){
-            profilePic.image = currentUser?.profilePicture
-            usernameLabel.text = currentUser?.firstName
-            imageView1.image = currentUser?.allPictures[0]
-            collectionView.contentSize = CGSize(width: 2000, height: 100)
-            collectionView.addSubview(UIImageView())
-            print(currentUser?.firstName)
-            print(currentUser?.lastName)
-            
-            
+    var user: User? {
+        didSet {
+            updateViews()
         }
     }
+    
+        func updateViews(){
+            guard let user = user else {return}
+            profilePic.image = UIImage(named: "swing")
+            usernameLabel.text = user.username
+            achievementLabel.text = user.lastName
+            imageView1.image = UIImage(named: "gorgeousGirlfriend")
+            collectionView.contentSize = CGSize(width: 2000, height: 100)
+            collectionView.addSubview(UIImageView())
+        }
 
+}
     extension ProfileTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
             return 5
@@ -55,7 +51,6 @@ class ProfileTableViewCell: UITableViewCell {
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath) as? ProfileCollectionViewCell else {return UICollectionViewCell()}
             let text = "Recent Accomplishment..."
-                //UserController.shared.users[indexPath.row].acheivements[indexPath.row]
             cell.text = text
             
             return cell

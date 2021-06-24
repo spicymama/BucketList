@@ -39,10 +39,9 @@
                                                 <constraint firstAttribute="height" constant="72" id="S0F-f9-nA1"/>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="55" id="n3y-Uw-R0z"/>
                                             </constraints>
-                                            <connections>
-                                                <action selector="profileButtonTapped:" destination="MVV-Cc-VtN" eventType="touchUpInside" id="8kE-1j-fcj"/>
-                                                <segue destination="VCE-1y-bWj" kind="show" id="Xuh-aA-9Fp"/>
-                                            </connections>
+                                            <state key="normal">
+                                                <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Urq-ln-1U7">
                                             <rect key="frame" x="88" y="45" width="318" height="35"/>
@@ -114,8 +113,10 @@
                                     <outlet property="goalLabel" destination="ugS-ed-cGi" id="Qky-eJ-kb4"/>
                                     <outlet property="postDetailTextView" destination="xhZ-ff-mKI" id="YX1-Lb-MVN"/>
                                     <outlet property="postImageView" destination="4eJ-Z2-sG3" id="h1t-zg-wFv"/>
+                                    <outlet property="profileButton" destination="ORb-1z-CWT" id="s6F-mv-vCv"/>
                                     <outlet property="profilePic" destination="P6A-qQ-WP2" id="GU0-s4-AqK"/>
                                     <outlet property="usernameLabel" destination="Urq-ln-1U7" id="cPi-1g-6J0"/>
+                                    <segue destination="VCE-1y-bWj" kind="show" identifier="toProfileVC" id="dFI-mh-DJU"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -157,7 +158,7 @@
         <!--Profile Table View Controller-->
         <scene sceneID="62U-z0-5BH">
             <objects>
-                <tableViewController id="VCE-1y-bWj" customClass="ProfileTableViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="profilePage" id="VCE-1y-bWj" customClass="ProfileTableViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="88K-HQ-9KX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -182,7 +183,7 @@
                                                                 <constraint firstAttribute="width" secondItem="Bzz-X6-Ob0" secondAttribute="height" multiplier="1:1" id="Xdd-jJ-s1l"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JCy-zC-u9a">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JCy-zC-u9a">
                                                             <rect key="frame" x="228" y="109" width="150" height="99"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="99" id="fCB-SV-4NG"/>
