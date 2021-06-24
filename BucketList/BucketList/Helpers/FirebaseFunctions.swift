@@ -96,21 +96,27 @@ class FirebaseFunctions {
     
     
     // MARK: - Fetch all Users data
-    static func fetchUsersData(🐶: @escaping ( [User] ) -> Void) {
+    static func fetchUsersData(passedUserIDs: [String]?, 🐶: @escaping ( [User] ) -> Void) {
         Firestore.firestore().collection("users").getDocuments { snapshot, 🛑 in
             if let 🛑 = 🛑 {
                 print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
                 return 🐶([])
             }
             if let snapshot = snapshot {
-                var userIds: [String] = []
-                for document in snapshot.documents {
-                    userIds.append(document.documentID)
+                let userIDs: [String] = passedUserIDs ?? fetchAllUsersIDs()
+                
+                func fetchAllUsersIDs() -> [String] {
+                    var allUsersIDs: [String] = []
+                    for document in snapshot.documents {
+                        allUsersIDs.append(document.documentID)
+                    }
+                    return allUsersIDs
                 }
+                
                 var usersData: [User] = []
                 let group = DispatchGroup()
                 
-                for i in userIds {
+                for i in userIDs {
                     group.enter()
                     FirebaseFunctions.fetchUserData(uid: i) { data in
                         

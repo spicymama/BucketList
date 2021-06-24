@@ -30,7 +30,7 @@ class SignUpViewController: UIViewController {
         // Validate fields
         if validateFields() == true {
             // Create user via Firebase
-            FirebaseFunctions.createUser(email: emailField.text!, password: passwordField.text!, firstName: firstNameField.text!, lastName: lastNameField.text!, dob: datePicker.date, username: usernameField.text!)
+//            FirebaseFunctions.createUser(email: emailField.text!, password: passwordField.text!, firstName: firstNameField.text!, lastName: lastNameField.text!, dob: datePicker.date, username: usernameField.text!)
             print("User \(usernameField.text ?? "") created!")
             // Pop view
             navigationController?.popViewController(animated: true)
@@ -42,6 +42,22 @@ class SignUpViewController: UIViewController {
     
     // MARK: - Functions
     func validateFields() -> Bool {
+        // Check that all fields are filled in
+        if usernameField.text == "" ||
+            emailField.text == "" {
+            print("Fill out fields")
+            return false
+        } else {
+            return true
+        }
+    }
+
+
+
+
+    /*
+    func validateFields() -> Bool {
+        
         // Check if all fields are filled in
         if (usernameField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
                 emailField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
@@ -68,5 +84,6 @@ class SignUpViewController: UIViewController {
         }
         return true
     } // End of Function
+         */
     
 } // End of Class
