@@ -88,8 +88,9 @@ class FirebaseFunctions {
                 let lastName: String = data["lastName"] as? String ?? "Last Name"
                 let username: String = data["username"] as? String ?? "User Name"
                 let uid: String = data["uid"] as? String ?? "uid"
+                let conversationIDs = data["conversationsID"] as? [String] ?? ["conversationIDs"]
                 
-                🐶(User(firstName: firstName, lastName: lastName, username: username, uid: uid))
+                🐶(User(firstName: firstName, lastName: lastName, username: username, uid: uid, conversationsIDs: conversationIDs))
             }
         } // End of getDocument
     } // End of Function fetchData

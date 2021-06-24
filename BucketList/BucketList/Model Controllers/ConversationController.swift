@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseFirestore
+import Firebase
 
 class ConversationController {
     
@@ -17,6 +18,7 @@ class ConversationController {
     let db = Firestore.firestore()
     var messages: [Message] = []
     var users: [User] = []
+    var currentUser: User?
     
     //MARK: - Functions
     
@@ -63,12 +65,12 @@ class ConversationController {
     }
     
     
-    func saveMessage(messageID: String, sentDate: Date, senderId: String, displayName: String, conversationID: String, text: String) {
+    func saveMessage(messageID: String = UUID().uuidString, sentDate: Date, senderId: String, displayName: String, conversationID: String, text: String) {
         let message = Message(sender: Sender(senderId: senderId, displayName: displayName), messageId: messageID, sentDate: sentDate, kind: .text(text))
-        let messageRef = db.collection("conversations").document(conversationID).collection("messages").document(conversationID)
+        let messageRef = db.collection("conversations").document(conversationID).collection("messages").document(messageID)
         messageRef.setData(["messageID" : message.messageId,
-                            "sentDate" : message.sentDate,
-                            "text" : message.kind,
+                            "sentDate" : ISO8601DateFormatter().string(from: message.sentDate),
+                            "text" : text,
                             "displayName" : displayName,
                             "senderID" : senderId
                             ])
@@ -81,15 +83,17 @@ class ConversationController {
                 completion(false)
             }
             if let snapshot = snapshot {
+                self.messages = []
                 for doc in snapshot.documents {
                         let messageData = doc.data()
                         guard let messageID = messageData["messageID"] as? String,
-                              let sentDate = messageData["sentDate"] as? Date,
+                              let sentDate = messageData["sentDate"] as? String,
                               let text = messageData["text"] as? String,
                               let displayName = messageData["displayName"] as? String,
-                              let senderID = messageData["senderID"] as? String else {return}
+                              let senderID = messageData["senderID"] as? String,
+                              let formattedDate = ISO8601DateFormatter().date(from: sentDate) else {return print("this got messed up")}
                     
-                        let message = Message(sender: Sender(senderId: senderID, displayName: displayName), messageId: messageID, sentDate: sentDate, kind: .text(text))
+                    let message = Message(sender: Sender(senderId: senderID, displayName: displayName), messageId: messageID, sentDate: formattedDate, kind: .text(text))
                         self.messages.append(message)
                 }
                 return completion(true)
