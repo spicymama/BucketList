@@ -11,6 +11,10 @@ class ConversationListTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        //JCW - fix user data source
+//        FirebaseFunctions.fetchCurrentUserData { user in
+//            ConversationController.shared.currentUser = user
+//        }
         fetchConversations()
     }
     
@@ -36,11 +40,11 @@ class ConversationListTableViewController: UITableViewController {
         return cell
     }
  
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
-    }
+//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete {
+//            tableView.deleteRows(at: [indexPath], with: .fade)
+//        }
+//    }
    
     func updateViews() {
                 
@@ -48,6 +52,7 @@ class ConversationListTableViewController: UITableViewController {
     
     func fetchConversations () {
         let user = UserController.shared.currentUser
+//        let user = ConversationController.shared.currentUser
         ConversationController.shared.fetchConversationsFor(user) { result in
             switch result {
             case true:

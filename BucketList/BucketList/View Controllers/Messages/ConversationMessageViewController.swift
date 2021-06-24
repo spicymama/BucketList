@@ -16,6 +16,12 @@ class ConversationMessagesViewController: MessagesViewController, MessagesDataSo
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        messageInputBar.delegate = self
+        messagesCollectionView.messagesDataSource = self
+        messagesCollectionView.messagesLayoutDelegate = self
+        messagesCollectionView.messagesDisplayDelegate = self
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissInputView))
+//        self.view.addGestureRecognizer(tapGesture)
         fetchMessages()
     }
     
@@ -27,7 +33,8 @@ class ConversationMessagesViewController: MessagesViewController, MessagesDataSo
     //MARK: - Message Data Functions
     func currentSender() -> SenderType {
         let user = UserController.shared.currentUser
-        return Sender(senderId: user.uid, displayName: "TODO: - Fix this")
+//        let user = ConversationController.shared.currentUser
+        return Sender(senderId: user.uid, displayName: user.firstName)
     }
     
     func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
@@ -38,12 +45,19 @@ class ConversationMessagesViewController: MessagesViewController, MessagesDataSo
         return messages.count
     }
     
+//    @objc func dismissInputView() {
+//        inputView?.resignFirstResponder()
+//    }
+    
     func fetchMessages() {
         guard let conversation = conversation else {return}
         ConversationController.shared.fetchMessages(conversation: conversation) { result in
             switch result {
             case true:
-                self.messages = ConversationController.shared.messages
+                let sortedMessages = ConversationController.shared.messages.sorted { message0, message1 in
+                    return message0.sentDate < message1.sentDate
+                }
+                self.messages = sortedMessages
                 self.updateViews()
             case false:
                 print("Error in \(#function)")
@@ -53,8 +67,8 @@ class ConversationMessagesViewController: MessagesViewController, MessagesDataSo
     
     func updateViews() {
         DispatchQueue.main.async {
-            //JCW -- updatestuff here
-            self.fetchMessages()
+            self.messagesCollectionView.reloadData()
+            self.messagesCollectionView.scrollToLastItem()
         }
     }
     
@@ -63,7 +77,23 @@ class ConversationMessagesViewController: MessagesViewController, MessagesDataSo
 extension ConversationMessagesViewController: InputBarAccessoryViewDelegate {
     
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
-        
+        guard let conversation = conversation else {return}
+              let user = UserController.shared.currentUser
+//        let user = ConversationController.shared.currentUser
+        ConversationController.shared.saveMessage(sentDate: Date(), senderId: user.uid, displayName: user.firstName, conversationID: conversation.conversationID, text: text)
+        inputBar.inputTextView.text = ""
+//        inputBar.inputTextView.resignFirstResponder()
+//        self.updateViews()
+//        ConversationController.shared.fetchMessages(conversation: conversation) { result in
+//            switch result {
+//            case true:
+//                DispatchQueue.main.async {
+//                    self.messages = ConversationController.shared.messages
+//                }
+//            case false:
+//                print("Error in \(#function)\(#line)")
+//            }
+//        }
     }
     
 }
