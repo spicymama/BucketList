@@ -23,7 +23,7 @@ class ProfileTableViewController: UITableViewController {
     }
     
     func updateView() {
-        FirebaseFunctions.fetchUsersData { (result) in
+        FirebaseFunctions.fetchUsersData(passedUserIDs: []) { (result) in
             let users: [User] = result
             for i in users {
                 if i.uid == self.user {

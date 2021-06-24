@@ -41,7 +41,7 @@ class LoadUsersTableViewController: UITableViewController {
     
     // MARK: - Functions
     func fetchUsersData() {
-        FirebaseFunctions.fetchUsersData { usersNames in
+        FirebaseFunctions.fetchUsersData(passedUserIDs: []) { usersNames in
             self.users = usersNames
             self.tableView.reloadData()
         }
