@@ -37,8 +37,8 @@ class LoginViewController: UIViewController {
             FirebaseFunctions.signInUser(email: emailField.text!, password: passwordField.text!, 🐶: { result in
                 switch result {
                 case .success(_):
-                    let storyBoard: UIStoryboard = UIStoryboard(name: "Authenticate", bundle: nil)
-                    let vs = storyBoard.instantiateViewController(withIdentifier: "AccountVC")
+                    let storyBoard: UIStoryboard = UIStoryboard(name: "gavin", bundle: nil)
+                    let vs = storyBoard.instantiateViewController(withIdentifier: "FeedTableVC")
                     self.navigationController?.pushViewController(vs, animated: true)
                 case .failure(_):
                     // TODO: - Turn this into an alert
@@ -53,12 +53,14 @@ class LoginViewController: UIViewController {
     
     // MARK: - Function
     func validateFields() -> Bool {
-        // This doesn't have it, but we are not checking for white spaces and stuff
+        // Simply checks if the fields are not empty
         if emailField.text == "" ||
             passwordField.text == "" {
+            // TODO: - Make this an alert
             print("Please enter username and password fields")
             return false
         } else {
+            // TODO: - Make this an alert
             print("Username and Password fields cleared!")
             return true
         }

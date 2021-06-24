@@ -37,6 +37,21 @@ class FirebaseFunctions {
                 }
             }
         } // End of Auth check
+        
+        // This creates the base user's friends list
+        let uid = Auth.auth().currentUser?.uid
+        
+        Firestore.firestore().collection("friends").document(uid!).setData( [
+            "friends" : [""],
+            "blocked" : [""]
+        ]) { err in
+            if let err = err {
+                print("Error in \(#function)\(#line) : \(err.localizedDescription) \n---\n \(err)")
+            } else {
+                print("Friend list for user \(uid!) was created")
+            }
+        } // End of create users friends list
+        
     } // End of Create user Function
     
     
@@ -53,21 +68,6 @@ class FirebaseFunctions {
                 🐶(.success(true))
             }
         } // End of Auth
-        
-        
-        // This creates the base user's friends list
-        let uid = Auth.auth().currentUser?.uid
-        
-        Firestore.firestore().collection("friends").document(uid!).setData( [
-            "friends" : [""],
-            "blocked" : [""]
-        ]) { err in
-            if let err = err {
-                print("Error in \(#function)\(#line) : \(err.localizedDescription) \n---\n \(err)")
-            } else {
-                print("Friend list for user \(uid!) was created")
-            }
-        } // End of Setup account stuff
     } // End of Function Sign In
     
     
