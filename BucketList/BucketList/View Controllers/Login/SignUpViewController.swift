@@ -30,7 +30,7 @@ class SignUpViewController: UIViewController {
         // Validate fields
         if validateFields() == true {
             // Create user via Firebase
-            //            FirebaseFunctions.createUser(email: emailField.text!, password: passwordField.text!, firstName: firstNameField.text!, lastName: lastNameField.text!, dob: datePicker.date, username: usernameField.text!)
+                        FirebaseFunctions.createUser(email: emailField.text!, password: passwordField.text!, firstName: firstNameField.text!, lastName: lastNameField.text!, dob: datePicker.date, username: usernameField.text!)
             print("User \(usernameField.text ?? "") created!")
             // Pop view
             navigationController?.popViewController(animated: true)

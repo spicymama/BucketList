@@ -32,8 +32,8 @@ class ConversationMessagesViewController: MessagesViewController, MessagesDataSo
     
     //MARK: - Message Data Functions
     func currentSender() -> SenderType {
-        let user = UserController.shared.currentUser
-//        let user = ConversationController.shared.currentUser
+//        let user = UserController.shared.currentUser
+        guard let user = ConversationController.shared.currentUser else {return Sender(senderId: "not found", displayName: "not found")}
         return Sender(senderId: user.uid, displayName: user.firstName)
     }
     
@@ -78,8 +78,8 @@ extension ConversationMessagesViewController: InputBarAccessoryViewDelegate {
     
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
         guard let conversation = conversation else {return}
-              let user = UserController.shared.currentUser
-//        let user = ConversationController.shared.currentUser
+//              let user = UserController.shared.currentUser
+        guard let user = ConversationController.shared.currentUser else {return}
         ConversationController.shared.saveMessage(sentDate: Date(), senderId: user.uid, displayName: user.firstName, conversationID: conversation.conversationID, text: text)
         inputBar.inputTextView.text = ""
 //        inputBar.inputTextView.resignFirstResponder()

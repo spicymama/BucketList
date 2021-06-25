@@ -12,10 +12,10 @@ class ConversationListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //JCW - fix user data source
-//        FirebaseFunctions.fetchCurrentUserData { user in
-//            ConversationController.shared.currentUser = user
-//        }
-        fetchConversations()
+        FirebaseFunctions.fetchCurrentUserData { user in
+            ConversationController.shared.currentUser = user
+            self.fetchConversations()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,8 +51,8 @@ class ConversationListTableViewController: UITableViewController {
     }
     
     func fetchConversations () {
-        let user = UserController.shared.currentUser
-//        let user = ConversationController.shared.currentUser
+//        let user = UserController.shared.currentUser
+        guard let user = ConversationController.shared.currentUser else {return}
         ConversationController.shared.fetchConversationsFor(user) { result in
             switch result {
             case true:

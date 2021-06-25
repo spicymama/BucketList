@@ -19,6 +19,9 @@ class ConversationCreationTableViewController: UITableViewController {
         super.viewDidLoad()
     }
     
+    //MARK: - Properties
+    var friends: [User]?
+    
     //MARK: - Actions
     @IBAction func createConversationButtonTapped(_ sender: Any) {
         guard let user1 = user1TextField.text, !user1.isEmpty,
@@ -27,9 +30,26 @@ class ConversationCreationTableViewController: UITableViewController {
 //        ConversationController.shared.createAndSaveConversation(userIDs: [user1, user2])
         navigationController?.popViewController(animated: true)
     }
+    
+    //MARK: - Functions
+    
+    func fetchFriends() {
+        
+    }
+    
+    
+    
     // MARK: - Table view data source
 
-
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        return UITableViewCell()
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
