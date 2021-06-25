@@ -59,10 +59,11 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="firstNameLabel" destination="2oD-Y5-vBJ" id="aUu-sg-dSk"/>
-                                    <outlet property="lastNameLabel" destination="h8Q-gz-QF0" id="LM5-hn-vaH"/>
+                                    <outlet property="firstNameLabel" destination="2oD-Y5-vBJ" id="bp4-2b-wP9"/>
+                                    <outlet property="lastNameLabel" destination="h8Q-gz-QF0" id="cX8-c6-YR3"/>
                                     <outlet property="profileImage" destination="Ebu-px-WXh" id="amL-ih-kQt"/>
                                     <outlet property="signInLabel" destination="Fad-nf-l6r" id="iXs-kD-ClD"/>
+                                    <outlet property="signinLabel" destination="Fad-nf-l6r" id="lyW-Fu-XFe"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

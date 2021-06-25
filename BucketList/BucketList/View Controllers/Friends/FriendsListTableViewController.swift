@@ -19,7 +19,7 @@ class FriendsListTableViewController: UITableViewController {
     
     //MARK: - Properties
     let db = Firestore.firestore()
-    let friends = [Friend]
+    let friends = [Friend] = []
 
     // MARK: - Table view data source
 
@@ -32,7 +32,7 @@ class FriendsListTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "friendsListCell", for: indexPath)
-        let friend = self.friendlists
+        let friend = self.friends
 
         
         return cell
@@ -45,9 +45,14 @@ class FriendsListTableViewController: UITableViewController {
 
 
 //MARK: - Functions
+    func updateViews() {
+        
+    }
+    
     
     func fetchFriendsData() {
         FirebaseFunctions.fetchFriends(uid: uid, 🐶: <#T##(FriendsList) -> Void#>)
+        FirebaseFunctions.fetchUsersData(passedUserIDs: <#T##[String]?#>, 🐶: <#T##([User]) -> Void#>)
     }
     
    
