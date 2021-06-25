@@ -47,6 +47,7 @@ class ConversationController {
             }
             
             if let snapshot = snapshot {
+                self.conversations = []
                 for doc in snapshot.documents {
                     if user.conversationsIDs.contains(doc.documentID) {
                         print("\(doc.documentID)")
