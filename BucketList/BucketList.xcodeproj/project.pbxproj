@@ -11,6 +11,7 @@
 		9A1301E32683F15A00A6819E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9A1301E22683F15A00A6819E /* GoogleService-Info.plist */; };
 		9A2D612B268507AB00424AE4 /* FriendsListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2D612A268507AB00424AE4 /* FriendsListTableViewController.swift */; };
 		9A2D612F26852D5100424AE4 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2D612E26852D5100424AE4 /* Friend.swift */; };
+		9A2D613126862D1000424AE4 /* FriendsListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2D613026862D1000424AE4 /* FriendsListTableViewCell.swift */; };
 		AA02FF7926810500004EA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA02FF7826810500004EA782 /* AppDelegate.swift */; };
 		AA02FF7B26810500004EA782 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA02FF7A26810500004EA782 /* SceneDelegate.swift */; };
 		AA02FF8026810500004EA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA02FF7E26810500004EA782 /* Main.storyboard */; };
@@ -49,7 +50,6 @@
 		AA8E96AB26810D68003DC8DA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E96AA26810D68003DC8DA /* User.swift */; };
 		AA8E96AD26810D6F003DC8DA /* Bucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E96AC26810D6F003DC8DA /* Bucket.swift */; };
 		AA8E96B026810DBE003DC8DA /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E96AF26810DBE003DC8DA /* Model.swift */; };
-		AA9BB5BC268110BD00A66D3E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA9BB5BB268110BD00A66D3E /* GoogleService-Info.plist */; };
 		AACAC853268525A9002E9E43 /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACAC852268525A9002E9E43 /* GlobalFunctions.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +57,7 @@
 		9A1301E22683F15A00A6819E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9A2D612A268507AB00424AE4 /* FriendsListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListTableViewController.swift; sourceTree = "<group>"; };
 		9A2D612E26852D5100424AE4 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
+		9A2D613026862D1000424AE4 /* FriendsListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListTableViewCell.swift; sourceTree = "<group>"; };
 		AA02FF7526810500004EA782 /* BucketList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BucketList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA02FF7826810500004EA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA02FF7A26810500004EA782 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -97,7 +98,6 @@
 		AA8E96AA26810D68003DC8DA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AA8E96AC26810D6F003DC8DA /* Bucket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bucket.swift; sourceTree = "<group>"; };
 		AA8E96AF26810DBE003DC8DA /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		AA9BB5BB268110BD00A66D3E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Firebase GoogleService-Info/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AACAC852268525A9002E9E43 /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
 		C3188C93C2B51D68B5DDF585 /* Pods-BucketList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BucketList.release.xcconfig"; path = "Target Support Files/Pods-BucketList/Pods-BucketList.release.xcconfig"; sourceTree = "<group>"; };
 		D3317EECED0B32C26F983252 /* Pods_BucketList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BucketList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -308,6 +308,7 @@
 				AA25B52D2683E5C500B0E13F /* ProfileViewController.swift */,
 				AA25B5312683E90D00B0E13F /* ProfileTableViewController.swift */,
 				9A2D612A268507AB00424AE4 /* FriendsListTableViewController.swift */,
+				9A2D613026862D1000424AE4 /* FriendsListTableViewCell.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -484,6 +485,7 @@
 				AA25B513268250B500B0E13F /* PasswordValidator.swift in Sources */,
 				AA25B5302683E8A300B0E13F /* Post.swift in Sources */,
 				AA25B5372683E96400B0E13F /* FeedTableViewController.swift in Sources */,
+				9A2D613126862D1000424AE4 /* FriendsListTableViewCell.swift in Sources */,
 				AA25B53C2683E9FF00B0E13F /* FeedTableViewCell.swift in Sources */,
 				AA25B5262683E32B00B0E13F /* Conversation.swift in Sources */,
 				AA25B5222683E2B200B0E13F /* ConversationController.swift in Sources */,
