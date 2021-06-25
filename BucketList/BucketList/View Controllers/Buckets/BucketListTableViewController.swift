@@ -11,6 +11,7 @@ class BucketListTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
 
     }
 
@@ -32,10 +33,8 @@ class BucketListTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "listItemCell", for: indexPath)
-       // let section = sections[indexPath.row].list
-      //  cell.textLabel?.text = section.title
-       // cell.detailTextLabel?.text = section.list.first
-
+        let cellText = sections[indexPath.section].list[indexPath.row]
+        cell.textLabel?.text = cellText
         return cell
     }
     
@@ -50,3 +49,17 @@ class BucketListTableViewController: UITableViewController {
     */
 
 }
+/*
+ for section in sections {
+     if section.title == "Public List" {
+         let section = sections[0]
+         cell.textLabel?.text = section.list[indexPath.row]
+     }
+     else if section.title == "Private List" {
+         let section = sections[1]
+// let items = section.list[indexPath.row]
+ cell.textLabel?.text = section.list[indexPath.row]
+ //cell.detailTextLabel?.text = section.list.first
+ }
+ }
+ */
