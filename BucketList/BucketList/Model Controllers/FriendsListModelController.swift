@@ -14,7 +14,8 @@ class FriendsListModelController {
     let db = Firestore.firestore()
     static let sharedInstance = FriendsListModelController()
     let uid: String = Auth.auth().currentUser?.uid ?? "0"
-
+    // let viewedUserUID = aksjdlfkasd
+    
     
     //MARK: - CRUD Functions
     func addFriend() {
@@ -32,12 +33,15 @@ class FriendsListModelController {
         ])
     } // End of Function remove friend
     
+    
+    
     func blockUser() {
-        // fetchUserData()
-        let blockedUserRef = db.collection("friends").document(uid)
-        blockedUserRef.updateData([
-            "blocked": FieldValue.arrayUnion(["CURRENT PROFILE UID HERE"])
-        ])
+        FirebaseFunctions.fetchUserData(uid: uid) { data in
+            let blockedUserRef = self.db.collection("friends").document(self.uid)
+            blockedUserRef.updateData([
+                "blocked": FieldValue.arrayUnion(["CURRENT PROFILE UID HERE"])
+            ])
+        }
     } // End of function block user
     
     /* !!! -- This stuff is a WIP -- !!! */
@@ -51,11 +55,11 @@ class FriendsListModelController {
                 
                 let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                 alertController.addAction(cancelAction)
-//                self.present(alertController, animated: true, completion: nil)
+                //                self.present(alertController, animated: true, completion: nil)
                 let storyboard = UIStoryboard(name: "HOME SCREEN STORYBOARD ID HERE", bundle: nil)
                 let viewController = storyboard.instantiateViewController(identifier: " ")
                 //need to change below to the main/home screen.
-//                UINavigationController.pushViewController(FriendsTableViewController, animated: true)
+                //                UINavigationController.pushViewController(FriendsTableViewController, animated: true)
             } else {
                 
                 //If I'm thinking right, this will go back to running the add friends function.
@@ -79,11 +83,11 @@ class FriendsListModelController {
                         
                         let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                         alertController.addAction(cancelAction)
-//                        self.present(alertController, animated: true, completion: nil)
+                        //                        self.present(alertController, animated: true, completion: nil)
                         let storyboard = UIStoryboard(name: "HOME SCREEN STORYBOARD ID HERE", bundle: nil)
                         let viewController = storyboard.instantiateViewController(identifier: " ")
                         //need to change below to the main/home screen.
-//                        UINavigationController.pushViewController(FriendsTableViewController, animated: true)
+                        //                        UINavigationController.pushViewController(FriendsTableViewController, animated: true)
                     } else {
                         
                         //If I'm thinking right, this will go back to running the add friends function.

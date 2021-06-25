@@ -7,7 +7,7 @@
 
 import UIKit
 
-/// Provides the login authentication, and produces some data for the initial creation
+// Provides the login authentication, and produces some data for the initial creation
 
 class LoginViewController: UIViewController {
     
@@ -37,12 +37,13 @@ class LoginViewController: UIViewController {
             FirebaseFunctions.signInUser(email: emailField.text!, password: passwordField.text!, 🐶: { result in
                 switch result {
                 case .success(_):
-                    let storyBoard: UIStoryboard = UIStoryboard(name: "Authenticate", bundle: nil)
-                    let vs = storyBoard.instantiateViewController(withIdentifier: "AccountVC")
+                    let storyBoard: UIStoryboard = UIStoryboard(name: "gavin", bundle: nil)
+                    let vs = storyBoard.instantiateViewController(withIdentifier: "FeedTableVC")
                     self.navigationController?.pushViewController(vs, animated: true)
                 case .failure(_):
-                    // TODO: - Turn this into an alert
-                    print("You failed!!! See error whatever something going on here for details... If you ever see this... The project never saw the light of day...")
+                    let alertController = GlobalFunctions.basicOkAlert(title: "Sign in failed", message: "Email or Password was incorrect")
+                    self.present(alertController, animated: true, completion: nil)
+                    print("You failed!!! - No one should be able to see this...")
                 } // End of Switch
             })
         } else {
@@ -53,13 +54,14 @@ class LoginViewController: UIViewController {
     
     // MARK: - Function
     func validateFields() -> Bool {
-        // This doesn't have it, but we are not checking for white spaces and stuff
+        // Simply checks if the fields are not empty
         if emailField.text == "" ||
             passwordField.text == "" {
-            print("Please enter username and password fields")
+            let alert = GlobalFunctions.basicOkAlert(title: "Login failed!", message: "Please enter Email and Password!")
+            self.present(alert, animated: true, completion: nil)
             return false
         } else {
-            print("Username and Password fields cleared!")
+            print("Email and Password cleared!")
             return true
         }
     } // End of Function

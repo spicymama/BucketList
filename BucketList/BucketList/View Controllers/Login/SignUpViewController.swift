@@ -30,7 +30,7 @@ class SignUpViewController: UIViewController {
         // Validate fields
         if validateFields() == true {
             // Create user via Firebase
-            FirebaseFunctions.createUser(email: emailField.text!, password: passwordField.text!, firstName: firstNameField.text!, lastName: lastNameField.text!, dob: datePicker.date, username: usernameField.text!)
+            //            FirebaseFunctions.createUser(email: emailField.text!, password: passwordField.text!, firstName: firstNameField.text!, lastName: lastNameField.text!, dob: datePicker.date, username: usernameField.text!)
             print("User \(usernameField.text ?? "") created!")
             // Pop view
             navigationController?.popViewController(animated: true)
@@ -42,31 +42,28 @@ class SignUpViewController: UIViewController {
     
     // MARK: - Functions
     func validateFields() -> Bool {
-        // Check if all fields are filled in
-        if (usernameField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
-                emailField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
-                passwordField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
-                confirmPasswordField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
-                firstNameField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
-                lastNameField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "") ||
-            // Edit this to check for agge restrictions (13 usually)
+        // Check that all fields are filled in
+        if usernameField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+            emailField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+            passwordField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+            confirmPasswordField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+            firstNameField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+            lastNameField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
             datePicker.date == nil ||
-            // This will make sure that both passwords are the same
             (passwordField.text != passwordField.text) ||
-            // Thich checks password length
             (usernameField.text!.count < 16) {
+            
+            let alert = GlobalFunctions.basicOkAlert(title: "Failed to create User", message: "Please ffill out all fields")
+            self.present(alert, animated: true, completion: nil)
+            return false
         } else {
-            // TODO - Display an alert
-            print("Please fill out all fields")
-            return false
+            if PasswordValidator.passwordValid(passwordField.text!) == false {
+                let alert = GlobalFunctions.basicOkAlert(title: "Failed to create User", message: "Password must have one capital letter, one number, one symbol, and be between 6 and 16 characters")
+                self.present(alert, animated: true, completion: nil)
+                return false
+            }
+            return true
         }
-        if PasswordValidator.passwordValid(passwordField.text!) == false {
-            // TODO - Display alert instead of print statement
-            // TODO - Make this tell you what you did wrong... Pass info back and forth?
-            print("Password must have one capital letter, one number, one symbol, and be between 6 and 16 characters")
-            return false
-        }
-        return true
-    } // End of Function
+    } // End of Validate fields function
     
 } // End of Class
