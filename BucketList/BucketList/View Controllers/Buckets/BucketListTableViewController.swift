@@ -8,27 +8,43 @@
 import UIKit
 
 class BucketListTableViewController: UITableViewController {
-
+    var refresh: UIRefreshControl = UIRefreshControl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        FirebaseFunctions.fetchBuckets(bucketID: "jMH28AxcwD5XaXkO2lsG") { result in
-            let list: List = result
-            self.sections.append(list)
-          
+        setupViews()
+        loadData()
+    }
+    
+    var sections: [List] = []
+    var thePublicList = List(title: "Public List", list: [])
+    var thePrivateList = List(title: "Private List", list: [])
+    
+    func setupViews() {
+        refresh.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refresh.addTarget(self, action: #selector(loadData), for: .valueChanged)
+        tableView.addSubview(refresh)
+    }
+    
+    func updateViews() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.refresh.endRefreshing()
         }
     }
-    var sections: [List] = []
     
-    /*
-    let sections: [List] = [List(title: "Public List", list: ["Jump really high", "Ride the tallest rollercoaster", "Try to eat surstromming"]), List(title: "Private List", list: ["Ride in a hot air balloon", "Touch a whale", "Drive a Lambo"])]
- */
+    @objc func loadData() {
+        FirebaseFunctions.fetchBuckets { result in
+            self.sections = result
+            self.updateViews()
+        }
+    }
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
-
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let section = self.sections[section]
         return section.title
@@ -36,8 +52,6 @@ class BucketListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sections[section].list.count
     }
-
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "listItemCell", for: indexPath)
         let cellText = sections[indexPath.section].list[indexPath.row]
@@ -45,28 +59,14 @@ class BucketListTableViewController: UITableViewController {
         return cell
     }
     
-/*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-}
-/*
- for section in sections {
-     if section.title == "Public List" {
-         let section = sections[0]
-         cell.textLabel?.text = section.list[indexPath.row]
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
      }
-     else if section.title == "Private List" {
-         let section = sections[1]
-// let items = section.list[indexPath.row]
- cell.textLabel?.text = section.list[indexPath.row]
- //cell.detailTextLabel?.text = section.list.first
- }
- }
- */
+     */
+    
+}

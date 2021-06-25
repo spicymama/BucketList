@@ -9,19 +9,22 @@ import UIKit
 
 class FeedTableViewController: UITableViewController {
     var refresh: UIRefreshControl = UIRefreshControl()
-    
+    var searchController = UISearchController()
     @IBOutlet weak var segmentedController: UISegmentedControl!
-    @IBOutlet weak var searchBar: UISearchBar!
+  //  @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
+        navigationItem.searchController = searchController
+        
         super.viewDidLoad()
         setupViews()
         loadData()
         view.backgroundColor = .lightGray
         self.tableView.rowHeight = 650
         
+        
     }
-    
+   
     @IBAction func segmentWasChanged(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
             view.backgroundColor = .gray
@@ -35,6 +38,7 @@ class FeedTableViewController: UITableViewController {
         }
     }
     
+
     func setupViews() {
         refresh.attributedTitle = NSAttributedString(string: "Pull to see new Posts")
         refresh.addTarget(self, action: #selector(loadData), for: .valueChanged)

@@ -15,3 +15,8 @@ class List {
         self.list = list
     }
 }
+extension List: Equatable {
+    static func == (lhs: List, rhs: List) -> Bool {
+        return lhs.title == rhs.title
+    }
+}

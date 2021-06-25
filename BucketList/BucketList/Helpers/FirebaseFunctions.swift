@@ -267,23 +267,107 @@ class FirebaseFunctions {
             }
         }
     } // End of Fetch Post
-
-    static func fetchBuckets(bucketID: String, completion: @escaping (List)-> Void) {
+    
+    static func fetchBuckets(completion: @escaping ([List])-> Void) {
         
-        let bucketData = Firestore.firestore().collection("buckets").document(bucketID)
-        bucketData.getDocument { document, error in
-            if let error = error {
-                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
-            } else {
-                guard let document = document else {return}
-           
-                    let title = document.data()!["title"]
-                    let list = document.data()!["items"]
-                    let list1: List = List(title: title as! String, list: list as! [String])
-                    completion(list1)
-                print(list1.title)
-                print(list1.list.first)
+        Firestore.firestore().collectionGroup("buckets").addSnapshotListener { QuerySnapshot, error in
+            guard let documents = QuerySnapshot?.documents else {
+                print("No documents")
+                return
+            }
+            if let snapshot = QuerySnapshot {
+                var bucketIDs: [String] = []
+                for document in snapshot.documents {
+                    bucketIDs.append(document.documentID)
+                }
+                let group = DispatchGroup()
+                
+                var bucketData: [List] = []
+                for i in bucketIDs {
+                    group.enter()
+                    FirebaseFunctions.fetchBucket(bucketID: i) { data in
+                        let title = data["title"]
+                        let items = data["items"]
+                        
+                        let bucket = List(title: title as! String, list: items as? [String] ?? ["A", "b"])
+                        bucketData.append(bucket)
+                        group.leave()
+                    }
+                }
+                group.notify(queue: DispatchQueue.main) {
+                    completion(bucketData)
+                }
             }
         }
     }
+    static func fetchBucket(bucketID: String, completion: @escaping ([String : Any])-> Void) {
+        let bucketID = bucketID
+        let bucketData = Firestore.firestore().collection("buckets").document(bucketID)
+        bucketData.getDocument { document, error in
+            if let error = error {
+                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+            } else {
+                /*
+                 guard let document = document else {return}
+                 
+                 let title = document.data()!["title"]
+                 let list = document.data()!["items"]
+                 let list1: List = List(title: title as! String, list: list as! [String])
+                 */
+                completion(document!.data()!)
+                
+            }
+        }
+    } // End of Class
 } // End of Class
+/*
+ static func fetchAllPosts(completion: @escaping ([Post] ) -> Void) {
+ Firestore.firestore().collectionGroup("posts").addSnapshotListener { (QuerySnapshot, error) in
+ guard let documents = QuerySnapshot?.documents else {
+ print("No Documents")
+ return
+ }
+ if let snapshot = QuerySnapshot {
+ var postIDs: [String] = []
+ for document in snapshot.documents {
+ postIDs.append(document.documentID)
+ }
+ let group = DispatchGroup()
+ 
+ var postsData: [Post] = []
+ for i in postIDs {
+ group.enter()
+ FirebaseFunctions.fetchPost(uid: i) { data in
+ let postID: String = data["commentsID"] as! String
+ let postDecription: String = data["postNote"] as! String
+ let postTitle: String = data["title"] as? String ?? "Title"
+ let photoID: String = "swing"
+ let creatorID: String = (data["creatorID"] as? String)!
+ let post = Post(commentsID: postID, photoID: photoID, description: postDecription, title: postTitle, creatorID: creatorID)
+ postsData.append(post)
+ group.leave()
+ }
+ }
+ group.notify(queue: DispatchQueue.main) {
+ completion(postsData)
+ }
+ }
+ }
+ } // End of Fetch all posts
+ 
+ 
+ // MARK: - FetchPost
+ static func fetchPost(uid: String, completion: @escaping ( [String : Any])-> Void) {
+ let uid = uid
+ let postData = Firestore.firestore().collection("posts").document(uid)
+ postData.getDocument { (document, error) in
+ if let error = error {
+ print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+ } else {
+ completion(document!.data()!)
+ }
+ }
+ } // End of Fetch Post
+ 
+ 
+ */

@@ -17,14 +17,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="zjU-ay-atC">
-                            <rect key="frame" x="0.0" y="0.0" width="428" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <textInputTraits key="textInputTraits"/>
-                        </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="postCell" rowHeight="673" id="MVV-Cc-VtN" customClass="FeedTableViewCell" customModule="BucketList" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="68.333333969116211" width="428" height="673"/>
+                                <rect key="frame" x="0.0" y="24.333333969116211" width="428" height="673"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MVV-Cc-VtN" id="DH5-O2-ycd">
                                     <rect key="frame" x="0.0" y="0.0" width="428" height="673"/>
@@ -128,7 +123,6 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="htB-JK-RIf">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" image="magnifyingglass" catalog="system" id="c0d-nh-Bfk"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="wq5-b4-SBd">
                             <rect key="frame" x="147.66666666666666" y="5" width="132.99999999999997" height="34"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -155,7 +149,6 @@
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="searchBar" destination="zjU-ay-atC" id="Vhb-TO-109"/>
                         <outlet property="segmentedController" destination="wq5-b4-SBd" id="AoU-yj-dZw"/>
                     </connections>
                 </tableViewController>
@@ -410,7 +403,6 @@
     <resources>
         <image name="envelope" catalog="system" width="128" height="93"/>
         <image name="list.bullet" catalog="system" width="128" height="88"/>
-        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="star.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
