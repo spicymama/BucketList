@@ -7,46 +7,46 @@
 
 import UIKit
 
+
 class ProfileTableViewCell: UITableViewCell {
 
     static let shared = ProfileTableViewCell()
+    
         @IBOutlet weak var profilePic: UIImageView!
         @IBOutlet weak var usernameLabel: UILabel!
         @IBOutlet weak var publicListTableView: UITableView!
         @IBOutlet weak var imageView1: UIImageView!
         @IBOutlet weak var achievementLabel: UILabel!
         @IBOutlet weak var collectionView: UICollectionView!
-        
-        var strings = ["Climb Mountain", "Go to Disneyland", "Fly in a small plane", "see a whale"]
+        @IBOutlet weak var lilTableView: UITableView!
+    
+        var strings = ["Climb Mountain", "Go to Disneyland", "Fly in a small plane", "see a whale", "Hug a panda"]
         
         override func awakeFromNib() {
             super.awakeFromNib()
+            lilTableView.delegate = self
+            lilTableView.dataSource = self
             collectionView.delegate = self
             collectionView.dataSource = self
         }
        
-        
-        
-        var currentUser: User? {
-            didSet {
-                updateViews()
-            }
-        }
-         var count = 0
-     
-        func updateViews(){
-            profilePic.image = currentUser?.profilePicture
-            usernameLabel.text = currentUser?.firstName
-            imageView1.image = currentUser?.allPictures[0]
-            collectionView.contentSize = CGSize(width: 2000, height: 100)
-            collectionView.addSubview(UIImageView())
-            print(currentUser?.firstName)
-            print(currentUser?.lastName)
-            
-            
+    var user: User? {
+        didSet {
+            updateViews()
         }
     }
+    
+        func updateViews(){
+            guard let user = user else {return}
+            profilePic.image = UIImage(named: "swing")
+            usernameLabel.text = user.username
+            achievementLabel.text = user.lastName
+            imageView1.image = UIImage(named: "gorgeousGirlfriend")
+            collectionView.contentSize = CGSize(width: 2000, height: 100)
+            collectionView.addSubview(UIImageView())
+        }
 
+}
     extension ProfileTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
             return 5
@@ -55,7 +55,6 @@ class ProfileTableViewCell: UITableViewCell {
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath) as? ProfileCollectionViewCell else {return UICollectionViewCell()}
             let text = "Recent Accomplishment..."
-                //UserController.shared.users[indexPath.row].acheivements[indexPath.row]
             cell.text = text
             
             return cell
@@ -68,3 +67,16 @@ class ProfileTableViewCell: UITableViewCell {
         
         
 }
+
+extension ProfileTableViewCell: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView = ProfileTableViewCell.shared.lilTableView, numberOfRowsInSection section: Int) -> Int {
+        strings.count
+    }
+    
+    func tableView(_ tableView: UITableView = ProfileTableViewCell.shared.lilTableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell { guard let cell = tableView.dequeueReusableCell(withIdentifier: "recentPostCell", for: indexPath) as? RecentPostsTableViewCell else {return UITableViewCell()}
+    let string = strings[indexPath.row]
+    cell.string = string
+    return cell
+}
+    }
+

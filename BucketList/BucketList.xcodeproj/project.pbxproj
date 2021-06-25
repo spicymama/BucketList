@@ -47,6 +47,9 @@
 		AA8E96AB26810D68003DC8DA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E96AA26810D68003DC8DA /* User.swift */; };
 		AA8E96AD26810D6F003DC8DA /* Bucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E96AC26810D6F003DC8DA /* Bucket.swift */; };
 		AA8E96B026810DBE003DC8DA /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E96AF26810DBE003DC8DA /* Model.swift */; };
+		EA5C90672683EEA3008BE058 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA5C90662683EEA3008BE058 /* GoogleService-Info.plist */; };
+		EAAB407D26853A0900F60CC5 /* BucketListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAAB407C26853A0900F60CC5 /* BucketListTableViewController.swift */; };
+		EAB753EF2685255200B2F8C7 /* RecentPostsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB753EE2685255200B2F8C7 /* RecentPostsTableViewCell.swift */; };
 		AA9BB5BC268110BD00A66D3E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA9BB5BB268110BD00A66D3E /* GoogleService-Info.plist */; };
 		AACAC853268525A9002E9E43 /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACAC852268525A9002E9E43 /* GlobalFunctions.swift */; };
 /* End PBXBuildFile section */
@@ -97,6 +100,9 @@
 		AACAC852268525A9002E9E43 /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
 		C3188C93C2B51D68B5DDF585 /* Pods-BucketList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BucketList.release.xcconfig"; path = "Target Support Files/Pods-BucketList/Pods-BucketList.release.xcconfig"; sourceTree = "<group>"; };
 		D3317EECED0B32C26F983252 /* Pods_BucketList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BucketList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA5C90662683EEA3008BE058 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EAAB407C26853A0900F60CC5 /* BucketListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketListTableViewController.swift; sourceTree = "<group>"; };
+		EAB753EE2685255200B2F8C7 /* RecentPostsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentPostsTableViewCell.swift; sourceTree = "<group>"; };
 		F53BB64563576D97B8BB2B09 /* Pods-BucketList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BucketList.debug.xcconfig"; path = "Target Support Files/Pods-BucketList/Pods-BucketList.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -141,7 +147,7 @@
 		AA02FF7726810500004EA782 /* BucketList */ = {
 			isa = PBXGroup;
 			children = (
-				69F599B22683EEF80004CEA3 /* GoogleService-Info.plist */,
+				EA5C90662683EEA3008BE058 /* GoogleService-Info.plist */,
 				AA8E96A926810D4F003DC8DA /* Models */,
 				AA8E96AE26810DAD003DC8DA /* Model Controllers */,
 				AA8E969926810C38003DC8DA /* View Controllers */,
@@ -197,6 +203,7 @@
 				AA25B53B2683E9FF00B0E13F /* FeedTableViewCell.swift */,
 				AA25B53D2683EA0E00B0E13F /* ProfileCollectionViewCell.swift */,
 				AA25B53F2683EA1500B0E13F /* ProfileTableViewCell.swift */,
+				EAB753EE2685255200B2F8C7 /* RecentPostsTableViewCell.swift */,
 			);
 			path = "Custom Cells";
 			sourceTree = "<group>";
@@ -294,6 +301,7 @@
 			isa = PBXGroup;
 			children = (
 				AA8E969E26810CF6003DC8DA /* Buckets.swift */,
+				EAAB407C26853A0900F60CC5 /* BucketListTableViewController.swift */,
 			);
 			path = Buckets;
 			sourceTree = "<group>";
@@ -405,7 +413,7 @@
 				AA02FF8226810501004EA782 /* Assets.xcassets in Resources */,
 				AA02FF8026810500004EA782 /* Main.storyboard in Resources */,
 				AA672052268107B4003D43A0 /* justin.storyboard in Resources */,
-				69F599B32683EEF80004CEA3 /* GoogleService-Info.plist in Resources */,
+				EA5C90672683EEA3008BE058 /* GoogleService-Info.plist in Resources */,
 				AA25B5082682397D00B0E13F /* LoadUsers.storyboard in Resources */,
 				AA67204C268107A2003D43A0 /* Authenticate.storyboard in Resources */,
 			);
@@ -480,7 +488,9 @@
 				AA25B5372683E96400B0E13F /* FeedTableViewController.swift in Sources */,
 				AA25B53C2683E9FF00B0E13F /* FeedTableViewCell.swift in Sources */,
 				AA25B5262683E32B00B0E13F /* Conversation.swift in Sources */,
+				EAAB407D26853A0900F60CC5 /* BucketListTableViewController.swift in Sources */,
 				AA25B5222683E2B200B0E13F /* ConversationController.swift in Sources */,
+				EAB753EF2685255200B2F8C7 /* RecentPostsTableViewCell.swift in Sources */,
 				AA8E96A126810CFE003DC8DA /* Notifier.swift in Sources */,
 				AA25B512268250B500B0E13F /* FirebaseFunctions.swift in Sources */,
 				AA25B5402683EA1500B0E13F /* ProfileTableViewCell.swift in Sources */,
@@ -638,8 +648,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = XA96DJZ7VH;
+				DEVELOPMENT_TEAM = SP8PT7VLP6;
 				INFOPLIST_FILE = BucketList/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -658,8 +669,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = XA96DJZ7VH;
+				DEVELOPMENT_TEAM = SP8PT7VLP6;
 				INFOPLIST_FILE = BucketList/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
