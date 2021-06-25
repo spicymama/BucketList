@@ -32,6 +32,8 @@ class FriendsListModelController {
         ])
     } // End of Function remove friend
     
+    
+    
     func blockUser() {
         // fetchUserData()
         let blockedUserRef = db.collection("friends").document(uid)
