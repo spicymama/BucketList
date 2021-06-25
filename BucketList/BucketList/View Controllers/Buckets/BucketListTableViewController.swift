@@ -12,10 +12,17 @@ class BucketListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
+        FirebaseFunctions.fetchBuckets(bucketID: "jMH28AxcwD5XaXkO2lsG") { result in
+            let list: List = result
+            self.sections.append(list)
+          
+        }
     }
-
+    var sections: [List] = []
+    
+    /*
     let sections: [List] = [List(title: "Public List", list: ["Jump really high", "Ride the tallest rollercoaster", "Try to eat surstromming"]), List(title: "Private List", list: ["Ride in a hot air balloon", "Touch a whale", "Drive a Lambo"])]
+ */
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {

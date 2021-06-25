@@ -261,4 +261,22 @@ class FirebaseFunctions {
         }
     } // End of Fetch Post
 
+    static func fetchBuckets(bucketID: String, completion: @escaping (List)-> Void) {
+        
+        let bucketData = Firestore.firestore().collection("buckets").document(bucketID)
+        bucketData.getDocument { document, error in
+            if let error = error {
+                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+            } else {
+                guard let document = document else {return}
+           
+                    let title = document.data()!["title"]
+                    let list = document.data()!["items"]
+                    let list1: List = List(title: title as! String, list: list as! [String])
+                    completion(list1)
+                print(list1.title)
+                print(list1.list.first)
+            }
+        }
+    }
 } // End of Class
