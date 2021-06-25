@@ -86,10 +86,19 @@ class ProfileTableViewController: UITableViewController {
 
     
     // MARK: - Navigation
-   
+    @IBAction func conversationBtn(_ sender: Any) {
+        // Go to ConversationMessageViewController
+        let storyBoard: UIStoryboard = UIStoryboard(name: "justin", bundle: nil)
+        let vs = storyBoard.instantiateViewController(withIdentifier: "ConversationListVC")
+        self.navigationController?.pushViewController(vs, animated: true)
+    } // End of Conversation Button
+    
    
 
-}
+} // End of Class
+
+
+// MARK: - Extensions
 extension ProfileTableViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

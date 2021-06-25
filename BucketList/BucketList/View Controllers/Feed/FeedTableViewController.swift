@@ -80,7 +80,14 @@ class FeedTableViewController: UITableViewController {
         return cell ?? UITableViewCell()
     }
     
+    
     // MARK: - Navigation
+    
+    @IBAction func conversationBtn(_ sender: Any) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "justin", bundle: nil)
+        let vs = storyBoard.instantiateViewController(withIdentifier: "ConversationListVC")
+        self.navigationController?.pushViewController(vs, animated: true)
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toProfileVC" {
@@ -93,7 +100,7 @@ class FeedTableViewController: UITableViewController {
            destinationVC.userID = userID
         }
     }
-}
-
+    
+} // End of Class
 
 
