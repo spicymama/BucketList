@@ -50,9 +50,6 @@ class ProfileTableViewController: UITableViewController {
                 self.updateViews()
     }
   
-       
-    }
-    var currentUser: User?
     var user: String? {
         didSet {
             
