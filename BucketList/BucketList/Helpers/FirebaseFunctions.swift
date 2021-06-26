@@ -1,6 +1,6 @@
 //
 //  FirebaseFunctions.swift
-//  Authenticator
+//  BucketList
 //
 //  Created by Ethan Andersen on 6/15/21.
 //
@@ -36,7 +36,7 @@ class FirebaseFunctions {
                     }
                 }
             }
-        } // End of Auth check
+        } // End of base user creation
         
         // This creates the base user's friends list
         let uid = Auth.auth().currentUser?.uid
@@ -197,23 +197,45 @@ class FirebaseFunctions {
     
     
     // MARK: - Create Post
-    static func createPost(title: String, description: String, imageID: String, progress: Bool) {
-        
-        let uid = Auth.auth().currentUser?.uid
+    static func createPost(note: String, imageID: String, bucketID: String, bucketItemID: String) {
+        guard let currentUserID: String = Auth.auth().currentUser?.uid else { return }
         let postID = UUID().uuidString
         Firestore.firestore().collection("posts").document(postID).setData( [
-            "commentsID" : postID,
-            "creatorID" : uid!,
+            "authorID" : currentUserID,
+            "timeStamp" : Date(),
+            "postNote" : note,
             "photoID" : imageID,
-            "title" : title,
-            "postNote" : description,
-            "reactionsArr" : [],
-            "timeStamp" : Date()
+            "bucketID" : bucketID,
+            "bucketItemID" : bucketItemID,
+            "commentsID" : postID,
+            "reactionsArr" : []
         ]) { err in
             if let err = err {
                 print("Error in \(#function)\(#line) : \(err.localizedDescription) \n---\n \(err)")
             } else {
-                print("Post for user \(uid ?? "") was created")
+                // Make the comments Document
+                Firestore.firestore().collection("comments").document(postID).setData([
+                    "referenceID" : postID
+                ])
+                Firestore.firestore().collection("comments").document(postID).collection("comment")
+                
+                // Add the post to the Bucket's array of post ID's if it exists
+                if bucketID != "" {
+                    // Add this post ID to the Bucket Post array
+                    Firestore.firestore().collection("buckets").document(bucketID).updateData([
+                        "postsIDs" : FieldValue.arrayUnion([postID])
+                    ])
+                    print("PostID added to Bucket")
+                }
+                // Add the post to the BucketItems's array of post ID's if it exists
+                if bucketItemID != "" {
+                    // Add this post ID to the BucketItem post array
+                    Firestore.firestore().collection("bucketItems").document(bucketItemID).updateData([
+                        "postsIDs" : FieldValue.arrayUnion([postID])
+                    ])
+                    print("PostID added to BucketItem")
+                }
+                print("Post for user \(currentUserID) was created")
             }
         }
     } // End of Create Post
@@ -222,10 +244,6 @@ class FirebaseFunctions {
     // MARK: - Fetch All Posts
     static func fetchAllPosts(completion: @escaping ([Post] ) -> Void) {
         Firestore.firestore().collectionGroup("posts").addSnapshotListener { (QuerySnapshot, error) in
-            guard let documents = QuerySnapshot?.documents else {
-                print("No Documents")
-                return
-            }
             if let snapshot = QuerySnapshot {
                 var postIDs: [String] = []
                 for document in snapshot.documents {
@@ -251,7 +269,7 @@ class FirebaseFunctions {
                     completion(postsData)
                 }
             }
-        }
+        } // End of Firestore function
     } // End of Fetch all posts
     
     
@@ -268,4 +286,11 @@ class FirebaseFunctions {
         }
     } // End of Fetch Post
 
+    
+    // MARK: - Create Bucket
+    
+    // MARK: - Creat BucketItems
+    
+    // MARK: - Fetch Buckets?
+    
 } // End of Class

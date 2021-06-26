@@ -1,34 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wo5-Vy-seq">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Create Post View Controller-->
+        <!--Make a Post-->
         <scene sceneID="i8C-tr-XSM">
             <objects>
-                <viewController id="AKp-R9-7nF" customClass="CreatePostViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="newPostVC" id="AKp-R9-7nF" customClass="CreatePostViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cks-Xs-b1R">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KZd-te-1j2">
+                                <rect key="frame" x="20" y="163" width="388" height="256"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9XJ-i2-Zu6">
+                                <rect key="frame" x="20" y="125" width="68" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Bucket It?"/>
+                                <connections>
+                                    <action selector="bucketItBtn:" destination="AKp-R9-7nF" eventType="touchUpInside" id="evt-Z7-g6Y"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WBH-2l-jtX">
+                                <rect key="frame" x="168" y="476" width="93" height="85"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="photo" catalog="system" symbolScale="default"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                                </state>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="KWT-Y6-fy9"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="UpD-eP-roo">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="6pp-mb-s6G">
-                            <connections>
-                                <action selector="saveButtonTapped:" destination="AKp-R9-7nF" id="Xuq-H0-gfU"/>
-                            </connections>
+                    <navigationItem key="navigationItem" title="Make a Post" id="UpD-eP-roo">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="zVL-yD-zgZ">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="vCq-ER-5b6">
+                                <rect key="frame" x="377" y="7" width="31" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Post"/>
+                                <connections>
+                                    <action selector="postButtonTapped:" destination="AKp-R9-7nF" eventType="touchUpInside" id="fBA-RM-Q1s"/>
+                                </connections>
+                            </button>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="noteTextView" destination="KZd-te-1j2" id="fSJ-bL-XEe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QzG-rQ-yr2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1292.753623188406" y="77.678571428571431"/>
+            <point key="canvasLocation" x="1292.5233644859813" y="77.105831533477328"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="EtX-tR-Yjz">
@@ -36,7 +71,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wo5-Vy-seq" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="UXU-la-siu">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="428" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -50,8 +85,15 @@
         </scene>
     </scenes>
     <resources>
+        <image name="photo" catalog="system" width="128" height="93"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
