@@ -1,18 +1,17 @@
 //
-//  BucketListTableViewController.swift
+//  BucketItTableViewController.swift
 //  BucketList
 //
-//  Created by Gavin Woffinden on 6/24/21.
+//  Created by Ethan Andersen on 6/28/21.
+//  Copied heavily off Gavin Woffinden's BucketListTableViewController
 //
 
 import UIKit
 
-class BucketListTableViewController: UITableViewController {
+class BucketItTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-
     }
 
     let sections: [List] = [List(title: "Public List", list: ["Jump really high", "Ride the tallest rollercoaster", "Try to eat surstromming"]), List(title: "Private List", list: ["Ride in a hot air balloon", "Touch a whale", "Drive a Lambo"])]
@@ -37,15 +36,4 @@ class BucketListTableViewController: UITableViewController {
         cell.textLabel?.text = cellText
         return cell
     }
-    
-/*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-} // End of Class Bucket List Table VC
+} // End of Class Bucket It VC

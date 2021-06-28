@@ -31,6 +31,7 @@
                                 <state key="normal" title="Bucket It?"/>
                                 <connections>
                                     <action selector="bucketItBtn:" destination="AKp-R9-7nF" eventType="touchUpInside" id="evt-Z7-g6Y"/>
+                                    <segue destination="D8n-8j-MMd" kind="presentation" id="F0z-3q-WEe"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WBH-2l-jtX">
@@ -82,6 +83,44 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RUB-yw-h17" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="382.60869565217394" y="77.678571428571431"/>
+        </scene>
+        <!--Bucket It Table View Controller-->
+        <scene sceneID="fI4-NB-lhg">
+            <objects>
+                <tableViewController id="D8n-8j-MMd" customClass="BucketItTableViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="1U9-1Z-vVV">
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="872"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="listItemCell" textLabel="hts-hk-pQi" style="IBUITableViewCellStyleDefault" id="7r9-QN-tKY">
+                                <rect key="frame" x="0.0" y="24.333333969116211" width="428" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7r9-QN-tKY" id="ZPl-Ba-VNX">
+                                    <rect key="frame" x="0.0" y="0.0" width="428" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hts-hk-pQi">
+                                            <rect key="frame" x="20" y="0.0" width="388" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="D8n-8j-MMd" id="IA3-9h-DvV"/>
+                            <outlet property="delegate" destination="D8n-8j-MMd" id="a2R-hC-SrW"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="gwd-ak-lds"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kAr-um-73P" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1293" y="-675"/>
         </scene>
     </scenes>
     <resources>

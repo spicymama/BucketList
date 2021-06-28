@@ -34,7 +34,8 @@ class CreatePostViewController: UIViewController, UITextViewDelegate {
     // MARK: - Actions
     @IBAction func postButtonTapped(_ sender: Any) {
         // Properties
-        //TODO(ethan) BucketID or BucketItemID might have an existing data input, depending if the user is making a post off an existing item
+        //TODO(ethan) Future - Let users make posts off of the already existing buckets page - Not just the "create post" page.
+        //TODO(ethan) - Reference the BucketLists Table VC on the gavin Storyboard
         let note = noteTextView.text ?? "Post Note"
         let bucketID: String = ""
         let bucketItemID: String = ""
@@ -46,22 +47,24 @@ class CreatePostViewController: UIViewController, UITextViewDelegate {
         
         // Go to the Post's page, in front of the Feed page
         let storyBoard: UIStoryboard = UIStoryboard(name: "gavinPost", bundle: nil)
-        let vs = storyBoard.instantiateViewController(withIdentifier: "postVC")
+        let vc = storyBoard.instantiateViewController(withIdentifier: "postVC")
         // TODO(ethan) -- Might need to go through the whole app and make sure every view pops off
         self.navigationController?.popViewController(animated: true)
-        self.navigationController?.pushViewController(vs, animated: true)
+        self.navigationController?.pushViewController(vc, animated: true)
     } // End of Save button
     
     
     // MARK: - Actions
     @IBAction func bucketItBtn(_ sender: Any) {
         //TODO(ethan) Make this pull up a view of the avaliable Bucket lists
-        //TODO(ethan) if they are making post off of an existing Bucket/BucketItem, this needs to update to say that Bucket/BucketItem name
+        // Delegate protocol here or something
+        //TODO(ethan) When they select a Bucket item, it should change to Bucket It: (Name of Bucket)
+        //TODO(ethan) When a bucket is selected, a new button should appear that says Item It?
     } // End of Bucket It Button
     
     
     // MARK: - Functions
-    // Update Note Functions
+    // Update Note Functions (Mostly placeholder text stuff)
     func updateNoteText() {
         noteTextView.text = noteTextViewPlaceholder
         noteTextView.textColor = UIColor.lightGray

@@ -4,8 +4,8 @@
 //
 //  Created by Gavin Woffinden on 6/22/21.
 //
+
 import UIKit
-import Firebase
 
 class Post {
     
