@@ -20,8 +20,10 @@ class ConversationListTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
-    }
+        FirebaseFunctions.fetchCurrentUserData { user in
+            ConversationController.shared.currentUser = user
+            self.fetchConversations()
+        }    }
 
     // MARK: - Table view data source
 

@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseFirestore
 import Firebase
+import MessageKit
 
 class ConversationController {
     
@@ -22,7 +23,7 @@ class ConversationController {
     
     //MARK: - Functions
     
-    func createAndSaveConversation(users: [User]) {
+    func createAndSaveConversation(users: [User], completion: @escaping (Conversation) -> Void) {
         let conversationToAdd = Conversation(userIDs: users)
 //        let conversationRef = db.collection("conversations").document(conversationToAdd.conversationID)
 //        conversationRef.setData([ "conversationID" : conversationToAdd.conversationID
@@ -32,6 +33,7 @@ class ConversationController {
             let userIDsRef = db.collection("conversations").document(conversationToAdd.conversationID).collection("userIDs").document(user.uid)
             userIDsRef.setData(["userID" : user.uid])
             
+            completion(conversationToAdd)
         }
     }
     
@@ -40,7 +42,7 @@ class ConversationController {
     }
     
     func fetchConversationsFor(_ user: User, completion: @escaping (Bool) -> Void ) {
-        db.collection("conversations").getDocuments { snapshot, error in
+        db.collection("conversations").addSnapshotListener { snapshot, error in
             if let error = error {
                 print("Error in \(#function) \(#line) : \(error.localizedDescription) \n---\n \(error)")
                 return completion(false)
@@ -142,6 +144,20 @@ class ConversationController {
     
     func addUsers(conversation: Conversation, user: User, completion: @escaping (Bool) -> Void) {
         db.collection("conversations").document(conversation.conversationID).collection("userIDs").document(user.uid).setData(["userID" : user.uid])
+    }
+    
+    func updateUsers(users: [User], conversation: Conversation, completion: @escaping (Bool) -> Void) {
+        for user in users {
+            db.collection("users").document(user.uid).updateData(["conversationsID" : FieldValue.arrayUnion([conversation.conversationID])])
+        }
+        completion(true)
+    }
+    
+    func getAvatarFor(_ sender: SenderType) -> Avatar {
+        
+        //fetch users profile image
+        
+        return Avatar(image: UIImage(systemName: "heart"), initials: "HR")
     }
     
     
