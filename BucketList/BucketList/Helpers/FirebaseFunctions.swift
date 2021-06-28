@@ -9,6 +9,7 @@ import Foundation
 import Firebase
 
 class FirebaseFunctions {
+    var sourceOfTruth: FriendsList = FriendsList()
     
     // MARK: - Create User
     static func createUser(email: String, password: String, firstName: String, lastName: String, dob: Date, username: String) {
@@ -82,7 +83,8 @@ class FirebaseFunctions {
                 print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
             } else {
                 guard let data = document!.data() else { return }
-                
+                let group = DispatchGroup()
+                group.enter()
                 // Data to Collect
                 let firstName: String = data["firstName"] as? String ?? "First Name"
                 let lastName: String = data["lastName"] as? String ?? "Last Name"
@@ -91,10 +93,39 @@ class FirebaseFunctions {
                 let conversationIDs = data["conversationsID"] as? [String] ?? ["conversationIDs"]
                 
                 🐶(User(firstName: firstName, lastName: lastName, username: username, uid: uid, conversationsIDs: conversationIDs))
+                let user = User(firstName: firstName, lastName: lastName, username: username, uid: uid, conversationsIDs: conversationIDs)
+                FeedTableViewController.currentUser = user
+                group.leave()
             }
+            
         } // End of getDocument
     } // End of Function fetchData
     
+    static func fetchCurrentUser(completion: @escaping ( Bool )-> Void) {
+        let uid = Auth.auth().currentUser?.uid
+        let userData = Firestore.firestore().collection("users").document(uid!)
+        userData.getDocument { ( document, error ) in
+            if let error = error {
+                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                return completion(false)
+            } else {
+                guard let data = document!.data() else { return }
+                let group = DispatchGroup()
+                group.enter()
+                // Data to Collect
+                let firstName: String = data["firstName"] as? String ?? "First Name"
+                let lastName: String = data["lastName"] as? String ?? "Last Name"
+                let username: String = data["username"] as? String ?? "User Name"
+                let uid: String = data["uid"] as? String ?? "uid"
+                let conversationIDs = data["conversationsID"] as? [String] ?? ["conversationIDs"]
+                let user = User(firstName: firstName, lastName: lastName, username: username, uid: uid, conversationsIDs: conversationIDs)
+                FeedTableViewController.currentUser = user
+                print(user.firstName)
+                completion(true)
+                group.leave()
+            }
+        } // End of getDocument
+    } // End of Function fetchData
     
     // MARK: - Fetch all Users data
     static func fetchUsersData(passedUserIDs: [String]?, 🐶: @escaping ( [User] ) -> Void) {
@@ -171,7 +202,7 @@ class FirebaseFunctions {
     
     
     // MARK: - Fetch Friends
-    static func fetchFriends(uid: String ,🐶: @escaping ( FriendsList ) -> Void) {
+    static func fetchFriends(uid: String ,completion: @escaping ( FriendsList ) -> Void) {
         let group = DispatchGroup()
         group.enter()
         
@@ -179,9 +210,9 @@ class FirebaseFunctions {
         let uid = uid
         // Fetch data
         let userData = Firestore.firestore().collection("friends").document(uid)
-        userData.getDocument { ( document, 🛑 ) in
-            if let 🛑 = 🛑 {
-                print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
+        userData.getDocument {  document, error  in
+            if let error = error {
+                print("Error in \(#function)\(#line) : \(error.localizedDescription) \n---\n \(error)")
             } else {
                 guard let data = document?.data() else { return }
                 
@@ -189,11 +220,37 @@ class FirebaseFunctions {
                 let blocked: [String] = data["blocked"] as? [String] ?? []
                 
                 group.notify(queue: DispatchQueue.main) {
-                    🐶(FriendsList(friends: friends, blocked: blocked))
+                    completion(FriendsList(friends: friends, blocked: blocked))
                 }
             }
         } // End of Get Document
     } // End of Function fetch friends
+    
+    static func fetchFriendz(uid: String, completion: @escaping ( Bool )-> Void) {
+        let group = DispatchGroup()
+        group.enter()
+        
+        let uid = uid
+        let userData = Firestore.firestore().collection("friends").document(uid)
+        userData.getDocument { document, error in
+            if let error = error {
+                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                return completion(false)
+            }
+            if let document = document {
+                guard let data = document.data() else {return}
+                let friends: [String] = data["friends"] as? [String] ?? []
+                let blocked: [String] = data["blocked"] as? [String] ?? []
+                FeedTableViewController.friendsList = friends
+                FeedTableViewController.blocked = blocked
+                print(friends.first)
+                return completion(true)
+                
+            }
+        }
+    }
+    
+    
     
     
     // MARK: - Create Post
@@ -244,8 +301,13 @@ class FirebaseFunctions {
                         let creatorID: String = (data["creatorID"] as? String)!
                         let post = Post(commentsID: postID, photoID: photoID, description: postDecription, title: postTitle, creatorID: creatorID)
                         postsData.append(post)
-                        group.leave()
+                        FeedTableViewController.posts.append(post)
+                        if FeedTableViewController.friendsList.contains(post.creatorID) {
+                            FeedTableViewController.friendsPosts.append(post)
+                        }
+                        
                     }
+                    group.leave()
                 }
                 group.notify(queue: DispatchQueue.main) {
                     completion(postsData)
@@ -320,54 +382,4 @@ class FirebaseFunctions {
         }
     } // End of Class
 } // End of Class
-/*
- static func fetchAllPosts(completion: @escaping ([Post] ) -> Void) {
- Firestore.firestore().collectionGroup("posts").addSnapshotListener { (QuerySnapshot, error) in
- guard let documents = QuerySnapshot?.documents else {
- print("No Documents")
- return
- }
- if let snapshot = QuerySnapshot {
- var postIDs: [String] = []
- for document in snapshot.documents {
- postIDs.append(document.documentID)
- }
- let group = DispatchGroup()
- 
- var postsData: [Post] = []
- for i in postIDs {
- group.enter()
- FirebaseFunctions.fetchPost(uid: i) { data in
- let postID: String = data["commentsID"] as! String
- let postDecription: String = data["postNote"] as! String
- let postTitle: String = data["title"] as? String ?? "Title"
- let photoID: String = "swing"
- let creatorID: String = (data["creatorID"] as? String)!
- let post = Post(commentsID: postID, photoID: photoID, description: postDecription, title: postTitle, creatorID: creatorID)
- postsData.append(post)
- group.leave()
- }
- }
- group.notify(queue: DispatchQueue.main) {
- completion(postsData)
- }
- }
- }
- } // End of Fetch all posts
- 
- 
- // MARK: - FetchPost
- static func fetchPost(uid: String, completion: @escaping ( [String : Any])-> Void) {
- let uid = uid
- let postData = Firestore.firestore().collection("posts").document(uid)
- postData.getDocument { (document, error) in
- if let error = error {
- print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
- } else {
- completion(document!.data()!)
- }
- }
- } // End of Fetch Post
- 
- 
- */
+
