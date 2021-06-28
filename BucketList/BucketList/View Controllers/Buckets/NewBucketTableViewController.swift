@@ -15,7 +15,7 @@ class NewBucketTableViewController: UITableViewController {
     @IBOutlet weak var visibilitySwitch: UISwitch!
     
     // MARK: - Properties
-    let bucket = Bucket?
+    var bucket: Bucket?
     
     override func viewDidLoad() {
         super.viewDidLoad()
