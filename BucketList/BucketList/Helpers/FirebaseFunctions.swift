@@ -254,12 +254,13 @@ class FirebaseFunctions {
                 var postsData: [Post] = []
                 for i in postIDs {
                     group.enter()
-                    FirebaseFunctions.fetchPost(uid: i) { data in
+                    FirebaseFunctions.fetchPost(postID: i) { data in
                         let postID: String = data["commentsID"] as! String
                         let postDecription: String = data["postNote"] as! String
                         let postTitle: String = data["title"] as? String ?? "Title"
                         let photoID: String = "swing"
                         let creatorID: String = (data["creatorID"] as? String)!
+                        
                         let post = Post(commentsID: postID, photoID: photoID, description: postDecription, title: postTitle, creatorID: creatorID)
                         postsData.append(post)
                         group.leave()
@@ -274,23 +275,69 @@ class FirebaseFunctions {
     
     
     // MARK: - FetchPost
-    static func fetchPost(uid: String, completion: @escaping ( [String : Any])-> Void) {
-        let uid = uid
-        let postData = Firestore.firestore().collection("posts").document(uid)
-        postData.getDocument { (document, error) in
+    static func fetchPost(postID: String, 🐶: @escaping ( [String : Any]) -> Void) {
+        let id = postID
+        let data = Firestore.firestore().collection("posts").document(id)
+        data.getDocument { (document, error) in
             if let error = error {
                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
             } else {
-                completion(document!.data()!)
+                🐶(document!.data()!)
             }
         }
     } // End of Fetch Post
-
+    
     
     // MARK: - Create Bucket
     
-    // MARK: - Creat BucketItems
     
-    // MARK: - Fetch Buckets?
+    // MARK: - Create Bucket Item
+    
+    
+    // MARK: - Fetch All Bucket Items
+    static func fetchAllBucketItems(itemsID: String, 🐶: @escaping ( [BucketItem] ) -> Void) {
+        // Get the proper collection of items associated with the itemsID
+        Firestore.firestore().collection("bucketItems").document(itemsID).collection("items").addSnapshotListener { (QuerySnapshot, error) in
+            if let snapshot = QuerySnapshot {
+                var itemIDs: [String] = []
+                for document in snapshot.documents {
+                    itemIDs.append(document.documentID)
+                }
+                // Make a Dispatch group for loading the objects
+                let group = DispatchGroup()
+                
+                // Grab all of the item documents as BucketItem objects
+                var itemsData: [BucketItem] = []
+                for itemID in itemIDs {
+                    group.enter()
+                    let data = Firestore.firestore().collection("bucketItems").document(itemsID).collection("items").document(itemID)
+                    data.getDocument { (document, 🛑) in
+                        if let 🛑 = 🛑 {
+                            print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
+                        } else {
+                            guard let document = document else { return }
+                            let bucketID: String = document["bucketID"] as! String
+                            let commentsID: String = document["commentsID"] as! String
+                            let completed: Bool = document["completed"] as! Bool
+                            let itemID: String = document["itemID"] as! String
+                            let note: String = document["note"] as! String
+                            let reactions: [String] = document["reactions"] as! [String]
+                            let title: String = document["title"] as! String
+                            
+                            let item = BucketItem(bucketID: bucketID, title: title, note: note, itemID: itemID, commentsID: commentsID, completed: completed, reactions: reactions)
+                            itemsData.append(item)
+                            group.leave()
+                        }
+                    }
+                    group.notify(queue: DispatchQueue.main) {
+                        🐶(itemsData)
+                    }
+                } // End of item in items loop
+            } // End of Query snapshot
+            // Return an array of BucketItem variables
+        } // End of Function
+    }
+    
+    // MARK: - Fetch Buckets
     
 } // End of Class

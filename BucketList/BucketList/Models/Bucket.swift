@@ -17,20 +17,21 @@ class List {
 } // End of Class List
 
 class Bucket {
-    var bucketID: String = UUID().uuidString
     var title: String
     var note: String
+    var commentsID: String
     var itemsID: String
+    
+    var bucketID: String = UUID().uuidString
     var completion: Int = 0
     var reactions: [String] = []
-    var commentsID: String
     var isPublic: Bool = true
     
     init(title: String, note: String) {
         self.title = title
         self.note = note
-        self.itemsID = bucketID
         self.commentsID = bucketID
+        self.itemsID = bucketID
     }
     
 } // End of Class Bucket

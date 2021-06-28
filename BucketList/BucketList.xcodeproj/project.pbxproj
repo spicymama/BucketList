@@ -42,6 +42,7 @@
 		AA524EA7268A28EA00DF39D4 /* BucketItTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA524EA6268A28EA00DF39D4 /* BucketItTableViewController.swift */; };
 		AA524EA9268A368B00DF39D4 /* BucketItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA524EA8268A368B00DF39D4 /* BucketItemViewController.swift */; };
 		AA524EAB268A36C100DF39D4 /* NewBucketTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA524EAA268A36C100DF39D4 /* NewBucketTableViewController.swift */; };
+		AA524EAD268A6D7300DF39D4 /* BucketItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA524EAC268A6D7300DF39D4 /* BucketItem.swift */; };
 		AA67204C268107A2003D43A0 /* Authenticate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA67204B268107A2003D43A0 /* Authenticate.storyboard */; };
 		AA67204E268107A7003D43A0 /* josh.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA67204D268107A7003D43A0 /* josh.storyboard */; };
 		AA672050268107AD003D43A0 /* gavin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA67204F268107AD003D43A0 /* gavin.storyboard */; };
@@ -96,6 +97,7 @@
 		AA524EA6268A28EA00DF39D4 /* BucketItTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketItTableViewController.swift; sourceTree = "<group>"; };
 		AA524EA8268A368B00DF39D4 /* BucketItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketItemViewController.swift; sourceTree = "<group>"; };
 		AA524EAA268A36C100DF39D4 /* NewBucketTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBucketTableViewController.swift; sourceTree = "<group>"; };
+		AA524EAC268A6D7300DF39D4 /* BucketItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketItem.swift; sourceTree = "<group>"; };
 		AA67204B268107A2003D43A0 /* Authenticate.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Authenticate.storyboard; sourceTree = "<group>"; };
 		AA67204D268107A7003D43A0 /* josh.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = josh.storyboard; sourceTree = "<group>"; };
 		AA67204F268107AD003D43A0 /* gavin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = gavin.storyboard; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 				AA25B5252683E32B00B0E13F /* Conversation.swift */,
 				AA25B52F2683E8A300B0E13F /* Post.swift */,
 				9A2D612E26852D5100424AE4 /* Friend.swift */,
+				AA524EAC268A6D7300DF39D4 /* BucketItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -524,6 +527,7 @@
 				AA25B512268250B500B0E13F /* FirebaseFunctions.swift in Sources */,
 				AA25B5402683EA1500B0E13F /* ProfileTableViewCell.swift in Sources */,
 				AA8E96AD26810D6F003DC8DA /* Bucket.swift in Sources */,
+				AA524EAD268A6D7300DF39D4 /* BucketItem.swift in Sources */,
 				AA25B50B26823B4E00B0E13F /* LoadUsersTableViewController.swift in Sources */,
 				9A2D612F26852D5100424AE4 /* Friend.swift in Sources */,
 				AA25B504268156F400B0E13F /* LoginViewController.swift in Sources */,
