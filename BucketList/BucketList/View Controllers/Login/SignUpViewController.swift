@@ -30,7 +30,7 @@ class SignUpViewController: UIViewController {
         // Validate fields
         if validateFields() == true {
             // Create user via Firebase
-            //            FirebaseFunctions.createUser(email: emailField.text!, password: passwordField.text!, firstName: firstNameField.text!, lastName: lastNameField.text!, dob: datePicker.date, username: usernameField.text!)
+                        FirebaseFunctions.createUser(email: emailField.text!, password: passwordField.text!, firstName: firstNameField.text!, lastName: lastNameField.text!, dob: datePicker.date, username: usernameField.text!)
             print("User \(usernameField.text ?? "") created!")
             // Pop view
             navigationController?.popViewController(animated: true)
@@ -42,6 +42,7 @@ class SignUpViewController: UIViewController {
     
     // MARK: - Functions
     func validateFields() -> Bool {
+        /*
         // Check that all fields are filled in
         if usernameField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
             emailField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
@@ -53,7 +54,7 @@ class SignUpViewController: UIViewController {
             (passwordField.text != passwordField.text) ||
             (usernameField.text!.count < 16) {
             
-            let alert = GlobalFunctions.basicOkAlert(title: "Failed to create User", message: "Please ffill out all fields")
+            let alert = GlobalFunctions.basicOkAlert(title: "Failed to create User", message: "Please fill out all fields")
             self.present(alert, animated: true, completion: nil)
             return false
         } else {
@@ -62,8 +63,9 @@ class SignUpViewController: UIViewController {
                 self.present(alert, animated: true, completion: nil)
                 return false
             }
+ */
             return true
-        }
+//        }
     } // End of Validate fields function
     
 } // End of Class

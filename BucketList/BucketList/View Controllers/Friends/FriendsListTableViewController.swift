@@ -32,13 +32,16 @@ class FriendsListTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "friendsListCell", for: indexPath)
-        let friend = self.friends
-        // Load in friends data
-        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "friendsListCell", for: indexPath) as? FriendsListTableViewCell else {return UITableViewCell()}
+        let friend = self.friends[indexPath.row]
+        cell.user = friend
+               
         
         return cell
     }
+    
+    
+    
 
     //MARK: - Functions
     func updateViews() {

@@ -10,9 +10,13 @@ import Firebase
 
 class FriendsListModelController {
     
+    static let sharedInstance = FriendsListModelController()
+    
+    var user: [User] = []
+    
     // MARK: - Properties
     let db = Firestore.firestore()
-    static let sharedInstance = FriendsListModelController()
+    
     let uid: String = Auth.auth().currentUser?.uid ?? "0"
     // let viewedUserUID = aksjdlfkasd
     
@@ -35,11 +39,12 @@ class FriendsListModelController {
     
     
     
-    func blockUser() {
+    func blockUser(profileUID: String) {
+        let arrayProfileID: [String] = [profileUID]
         FirebaseFunctions.fetchUserData(uid: uid) { data in
             let blockedUserRef = self.db.collection("friends").document(self.uid)
             blockedUserRef.updateData([
-                "blocked": FieldValue.arrayUnion(["CURRENT PROFILE UID HERE"])
+                "blocked": FieldValue.arrayUnion(arrayProfileID)
             ])
         }
     } // End of function block user
@@ -50,7 +55,7 @@ class FriendsListModelController {
             let blockedUsers: [String] = friendsList.blocked
             print(blockedUsers)
             
-            if blockedUsers.contains("current profile uid here") {
+            if blockedUsers.contains(self.uid) {
                 let alertController = UIAlertController(title: "Error adding or messaging user.", message: "Sorry you are unable to add or message this user at this time.", preferredStyle: .alert)
                 
                 let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)

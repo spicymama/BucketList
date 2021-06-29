@@ -112,7 +112,7 @@ class FeedTableViewController: UITableViewController {
             let userID = post.creatorID
             ProfileTableViewCell.post = post
             
-            destinationVC.userID = userID
+            destinationVC.profileUserID = userID
         }
     }
 } // End of Class

@@ -39,6 +39,7 @@ class LoginViewController: UIViewController {
                 case .success(_):
                     let storyBoard: UIStoryboard = UIStoryboard(name: "gavin", bundle: nil)
                     let vs = storyBoard.instantiateViewController(withIdentifier: "FeedTableVC")
+                    self.navigationController?.popViewController(animated: true)
                     self.navigationController?.pushViewController(vs, animated: true)
                 case .failure(_):
                     let alertController = GlobalFunctions.basicOkAlert(title: "Sign in failed", message: "Email or Password was incorrect")

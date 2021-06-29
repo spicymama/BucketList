@@ -1,6 +1,6 @@
 //
 //  FirebaseFunctions.swift
-//  Authenticator
+//  BucketList
 //
 //  Created by Ethan Andersen on 6/15/21.
 //
@@ -37,7 +37,7 @@ class FirebaseFunctions {
                     }
                 }
             }
-        } // End of Auth check
+        } // End of base user creation
         
         // This creates the base user's friends list
         let uid = Auth.auth().currentUser?.uid
@@ -218,6 +218,7 @@ class FirebaseFunctions {
                 
                 let friends: [String] = data["friends"] as? [String] ?? []
                 let blocked: [String] = data["blocked"] as? [String] ?? []
+                group.leave()
                 
                 group.notify(queue: DispatchQueue.main) {
                     completion(FriendsList(friends: friends, blocked: blocked))
@@ -253,23 +254,45 @@ class FirebaseFunctions {
     
     
     // MARK: - Create Post
-    static func createPost(title: String, description: String, imageID: String, progress: Bool) {
-        
-        let uid = Auth.auth().currentUser?.uid
+    static func createPost(note: String, imageID: String, bucketID: String, bucketItemID: String) {
+        guard let currentUserID: String = Auth.auth().currentUser?.uid else { return }
         let postID = UUID().uuidString
         Firestore.firestore().collection("posts").document(postID).setData( [
-            "commentsID" : postID,
-            "creatorID" : uid!,
+            "authorID" : currentUserID,
+            "timeStamp" : Date(),
+            "postNote" : note,
             "photoID" : imageID,
-            "title" : title,
-            "postNote" : description,
-            "reactionsArr" : [],
-            "timeStamp" : Date()
+            "bucketID" : bucketID,
+            "bucketItemID" : bucketItemID,
+            "commentsID" : postID,
+            "reactionsArr" : []
         ]) { err in
             if let err = err {
                 print("Error in \(#function)\(#line) : \(err.localizedDescription) \n---\n \(err)")
             } else {
-                print("Post for user \(uid ?? "") was created")
+                // Make the comments Document
+                Firestore.firestore().collection("comments").document(postID).setData([
+                    "referenceID" : postID
+                ])
+                Firestore.firestore().collection("comments").document(postID).collection("comment")
+                
+                // Add the post to the Bucket's array of post ID's if it exists
+                if bucketID != "" {
+                    // Add this post ID to the Bucket Post array
+                    Firestore.firestore().collection("buckets").document(bucketID).updateData([
+                        "postsIDs" : FieldValue.arrayUnion([postID])
+                    ])
+                    print("PostID added to Bucket")
+                }
+                // Add the post to the BucketItems's array of post ID's if it exists
+                if bucketItemID != "" {
+                    // Add this post ID to the BucketItem post array
+                    Firestore.firestore().collection("bucketItems").document(bucketItemID).updateData([
+                        "postsIDs" : FieldValue.arrayUnion([postID])
+                    ])
+                    print("PostID added to BucketItem")
+                }
+                print("Post for user \(currentUserID) was created")
             }
         }
     } // End of Create Post
@@ -278,10 +301,6 @@ class FirebaseFunctions {
     // MARK: - Fetch All Posts
     static func fetchAllPosts(completion: @escaping ([Post] ) -> Void) {
         Firestore.firestore().collectionGroup("posts").addSnapshotListener { (QuerySnapshot, error) in
-            guard let documents = QuerySnapshot?.documents else {
-                print("No Documents")
-                return
-            }
             if let snapshot = QuerySnapshot {
                 var postIDs: [String] = []
                 for document in snapshot.documents {
@@ -292,12 +311,13 @@ class FirebaseFunctions {
                 var postsData: [Post] = []
                 for i in postIDs {
                     group.enter()
-                    FirebaseFunctions.fetchPost(uid: i) { data in
+                    FirebaseFunctions.fetchPost(postID: i) { data in
                         let postID: String = data["commentsID"] as! String
                         let postDecription: String = data["postNote"] as! String
                         let postTitle: String = data["title"] as? String ?? "Title"
                         let photoID: String = "swing"
                         let creatorID: String = (data["creatorID"] as? String)!
+                        
                         let post = Post(commentsID: postID, photoID: photoID, description: postDecription, title: postTitle, creatorID: creatorID)
                         postsData.append(post)
                         FeedTableViewController.posts.append(post)
@@ -312,25 +332,24 @@ class FirebaseFunctions {
                     completion(postsData)
                 }
             }
-        }
+        } // End of Firestore function
     } // End of Fetch all posts
     
     
     // MARK: - FetchPost
-    static func fetchPost(uid: String, completion: @escaping ( [String : Any])-> Void) {
-        let uid = uid
-        let postData = Firestore.firestore().collection("posts").document(uid)
-        postData.getDocument { (document, error) in
+    static func fetchPost(postID: String, 🐶: @escaping ( [String : Any]) -> Void) {
+        let id = postID
+        let data = Firestore.firestore().collection("posts").document(id)
+        data.getDocument { (document, error) in
             if let error = error {
                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
             } else {
-                completion(document!.data()!)
+                🐶(document!.data()!)
             }
         }
     } // End of Fetch Post
     /*
     static func fetchBuckets(completion: @escaping ([List])-> Void) {
-        
         Firestore.firestore().collectionGroup("buckets").addSnapshotListener { QuerySnapshot, error in
             guard let documents = QuerySnapshot?.documents else {
                 print("No documents")
@@ -361,6 +380,7 @@ class FirebaseFunctions {
             }
         }
     }
+
     static func fetchBucket(bucketID: String, completion: @escaping ([String : Any])-> Void) {
         let bucketID = bucketID
         let bucketData = Firestore.firestore().collection("buckets").document(bucketID)
