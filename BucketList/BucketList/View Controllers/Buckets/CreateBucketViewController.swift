@@ -27,7 +27,7 @@ class CreateBucketViewController: UIViewController {
         }
         guard let title = titleTextField.text else {return}
         if !title.isEmpty {
-        BucketFirebaseFunctions.createBucket(title: title, isPublic: false, items: goalList, note: goalTextField.text ?? "" )
+            BucketFirebaseFunctions.createBucket(title: title, isPublic: true, itemsID: "", note: goalTextField.text ?? "", commentsID: "" )
         self.dismiss(animated: true)
         }
     }
@@ -38,6 +38,25 @@ class CreateBucketViewController: UIViewController {
             goalTextField.text = ""
         }
     }
+    
+    func updateNoteText() {
+        goalTextField.text = "What would you like to do?"
+        goalTextField.textColor = UIColor.lightGray
+    } // End of Func
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if goalTextField.textColor == UIColor.lightGray {
+            goalTextField.text = nil
+            goalTextField.textColor = UIColor.black
+        }
+    } // End of Func
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        guard let text = goalTextField.text else {return}
+        if text.isEmpty {
+            goalTextField.text = "What would you like to do?"
+        }
+    } // End of Func
     
     /*
     // MARK: - Navigation

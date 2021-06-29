@@ -11,7 +11,7 @@ import Firebase
 class BucketFirebaseFunctions {
     
 
-static func fetchBuckets(completion: @escaping ([List])-> Void) {
+static func fetchBuckets(completion: @escaping ([Bucket])-> Void) {
     
     Firestore.firestore().collectionGroup("buckets").addSnapshotListener { QuerySnapshot, error in
         guard let documents = QuerySnapshot?.documents else {
@@ -25,15 +25,22 @@ static func fetchBuckets(completion: @escaping ([List])-> Void) {
             }
             let group = DispatchGroup()
             
-            var bucketData: [List] = []
+            var bucketData: [Bucket] = []
             for i in bucketIDs {
                 group.enter()
                 BucketFirebaseFunctions.fetchBucket(bucketID: i) { data in
-                    let title = data["title"]
-                    let items = data["items"]
+                    let title = data["title"] as! String
+                    let bucketID = data["bucketID"] as! String
+                    let isPublic = data["isPublic"] as! Bool
+                    let note = data["note"] as! String
+                    let commentsID = data["commentsID"] as! String
+                    let itemsID = data["itemsID"] as! String
+                    let completion = data["completion"] as! Int
+                    let reactions = data["reactions"] as! [String]
                     
-                    let bucket = List(title: title as! String, list: items as? [String] ?? ["A", "b"])
+                    let bucket = Bucket(title: title, note: note, commentsID: commentsID, itemsID: itemsID, bucketID: bucketID, completion: completion, reactions: reactions, isPublic: isPublic)
                     bucketData.append(bucket)
+                    BucketListTableViewController.bucketList.append(bucket)
                     group.leave()
                 }
             }
@@ -50,29 +57,24 @@ static func fetchBucket(bucketID: String, completion: @escaping ([String : Any])
         if let error = error {
             print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
         } else {
-            /*
-             guard let document = document else {return}
-             
-             let title = document.data()!["title"]
-             let list = document.data()!["items"]
-             let list1: List = List(title: title as! String, list: list as! [String])
-             */
             completion(document!.data()!)
             
         }
     }
 }
     
-    static func createBucket(title: String, bucketID: String = UUID().uuidString, completed: Bool = false, isPublic: Bool, items: [String], note: String) {
+    static func createBucket(title: String, bucketID: String = UUID().uuidString, completion: Int = 0, isPublic: Bool = true, itemsID: String, note: String, commentsID: String, reactions: [String] = []) {
         
         let uid = Auth.auth().currentUser?.uid
         Firestore.firestore().collection("buckets").document(bucketID).setData([
             "bucketID" : bucketID,
-            "completed" : completed,
+            "completion" : completion,
             "title" : title,
             "isPublic" : isPublic,
-            "items" : items,
-            "note" : note
+            "itemsID" : itemsID,
+            "note" : note,
+            "commentsID" : commentsID,
+            "reactions" : reactions
         ]) { error in
             if let error = error {
                  print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
