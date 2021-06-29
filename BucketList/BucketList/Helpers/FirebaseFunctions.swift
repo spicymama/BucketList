@@ -243,7 +243,6 @@ class FirebaseFunctions {
                 let blocked: [String] = data["blocked"] as? [String] ?? []
                 FeedTableViewController.friendsList = friends
                 FeedTableViewController.blocked = blocked
-                print(friends.first)
                 return completion(true)
                 
             }
@@ -383,3 +382,4 @@ class FirebaseFunctions {
     } // End of Class
 } // End of Class
 
+// add, block, report, message
