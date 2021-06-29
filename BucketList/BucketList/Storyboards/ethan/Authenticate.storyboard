@@ -11,7 +11,7 @@
         <!--Authenticate-->
         <scene sceneID="ys3-SB-tbu">
             <objects>
-                <viewController id="CE7-70-ugl" customClass="LoginViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginVC" id="CE7-70-ugl" customClass="LoginViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="juK-vY-UJ8">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -72,7 +72,7 @@
         <!--Sign Up View Controller-->
         <scene sceneID="953-bB-54s">
             <objects>
-                <viewController id="J8C-1i-bFY" customClass="SignUpViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="signUpVC" id="J8C-1i-bFY" customClass="SignUpViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qTU-IN-kd8">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

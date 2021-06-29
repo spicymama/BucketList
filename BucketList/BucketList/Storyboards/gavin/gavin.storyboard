@@ -346,7 +346,7 @@
         <!--Bucket List Table View Controller-->
         <scene sceneID="yC8-xz-MxS">
             <objects>
-                <tableViewController id="9Kw-23-inO" customClass="BucketListTableViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="BucketListTableVC" id="9Kw-23-inO" customClass="BucketListTableViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Vtm-6w-b9F">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

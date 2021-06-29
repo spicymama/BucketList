@@ -28,7 +28,7 @@ class ProfileTableViewController: UITableViewController {
         FriendsListModelController.sharedInstance.addFriend()
     }
     @IBAction func blockUserButtonTapped(_ sender: Any) {
-        FriendsListModelController.sharedInstance.blockUser(profileUID: profileUserID)
+//        FriendsListModelController.sharedInstance.blockUser(profileUID: profileUserID)
     }
     @IBAction func messageButtonTapped(_ sender: Any) {
         //FriendsListModelController.sharedInstance.blockUser(uidtoblock: <#T##String#>)

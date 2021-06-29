@@ -10,7 +10,7 @@
         <!--Users-->
         <scene sceneID="1ax-uJ-nhm">
             <objects>
-                <tableViewController id="1EF-qm-c3s" customClass="LoadUsersTableViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="loadUsersVC" id="1EF-qm-c3s" customClass="LoadUsersTableViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="VqP-pI-snv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

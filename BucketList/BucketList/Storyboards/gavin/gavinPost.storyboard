@@ -87,7 +87,7 @@
         <!--Bucket It Table View Controller-->
         <scene sceneID="fI4-NB-lhg">
             <objects>
-                <tableViewController id="D8n-8j-MMd" customClass="BucketItTableViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="BucketItTableVC" id="D8n-8j-MMd" customClass="BucketItTableViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="1U9-1Z-vVV">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="872"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

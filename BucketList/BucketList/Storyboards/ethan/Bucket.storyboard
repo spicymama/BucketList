@@ -108,7 +108,7 @@
         <!--View Controller-->
         <scene sceneID="LFS-3D-nYD">
             <objects>
-                <viewController id="2DJ-0j-GgB" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="newBucketItemVC" id="2DJ-0j-GgB" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uUX-zy-r7w">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
