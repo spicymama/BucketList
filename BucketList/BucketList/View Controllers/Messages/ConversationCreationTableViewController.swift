@@ -17,19 +17,97 @@ class ConversationCreationTableViewController: UITableViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchFriends()
+        self.tableView.isEditing = true
+        self.tableView.allowsMultipleSelectionDuringEditing = true
+//        fetchUsers()
     }
     
+    //MARK: - Properties
+    var users: [User] = []
+    var selected: [User] = []
+    
     //MARK: - Actions
-    @IBAction func createConversationButtonTapped(_ sender: Any) {
-        guard let user1 = user1TextField.text, !user1.isEmpty,
-              let user2 = user2TextField.text, !user2.isEmpty else {return}
+    
+    @IBAction func startConversationButtonTapped(_ sender: Any) {
+        guard let user = ConversationController.shared.currentUser else {return}
+        ConversationController.shared.createAndSaveConversation(users: selected) { conversation in
+            ConversationController.shared.updateUsers(users: self.selected, conversation: conversation) { result in
+                switch result {
+                case true:
+                    print("updated users")
+                case false:
+                    print("error updating user")
+                }
+            }
+        }
         
-//        ConversationController.shared.createAndSaveConversation(userIDs: [user1, user2])
         navigationController?.popViewController(animated: true)
     }
+    
+    
+    //MARK: - Functions
+    
+    func fetchFriends() {
+        guard let userID = ConversationController.shared.currentUser?.uid else {return}
+        FirebaseFunctions.fetchFriends(uid: userID) { result in
+            FirebaseFunctions.fetchUsersData(passedUserIDs: result.friends) { users in
+                self.users = users
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }
+    }
+    
+    func updateUsers(conversation: Conversation) {
+        
+    }
+    
+//    func fetchUsers() {
+//        guard let friendsList = friendsList?.friends else {return}
+//        for friend in friendsList  {
+//            FirebaseFunctions.fetchUserData(uid: friend) { friend in
+//                self.users.append(friend)
+//                DispatchQueue.main.async {
+//                    self.tableView.reloadData()
+//                }
+//            }
+//        }
+//    }
+    
+    
+    
     // MARK: - Table view data source
 
-
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return users.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "friendsCell", for: indexPath)
+        let friend = users[indexPath.row]
+        cell.textLabel?.text = "\(friend.firstName)"
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectDeselectCell(tableView: tableView, indexPath: indexPath)
+    }
+    
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        selectDeselectCell(tableView: tableView, indexPath: indexPath)
+    }
+    
+    func selectDeselectCell(tableView: UITableView, indexPath: IndexPath) {
+        selected = []
+        guard let selectedCells = tableView.indexPathsForSelectedRows else {return}
+        for cell in selectedCells {
+            selected.append(users[cell.row])
+        }
+        selected.append(UserController.shared.currentUser)
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation

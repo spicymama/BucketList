@@ -8,77 +8,55 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--placeholder creation view-->
+        <!--Start Talking With Your Friends-->
         <scene sceneID="i1A-Ua-ZJg">
             <objects>
                 <tableViewController id="6mq-gU-Rqs" customClass="ConversationCreationTableViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="E5a-bM-BlD">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="E5a-bM-BlD">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" id="Gn8-Jn-WBH">
-                            <rect key="frame" x="0.0" y="0.0" width="442" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="428" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
-                        <sections>
-                            <tableViewSection id="189-aL-mvD">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="148" id="RK0-LW-jFo">
-                                        <rect key="frame" x="0.0" y="68.333333969116211" width="428" height="148"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RK0-LW-jFo" id="suV-xe-GMP">
-                                            <rect key="frame" x="0.0" y="0.0" width="428" height="148"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="friendsCell" textLabel="Uj1-17-sjd" rowHeight="58" style="IBUITableViewCellStyleDefault" id="RK0-LW-jFo">
+                                <rect key="frame" x="0.0" y="68.333333969116211" width="428" height="58"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RK0-LW-jFo" id="suV-xe-GMP">
+                                    <rect key="frame" x="0.0" y="0.0" width="428" height="58"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Uj1-17-sjd">
+                                            <rect key="frame" x="20" y="0.0" width="388" height="58"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="TSY-Nt-BgF">
-                                                    <rect key="frame" x="20" y="11" width="388" height="126"/>
-                                                    <subviews>
-                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MsE-RJ-2Sv">
-                                                            <rect key="frame" x="0.0" y="0.0" width="388" height="32.666666666666664"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits"/>
-                                                        </textField>
-                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a0e-L3-WvK">
-                                                            <rect key="frame" x="0.0" y="46.666666666666671" width="388" height="32.666666666666671"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits"/>
-                                                        </textField>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ImO-bn-jjB">
-                                                            <rect key="frame" x="0.0" y="93.333333333333329" width="388" height="32.666666666666671"/>
-                                                            <state key="normal" title="Create Conversation"/>
-                                                            <connections>
-                                                                <action selector="createConversationButtonTapped:" destination="6mq-gU-Rqs" eventType="touchUpInside" id="WKw-5s-ROW"/>
-                                                            </connections>
-                                                        </button>
-                                                    </subviews>
-                                                </stackView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="TSY-Nt-BgF" firstAttribute="leading" secondItem="suV-xe-GMP" secondAttribute="leadingMargin" id="9ul-RW-i7Q"/>
-                                                <constraint firstItem="TSY-Nt-BgF" firstAttribute="top" secondItem="suV-xe-GMP" secondAttribute="topMargin" id="tYj-fK-gbP"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="TSY-Nt-BgF" secondAttribute="trailing" id="u54-K6-FFu"/>
-                                                <constraint firstItem="TSY-Nt-BgF" firstAttribute="bottom" secondItem="suV-xe-GMP" secondAttribute="bottomMargin" id="xf8-ou-GJK"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
+                                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
                         <connections>
                             <outlet property="dataSource" destination="6mq-gU-Rqs" id="R1w-FF-RlL"/>
                             <outlet property="delegate" destination="6mq-gU-Rqs" id="ceP-ox-5aa"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="placeholder creation view" id="8Fb-YU-HAn"/>
-                    <connections>
-                        <outlet property="user1TextField" destination="MsE-RJ-2Sv" id="Vqc-uE-iKy"/>
-                        <outlet property="user2TextField" destination="a0e-L3-WvK" id="RAf-mB-dFr"/>
-                    </connections>
+                    <navigationItem key="navigationItem" title="Start Talking With Your Friends" id="8Fb-YU-HAn">
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="cQy-sD-pgN">
+                            <connections>
+                                <action selector="startConversationButtonTapped:" destination="6mq-gU-Rqs" id="ogg-j1-lC9"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PUI-M5-M1q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="169.56521739130437" y="-550.44642857142856"/>
+            <point key="canvasLocation" x="168.22429906542055" y="-550.75593952483803"/>
         </scene>
         <!--Conversation List Table View Controller-->
         <scene sceneID="ZYv-2x-u1x">
@@ -130,7 +108,7 @@
         <!--Conversation Messages View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" customClass="ConversationMessagesViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="messagesVC" id="Y6W-OH-hqX" customClass="ConversationMessagesViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -218,6 +218,7 @@ class FirebaseFunctions {
                 
                 let friends: [String] = data["friends"] as? [String] ?? []
                 let blocked: [String] = data["blocked"] as? [String] ?? []
+                group.leave()
                 
                 group.notify(queue: DispatchQueue.main) {
                     completion(FriendsList(friends: friends, blocked: blocked))
