@@ -9,8 +9,44 @@ import Firebase
 
 class ProfileTableViewController: UITableViewController {
     var refresh: UIRefreshControl = UIRefreshControl()
-    var userID: String?
+    let db = Firestore.firestore()
     var currentUser: User?
+    var profileUserID: String = ""
+    
+    //MARK: - Outlets
+    
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var addFriendButton: UIButton!
+    @IBOutlet weak var blockUserButton: UIButton!
+    @IBOutlet weak var messageButton: UIButton!
+    @IBOutlet weak var bucketListButton: UIButton!
+    @IBOutlet weak var friendsListButton: UIButton!
+    
+    //MARK: - Actions
+    
+    @IBAction func addFriendButtonTapped(_ sender: Any) {
+        FriendsListModelController.sharedInstance.addFriend()
+    }
+    @IBAction func blockUserButtonTapped(_ sender: Any) {
+        FriendsListModelController.sharedInstance.blockUser(profileUID: profileUserID)
+    }
+    @IBAction func messageButtonTapped(_ sender: Any) {
+        //FriendsListModelController.sharedInstance.blockUser(uidtoblock: <#T##String#>)
+        //open justin's create message view/open existing message view.
+    }
+    @IBAction func bucketListButtonTapped(_ sender: Any) {
+       // if let bucketlist = self.storyboard?.instantiateInitialViewController(identifier: "bucketlistVC") {
+       //     self.navigationController?.pushViewController(bucketlist, animated: true)
+     //   }
+    }
+
+    @IBAction func friendsListButtonTapped(_ sender: Any) {
+      //  if let friendsList = self.storyboard?.instantiateViewController(identifier: "friendsListVC") {
+        //    self.navigationController?.pushViewController(friendsList, animated: true)
+      //  }
+    }
+    
+    
     
  
     override func viewDidLoad() {
@@ -37,7 +73,7 @@ class ProfileTableViewController: UITableViewController {
 
      
     func fetchUser() {
-        FirebaseFunctions.fetchUserData(uid: userID ?? "" ) { (result) in
+        FirebaseFunctions.fetchUserData(uid: profileUserID ?? "" ) { (result) in
             self.currentUser = result
             self.updateViews()
         }
@@ -78,7 +114,7 @@ class ProfileTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard  let cell = tableView.dequeueReusableCell(withIdentifier: "profileCell", for: indexPath) as? ProfileTableViewCell else {return UITableViewCell()}
         if let user = currentUser {
-        cell.user = user
+//        cell.user = user
         }
         return cell
     }
@@ -116,6 +152,7 @@ extension ProfileTableViewController: UICollectionViewDataSource, UICollectionVi
     }
 }
 
+/*
 extension ProfileTableViewController {
     func lilTableView(_ tableView: UITableView = ProfileTableViewCell.shared.lilTableView, numberOfRowsInSection section: Int) -> Int {
         return 1
@@ -131,6 +168,8 @@ extension ProfileTableViewController {
     }
 }
 
+*/
+ 
 // MARK: - Constants
 private enum Constants {
     static let spacing: CGFloat = 16

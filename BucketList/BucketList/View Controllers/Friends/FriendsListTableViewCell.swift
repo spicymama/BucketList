@@ -19,7 +19,7 @@ class FriendsListTableViewCell: UITableViewCell {
     //MARK: -Properties
     
     //MARK: - Landing Pad
-    var friend: Friend? {
+    var user: User? {
         didSet {
         updateViews()
     }
@@ -28,10 +28,11 @@ class FriendsListTableViewCell: UITableViewCell {
     
     
     func updateViews() {
-        guard let friend = friend else {return}
-        firstNameLabel.text = friend.firstName
-        lastNameLabel.text = friend.lastName
-        signinLabel.text = friend.username
+        guard let user = user else {return}
+        firstNameLabel.text = user.firstName
+        lastNameLabel.text = user.lastName
+        signinLabel.text = user.username
+        let profileToViewUID = user.uid
         
     }
 }
