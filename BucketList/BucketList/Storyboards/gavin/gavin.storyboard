@@ -468,39 +468,39 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="26" translatesAutoresizingMaskIntoConstraints="NO" id="f2o-hp-WW8">
-                                <rect key="frame" x="20" y="45" width="388" height="664.33333333333337"/>
+                                <rect key="frame" x="21.333333333333343" y="45" width="385.33333333333326" height="664.33333333333337"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add to bucket" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="80a-xZ-opT">
-                                        <rect key="frame" x="0.0" y="0.0" width="388" height="20.333333333333332"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="385.33333333333331" height="20.333333333333332"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GeF-yV-eYs">
-                                        <rect key="frame" x="0.0" y="46.333333333333314" width="388" height="180"/>
+                                        <rect key="frame" x="0.0" y="46.333333333333314" width="385.33333333333331" height="180"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="180" id="0o4-7d-C5D"/>
                                         </constraints>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="N2G-kV-Frx" customClass="BucketTableViewCell" customModule="BucketList" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="24.333333969116211" width="388" height="43.666667938232422"/>
+                                                <rect key="frame" x="0.0" y="24.333333969116211" width="385.33333333333331" height="43.666667938232422"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="N2G-kV-Frx" id="fk8-Qg-VhA">
-                                                    <rect key="frame" x="0.0" y="0.0" width="388" height="43.666667938232422"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="385.33333333333331" height="43.666667938232422"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create new bucket" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ja-1U-icv">
-                                        <rect key="frame" x="0.0" y="252.33333333333334" width="388" height="20.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="252.33333333333334" width="385.33333333333331" height="20.333333333333343"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title here..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lFY-vu-8l0">
-                                        <rect key="frame" x="0.0" y="298.66666666666669" width="388" height="55"/>
+                                        <rect key="frame" x="0.0" y="298.66666666666669" width="385.33333333333331" height="55"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="55" id="pfb-Cm-iKW"/>
                                         </constraints>
@@ -508,7 +508,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="What do you plan to do?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Eah-I8-da6">
-                                        <rect key="frame" x="0.0" y="379.66666666666663" width="388" height="284.66666666666663"/>
+                                        <rect key="frame" x="0.0" y="379.66666666666663" width="385.33333333333331" height="284.66666666666663"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
@@ -520,9 +520,20 @@
                                     <constraint firstAttribute="width" constant="120" id="KNJ-FG-Bt3"/>
                                     <constraint firstAttribute="height" constant="50" id="tjf-Xi-dc0"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Save"/>
                                 <connections>
                                     <action selector="saveButtonTapped:" destination="sTS-cg-gtx" eventType="touchUpInside" id="0n3-XQ-No6"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qc7-LM-BWG">
+                                <rect key="frame" x="147" y="717.33333333333337" width="133" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Srx-Ip-5sN"/>
+                                    <constraint firstAttribute="width" constant="133" id="xHa-SS-fNo"/>
+                                </constraints>
+                                <state key="normal" title="Add to List"/>
+                                <connections>
+                                    <action selector="addToListButtonTapped:" destination="sTS-cg-gtx" eventType="touchUpInside" id="4h2-Iz-91f"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -531,9 +542,12 @@
                         <constraints>
                             <constraint firstItem="f2o-hp-WW8" firstAttribute="top" secondItem="00h-Ii-hpl" secondAttribute="top" constant="45" id="2lC-90-wP7"/>
                             <constraint firstItem="f2o-hp-WW8" firstAttribute="centerY" secondItem="00h-Ii-hpl" secondAttribute="centerY" multiplier="0.9" id="7zL-MJ-sr5"/>
+                            <constraint firstItem="Qc7-LM-BWG" firstAttribute="top" secondItem="f2o-hp-WW8" secondAttribute="bottom" constant="8" id="ATp-8I-Gbg"/>
                             <constraint firstItem="00h-Ii-hpl" firstAttribute="trailing" secondItem="WmT-aR-1kB" secondAttribute="trailing" constant="20" id="DAE-9x-PJG"/>
                             <constraint firstItem="WmT-aR-1kB" firstAttribute="top" secondItem="f2o-hp-WW8" secondAttribute="bottom" constant="8" id="OdI-xb-0Tl"/>
+                            <constraint firstItem="WmT-aR-1kB" firstAttribute="leading" secondItem="Qc7-LM-BWG" secondAttribute="trailing" constant="8" symbolic="YES" id="PpN-1u-kir"/>
                             <constraint firstItem="f2o-hp-WW8" firstAttribute="centerX" secondItem="00h-Ii-hpl" secondAttribute="centerX" id="UfW-1i-vFK"/>
+                            <constraint firstItem="f2o-hp-WW8" firstAttribute="width" secondItem="npw-bw-R3a" secondAttribute="width" multiplier="0.9" id="coD-Ju-GHH"/>
                         </constraints>
                     </view>
                     <connections>

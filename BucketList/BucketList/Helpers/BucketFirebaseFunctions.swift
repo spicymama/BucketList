@@ -63,7 +63,23 @@ static func fetchBucket(bucketID: String, completion: @escaping ([String : Any])
     }
 }
     
-    static func createBucket() {
+    static func createBucket(title: String, bucketID: String = UUID().uuidString, completed: Bool = false, isPublic: Bool, items: [String], note: String) {
+        
+        let uid = Auth.auth().currentUser?.uid
+        Firestore.firestore().collection("buckets").document(bucketID).setData([
+            "bucketID" : bucketID,
+            "completed" : completed,
+            "title" : title,
+            "isPublic" : isPublic,
+            "items" : items,
+            "note" : note
+        ]) { error in
+            if let error = error {
+                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+            } else {
+                print("Bucket for user \(uid ?? "") was created")
+            }
+        }
         
     }
 } // End of Class

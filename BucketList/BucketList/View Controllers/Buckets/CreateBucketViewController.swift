@@ -9,9 +9,9 @@ import UIKit
 
 class CreateBucketViewController: UIViewController {
 
+    var goalList: [String] = []
     
     @IBOutlet weak var lilTableView: UITableView!
-    
     @IBOutlet weak var goalTextField: UITextField!
     @IBOutlet weak var titleTextField: UITextField!
     override func viewDidLoad() {
@@ -20,6 +20,23 @@ class CreateBucketViewController: UIViewController {
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {
+        guard let text = goalTextField.text else {return}
+        if !text.isEmpty {
+        goalList.append(text)
+            goalTextField.text = ""
+        }
+        guard let title = titleTextField.text else {return}
+        if !title.isEmpty {
+        BucketFirebaseFunctions.createBucket(title: title, isPublic: false, items: goalList, note: goalTextField.text ?? "" )
+        self.dismiss(animated: true)
+        }
+    }
+    @IBAction func addToListButtonTapped(_ sender: Any) {
+        guard let text = goalTextField.text else {return}
+        if !text.isEmpty {
+        goalList.append(text)
+            goalTextField.text = ""
+        }
     }
     
     /*

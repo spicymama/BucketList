@@ -34,7 +34,7 @@ class BucketListTableViewController: UITableViewController {
     }
     
     @objc func loadData() {
-        FirebaseFunctions.fetchBuckets { result in
+        BucketFirebaseFunctions.fetchBuckets { result in
             self.sections = result
             self.updateViews()
         }
