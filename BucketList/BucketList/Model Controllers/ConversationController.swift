@@ -54,8 +54,11 @@ class ConversationController {
                     if user.conversationsIDs.contains(doc.documentID) {
                         print("\(doc.documentID)")
                         let conversationID = doc.documentID
-                        let conversation = Conversation(conversationID: conversationID)
-                        self.conversations.append(conversation)
+                        
+                        self.fetchUsers(conversationID: conversationID) { users in
+                            let conversation = Conversation(conversationID: conversationID, userIDs: users)
+                            self.conversations.append(conversation)
+                        }
                     }
                 }
                 return completion(true)
@@ -104,16 +107,16 @@ class ConversationController {
         }
     }
     
-    func fetchUsers(conversationID: String, completion: @escaping (Bool) -> Void) {
+    func fetchUsers(conversationID: String, completion: @escaping ([User]) -> Void) {
+        var conversationUsers: [User] = []
         db.collection("conversations").document(conversationID).collection("userIDs").addSnapshotListener { snapshot, error in
             if let error = error {
                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
-                completion(false)
             }
             if let snapshot = snapshot {
                 for doc in snapshot.documents {
                     let userIDs = doc.data()
-                    guard let userID = userIDs["userID"] as? String else {return completion(false)}
+                    guard let userID = userIDs["userID"] as? String else {return}
                     
                     if userID == UserController.shared.currentUser.uid {
                         //do nothing
@@ -121,23 +124,22 @@ class ConversationController {
                         self.db.collection("users").document(userID).getDocument { snapshot, error in
                             if let error = error {
                                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
-                                completion(false)
                             }
                             if let snapshot = snapshot {
                                 guard let userData = snapshot.data(),
                                       let username = userData["firstName"] as? String,
                                       let id = userData["uid"] as? String,
-                                      let conversationIDs = userData["conversationsID"] as? [String] else {return completion(false)}
+                                      let conversationIDs = userData["conversationsID"] as? [String] else {return}
                                 
-                                let user = User(uid: id, conversationsIDs: conversationIDs)
-                                
+                                let user = User(username: username, uid: id, conversationsIDs: conversationIDs)
+                                conversationUsers.append(user)
                                 self.users.append(user)
                             }
                         }
                     }
                     
                 }
-                return completion (true)
+                return completion (conversationUsers)
             }
         }
     }
