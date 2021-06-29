@@ -29,7 +29,6 @@ class FirebaseFunctions {
                     "lastName" : lastName,
                     "dob" : dob,
                 ] as [String : Any]
-                
                 // This is the only real important line, adds the user, and sets their collection ID to their userID
                 Firestore.firestore().collection("users").document((result!.user.uid)).setData(data) { 🛑 in
                     if let 🛑 = 🛑 {
