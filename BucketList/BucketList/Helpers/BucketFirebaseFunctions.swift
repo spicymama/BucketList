@@ -14,6 +14,7 @@ class BucketFirebaseFunctions {
 static func fetchBuckets(completion: @escaping ([Bucket])-> Void) {
     
     Firestore.firestore().collectionGroup("buckets").addSnapshotListener { QuerySnapshot, error in
+       // BucketListTableViewController.bucketList = []
         guard let documents = QuerySnapshot?.documents else {
             print("No documents")
             return
@@ -40,7 +41,7 @@ static func fetchBuckets(completion: @escaping ([Bucket])-> Void) {
                     
                     let bucket = Bucket(title: title, note: note, commentsID: commentsID, itemsID: itemsID, bucketID: bucketID, completion: completion, reactions: reactions, isPublic: isPublic)
                     bucketData.append(bucket)
-                    BucketListTableViewController.bucketList.append(bucket)
+                   // BucketListTableViewController.bucketList.append(bucket)
                     group.leave()
                 }
             }

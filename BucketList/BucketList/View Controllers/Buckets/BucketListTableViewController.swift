@@ -22,6 +22,7 @@ class BucketListTableViewController: UITableViewController {
     var thePrivateList: [Bucket] = []
     
     func setupViews() {
+        
         refresh.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refresh.addTarget(self, action: #selector(loadData), for: .valueChanged)
         tableView.addSubview(refresh)
@@ -35,8 +36,9 @@ class BucketListTableViewController: UITableViewController {
     }
     
     @objc func loadData() {
+        sections = [[], []]
         BucketFirebaseFunctions.fetchBuckets { result in
-            for bucket in BucketListTableViewController.bucketList {
+            for bucket in result {
                 print(bucket.isPublic)
                 if bucket.isPublic == true {
                     if !self.sections[0].contains(bucket) {
