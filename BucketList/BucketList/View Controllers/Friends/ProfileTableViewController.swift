@@ -9,8 +9,44 @@ import Firebase
 
 class ProfileTableViewController: UITableViewController {
     var refresh: UIRefreshControl = UIRefreshControl()
-    var userID: String?
+    let db = Firestore.firestore()
     var currentUser: User?
+    var profileuserID: String = ""
+    
+    //MARK: - Outlets
+    
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var addFriendButton: UIButton!
+    @IBOutlet weak var blockUserButton: UIButton!
+    @IBOutlet weak var messageButton: UIButton!
+    @IBOutlet weak var bucketListButton: UIButton!
+    @IBOutlet weak var friendsListButton: UIButton!
+    
+    //MARK: - Actions
+    
+    @IBAction func addFriendButtonTapped(_ sender: Any) {
+        FriendsListModelController.sharedInstance.addFriend()
+    }
+    @IBAction func blockUserButtonTapped(_ sender: Any) {
+        FriendsListModelController.sharedInstance.blockUser(uidtoblock: profileUID)
+    }
+    @IBAction func messageButtonTapped(_ sender: Any) {
+        //FriendsListModelController.sharedInstance.blockUser(uidtoblock: <#T##String#>)
+        //open justin's create message view/open existing message view.
+    }
+    @IBAction func bucketListButtonTapped(_ sender: Any) {
+       // if let bucketlist = self.storyboard?.instantiateInitialViewController(identifier: "bucketlistVC") {
+       //     self.navigationController?.pushViewController(bucketlist, animated: true)
+     //   }
+    }
+
+    @IBAction func friendsListButtonTapped(_ sender: Any) {
+      //  if let friendsList = self.storyboard?.instantiateViewController(identifier: "friendsListVC") {
+        //    self.navigationController?.pushViewController(friendsList, animated: true)
+      //  }
+    }
+    
+    
     
  
     override func viewDidLoad() {
@@ -37,7 +73,7 @@ class ProfileTableViewController: UITableViewController {
 
      
     func fetchUser() {
-        FirebaseFunctions.fetchUserData(uid: userID ?? "" ) { (result) in
+        FirebaseFunctions.fetchUserData(uid: profileuserID ?? "" ) { (result) in
             self.currentUser = result
             self.updateViews()
         }

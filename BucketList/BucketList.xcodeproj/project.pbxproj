@@ -11,6 +11,8 @@
 		9A2D612B268507AB00424AE4 /* FriendsListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2D612A268507AB00424AE4 /* FriendsListTableViewController.swift */; };
 		9A2D612F26852D5100424AE4 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2D612E26852D5100424AE4 /* Friend.swift */; };
 		9A2D613126862D1000424AE4 /* FriendsListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2D613026862D1000424AE4 /* FriendsListTableViewCell.swift */; };
+		9A2D6136268A71D100424AE4 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2D6135268A71D100424AE4 /* SearchTableViewController.swift */; };
+		9A2D6138268A74E400424AE4 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2D6137268A74E400424AE4 /* SearchViewController.swift */; };
 		AA02FF7926810500004EA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA02FF7826810500004EA782 /* AppDelegate.swift */; };
 		AA02FF7B26810500004EA782 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA02FF7A26810500004EA782 /* SceneDelegate.swift */; };
 		AA02FF8026810500004EA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA02FF7E26810500004EA782 /* Main.storyboard */; };
@@ -59,6 +61,8 @@
 		9A2D612A268507AB00424AE4 /* FriendsListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListTableViewController.swift; sourceTree = "<group>"; };
 		9A2D612E26852D5100424AE4 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		9A2D613026862D1000424AE4 /* FriendsListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListTableViewCell.swift; sourceTree = "<group>"; };
+		9A2D6135268A71D100424AE4 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
+		9A2D6137268A74E400424AE4 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		AA02FF7526810500004EA782 /* BucketList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BucketList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA02FF7826810500004EA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA02FF7A26810500004EA782 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -315,6 +319,8 @@
 				AA25B5312683E90D00B0E13F /* ProfileTableViewController.swift */,
 				9A2D612A268507AB00424AE4 /* FriendsListTableViewController.swift */,
 				9A2D613026862D1000424AE4 /* FriendsListTableViewCell.swift */,
+				9A2D6135268A71D100424AE4 /* SearchTableViewController.swift */,
+				9A2D6137268A74E400424AE4 /* SearchViewController.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -492,12 +498,14 @@
 				AA25B5302683E8A300B0E13F /* Post.swift in Sources */,
 				AA25B5372683E96400B0E13F /* FeedTableViewController.swift in Sources */,
 				9A2D613126862D1000424AE4 /* FriendsListTableViewCell.swift in Sources */,
+				9A2D6136268A71D100424AE4 /* SearchTableViewController.swift in Sources */,
 				AA25B53C2683E9FF00B0E13F /* FeedTableViewCell.swift in Sources */,
 				AA25B5262683E32B00B0E13F /* Conversation.swift in Sources */,
 				EAAB407D26853A0900F60CC5 /* BucketListTableViewController.swift in Sources */,
 				AA25B5222683E2B200B0E13F /* ConversationController.swift in Sources */,
 				EAB753EF2685255200B2F8C7 /* RecentPostsTableViewCell.swift in Sources */,
 				AA8E96A126810CFE003DC8DA /* Notifier.swift in Sources */,
+				9A2D6138268A74E400424AE4 /* SearchViewController.swift in Sources */,
 				AA25B512268250B500B0E13F /* FirebaseFunctions.swift in Sources */,
 				AA25B5402683EA1500B0E13F /* ProfileTableViewCell.swift in Sources */,
 				AA8E96AD26810D6F003DC8DA /* Bucket.swift in Sources */,
@@ -656,7 +664,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SP8PT7VLP6;
+				DEVELOPMENT_TEAM = JP8MGQXS8G;
 				INFOPLIST_FILE = BucketList/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -677,7 +685,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SP8PT7VLP6;
+				DEVELOPMENT_TEAM = JP8MGQXS8G;
 				INFOPLIST_FILE = BucketList/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (

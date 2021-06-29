@@ -97,7 +97,7 @@ class FeedTableViewController: UITableViewController {
             let post = posts[indexPath.row]
             let userID = post.creatorID
             
-           destinationVC.userID = userID
+           
         }
     }
     
