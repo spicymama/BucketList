@@ -40,10 +40,11 @@ class FriendsListModelController {
     
     
     func blockUser(profileUID: String) {
+        let arrayProfileID: [String] = [profileUID]
         FirebaseFunctions.fetchUserData(uid: uid) { data in
             let blockedUserRef = self.db.collection("friends").document(self.uid)
             blockedUserRef.updateData([
-                "blocked": FieldValue.arrayUnion(profileUID)
+                "blocked": FieldValue.arrayUnion(arrayProfileID)
             ])
         }
     } // End of function block user

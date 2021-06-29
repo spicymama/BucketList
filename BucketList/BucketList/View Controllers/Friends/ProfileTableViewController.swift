@@ -11,7 +11,7 @@ class ProfileTableViewController: UITableViewController {
     var refresh: UIRefreshControl = UIRefreshControl()
     let db = Firestore.firestore()
     var currentUser: User?
-    var profileuserID: String = ""
+    var profileUserID: String = ""
     
     //MARK: - Outlets
     
@@ -28,7 +28,7 @@ class ProfileTableViewController: UITableViewController {
         FriendsListModelController.sharedInstance.addFriend()
     }
     @IBAction func blockUserButtonTapped(_ sender: Any) {
-        FriendsListModelController.sharedInstance.blockUser(uidtoblock: profileUID)
+        FriendsListModelController.sharedInstance.blockUser(profileUID: profileUserID)
     }
     @IBAction func messageButtonTapped(_ sender: Any) {
         //FriendsListModelController.sharedInstance.blockUser(uidtoblock: <#T##String#>)
@@ -73,7 +73,7 @@ class ProfileTableViewController: UITableViewController {
 
      
     func fetchUser() {
-        FirebaseFunctions.fetchUserData(uid: profileuserID ?? "" ) { (result) in
+        FirebaseFunctions.fetchUserData(uid: profileUserID ?? "" ) { (result) in
             self.currentUser = result
             self.updateViews()
         }
@@ -114,7 +114,7 @@ class ProfileTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard  let cell = tableView.dequeueReusableCell(withIdentifier: "profileCell", for: indexPath) as? ProfileTableViewCell else {return UITableViewCell()}
         if let user = currentUser {
-        cell.user = user
+//        cell.user = user
         }
         return cell
     }
@@ -152,6 +152,7 @@ extension ProfileTableViewController: UICollectionViewDataSource, UICollectionVi
     }
 }
 
+/*
 extension ProfileTableViewController {
     func lilTableView(_ tableView: UITableView = ProfileTableViewCell.shared.lilTableView, numberOfRowsInSection section: Int) -> Int {
         return 1
@@ -167,6 +168,8 @@ extension ProfileTableViewController {
     }
 }
 
+*/
+ 
 // MARK: - Constants
 private enum Constants {
     static let spacing: CGFloat = 16
