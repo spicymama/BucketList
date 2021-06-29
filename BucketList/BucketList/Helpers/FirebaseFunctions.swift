@@ -328,7 +328,7 @@ class FirebaseFunctions {
             }
         }
     } // End of Fetch Post
-    
+    /*
     static func fetchBuckets(completion: @escaping ([List])-> Void) {
         
         Firestore.firestore().collectionGroup("buckets").addSnapshotListener { QuerySnapshot, error in
@@ -380,6 +380,7 @@ class FirebaseFunctions {
             }
         }
     } // End of Class
+ */
 } // End of Class
 
 // add, block, report, message

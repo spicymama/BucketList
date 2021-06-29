@@ -201,7 +201,7 @@
                                                             </constraints>
                                                             <state key="normal" image="ellipsis" catalog="system"/>
                                                             <connections>
-                                                                <segue destination="CBl-NW-qcu" kind="presentation" id="ggl-Gz-8dG"/>
+                                                                <segue destination="CBl-NW-qcu" kind="showDetail" id="gAp-JS-V6W"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -477,8 +477,11 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GeF-yV-eYs">
-                                        <rect key="frame" x="0.0" y="46.333333333333314" width="388" height="183"/>
+                                        <rect key="frame" x="0.0" y="46.333333333333314" width="388" height="180"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="180" id="0o4-7d-C5D"/>
+                                        </constraints>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="N2G-kV-Frx" customClass="BucketTableViewCell" customModule="BucketList" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="24.333333969116211" width="388" height="43.666667938232422"/>
@@ -491,18 +494,21 @@
                                         </prototypes>
                                     </tableView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create new bucket" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ja-1U-icv">
-                                        <rect key="frame" x="0.0" y="255.33333333333334" width="388" height="20.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="252.33333333333334" width="388" height="20.333333333333343"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title here..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lFY-vu-8l0">
-                                        <rect key="frame" x="0.0" y="301.66666666666663" width="388" height="302.66666666666663"/>
+                                        <rect key="frame" x="0.0" y="298.66666666666669" width="388" height="55"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="55" id="pfb-Cm-iKW"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="What do you plan to do?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Eah-I8-da6">
-                                        <rect key="frame" x="0.0" y="630.33333333333337" width="388" height="34"/>
+                                        <rect key="frame" x="0.0" y="379.66666666666663" width="388" height="284.66666666666663"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
