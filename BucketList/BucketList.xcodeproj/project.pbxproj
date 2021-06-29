@@ -32,7 +32,6 @@
 		AA25B5282683E42800B0E13F /* ConversationCreationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B5272683E42800B0E13F /* ConversationCreationTableViewController.swift */; };
 		AA25B52A2683E44400B0E13F /* ConversationMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B5292683E44400B0E13F /* ConversationMessageViewController.swift */; };
 		AA25B52C2683E58200B0E13F /* FriendsListModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B52B2683E58200B0E13F /* FriendsListModelController.swift */; };
-		AA25B52E2683E5C500B0E13F /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B52D2683E5C500B0E13F /* ProfileViewController.swift */; };
 		AA25B5302683E8A300B0E13F /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B52F2683E8A300B0E13F /* Post.swift */; };
 		AA25B5322683E90D00B0E13F /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B5312683E90D00B0E13F /* ProfileTableViewController.swift */; };
 		AA25B5352683E93700B0E13F /* CreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B5342683E93700B0E13F /* CreatePostViewController.swift */; };
@@ -89,7 +88,6 @@
 		AA25B5272683E42800B0E13F /* ConversationCreationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCreationTableViewController.swift; sourceTree = "<group>"; };
 		AA25B5292683E44400B0E13F /* ConversationMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationMessageViewController.swift; sourceTree = "<group>"; };
 		AA25B52B2683E58200B0E13F /* FriendsListModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListModelController.swift; sourceTree = "<group>"; };
-		AA25B52D2683E5C500B0E13F /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		AA25B52F2683E8A300B0E13F /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		AA25B5312683E90D00B0E13F /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		AA25B5342683E93700B0E13F /* CreatePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewController.swift; sourceTree = "<group>"; };
@@ -327,7 +325,6 @@
 		AA8E96A626810D0B003DC8DA /* Friends */ = {
 			isa = PBXGroup;
 			children = (
-				AA25B52D2683E5C500B0E13F /* ProfileViewController.swift */,
 				AA25B5312683E90D00B0E13F /* ProfileTableViewController.swift */,
 				9A2D612A268507AB00424AE4 /* FriendsListTableViewController.swift */,
 				9A2D613026862D1000424AE4 /* FriendsListTableViewCell.swift */,
@@ -510,7 +507,6 @@
 				AA524EAB268A36C100DF39D4 /* NewBucketTableViewController.swift in Sources */,
 				AA25B4F726814A5300B0E13F /* SignUpViewController.swift in Sources */,
 				AA8E96A326810D03003DC8DA /* ConversationListTableViewController.swift in Sources */,
-				AA25B52E2683E5C500B0E13F /* ProfileViewController.swift in Sources */,
 				AA25B52A2683E44400B0E13F /* ConversationMessageViewController.swift in Sources */,
 				AA25B5282683E42800B0E13F /* ConversationCreationTableViewController.swift in Sources */,
 				AA25B5322683E90D00B0E13F /* ProfileTableViewController.swift in Sources */,
