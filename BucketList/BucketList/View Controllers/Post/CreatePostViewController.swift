@@ -11,11 +11,15 @@ import UIKit
 // This whole thing should be presented Modally
 class CreatePostViewController: UIViewController, UITextViewDelegate {
     
-    // MARK: - Properties
-    let noteTextViewPlaceholder: String = "Notes, Thoughts, Questions?"
     
     // MARK: - Outlets
     @IBOutlet weak var noteTextView: UITextView!
+
+    
+    // MARK: - Properties
+    let noteTextViewPlaceholder: String = "Notes, Thoughts, Questions?"
+    var bucketID = "0"
+    var bucketItemID = "0"
     
     
     // MARK: - Lifeycle
@@ -34,11 +38,10 @@ class CreatePostViewController: UIViewController, UITextViewDelegate {
     // MARK: - Actions
     @IBAction func postButtonTapped(_ sender: Any) {
         // Properties
-        //TODO(ethan) Future - Let users make posts off of the already existing buckets page - Not just the "create post" page.
-        //TODO(ethan) - Reference the BucketLists Table VC on the gavin Storyboard
+        //TODO(ethan) V2.0 - Let users make posts off of the already existing buckets page - Not just the "create post" page
         let note = noteTextView.text ?? "Post Note"
-        let bucketID: String = ""
-        let bucketItemID: String = ""
+        let bucketID: String = bucketID
+        let bucketItemID: String = bucketItemID
         
         //TODO(ethan) Some function that also creates a saved file of an image, and gets us the ID
         //let imageID = ""
