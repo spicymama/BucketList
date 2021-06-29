@@ -402,8 +402,7 @@ class FirebaseFunctions {
     }
     
     // MARK: - Fetch Buckets
-    
-        
+    static func fetchBuckets(completion: @escaping ([List])-> Void) {
         Firestore.firestore().collectionGroup("buckets").addSnapshotListener { QuerySnapshot, error in
             guard let documents = QuerySnapshot?.documents else {
                 print("No documents")
@@ -434,6 +433,7 @@ class FirebaseFunctions {
             }
         }
     }
+
     static func fetchBucket(bucketID: String, completion: @escaping ([String : Any])-> Void) {
         let bucketID = bucketID
         let bucketData = Firestore.firestore().collection("buckets").document(bucketID)
