@@ -63,7 +63,7 @@ static func fetchBucket(bucketID: String, completion: @escaping ([String : Any])
     }
 }
     
-    static func createBucket(title: String, bucketID: String = UUID().uuidString, completion: Int = 0, isPublic: Bool = true, itemsID: String, note: String, commentsID: String, reactions: [String] = []) {
+    static func createBucket(title: String, bucketID: String = UUID().uuidString, completion: Int = 0, isPublic: Bool, itemsID: String, note: String, commentsID: String, reactions: [String] = []) {
         
         let uid = Auth.auth().currentUser?.uid
         Firestore.firestore().collection("buckets").document(bucketID).setData([
