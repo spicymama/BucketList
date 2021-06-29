@@ -33,5 +33,12 @@ class Bucket {
         self.commentsID = bucketID
         self.itemsID = bucketID
     }
-    
+
+
 } // End of Class Bucket
+
+extension List: Equatable {
+    static func == (lhs: List, rhs: List) -> Bool {
+        return lhs.title == rhs.title
+    }
+}

@@ -11,6 +11,7 @@ import UIKit
 class ProfileTableViewCell: UITableViewCell {
 
     static let shared = ProfileTableViewCell()
+    static var post: Post?
     
         @IBOutlet weak var profilePic: UIImageView!
         @IBOutlet weak var usernameLabel: UILabel!
@@ -42,6 +43,7 @@ class ProfileTableViewCell: UITableViewCell {
             usernameLabel.text = user.username
             achievementLabel.text = user.lastName
             imageView1.image = UIImage(named: "gorgeousGirlfriend")
+            achievementLabel.text = ProfileTableViewCell.post?.title
             collectionView.contentSize = CGSize(width: 2000, height: 100)
             collectionView.addSubview(UIImageView())
         }
