@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+/*
 class SearchViewController: UIViewController {
   //MARK: - Outlets
     
@@ -35,3 +35,4 @@ class SearchViewController: UIViewController {
     
     }//end of class
 
+*/
