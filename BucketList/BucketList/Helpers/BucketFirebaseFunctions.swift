@@ -10,6 +10,7 @@ import Firebase
 
 class BucketFirebaseFunctions {
     
+
     
     static func fetchBuckets(completion: @escaping ([Bucket])-> Void) {
         
@@ -76,7 +77,9 @@ class BucketFirebaseFunctions {
             "reactions" : reactions
         ]) { error in
             if let error = error {
-                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+
+                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+
             } else {
                 print("Bucket for user \(uid ?? "") was created")
             }
@@ -84,3 +87,4 @@ class BucketFirebaseFunctions {
         
     }
 } // End of Class
+

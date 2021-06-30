@@ -24,20 +24,29 @@ class Bucket {
     var bucketID: String = UUID().uuidString
     var completion: Int = 0
     var reactions: [String] = []
-    var isPublic: Bool = true
+    var isPublic: Bool
     
-    init(title: String, note: String, commentsID: String, itemsID: String, bucketID: String = UUID().uuidString, completion: Int = 0, reactions: [String] = [], isPublic: Bool = true) {
+
+    init(title: String, note: String, commentsID: String, itemsID: String, bucketID: String = UUID().uuidString, completion: Int = 0, reactions: [String] = [], isPublic: Bool) {
+
         self.title = title
         self.note = note
         self.commentsID = bucketID
         self.itemsID = bucketID
+        self.isPublic = isPublic
     }
 
 
 } // End of Class Bucket
 
+extension Bucket: Equatable {
+    static func == (lhs: Bucket, rhs: Bucket) -> Bool {
+        return lhs.bucketID == rhs.bucketID
+    }
+}
 extension List: Equatable {
     static func == (lhs: List, rhs: List) -> Bool {
         return lhs.title == rhs.title
     }
 }
+

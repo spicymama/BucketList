@@ -243,7 +243,6 @@ class FirebaseFunctions {
                 let blocked: [String] = data["blocked"] as? [String] ?? []
                 FeedTableViewController.friendsList = friends
                 FeedTableViewController.blocked = blocked
-                print(friends.first)
                 return completion(true)
                 
             }
@@ -340,59 +339,7 @@ class FirebaseFunctions {
             }
         }
     } // End of Fetch Post
-    
-    
-    // MARK: - Create Bucket
-    
-    
-    // MARK: - Create Bucket Item
-    
-    
-    // MARK: - Fetch All Bucket Items
-    static func fetchAllBucketItems(itemsID: String, 🐶: @escaping ( [BucketItem] ) -> Void) {
-        // Get the proper collection of items associated with the itemsID
-        Firestore.firestore().collection("bucketItems").document(itemsID).collection("items").addSnapshotListener { (QuerySnapshot, error) in
-            if let snapshot = QuerySnapshot {
-                var itemIDs: [String] = []
-                for document in snapshot.documents {
-                    itemIDs.append(document.documentID)
-                }
-                // Make a Dispatch group for loading the objects
-                let group = DispatchGroup()
-                
-                // Grab all of the item documents as BucketItem objects
-                var itemsData: [BucketItem] = []
-                for itemID in itemIDs {
-                    group.enter()
-                    let data = Firestore.firestore().collection("bucketItems").document(itemsID).collection("items").document(itemID)
-                    data.getDocument { (document, 🛑) in
-                        if let 🛑 = 🛑 {
-                            print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
-                        } else {
-                            guard let document = document else { return }
-                            let bucketID: String = document["bucketID"] as! String
-                            let commentsID: String = document["commentsID"] as! String
-                            let completed: Bool = document["completed"] as! Bool
-                            let itemID: String = document["itemID"] as! String
-                            let note: String = document["note"] as! String
-                            let reactions: [String] = document["reactions"] as! [String]
-                            let title: String = document["title"] as! String
-                            
-                            let item = BucketItem(bucketID: bucketID, title: title, note: note, itemID: itemID, commentsID: commentsID, completed: completed, reactions: reactions)
-                            itemsData.append(item)
-                            group.leave()
-                        }
-                    }
-                    group.notify(queue: DispatchQueue.main) {
-                        🐶(itemsData)
-                    }
-                } // End of item in items loop
-            } // End of Query snapshot
-            // Return an array of BucketItem variables
-        } // End of Function
-    }
-    
-    // MARK: - Fetch Buckets
+    /*
     static func fetchBuckets(completion: @escaping ([List])-> Void) {
         Firestore.firestore().collectionGroup("buckets").addSnapshotListener { QuerySnapshot, error in
             guard let documents = QuerySnapshot?.documents else {
@@ -443,7 +390,8 @@ class FirebaseFunctions {
                 
             }
         }
-    } // End of Function fetch Bucket
-    
+    } // End of Class
+ */
 } // End of Class
 
+// add, block, report, message

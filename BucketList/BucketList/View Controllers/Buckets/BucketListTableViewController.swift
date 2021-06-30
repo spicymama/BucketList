@@ -8,16 +8,21 @@
 import UIKit
 
 class BucketListTableViewController: UITableViewController {
+    static let shared = BucketListTableViewController()
     var refresh: UIRefreshControl = UIRefreshControl()
+
     var bucketList: [Bucket] = []
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         loadData()
     }
     
-    let sections: [List] = [List(title: "Public List", list: []), List(title: "Private List", list: []) ]
+
+    var sections: [[Bucket]] = [[], []]
+    let sectionNames: [String] = ["Public Bucket", "Private Bucket"]
+
     var thePublicList: [Bucket] = []
     var thePrivateList: [Bucket] = []
     
@@ -35,13 +40,25 @@ class BucketListTableViewController: UITableViewController {
     }
     
     @objc func loadData() {
+
+        sections = [[], []]
+        BucketListTableViewController.bucketList = []
+        self.updateViews()
         BucketFirebaseFunctions.fetchBuckets { result in
             for bucket in result {
+                print(bucket.isPublic)
                 if bucket.isPublic == true {
-                    self.sections[0].list.append(bucket.title)
-                }
-                else if bucket.isPublic == false {
-                    self.sections[1].list.append(bucket.title)
+                    if !self.sections[0].contains(bucket) {
+                    self.sections[0].append(bucket)
+                    }
+                
+                    }
+                else {
+                    if !self.sections[1].contains(bucket) {
+                        self.sections[1].append(bucket)
+                        print(self.sections[1])
+                    }
+
                 }
             }
             self.updateViews()
@@ -54,16 +71,19 @@ class BucketListTableViewController: UITableViewController {
         return sections.count
     }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+
         let section = self.sections[section].title
         return section
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].list.count
+        return sections[section].count
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "listItemCell", for: indexPath)
-        let cellText = sections[indexPath.section].list[indexPath.row]
+        let cellText = sections[indexPath.section][indexPath.row].title
+      
         cell.textLabel?.text = cellText
+       
         return cell
     }
     
