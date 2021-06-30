@@ -26,7 +26,9 @@ class Bucket {
     var reactions: [String] = []
     var isPublic: Bool
     
+
     init(title: String, note: String, commentsID: String, itemsID: String, bucketID: String = UUID().uuidString, completion: Int = 0, reactions: [String] = [], isPublic: Bool) {
+
         self.title = title
         self.note = note
         self.commentsID = bucketID

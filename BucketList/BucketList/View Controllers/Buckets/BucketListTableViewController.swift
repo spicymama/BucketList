@@ -10,15 +10,19 @@ import UIKit
 class BucketListTableViewController: UITableViewController {
     static let shared = BucketListTableViewController()
     var refresh: UIRefreshControl = UIRefreshControl()
-    static var bucketList: [Bucket] = []
+
+    var bucketList: [Bucket] = []
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         loadData()
     }
     
+
     var sections: [[Bucket]] = [[], []]
     let sectionNames: [String] = ["Public Bucket", "Private Bucket"]
+
     var thePublicList: [Bucket] = []
     var thePrivateList: [Bucket] = []
     
@@ -36,6 +40,7 @@ class BucketListTableViewController: UITableViewController {
     }
     
     @objc func loadData() {
+
         sections = [[], []]
         BucketListTableViewController.bucketList = []
         self.updateViews()
@@ -53,6 +58,7 @@ class BucketListTableViewController: UITableViewController {
                         self.sections[1].append(bucket)
                         print(self.sections[1])
                     }
+
                 }
             }
             self.updateViews()
@@ -65,7 +71,8 @@ class BucketListTableViewController: UITableViewController {
         return sections.count
     }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let section = self.sectionNames[section]
+
+        let section = self.sections[section].title
         return section
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

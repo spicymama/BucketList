@@ -29,7 +29,6 @@ class FirebaseFunctions {
                     "lastName" : lastName,
                     "dob" : dob,
                 ] as [String : Any]
-                
                 // This is the only real important line, adds the user, and sets their collection ID to their userID
                 Firestore.firestore().collection("users").document((result!.user.uid)).setData(data) { 🛑 in
                     if let 🛑 = 🛑 {
@@ -254,7 +253,7 @@ class FirebaseFunctions {
     
     
     // MARK: - Create Post
-    static func createPost(note: String, imageID: String, bucketID: String, bucketItemID: String) {
+    static func createPost(note: String, imageID: String, bucketID: String) {
         guard let currentUserID: String = Auth.auth().currentUser?.uid else { return }
         let postID = UUID().uuidString
         Firestore.firestore().collection("posts").document(postID).setData( [
@@ -263,7 +262,6 @@ class FirebaseFunctions {
             "postNote" : note,
             "photoID" : imageID,
             "bucketID" : bucketID,
-            "bucketItemID" : bucketItemID,
             "commentsID" : postID,
             "reactionsArr" : []
         ]) { err in
@@ -283,14 +281,6 @@ class FirebaseFunctions {
                         "postsIDs" : FieldValue.arrayUnion([postID])
                     ])
                     print("PostID added to Bucket")
-                }
-                // Add the post to the BucketItems's array of post ID's if it exists
-                if bucketItemID != "" {
-                    // Add this post ID to the BucketItem post array
-                    Firestore.firestore().collection("bucketItems").document(bucketItemID).updateData([
-                        "postsIDs" : FieldValue.arrayUnion([postID])
-                    ])
-                    print("PostID added to BucketItem")
                 }
                 print("Post for user \(currentUserID) was created")
             }
@@ -316,7 +306,8 @@ class FirebaseFunctions {
                         let postDecription: String = data["postNote"] as! String
                         let postTitle: String = data["title"] as? String ?? "Title"
                         let photoID: String = "swing"
-                        let creatorID: String = (data["creatorID"] as? String)!
+                                                            
+                        let creatorID: String = (data["creatorID"] as? String) ?? ""
                         
                         let post = Post(commentsID: postID, photoID: photoID, description: postDecription, title: postTitle, creatorID: creatorID)
                         postsData.append(post)
