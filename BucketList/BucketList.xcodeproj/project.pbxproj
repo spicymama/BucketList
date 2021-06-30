@@ -61,6 +61,7 @@
 		EA05F0E1268B77C100C71A79 /* CreateBucketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA05F0E0268B77C100C71A79 /* CreateBucketViewController.swift */; };
 		EA05F0E3268B77EC00C71A79 /* BucketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA05F0E2268B77EC00C71A79 /* BucketTableViewCell.swift */; };
 		EA05F0E5268B7A1F00C71A79 /* BucketFirebaseFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA05F0E4268B7A1F00C71A79 /* BucketFirebaseFunctions.swift */; };
+		EA2F64BC268CCDD900AD2619 /* BucketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F64BB268CCDD900AD2619 /* BucketTableViewCell.swift */; };
 		EA5C90672683EEA3008BE058 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA5C90662683EEA3008BE058 /* GoogleService-Info.plist */; };
 		EAAB407D26853A0900F60CC5 /* BucketListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAAB407C26853A0900F60CC5 /* BucketListTableViewController.swift */; };
 		EAB753EF2685255200B2F8C7 /* RecentPostsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB753EE2685255200B2F8C7 /* RecentPostsTableViewCell.swift */; };
@@ -124,6 +125,7 @@
 		EA05F0E0268B77C100C71A79 /* CreateBucketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBucketViewController.swift; sourceTree = "<group>"; };
 		EA05F0E2268B77EC00C71A79 /* BucketTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketTableViewCell.swift; sourceTree = "<group>"; };
 		EA05F0E4268B7A1F00C71A79 /* BucketFirebaseFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketFirebaseFunctions.swift; sourceTree = "<group>"; };
+		EA2F64BB268CCDD900AD2619 /* BucketTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BucketTableViewCell.swift; sourceTree = "<group>"; };
 		EA5C90662683EEA3008BE058 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EAAB407C26853A0900F60CC5 /* BucketListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketListTableViewController.swift; sourceTree = "<group>"; };
 		EAB753EE2685255200B2F8C7 /* RecentPostsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentPostsTableViewCell.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				AA02FF7626810500004EA782 /* Products */,
 				ECE8AD985990C774F3D4A6FD /* Pods */,
 				01B0B24AD8A5176255993367 /* Frameworks */,
+				EA2F64BA268CCC8700AD2619 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -200,7 +203,6 @@
 				AA25B510268250B500B0E13F /* FirebaseFunctions.swift */,
 				AA25B511268250B500B0E13F /* PasswordValidator.swift */,
 				AACAC852268525A9002E9E43 /* GlobalFunctions.swift */,
-
 				AA34947E268BC42C00467C0C /* BucketFirebaseFunctions.swift */,
 			);
 			path = Helpers;
@@ -229,9 +231,8 @@
 				AA25B53D2683EA0E00B0E13F /* ProfileCollectionViewCell.swift */,
 				AA25B53F2683EA1500B0E13F /* ProfileTableViewCell.swift */,
 				EAB753EE2685255200B2F8C7 /* RecentPostsTableViewCell.swift */,
-
 				697358B0268B8CF500E17FC1 /* ConversationTableViewCell.swift */,
-
+				EA2F64BB268CCDD900AD2619 /* BucketTableViewCell.swift */,
 			);
 			path = "Custom Cells";
 			sourceTree = "<group>";
@@ -385,6 +386,15 @@
 			path = Post;
 			sourceTree = "<group>";
 		};
+		EA2F64BA268CCC8700AD2619 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				EA05F0E4268B7A1F00C71A79 /* BucketFirebaseFunctions.swift */,
+				EA05F0E2268B77EC00C71A79 /* BucketTableViewCell.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		ECE8AD985990C774F3D4A6FD /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -525,6 +535,7 @@
 				AA25B4F726814A5300B0E13F /* SignUpViewController.swift in Sources */,
 				EA05F0E5268B7A1F00C71A79 /* BucketFirebaseFunctions.swift in Sources */,
 				AA8E96A326810D03003DC8DA /* ConversationListTableViewController.swift in Sources */,
+				EA2F64BC268CCDD900AD2619 /* BucketTableViewCell.swift in Sources */,
 				AA25B52A2683E44400B0E13F /* ConversationMessageViewController.swift in Sources */,
 				AA25B5282683E42800B0E13F /* ConversationCreationTableViewController.swift in Sources */,
 				9A4056C7268BBD6500307C77 /* SearchViewController.swift in Sources */,
