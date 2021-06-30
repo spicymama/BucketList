@@ -8,13 +8,15 @@
 import UIKit
 
 class FeedTableViewCell: UITableViewCell {
-static let shared = FeedTableViewCell()
+
+    static let shared = FeedTableViewCell()
+    
+    
+    // MARK: - Outlets
     @IBOutlet weak var profilePic: UIImageView!
     @IBOutlet weak var postImageView: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var goalLabel: UILabel!
-    @IBOutlet weak var postDetailTextView: UITextView!
-    @IBOutlet weak var profileButton: UIButton!
+    @IBOutlet weak var postNoteLabel: UILabel!
     
     
     override func awakeFromNib() {
@@ -40,9 +42,8 @@ static let shared = FeedTableViewCell()
         profilePic.image = UIImage(named: "peace")
         usernameLabel.text = "Gavin checked something off his list"
         postImageView.image = UIImage(named: "lift")
-        goalLabel.text = post.title
-        postDetailTextView.text = post.description
+        postNoteLabel.text = post.description
        
     }
-
+    
 }

@@ -42,7 +42,7 @@ class BucketListTableViewController: UITableViewController {
     @objc func loadData() {
 
         sections = [[], []]
-        BucketListTableViewController.bucketList = []
+        bucketList = []
         self.updateViews()
         BucketFirebaseFunctions.fetchBuckets { result in
             for bucket in result {
@@ -72,7 +72,7 @@ class BucketListTableViewController: UITableViewController {
     }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 
-        let section = self.sections[section].title
+        let section = self.sectionNames[section]
         return section
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -52,7 +52,7 @@ class ProfileTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.rowHeight = 1400
-        fetchUser()
+//        fetchUser()
        setupViews()
         loadData()
 
@@ -71,14 +71,14 @@ class ProfileTableViewController: UITableViewController {
         }
     }
 
-     
+     /*
     func fetchUser() {
         FirebaseFunctions.fetchUserData(uid: profileUserID ?? "" ) { (result) in
             self.currentUser = result
-            self.updateViews()
+//            self.updateViews()
         }
     }
-    
+    */
     
     
    // var users: [User] = []
@@ -88,11 +88,10 @@ class ProfileTableViewController: UITableViewController {
   
     var user: String? {
         didSet {
-            
             loadViewIfNeeded()
         }
     }
-    
+/*
     func updateView() {
         FirebaseFunctions.fetchUsersData(passedUserIDs: []) { (result) in
             let users: [User] = result
@@ -103,7 +102,7 @@ class ProfileTableViewController: UITableViewController {
             }
         }
     }
-   
+*/
   
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -125,7 +124,7 @@ class ProfileTableViewController: UITableViewController {
     @IBAction func conversationBtn(_ sender: Any) {
         // Go to ConversationMessageViewController
         let storyBoard: UIStoryboard = UIStoryboard(name: "justin", bundle: nil)
-        let vs = storyBoard.instantiateViewController(withIdentifier: "ConversationListVC")
+        let vs = storyBoard.instantiateViewController(withIdentifier: "conversationListVC")
         self.navigationController?.pushViewController(vs, animated: true)
     } // End of Conversation Button
     
@@ -174,6 +173,6 @@ extension ProfileTableViewController {
 private enum Constants {
     static let spacing: CGFloat = 16
     static let borderWidth: CGFloat = 0.5
-    static let reuseID = "CollectionCell"
+    static let reuseID = "collectionCell"
 }
 

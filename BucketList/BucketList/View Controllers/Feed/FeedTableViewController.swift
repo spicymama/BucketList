@@ -110,9 +110,25 @@ class FeedTableViewController: UITableViewController {
         let vs = storyBoard.instantiateViewController(withIdentifier: "newPostVC")
         self.navigationController?.pushViewController(vs, animated: true)
     }
+
     
+    // MARK: - Navigation
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyboard: UIStoryboard = UIStoryboard(name: "PostDetail", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "postDetailVC") as? PostDetailTableViewController else { return }
+        
+        let post = dataSource[indexPath.row]
+        let userID: String = post.creatorID
+        ProfileTableViewCell.post = post
+        
+        vc.profileUserID = userID
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+/*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toProfileVC" {
+        if segue.identifier == "toProfileDetailVC" {
             guard let indexPath = tableView.indexPathForSelectedRow,
                   let destinationVC = segue.destination as? ProfileTableViewController else {return}
             let post = dataSource[indexPath.row]
@@ -121,7 +137,9 @@ class FeedTableViewController: UITableViewController {
             
             destinationVC.profileUserID = userID
         }
-    }
+    } // End of Function
+    */
+    
 } // End of Class
 
 

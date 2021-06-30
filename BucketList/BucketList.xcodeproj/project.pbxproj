@@ -42,6 +42,11 @@
 		AA25B53E2683EA0E00B0E13F /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B53D2683EA0E00B0E13F /* ProfileCollectionViewCell.swift */; };
 		AA25B5402683EA1500B0E13F /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B53F2683EA1500B0E13F /* ProfileTableViewCell.swift */; };
 		AA34947F268BC42C00467C0C /* BucketFirebaseFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA34947E268BC42C00467C0C /* BucketFirebaseFunctions.swift */; };
+		AA34948F268CCD5E00467C0C /* BucketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA34948E268CCD5E00467C0C /* BucketTableViewCell.swift */; };
+		AA349491268CD7C900467C0C /* PostDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA349490268CD7C900467C0C /* PostDetail.storyboard */; };
+		AA349493268CE50E00467C0C /* PostDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA349492268CE50E00467C0C /* PostDetailTableViewController.swift */; };
+		AA349495268CE57D00467C0C /* ProfileDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA349494268CE57D00467C0C /* ProfileDetail.storyboard */; };
+		AA349497268CF30A00467C0C /* AddBlockReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA349496268CF30A00467C0C /* AddBlockReportViewController.swift */; };
 		AA524EA7268A28EA00DF39D4 /* BucketItTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA524EA6268A28EA00DF39D4 /* BucketItTableViewController.swift */; };
 		AA524EA9268A368B00DF39D4 /* BucketItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA524EA8268A368B00DF39D4 /* BucketItemViewController.swift */; };
 		AA524EAB268A36C100DF39D4 /* NewBucketTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA524EAA268A36C100DF39D4 /* NewBucketTableViewController.swift */; };
@@ -59,8 +64,6 @@
 		AA954C582686A488000C22F7 /* Bucket.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA954C572686A488000C22F7 /* Bucket.storyboard */; };
 		AACAC853268525A9002E9E43 /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACAC852268525A9002E9E43 /* GlobalFunctions.swift */; };
 		EA05F0E1268B77C100C71A79 /* CreateBucketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA05F0E0268B77C100C71A79 /* CreateBucketViewController.swift */; };
-		EA05F0E3268B77EC00C71A79 /* BucketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA05F0E2268B77EC00C71A79 /* BucketTableViewCell.swift */; };
-		EA05F0E5268B7A1F00C71A79 /* BucketFirebaseFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA05F0E4268B7A1F00C71A79 /* BucketFirebaseFunctions.swift */; };
 		EA5C90672683EEA3008BE058 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA5C90662683EEA3008BE058 /* GoogleService-Info.plist */; };
 		EAAB407D26853A0900F60CC5 /* BucketListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAAB407C26853A0900F60CC5 /* BucketListTableViewController.swift */; };
 		EAB753EF2685255200B2F8C7 /* RecentPostsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB753EE2685255200B2F8C7 /* RecentPostsTableViewCell.swift */; };
@@ -103,6 +106,11 @@
 		AA25B53D2683EA0E00B0E13F /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		AA25B53F2683EA1500B0E13F /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		AA34947E268BC42C00467C0C /* BucketFirebaseFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketFirebaseFunctions.swift; sourceTree = "<group>"; };
+		AA34948E268CCD5E00467C0C /* BucketTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketTableViewCell.swift; sourceTree = "<group>"; };
+		AA349490268CD7C900467C0C /* PostDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PostDetail.storyboard; sourceTree = "<group>"; };
+		AA349492268CE50E00467C0C /* PostDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailTableViewController.swift; sourceTree = "<group>"; };
+		AA349494268CE57D00467C0C /* ProfileDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfileDetail.storyboard; sourceTree = "<group>"; };
+		AA349496268CF30A00467C0C /* AddBlockReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBlockReportViewController.swift; sourceTree = "<group>"; };
 		AA524EA6268A28EA00DF39D4 /* BucketItTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketItTableViewController.swift; sourceTree = "<group>"; };
 		AA524EA8268A368B00DF39D4 /* BucketItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketItemViewController.swift; sourceTree = "<group>"; };
 		AA524EAA268A36C100DF39D4 /* NewBucketTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBucketTableViewController.swift; sourceTree = "<group>"; };
@@ -122,8 +130,6 @@
 		C3188C93C2B51D68B5DDF585 /* Pods-BucketList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BucketList.release.xcconfig"; path = "Target Support Files/Pods-BucketList/Pods-BucketList.release.xcconfig"; sourceTree = "<group>"; };
 		D3317EECED0B32C26F983252 /* Pods_BucketList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BucketList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA05F0E0268B77C100C71A79 /* CreateBucketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBucketViewController.swift; sourceTree = "<group>"; };
-		EA05F0E2268B77EC00C71A79 /* BucketTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketTableViewCell.swift; sourceTree = "<group>"; };
-		EA05F0E4268B7A1F00C71A79 /* BucketFirebaseFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketFirebaseFunctions.swift; sourceTree = "<group>"; };
 		EA5C90662683EEA3008BE058 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EAAB407C26853A0900F60CC5 /* BucketListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketListTableViewController.swift; sourceTree = "<group>"; };
 		EAB753EE2685255200B2F8C7 /* RecentPostsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentPostsTableViewCell.swift; sourceTree = "<group>"; };
@@ -197,11 +203,10 @@
 		AA25B4FC26814ADF00B0E13F /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				AA34947E268BC42C00467C0C /* BucketFirebaseFunctions.swift */,
 				AA25B510268250B500B0E13F /* FirebaseFunctions.swift */,
 				AA25B511268250B500B0E13F /* PasswordValidator.swift */,
 				AACAC852268525A9002E9E43 /* GlobalFunctions.swift */,
-
-				AA34947E268BC42C00467C0C /* BucketFirebaseFunctions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -229,9 +234,8 @@
 				AA25B53D2683EA0E00B0E13F /* ProfileCollectionViewCell.swift */,
 				AA25B53F2683EA1500B0E13F /* ProfileTableViewCell.swift */,
 				EAB753EE2685255200B2F8C7 /* RecentPostsTableViewCell.swift */,
-
 				697358B0268B8CF500E17FC1 /* ConversationTableViewCell.swift */,
-
+				AA34948E268CCD5E00467C0C /* BucketTableViewCell.swift */,
 			);
 			path = "Custom Cells";
 			sourceTree = "<group>";
@@ -245,6 +249,8 @@
 				AA672054268107D7003D43A0 /* josh */,
 				AA672055268107DB003D43A0 /* gavin */,
 				AA672056268107E8003D43A0 /* justin */,
+				AA349490268CD7C900467C0C /* PostDetail.storyboard */,
+				AA349494268CE57D00467C0C /* ProfileDetail.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -346,6 +352,7 @@
 				9A2D613026862D1000424AE4 /* FriendsListTableViewCell.swift */,
 				9A4056C2268BB7B200307C77 /* SearchUserTableViewController.swift */,
 				9A4056C6268BBD6500307C77 /* SearchViewController.swift */,
+				AA349496268CF30A00467C0C /* AddBlockReportViewController.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -381,6 +388,7 @@
 				AA25B5342683E93700B0E13F /* CreatePostViewController.swift */,
 				AA954C53268658E4000C22F7 /* PostViewController.swift */,
 				AA524EA6268A28EA00DF39D4 /* BucketItTableViewController.swift */,
+				AA349492268CE50E00467C0C /* PostDetailTableViewController.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -453,6 +461,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA349491268CD7C900467C0C /* PostDetail.storyboard in Resources */,
 				AA67204E268107A7003D43A0 /* josh.storyboard in Resources */,
 				AA25B5392683E99900B0E13F /* gavinPost.storyboard in Resources */,
 				AA02FF8526810501004EA782 /* LaunchScreen.storyboard in Resources */,
@@ -462,6 +471,7 @@
 				AA672052268107B4003D43A0 /* justin.storyboard in Resources */,
 				AA954C582686A488000C22F7 /* Bucket.storyboard in Resources */,
 				EA5C90672683EEA3008BE058 /* GoogleService-Info.plist in Resources */,
+				AA349495268CE57D00467C0C /* ProfileDetail.storyboard in Resources */,
 				AA25B5082682397D00B0E13F /* LoadUsers.storyboard in Resources */,
 				AA67204C268107A2003D43A0 /* Authenticate.storyboard in Resources */,
 			);
@@ -523,8 +533,8 @@
 				AACAC853268525A9002E9E43 /* GlobalFunctions.swift in Sources */,
 				AA524EAB268A36C100DF39D4 /* NewBucketTableViewController.swift in Sources */,
 				AA25B4F726814A5300B0E13F /* SignUpViewController.swift in Sources */,
-				EA05F0E5268B7A1F00C71A79 /* BucketFirebaseFunctions.swift in Sources */,
 				AA8E96A326810D03003DC8DA /* ConversationListTableViewController.swift in Sources */,
+				AA34948F268CCD5E00467C0C /* BucketTableViewCell.swift in Sources */,
 				AA25B52A2683E44400B0E13F /* ConversationMessageViewController.swift in Sources */,
 				AA25B5282683E42800B0E13F /* ConversationCreationTableViewController.swift in Sources */,
 				9A4056C7268BBD6500307C77 /* SearchViewController.swift in Sources */,
@@ -534,8 +544,10 @@
 				AA25B53E2683EA0E00B0E13F /* ProfileCollectionViewCell.swift in Sources */,
 				AA02FF7926810500004EA782 /* AppDelegate.swift in Sources */,
 				AA8E96AB26810D68003DC8DA /* User.swift in Sources */,
+				AA349497268CF30A00467C0C /* AddBlockReportViewController.swift in Sources */,
 				AA8E96B026810DBE003DC8DA /* Model.swift in Sources */,
 				AA25B513268250B500B0E13F /* PasswordValidator.swift in Sources */,
+				AA349493268CE50E00467C0C /* PostDetailTableViewController.swift in Sources */,
 				AA25B5302683E8A300B0E13F /* Post.swift in Sources */,
 				AA34947F268BC42C00467C0C /* BucketFirebaseFunctions.swift in Sources */,
 				AA25B5372683E96400B0E13F /* FeedTableViewController.swift in Sources */,
@@ -546,7 +558,6 @@
 				EAAB407D26853A0900F60CC5 /* BucketListTableViewController.swift in Sources */,
 				AA25B5222683E2B200B0E13F /* ConversationController.swift in Sources */,
 				EAB753EF2685255200B2F8C7 /* RecentPostsTableViewCell.swift in Sources */,
-				EA05F0E3268B77EC00C71A79 /* BucketTableViewCell.swift in Sources */,
 				EA05F0E1268B77C100C71A79 /* CreateBucketViewController.swift in Sources */,
 				AA8E96A126810CFE003DC8DA /* Notifier.swift in Sources */,
 				AA25B512268250B500B0E13F /* FirebaseFunctions.swift in Sources */,
