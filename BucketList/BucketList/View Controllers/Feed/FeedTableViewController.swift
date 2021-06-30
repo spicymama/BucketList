@@ -100,7 +100,7 @@ class FeedTableViewController: UITableViewController {
     // MARK: - Navigation
     @IBAction func conversationBtn(_ sender: Any) {
         let storyBoard: UIStoryboard = UIStoryboard(name: "justin", bundle: nil)
-        let vs = storyBoard.instantiateViewController(withIdentifier: "ConversationListVC")
+        let vs = storyBoard.instantiateViewController(withIdentifier: "conversationListVC")
         self.navigationController?.pushViewController(vs, animated: true)
     }
     
