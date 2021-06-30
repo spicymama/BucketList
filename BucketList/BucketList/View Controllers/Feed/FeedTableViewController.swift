@@ -104,6 +104,13 @@ class FeedTableViewController: UITableViewController {
         self.navigationController?.pushViewController(vs, animated: true)
     }
     
+    
+    @IBAction func newPostBtn(_ sender: Any) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "gavinPost", bundle: nil)
+        let vs = storyBoard.instantiateViewController(withIdentifier: "newPostVC")
+        self.navigationController?.pushViewController(vs, animated: true)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toProfileVC" {
             guard let indexPath = tableView.indexPathForSelectedRow,

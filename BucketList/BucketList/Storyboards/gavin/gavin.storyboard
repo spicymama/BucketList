@@ -123,6 +123,16 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="htB-JK-RIf">
                         <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="HE2-2f-Ur3">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="MsF-tI-efB">
+                                <rect key="frame" x="20" y="7" width="95" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="New Post"/>
+                                <connections>
+                                    <action selector="newPostBtn:" destination="opJ-De-DRE" eventType="touchUpInside" id="yEg-a9-AnO"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="wq5-b4-SBd">
                             <rect key="frame" x="147.66666666666666" y="5" width="132.99999999999997" height="34"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

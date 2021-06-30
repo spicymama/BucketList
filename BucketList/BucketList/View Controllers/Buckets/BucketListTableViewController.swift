@@ -9,6 +9,7 @@ import UIKit
 
 class BucketListTableViewController: UITableViewController {
     var refresh: UIRefreshControl = UIRefreshControl()
+    var bucketList: [Bucket] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,9 +17,9 @@ class BucketListTableViewController: UITableViewController {
         loadData()
     }
     
-    var sections: [List] = []
-    var thePublicList = List(title: "Public List", list: [])
-    var thePrivateList = List(title: "Private List", list: [])
+    let sections: [List] = [List(title: "Public List", list: []), List(title: "Private List", list: []) ]
+    var thePublicList: [Bucket] = []
+    var thePrivateList: [Bucket] = []
     
     func setupViews() {
         refresh.attributedTitle = NSAttributedString(string: "Pull to refresh")
@@ -34,8 +35,15 @@ class BucketListTableViewController: UITableViewController {
     }
     
     @objc func loadData() {
-        FirebaseFunctions.fetchBuckets { result in
-            self.sections = result
+        BucketFirebaseFunctions.fetchBuckets { result in
+            for bucket in result {
+                if bucket.isPublic == true {
+                    self.sections[0].list.append(bucket.title)
+                }
+                else if bucket.isPublic == false {
+                    self.sections[1].list.append(bucket.title)
+                }
+            }
             self.updateViews()
         }
     }
@@ -46,8 +54,8 @@ class BucketListTableViewController: UITableViewController {
         return sections.count
     }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let section = self.sections[section]
-        return section.title
+        let section = self.sections[section].title
+        return section
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sections[section].list.count
