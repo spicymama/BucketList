@@ -10,15 +10,30 @@ import UIKit
 class CreateBucketViewController: UIViewController {
 
     var goalList: [String] = []
-    
+    var isPublic: Bool?
     @IBOutlet weak var lilTableView: UITableView!
     @IBOutlet weak var goalTextField: UITextField!
     @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var privateButton: UIButton!
+    @IBOutlet weak var publicButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+      
 
     }
     
+    @IBAction func privateButtonWasTapped(_ sender: Any) {
+        isPublic = false
+        privateButton.titleLabel?.backgroundColor = .black
+        publicButton.titleLabel?.backgroundColor = .clear
+        
+    }
+    @IBAction func publicButtonWasTapped(_ sender: Any) {
+        isPublic = true
+        privateButton.titleLabel?.backgroundColor = .clear
+        publicButton.titleLabel?.backgroundColor = .black
+    }
     @IBAction func saveButtonTapped(_ sender: Any) {
         guard let text = goalTextField.text else {return}
         if !text.isEmpty {
@@ -27,15 +42,8 @@ class CreateBucketViewController: UIViewController {
         }
         guard let title = titleTextField.text else {return}
         if !title.isEmpty {
-            BucketFirebaseFunctions.createBucket(title: title, isPublic: true, itemsID: "", note: goalTextField.text ?? "", commentsID: "" )
-        self.dismiss(animated: true)
-        }
-    }
-    @IBAction func addToListButtonTapped(_ sender: Any) {
-        guard let text = goalTextField.text else {return}
-        if !text.isEmpty {
-        goalList.append(text)
-            goalTextField.text = ""
+            BucketFirebaseFunctions.createBucket(title: title, isPublic: isPublic ?? false, itemsID: "", note: goalTextField.text ?? "", commentsID: "" )
+            self.navigationController?.popViewController(animated: true)
         }
     }
     

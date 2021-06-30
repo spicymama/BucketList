@@ -8,6 +8,7 @@
 import UIKit
 
 class BucketListTableViewController: UITableViewController {
+    static let shared = BucketListTableViewController()
     var refresh: UIRefreshControl = UIRefreshControl()
     static var bucketList: [Bucket] = []
     override func viewDidLoad() {
@@ -22,7 +23,6 @@ class BucketListTableViewController: UITableViewController {
     var thePrivateList: [Bucket] = []
     
     func setupViews() {
-        
         refresh.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refresh.addTarget(self, action: #selector(loadData), for: .valueChanged)
         tableView.addSubview(refresh)
@@ -37,6 +37,8 @@ class BucketListTableViewController: UITableViewController {
     
     @objc func loadData() {
         sections = [[], []]
+        BucketListTableViewController.bucketList = []
+        self.updateViews()
         BucketFirebaseFunctions.fetchBuckets { result in
             for bucket in result {
                 print(bucket.isPublic)
@@ -60,7 +62,7 @@ class BucketListTableViewController: UITableViewController {
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return sections.count
     }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let section = self.sectionNames[section]
@@ -72,7 +74,9 @@ class BucketListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "listItemCell", for: indexPath)
         let cellText = sections[indexPath.section][indexPath.row].title
+      
         cell.textLabel?.text = cellText
+       
         return cell
     }
     
