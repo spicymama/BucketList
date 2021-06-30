@@ -18,6 +18,8 @@ class FriendsListTableViewCell: UITableViewCell {
     
     //MARK: -Properties
     
+    
+    
     //MARK: - Landing Pad
     var user: User? {
         didSet {

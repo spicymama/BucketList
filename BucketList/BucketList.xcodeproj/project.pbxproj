@@ -12,8 +12,8 @@
 		9A2D612B268507AB00424AE4 /* FriendsListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2D612A268507AB00424AE4 /* FriendsListTableViewController.swift */; };
 		9A2D612F26852D5100424AE4 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2D612E26852D5100424AE4 /* Friend.swift */; };
 		9A2D613126862D1000424AE4 /* FriendsListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2D613026862D1000424AE4 /* FriendsListTableViewCell.swift */; };
-		9A2D6136268A71D100424AE4 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2D6135268A71D100424AE4 /* SearchTableViewController.swift */; };
-		9A2D6138268A74E400424AE4 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2D6137268A74E400424AE4 /* SearchViewController.swift */; };
+		9A4056C3268BB7B200307C77 /* SearchUserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4056C2268BB7B200307C77 /* SearchUserTableViewController.swift */; };
+		9A4056C7268BBD6500307C77 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4056C6268BBD6500307C77 /* SearchViewController.swift */; };
 		AA02FF7926810500004EA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA02FF7826810500004EA782 /* AppDelegate.swift */; };
 		AA02FF7B26810500004EA782 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA02FF7A26810500004EA782 /* SceneDelegate.swift */; };
 		AA02FF8026810500004EA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA02FF7E26810500004EA782 /* Main.storyboard */; };
@@ -71,8 +71,8 @@
 		9A2D612A268507AB00424AE4 /* FriendsListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListTableViewController.swift; sourceTree = "<group>"; };
 		9A2D612E26852D5100424AE4 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		9A2D613026862D1000424AE4 /* FriendsListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListTableViewCell.swift; sourceTree = "<group>"; };
-		9A2D6135268A71D100424AE4 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
-		9A2D6137268A74E400424AE4 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		9A4056C2268BB7B200307C77 /* SearchUserTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserTableViewController.swift; sourceTree = "<group>"; };
+		9A4056C6268BBD6500307C77 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		AA02FF7526810500004EA782 /* BucketList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BucketList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA02FF7826810500004EA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA02FF7A26810500004EA782 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -344,8 +344,8 @@
 				AA25B5312683E90D00B0E13F /* ProfileTableViewController.swift */,
 				9A2D612A268507AB00424AE4 /* FriendsListTableViewController.swift */,
 				9A2D613026862D1000424AE4 /* FriendsListTableViewCell.swift */,
-				9A2D6135268A71D100424AE4 /* SearchTableViewController.swift */,
-				9A2D6137268A74E400424AE4 /* SearchViewController.swift */,
+				9A4056C2268BB7B200307C77 /* SearchUserTableViewController.swift */,
+				9A4056C6268BBD6500307C77 /* SearchViewController.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -516,6 +516,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A4056C3268BB7B200307C77 /* SearchUserTableViewController.swift in Sources */,
 				AA954C54268658E4000C22F7 /* PostViewController.swift in Sources */,
 				AA25B5352683E93700B0E13F /* CreatePostViewController.swift in Sources */,
 				AA25B5242683E2C700B0E13F /* UserController.swift in Sources */,
@@ -526,6 +527,7 @@
 				AA8E96A326810D03003DC8DA /* ConversationListTableViewController.swift in Sources */,
 				AA25B52A2683E44400B0E13F /* ConversationMessageViewController.swift in Sources */,
 				AA25B5282683E42800B0E13F /* ConversationCreationTableViewController.swift in Sources */,
+				9A4056C7268BBD6500307C77 /* SearchViewController.swift in Sources */,
 				AA25B5322683E90D00B0E13F /* ProfileTableViewController.swift in Sources */,
 				AA25B52026838B4200B0E13F /* FriendsList.swift in Sources */,
 				AA25B5062681577300B0E13F /* AccountViewController.swift in Sources */,
@@ -538,7 +540,6 @@
 				AA34947F268BC42C00467C0C /* BucketFirebaseFunctions.swift in Sources */,
 				AA25B5372683E96400B0E13F /* FeedTableViewController.swift in Sources */,
 				9A2D613126862D1000424AE4 /* FriendsListTableViewCell.swift in Sources */,
-				9A2D6136268A71D100424AE4 /* SearchTableViewController.swift in Sources */,
 				AA25B53C2683E9FF00B0E13F /* FeedTableViewCell.swift in Sources */,
 				697358B1268B8CF500E17FC1 /* ConversationTableViewCell.swift in Sources */,
 				AA25B5262683E32B00B0E13F /* Conversation.swift in Sources */,
@@ -548,7 +549,6 @@
 				EA05F0E3268B77EC00C71A79 /* BucketTableViewCell.swift in Sources */,
 				EA05F0E1268B77C100C71A79 /* CreateBucketViewController.swift in Sources */,
 				AA8E96A126810CFE003DC8DA /* Notifier.swift in Sources */,
-				9A2D6138268A74E400424AE4 /* SearchViewController.swift in Sources */,
 				AA25B512268250B500B0E13F /* FirebaseFunctions.swift in Sources */,
 				AA25B5402683EA1500B0E13F /* ProfileTableViewCell.swift in Sources */,
 				AA8E96AD26810D6F003DC8DA /* Bucket.swift in Sources */,

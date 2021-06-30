@@ -2,45 +2,36 @@
 //  SearchViewController.swift
 //  BucketList
 //
-//  Created by Joshua Hoyle on 6/28/21.
+//  Created by Joshua Hoyle on 6/29/21.
 //
 
 import UIKit
-/*
+
 class SearchViewController: UIViewController {
-
+  //MARK: - Outlets
+    
+    //MARK: - Properties
+    var resultSearchController: UISearchController? = nil
+    
+    //MARK: - Lifecycle
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
-
-        let locationSearchTable = storyboard!.instantiateViewController(identifier: "SearchTableViewController") as! LocationSearchTableViewController
-        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
-        resultSearchController?.searchResultsUpdater = locationSearchTable
+        let userSearchTable = storyboard!.instantiateViewController(identifier: "userSearchTable") as! SearchUserTableViewController
+        resultSearchController = UISearchController(searchResultsController: userSearchTable)
+        resultSearchController?.searchResultsUpdater = userSearchTable
         
         let searchBar = resultSearchController!.searchBar
         searchBar.sizeToFit()
-        searchBar.placeholder = "Where are we going?"
-        //navigationItem.titleView = resultSearchController?.searchBar
+        searchBar.placeholder = "Who are we looking for?"
         navigationItem.searchController = resultSearchController
         
         resultSearchController?.hidesNavigationBarDuringPresentation = false
         resultSearchController?.dimsBackgroundDuringPresentation = true
         definesPresentationContext = true
+        
+        
     }
     
-
-}//end class
-
-extension SearchTableViewController : UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let searchBarText = searchController.searchBar.text else {return}
-        let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = searchBarText
-       // request.region = mapView.region
-        let search =
-            self.matchingItems = response.mapItems
-            self.tableView.reloadData()
-        }
-    }
-
-  */
+    
+    }//end of class
 
