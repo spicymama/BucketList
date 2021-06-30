@@ -32,13 +32,13 @@ class ConversationListTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "conversationCell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "conversationCell", for: indexPath) as? ConversationTableViewCell else {return UITableViewCell()}
 
         let conversation = ConversationController.shared.conversations[indexPath.row]
         
         cell.accessoryType = .disclosureIndicator
-        cell.textLabel?.text = conversation.conversationID
-//        cell.conversation = conversation
+//        cell.textLabel?.text = conversation.conversationID
+        cell.conversation = conversation
         return cell
     }
  

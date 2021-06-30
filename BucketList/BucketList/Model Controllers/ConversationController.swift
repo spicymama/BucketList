@@ -54,11 +54,10 @@ class ConversationController {
                     if user.conversationsIDs.contains(doc.documentID) {
                         print("\(doc.documentID)")
                         let conversationID = doc.documentID
+                            
+                                let conversation = Conversation(conversationID: conversationID)
+                                self.conversations.append(conversation)
                         
-                        self.fetchUsers(conversationID: conversationID) { users in
-                            let conversation = Conversation(conversationID: conversationID, userIDs: users)
-                            self.conversations.append(conversation)
-                        }
                     }
                 }
                 return completion(true)
@@ -107,8 +106,8 @@ class ConversationController {
         }
     }
     
-    func fetchUsers(conversationID: String, completion: @escaping ([User]) -> Void) {
-        var conversationUsers: [User] = []
+    func fetchUserIDs(for conversationID: String, completion: @escaping ([String]) -> Void) {
+        var conversationUserIDs: [String] = []
         db.collection("conversations").document(conversationID).collection("userIDs").addSnapshotListener { snapshot, error in
             if let error = error {
                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
@@ -121,25 +120,10 @@ class ConversationController {
                     if userID == UserController.shared.currentUser.uid {
                         //do nothing
                     } else {
-                        self.db.collection("users").document(userID).getDocument { snapshot, error in
-                            if let error = error {
-                                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
-                            }
-                            if let snapshot = snapshot {
-                                guard let userData = snapshot.data(),
-                                      let username = userData["firstName"] as? String,
-                                      let id = userData["uid"] as? String,
-                                      let conversationIDs = userData["conversationsID"] as? [String] else {return}
-                                
-                                let user = User(username: username, uid: id, conversationsIDs: conversationIDs)
-                                conversationUsers.append(user)
-                                self.users.append(user)
-                            }
-                        }
+                        conversationUserIDs.append(userID)
                     }
-                    
                 }
-                return completion (conversationUsers)
+                return completion (conversationUserIDs)
             }
         }
     }
@@ -160,6 +144,34 @@ class ConversationController {
         //fetch users profile image
         
         return Avatar(image: UIImage(systemName: "heart"), initials: "HR")
+    }
+    
+    func fetchMostRecentMessage(for conversation: Conversation, completion: @escaping (String) -> Void) {
+        var mostRecentMessage: Message = Message(sender: Sender(senderId: "", displayName: ""), messageId: "", sentDate: Date.distantPast, kind: .text(""))
+        var mostRecentMessageText: String = ""
+        db.collection("conversations").document(conversation.conversationID).collection("messages").addSnapshotListener { snapshot, error in
+            if let error = error {
+                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+            }
+            if let snapshot = snapshot {
+                for doc in snapshot.documents {
+                        let messageData = doc.data()
+                        guard let messageID = messageData["messageID"] as? String,
+                              let sentDate = messageData["sentDate"] as? String,
+                              let text = messageData["text"] as? String,
+                              let displayName = messageData["displayName"] as? String,
+                              let senderID = messageData["senderID"] as? String,
+                              let formattedDate = ISO8601DateFormatter().date(from: sentDate) else {return print("this got messed up")}
+                    
+                    let message = Message(sender: Sender(senderId: senderID, displayName: displayName), messageId: messageID, sentDate: formattedDate, kind: .text(text))
+                    if message.sentDate > mostRecentMessage.sentDate {
+                        mostRecentMessage = message
+                        mostRecentMessageText = text
+                    }
+                }
+                return completion(mostRecentMessageText)
+            }
+        }
     }
     
     
