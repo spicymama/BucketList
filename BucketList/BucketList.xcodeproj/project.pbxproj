@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		489ECAB506C4C2954E3D2D2E /* Pods_BucketList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3317EECED0B32C26F983252 /* Pods_BucketList.framework */; };
+		697358B1268B8CF500E17FC1 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697358B0268B8CF500E17FC1 /* ConversationTableViewCell.swift */; };
 		9A2D612B268507AB00424AE4 /* FriendsListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2D612A268507AB00424AE4 /* FriendsListTableViewController.swift */; };
 		9A2D612F26852D5100424AE4 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2D612E26852D5100424AE4 /* Friend.swift */; };
 		9A2D613126862D1000424AE4 /* FriendsListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2D613026862D1000424AE4 /* FriendsListTableViewCell.swift */; };
@@ -63,6 +64,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		697358B0268B8CF500E17FC1 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
 		9A2D612A268507AB00424AE4 /* FriendsListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListTableViewController.swift; sourceTree = "<group>"; };
 		9A2D612E26852D5100424AE4 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		9A2D613026862D1000424AE4 /* FriendsListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListTableViewCell.swift; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 				AA25B53D2683EA0E00B0E13F /* ProfileCollectionViewCell.swift */,
 				AA25B53F2683EA1500B0E13F /* ProfileTableViewCell.swift */,
 				EAB753EE2685255200B2F8C7 /* RecentPostsTableViewCell.swift */,
+				697358B0268B8CF500E17FC1 /* ConversationTableViewCell.swift */,
 			);
 			path = "Custom Cells";
 			sourceTree = "<group>";
@@ -526,6 +529,7 @@
 				9A2D613126862D1000424AE4 /* FriendsListTableViewCell.swift in Sources */,
 				9A2D6136268A71D100424AE4 /* SearchTableViewController.swift in Sources */,
 				AA25B53C2683E9FF00B0E13F /* FeedTableViewCell.swift in Sources */,
+				697358B1268B8CF500E17FC1 /* ConversationTableViewCell.swift in Sources */,
 				AA25B5262683E32B00B0E13F /* Conversation.swift in Sources */,
 				EAAB407D26853A0900F60CC5 /* BucketListTableViewController.swift in Sources */,
 				AA25B5222683E2B200B0E13F /* ConversationController.swift in Sources */,

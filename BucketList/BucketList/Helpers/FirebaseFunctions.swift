@@ -307,7 +307,8 @@ class FirebaseFunctions {
                         let postDecription: String = data["postNote"] as! String
                         let postTitle: String = data["title"] as? String ?? "Title"
                         let photoID: String = "swing"
-                        let creatorID: String = (data["creatorID"] as? String ?? "0")
+                                                            
+                        let creatorID: String = (data["creatorID"] as? String) ?? ""
                         
                         let post = Post(commentsID: postID, photoID: photoID, description: postDecription, title: postTitle, creatorID: creatorID)
                         postsData.append(post)
