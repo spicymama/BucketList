@@ -7,7 +7,12 @@
 
 import UIKit
 
-class FeedTableViewController: UITableViewController {
+class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+    }
+    
+    
+    
     static var currentUser: User = User()
     static var friendsList: [String] = []
     static var blocked: [String] = []
@@ -16,39 +21,36 @@ class FeedTableViewController: UITableViewController {
     var refresh: UIRefreshControl = UIRefreshControl()
     var searchController = UISearchController()
     var dataSource: [Post] = []
+    var resultSearchController: UISearchController? = nil
     
     @IBOutlet weak var segmentedController: UISegmentedControl!
     
     override func viewDidLoad() {
-        navigationItem.searchController = searchController
         
         super.viewDidLoad()
-        FirebaseFunctions.fetchCurrentUser { result in
-            switch result {
-            case true:
-                FirebaseFunctions.fetchFriendz(uid: FeedTableViewController.currentUser.uid) { result in
-                    switch result {
-                    case true:
-                        FirebaseFunctions.fetchAllPosts { result in
-                            self.dataSource = FeedTableViewController.friendsPosts
-                            print(FeedTableViewController.friendsList)
-                            print(FeedTableViewController.blocked)
-                            self.setupViews()
-                            self.loadData()
-                        }
-                    case false:
-                        print("error fetching posts")
-                    }
-                }
-            case false:
-                print("error fetching current user")
-            }
-            self.updateViews()
-        }
+        fetchPosts()
+        
+        searchController.searchResultsUpdater = self
+        definesPresentationContext = true
+    
+        let userSearchTable = storyboard!.instantiateViewController(identifier: "userSearchTable") as! SearchUserTableViewController
+        resultSearchController = UISearchController(searchResultsController: userSearchTable)
+        resultSearchController?.searchResultsUpdater = userSearchTable
+        
+        let searchBar = resultSearchController!.searchBar
+        searchBar.sizeToFit()
+        searchBar.placeholder = "Who are we looking for?"
+        navigationItem.searchController = resultSearchController
+        
+        resultSearchController?.hidesNavigationBarDuringPresentation = false
+        resultSearchController?.dimsBackgroundDuringPresentation = true
+        definesPresentationContext = true
+        
 
         view.backgroundColor = .lightGray
         self.tableView.rowHeight = 650
     }
+
     
     @IBAction func segmentWasChanged(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
@@ -66,7 +68,30 @@ class FeedTableViewController: UITableViewController {
             tableView.reloadData()
         }
     }
-    
+    func fetchPosts() {
+    FirebaseFunctions.fetchCurrentUser { result in
+        switch result {
+        case true:
+            FirebaseFunctions.fetchFriendz(uid: FeedTableViewController.currentUser.uid) { result in
+                switch result {
+                case true:
+                    FirebaseFunctions.fetchAllPosts { result in
+                        self.dataSource = FeedTableViewController.friendsPosts
+                        print(FeedTableViewController.friendsList)
+                        print(FeedTableViewController.blocked)
+                        self.setupViews()
+                        self.loadData()
+                    }
+                case false:
+                    print("error fetching posts")
+                }
+            }
+        case false:
+            print("error fetching current user")
+        }
+        self.updateViews()
+    }
+    }
     func setupViews() {
         refresh.attributedTitle = NSAttributedString(string: "Pull to see new Posts")
         refresh.addTarget(self, action: #selector(loadData), for: .valueChanged)
@@ -115,13 +140,14 @@ class FeedTableViewController: UITableViewController {
     // MARK: - Navigation
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyboard: UIStoryboard = UIStoryboard(name: "PostDetail", bundle: nil)
-        guard let vc = storyboard.instantiateViewController(withIdentifier: "postDetailVC") as? PostDetailTableViewController else { return }
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "postDetailVC") as? PostViewController else { return }
         
         let post = dataSource[indexPath.row]
-        let userID: String = post.creatorID
+        let postID = post.commentsID
+       // let userID: String = post.creatorID
         ProfileTableViewCell.post = post
         
-        vc.profileUserID = userID
+        vc.postID = postID
         
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -137,9 +163,7 @@ class FeedTableViewController: UITableViewController {
             
             destinationVC.profileUserID = userID
         }
-    } // End of Function
-    */
-    
-} // End of Class
-
-
+        }
+ */
+    }
+// End of Class

@@ -7,7 +7,6 @@
 
 import UIKit
 import Firebase
-
 class SearchUserTableViewController: UITableViewController {
     
     let searchController = UISearchController(searchResultsController: nil)
@@ -74,6 +73,7 @@ extension SearchUserTableViewController {
     }
 }
 
+
 extension SearchUserTableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toProfileVC" {
@@ -85,3 +85,6 @@ extension SearchUserTableViewController {
         }
     }
 }
+
+
+
