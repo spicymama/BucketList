@@ -140,13 +140,14 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
     // MARK: - Navigation
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyboard: UIStoryboard = UIStoryboard(name: "PostDetail", bundle: nil)
-        guard let vc = storyboard.instantiateViewController(withIdentifier: "postDetailVC") as? PostDetailTableViewController else { return }
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "postDetailVC") as? PostViewController else { return }
         
         let post = dataSource[indexPath.row]
-        let userID: String = post.creatorID
+        let postID = post.commentsID
+       // let userID: String = post.creatorID
         ProfileTableViewCell.post = post
         
-        vc.profileUserID = userID
+        vc.postID = postID
         
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -163,5 +164,6 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
             destinationVC.profileUserID = userID
         }
         }
+ */
     }
 // End of Class

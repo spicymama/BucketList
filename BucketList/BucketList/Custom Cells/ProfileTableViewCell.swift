@@ -12,6 +12,7 @@ class ProfileTableViewCell: UITableViewCell {
 
     static let shared = ProfileTableViewCell()
     static var post: Post?
+    var buckitz: [Bucket] = []
     
         @IBOutlet weak var profilePic: UIImageView!
         @IBOutlet weak var usernameLabel: UILabel!
@@ -34,20 +35,26 @@ class ProfileTableViewCell: UITableViewCell {
     var user: User? {
         didSet {
             updateViews()
+            
         }
     }
     
         func updateViews(){
             guard let user = user else {return}
+            BucketFirebaseFunctions.fetchBuckets { result in
+                self.buckitz = result
+                print(self.buckitz)
+            }
             profilePic.image = UIImage(named: "swing")
             usernameLabel.text = user.username
             achievementLabel.text = user.lastName
-            imageView1.image = UIImage(named: "gorgeousGirlfriend")
+            imageView1.image = UIImage(named: "lift")
             achievementLabel.text = ProfileTableViewCell.post?.title
             collectionView.contentSize = CGSize(width: 2000, height: 100)
             collectionView.addSubview(UIImageView())
         }
-
+    
+    
 }
     extension ProfileTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -72,11 +79,11 @@ class ProfileTableViewCell: UITableViewCell {
 
 extension ProfileTableViewCell: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView = ProfileTableViewCell.shared.lilTableView, numberOfRowsInSection section: Int) -> Int {
-        strings.count
+        buckitz.count
     }
     
     func tableView(_ tableView: UITableView = ProfileTableViewCell.shared.lilTableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell { guard let cell = tableView.dequeueReusableCell(withIdentifier: "recentPostCell", for: indexPath) as? RecentPostsTableViewCell else {return UITableViewCell()}
-    let string = strings[indexPath.row]
+        let string = buckitz[indexPath.row].title
     cell.string = string
     return cell
 }

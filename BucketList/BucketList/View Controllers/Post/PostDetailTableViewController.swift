@@ -11,22 +11,20 @@ class PostDetailTableViewController: UIViewController {
 
     
     // MARK: - Properties
-    var profileUserID: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
     }
-
-
-    @IBAction func profileDetailBtn(_ sender: Any) {
-        let storyboard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "profileDetailVC")
-        
-        navigationController?.pushViewController(vc, animated: true)
-    }
+    
+    
+    
     
 } // End of Class
 
+
+
+/*
 
 // MARK: - Extensions
 extension PostDetailTableViewController: UITableViewDelegate, UITableViewDataSource {
@@ -41,3 +39,4 @@ extension PostDetailTableViewController: UITableViewDelegate, UITableViewDataSou
     }
 
 } // End of Extension
+*/

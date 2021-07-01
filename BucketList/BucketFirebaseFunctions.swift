@@ -86,5 +86,15 @@ class BucketFirebaseFunctions {
         }
         
     }
+    static func deleteBucket(bucketID: String, completion: @escaping (Bool)-> Void) {
+        Firestore.firestore().collection("buckets").document(bucketID).collection("bucketID").document().delete() { error in
+            if let error = error {
+                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+            } else {
+               completion(true)
+                
+            }
+        }
+    }
 } // End of Class
-
+//.document(bucketID).collection("bucketID").document(bucketID).delete()

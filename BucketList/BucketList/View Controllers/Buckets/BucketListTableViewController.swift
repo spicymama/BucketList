@@ -46,7 +46,6 @@ class BucketListTableViewController: UITableViewController {
         self.updateViews()
         BucketFirebaseFunctions.fetchBuckets { result in
             for bucket in result {
-                print(bucket.isPublic)
                 if bucket.isPublic == true {
                     if !self.sections[0].contains(bucket) {
                     self.sections[0].append(bucket)
@@ -56,7 +55,6 @@ class BucketListTableViewController: UITableViewController {
                 else {
                     if !self.sections[1].contains(bucket) {
                         self.sections[1].append(bucket)
-                        print(self.sections[1])
                     }
 
                 }
@@ -66,6 +64,34 @@ class BucketListTableViewController: UITableViewController {
     }
     
     // MARK: - Table view data source
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            var bucketToDelete = sections[indexPath.section][indexPath.row].bucketID
+            BucketFirebaseFunctions.deleteBucket(bucketID: bucketToDelete) { result in
+                DispatchQueue.main.async {
+                switch result {
+                case true:
+                    print("deleted bucket from firestore")
+                    /*
+                    for bucket in self.bucketList {
+                        if bucket.bucketID == bucketToDelete {
+                            guard let index = self.bucketList.firstIndex(of: bucket) else {return}
+                            self.bucketList.remove(at: index)
+                        }
+                    }
+                    self.sections.remove(at: [indexPath.section][indexPath.row])
+ */
+                    //self.tableView.deleteRows(at: [indexPath], with: .fade)
+                    self.loadData()
+                    self.tableView.reloadData()
+                case false:
+                     print("Error deleting bucket")
+                }
+                }
+            }
+        }
+    }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
