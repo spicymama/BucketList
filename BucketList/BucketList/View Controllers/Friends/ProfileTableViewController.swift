@@ -11,7 +11,7 @@ class ProfileTableViewController: UITableViewController {
     var refresh: UIRefreshControl = UIRefreshControl()
     let db = Firestore.firestore()
     var currentUser: User?
-    var profileUserID: String = ""
+    var profileUser: User?
     
     //MARK: - Outlets
     
@@ -28,22 +28,31 @@ class ProfileTableViewController: UITableViewController {
         FriendsListModelController.sharedInstance.addFriend()
     }
     @IBAction func blockUserButtonTapped(_ sender: Any) {
-//        FriendsListModelController.sharedInstance.blockUser(profileUID: profileUserID)
+        guard let profileUser = profileUser else {return}
+        FriendsListModelController.sharedInstance.blockUser(profileUID: profileUser.uid)
     }
     @IBAction func messageButtonTapped(_ sender: Any) {
-        //FriendsListModelController.sharedInstance.blockUser(uidtoblock: <#T##String#>)
-        //open justin's create message view/open existing message view.
+        FriendsListModelController.sharedInstance.checkForBlockedUser()
+        guard let currentUser = currentUser else {return}
+        guard let profileUser = profileUser else {return}
+        ConversationController.shared.createAndSaveConversation(users: [currentUser, profileUser]) { conversation in
+            if let conversationListVC = self.storyboard?.instantiateViewController(identifier: "conversationListVC") {
+                self.navigationController?.pushViewController(conversationListVC, animated: true)
+            }
+        }
+            
+    
     }
     @IBAction func bucketListButtonTapped(_ sender: Any) {
-       // if let bucketlist = self.storyboard?.instantiateInitialViewController(identifier: "bucketlistVC") {
-       //     self.navigationController?.pushViewController(bucketlist, animated: true)
-     //   }
+        if let bucketList = self.storyboard?.instantiateViewController(identifier: "BucketListTableVC") {
+            self.navigationController?.pushViewController(bucketList, animated: true)
+        }
     }
 
     @IBAction func friendsListButtonTapped(_ sender: Any) {
-      //  if let friendsList = self.storyboard?.instantiateViewController(identifier: "friendsListVC") {
-        //    self.navigationController?.pushViewController(friendsList, animated: true)
-      //  }
+        if let friendsList = self.storyboard?.instantiateViewController(identifier: "friendsListVC") {
+          self.navigationController?.pushViewController(friendsList, animated: true)
+        }
     }
     
     
