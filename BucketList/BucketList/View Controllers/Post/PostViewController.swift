@@ -9,21 +9,90 @@ import UIKit
 
 class PostViewController: UIViewController {
 
+    // MARK: - Properties
+    var postID: String?
+   static var currentPost: Post?
+    var currentUser: User?
+    var username: String?
+    var profilePic: UIImage?
+    var timeStamp: Date?
+    
+    @IBOutlet weak var timestampLabel: UILabel!
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var profilePicImageView: UIImageView!
+    @IBOutlet weak var postImageView: UIImageView!
+    @IBOutlet weak var commentTextField: UITextField!
+    @IBOutlet weak var postDescription: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchCurrentPost()
+       // fetchCurrentUser()
+       // updateViews()
+    }
 
-        // Do any additional setup after loading the view.
+    @IBAction func postCommentButtonTapped(_ sender: Any) {
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func profileDetailBtn(_ sender: Any) {
+        let storyboard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "profileDetailVC")
+        
+        navigationController?.pushViewController(vc, animated: true)
     }
-    */
+    
+    func fetchCurrentPost() {
+        guard let ID = postID else {return}
+        FirebaseFunctions.fetchPost(postID: ID) { data in
+                
+            let postID: String = data["commentsID"] as! String
+            let postDecription: String = data["postNote"] as! String
+            let postTitle: String = data["title"] as? String ?? "Title"
+            let photoID: String = "swing"
+            let creatorID: String = (data["creatorID"] as? String) ?? ""
+     
+            
+            PostViewController.currentPost = Post(commentsID: postID, photoID: photoID, description: postDecription, title: postTitle, creatorID: creatorID)
+            self.fetchCurrentUser()
+        }
+        
+        
+    }
+    func fetchCurrentUser() {
+        guard let post = PostViewController.currentPost else {return}
+        FirebaseFunctions.fetchUserData(uid: post.creatorID) { result in
+            self.username = result.username
+            self.profilePic = result.profilePicture
+            print(self.username)
+            self.updateViews()
+        }
+    }
+    
+    func updateViews() {
+        self.usernameLabel.text = self.username
+        self.titleLabel.text = PostViewController.currentPost?.title
+        self.postImageView.image = UIImage(named: PostViewController.currentPost?.photoID ?? "peace" )
+        self.profilePicImageView.image = UIImage(named: "justin")
+        self.postDescription.text = PostViewController.currentPost?.description
+    }
+    
+} // End of Class
 
-}
+
+// MARK: - Extensions
+extension PostDetailTableViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 0
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath) as? PostCommentsTableViewCell else {return UITableViewCell()}
+        let commentsID = PostViewController.currentPost?.commentsID
+        cell.commentsID = commentsID
+        
+        return cell
+    }
+
+} // End of Extension
+
+

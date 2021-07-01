@@ -174,7 +174,7 @@
             </objects>
             <point key="canvasLocation" x="5572.4299065420555" y="77.105831533477328"/>
         </scene>
-        <!--Bucket List Table View Controller-->
+        <!--Buckets-->
         <scene sceneID="yC8-xz-MxS">
             <objects>
                 <tableViewController storyboardIdentifier="BucketListTableVC" id="9Kw-23-inO" customClass="BucketListTableViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
@@ -199,6 +199,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="jFh-Jt-RVw" kind="show" identifier="toItemVC" id="DLx-id-3rq"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -206,7 +209,7 @@
                             <outlet property="delegate" destination="9Kw-23-inO" id="zXn-L5-3we"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="N6t-Te-7PE">
+                    <navigationItem key="navigationItem" title="Buckets" id="N6t-Te-7PE">
                         <barButtonItem key="rightBarButtonItem" title="Item" image="plus.viewfinder" catalog="system" id="bX7-uo-kX2">
                             <connections>
                                 <segue destination="sTS-cg-gtx" kind="show" id="cv5-GH-dsi"/>
@@ -216,7 +219,73 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MDE-Dq-kZC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5572" y="-600"/>
+            <point key="canvasLocation" x="6345" y="77"/>
+        </scene>
+        <!--Bucket Item Table View Controller-->
+        <scene sceneID="KlU-SM-aze">
+            <objects>
+                <tableViewController id="jFh-Jt-RVw" customClass="BucketItemTableViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="8Qy-oJ-3fW">
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="bucketItemCell" rowHeight="107" id="LPE-YK-g87" customClass="BucketItemTableViewCell" customModule="BucketList" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="24.333333969116211" width="428" height="107"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LPE-YK-g87" id="VTa-Oh-uat">
+                                    <rect key="frame" x="0.0" y="0.0" width="428" height="107"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="R3m-0v-HXm">
+                                            <rect key="frame" x="24" y="36.666666666666664" width="380.33333333333331" height="33.999999999999993"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HYw-Mb-Llq">
+                                                    <rect key="frame" x="0.0" y="0.0" width="345" height="34"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="345" id="eXA-eP-YIa"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="itemLabel:" destination="gUK-aD-KUd" eventType="editingDidEnd" id="dU3-CS-2ln"/>
+                                                    </connections>
+                                                </textField>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ROm-rR-IFo">
+                                                    <rect key="frame" x="361" y="0.0" width="19.333333333333314" height="34"/>
+                                                    <state key="normal" image="square" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="progressButton:" destination="gUK-aD-KUd" eventType="touchUpInside" id="Bdw-C9-gpv"/>
+                                                        <action selector="progressButtonTapped:" destination="gUK-aD-KUd" eventType="touchUpInside" id="YNe-KO-29T"/>
+                                                        <action selector="progressButtonTapped:" destination="LPE-YK-g87" eventType="touchUpInside" id="bBf-3G-Pe5"/>
+                                                        <action selector="progressButtonTapped:" destination="jFh-Jt-RVw" eventType="touchUpInside" id="fgc-hp-Gb0"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="R3m-0v-HXm" firstAttribute="centerX" secondItem="VTa-Oh-uat" secondAttribute="centerX" id="SO8-Cl-434"/>
+                                        <constraint firstItem="R3m-0v-HXm" firstAttribute="centerY" secondItem="VTa-Oh-uat" secondAttribute="centerY" id="U3M-LN-csM"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="itemLabel" destination="HYw-Mb-Llq" id="ddv-en-i1F"/>
+                                    <outlet property="progressButton" destination="ROm-rR-IFo" id="8I9-k6-Ytd"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="jFh-Jt-RVw" id="Bcw-4A-h5Y"/>
+                            <outlet property="delegate" destination="jFh-Jt-RVw" id="duf-Tx-Z55"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="zbK-tO-DgC"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yJX-w6-VIr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="gUK-aD-KUd" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="7164.9532710280373" y="76.45788336933046"/>
         </scene>
         <!--Create Bucket View Controller-->
         <scene sceneID="BmW-DL-cGF">
@@ -319,7 +388,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HPo-jP-wRx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6428.9719626168217" y="-600"/>
+            <point key="canvasLocation" x="6345" y="-601"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="cJm-8W-dhs">
@@ -391,6 +460,7 @@
         <image name="envelope" catalog="system" width="128" height="93"/>
         <image name="list.bullet" catalog="system" width="128" height="88"/>
         <image name="plus.viewfinder" catalog="system" width="128" height="115"/>
+        <image name="square" catalog="system" width="128" height="114"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
