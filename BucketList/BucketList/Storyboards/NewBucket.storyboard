@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Buckets-->
+        <scene sceneID="IMA-si-zF2">
+            <objects>
+                <tableViewController storyboardIdentifier="BucketListTableVC" id="Xsc-AO-LJ5" customClass="BucketListTableViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="YJQ-9P-GeI">
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="listItemCell" textLabel="zZV-Iy-qRD" style="IBUITableViewCellStyleDefault" id="x9f-Wd-72w">
+                                <rect key="frame" x="0.0" y="24.333333969116211" width="428" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="x9f-Wd-72w" id="PAK-7g-pGO">
+                                    <rect key="frame" x="0.0" y="0.0" width="428" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zZV-Iy-qRD">
+                                            <rect key="frame" x="20" y="0.0" width="388" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="5L1-pc-MS7" kind="show" identifier="toItemVC" id="z0A-ho-Rqh"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Xsc-AO-LJ5" id="efd-zJ-fZW"/>
+                            <outlet property="delegate" destination="Xsc-AO-LJ5" id="SrN-BI-yHZ"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Buckets" id="WgD-mK-fei">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="plus.viewfinder" catalog="system" id="LH3-QR-LfF">
+                            <connections>
+                                <segue destination="Ofl-pt-vdT" kind="show" id="Yys-dR-2ie"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eQM-hM-Hbe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7256" y="128"/>
+        </scene>
+        <!--Bucket Item Table View Controller-->
+        <scene sceneID="hbf-oj-g2v">
+            <objects>
+                <tableViewController id="5L1-pc-MS7" customClass="BucketItemTableViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="WYU-px-K6h">
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="bucketItemCell" rowHeight="107" id="OIY-um-qYw" customClass="BucketItemTableViewCell" customModule="BucketList" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="24.333333969116211" width="428" height="107"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OIY-um-qYw" id="Gjs-fU-Ab8">
+                                    <rect key="frame" x="0.0" y="0.0" width="428" height="107"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="nsJ-vH-rL5">
+                                            <rect key="frame" x="24" y="36.666666666666664" width="380.33333333333331" height="33.999999999999993"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nUO-Jg-vgI">
+                                                    <rect key="frame" x="0.0" y="0.0" width="345" height="34"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="345" id="Ga4-Fo-y7n"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="itemLabel:" destination="FJR-j7-aZV" eventType="editingDidEnd" id="tNi-q9-pFs"/>
+                                                    </connections>
+                                                </textField>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uQb-63-tve">
+                                                    <rect key="frame" x="361" y="0.0" width="19.333333333333314" height="34"/>
+                                                    <state key="normal" image="square" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="progressButton:" destination="FJR-j7-aZV" eventType="touchUpInside" id="Dd2-iA-egv"/>
+                                                        <action selector="progressButtonTapped:" destination="5L1-pc-MS7" eventType="touchUpInside" id="9er-NK-tdR"/>
+                                                        <action selector="progressButtonTapped:" destination="OIY-um-qYw" eventType="touchUpInside" id="db6-sC-MbT"/>
+                                                        <action selector="progressButtonTapped:" destination="FJR-j7-aZV" eventType="touchUpInside" id="q6G-QN-qls"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="nsJ-vH-rL5" firstAttribute="centerY" secondItem="Gjs-fU-Ab8" secondAttribute="centerY" id="ocl-yy-35d"/>
+                                        <constraint firstItem="nsJ-vH-rL5" firstAttribute="centerX" secondItem="Gjs-fU-Ab8" secondAttribute="centerX" id="xm8-Ts-il4"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="itemLabel" destination="nUO-Jg-vgI" id="kwU-7C-0YJ"/>
+                                    <outlet property="progressButton" destination="uQb-63-tve" id="aYb-87-AaO"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="5L1-pc-MS7" id="8Sj-Zl-455"/>
+                            <outlet property="delegate" destination="5L1-pc-MS7" id="QrW-NF-c6l"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="eWC-HZ-90y"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zkk-eg-1Hs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="FJR-j7-aZV" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="8155" y="146"/>
+        </scene>
+        <!--Create Bucket View Controller-->
+        <scene sceneID="S9m-Ka-Izs">
+            <objects>
+                <viewController id="Ofl-pt-vdT" customClass="CreateBucketViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rTl-8I-2hZ">
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="66" translatesAutoresizingMaskIntoConstraints="NO" id="xra-QK-Tze">
+                                <rect key="frame" x="21.333333333333343" y="185" width="385.33333333333326" height="610"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create new bucket" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mLs-7V-D6b">
+                                        <rect key="frame" x="0.0" y="0.0" width="385.33333333333331" height="55"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="55" id="KHb-25-v42"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Will this bucket be public or private?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VPA-Hi-9xI">
+                                        <rect key="frame" x="0.0" y="121" width="385.33333333333331" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="dDM-ig-T3R"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="100" translatesAutoresizingMaskIntoConstraints="NO" id="8hj-pF-dET">
+                                        <rect key="frame" x="0.0" y="222" width="385.33333333333331" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FaL-3j-mhe">
+                                                <rect key="frame" x="0.0" y="0.0" width="142.66666666666666" height="30"/>
+                                                <state key="normal" title="Public"/>
+                                                <connections>
+                                                    <action selector="publicButtonWasTapped:" destination="Ofl-pt-vdT" eventType="touchUpInside" id="tcB-QL-DZU"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZPd-io-5cX">
+                                                <rect key="frame" x="242.66666666666669" y="0.0" width="142.66666666666669" height="30"/>
+                                                <state key="normal" title="Private"/>
+                                                <connections>
+                                                    <action selector="privateButtonWasTapped:" destination="Ofl-pt-vdT" eventType="touchUpInside" id="XjU-wx-dLf"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title here..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kyi-X9-tOB">
+                                        <rect key="frame" x="0.0" y="318" width="385.33333333333331" height="55"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="55" id="5YY-KK-kOq"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="55" id="akk-eN-Dng"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="What do you plan to do?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gRm-8x-ARz">
+                                        <rect key="frame" x="0.0" y="439" width="385.33333333333331" height="55"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="55" id="RHG-F2-cH7"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="XJF-kj-tYx">
+                                        <rect key="frame" x="0.0" y="560" width="385.33333333333331" height="50"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oz7-T4-eoT">
+                                                <rect key="frame" x="0.0" y="0.0" width="385.33333333333331" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="Jgs-DV-EuK"/>
+                                                </constraints>
+                                                <state key="normal" title="Save"/>
+                                                <connections>
+                                                    <action selector="saveButtonTapped:" destination="Ofl-pt-vdT" eventType="touchUpInside" id="hbZ-im-qoj"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="hBA-8n-Dy6"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="xra-QK-Tze" firstAttribute="centerY" secondItem="hBA-8n-Dy6" secondAttribute="centerY" id="3yZ-4K-lMM"/>
+                            <constraint firstItem="xra-QK-Tze" firstAttribute="width" secondItem="rTl-8I-2hZ" secondAttribute="width" multiplier="0.9" id="Ska-dB-ShA"/>
+                            <constraint firstItem="xra-QK-Tze" firstAttribute="centerX" secondItem="hBA-8n-Dy6" secondAttribute="centerX" id="TbQ-WJ-kbl"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="FGO-RG-yES"/>
+                    <connections>
+                        <outlet property="goalTextField" destination="gRm-8x-ARz" id="s44-R2-HMt"/>
+                        <outlet property="privateButton" destination="ZPd-io-5cX" id="9ld-EK-m0O"/>
+                        <outlet property="publicButton" destination="FaL-3j-mhe" id="QSH-9M-JBt"/>
+                        <outlet property="titleTextField" destination="Kyi-X9-tOB" id="RPT-vf-5sE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pOF-gu-Zbj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7266" y="-575"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="0tY-Tq-SJx">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gad-r8-VmI" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="EfC-6Q-wEr">
+                        <rect key="frame" x="0.0" y="44" width="428" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Xsc-AO-LJ5" kind="relationship" relationship="rootViewController" id="QHK-Ov-Ses"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lHF-fX-kyW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6359" y="128"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="plus.viewfinder" catalog="system" width="128" height="115"/>
+        <image name="square" catalog="system" width="128" height="114"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

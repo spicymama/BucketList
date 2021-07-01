@@ -37,7 +37,7 @@
 		AA25B5322683E90D00B0E13F /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B5312683E90D00B0E13F /* ProfileTableViewController.swift */; };
 		AA25B5352683E93700B0E13F /* CreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B5342683E93700B0E13F /* CreatePostViewController.swift */; };
 		AA25B5372683E96400B0E13F /* FeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B5362683E96400B0E13F /* FeedTableViewController.swift */; };
-		AA25B5392683E99900B0E13F /* gavinPost.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA25B5382683E99900B0E13F /* gavinPost.storyboard */; };
+		AA25B5392683E99900B0E13F /* NewPost.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA25B5382683E99900B0E13F /* NewPost.storyboard */; };
 		AA25B53C2683E9FF00B0E13F /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B53B2683E9FF00B0E13F /* FeedTableViewCell.swift */; };
 		AA25B53E2683EA0E00B0E13F /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B53D2683EA0E00B0E13F /* ProfileCollectionViewCell.swift */; };
 		AA25B5402683EA1500B0E13F /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B53F2683EA1500B0E13F /* ProfileTableViewCell.swift */; };
@@ -58,7 +58,7 @@
 		AA8E96AD26810D6F003DC8DA /* Bucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E96AC26810D6F003DC8DA /* Bucket.swift */; };
 		AA8E96B026810DBE003DC8DA /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E96AF26810DBE003DC8DA /* Model.swift */; };
 		AA954C54268658E4000C22F7 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA954C53268658E4000C22F7 /* PostViewController.swift */; };
-		AA954C582686A488000C22F7 /* Bucket.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA954C572686A488000C22F7 /* Bucket.storyboard */; };
+		AA954C582686A488000C22F7 /* NewBucket.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA954C572686A488000C22F7 /* NewBucket.storyboard */; };
 		AACAC853268525A9002E9E43 /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACAC852268525A9002E9E43 /* GlobalFunctions.swift */; };
 		EA2F64BC268CCDD900AD2619 /* BucketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F64BB268CCDD900AD2619 /* BucketTableViewCell.swift */; };
 		EA2F64BF268D04D500AD2619 /* BucketListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F64BE268D04D500AD2619 /* BucketListTableViewController.swift */; };
@@ -105,7 +105,7 @@
 		AA25B5312683E90D00B0E13F /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		AA25B5342683E93700B0E13F /* CreatePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewController.swift; sourceTree = "<group>"; };
 		AA25B5362683E96400B0E13F /* FeedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewController.swift; sourceTree = "<group>"; };
-		AA25B5382683E99900B0E13F /* gavinPost.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = gavinPost.storyboard; sourceTree = "<group>"; };
+		AA25B5382683E99900B0E13F /* NewPost.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NewPost.storyboard; sourceTree = "<group>"; };
 		AA25B53B2683E9FF00B0E13F /* FeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
 		AA25B53D2683EA0E00B0E13F /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		AA25B53F2683EA1500B0E13F /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
@@ -126,7 +126,7 @@
 		AA8E96AC26810D6F003DC8DA /* Bucket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bucket.swift; sourceTree = "<group>"; };
 		AA8E96AF26810DBE003DC8DA /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		AA954C53268658E4000C22F7 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
-		AA954C572686A488000C22F7 /* Bucket.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Bucket.storyboard; sourceTree = "<group>"; };
+		AA954C572686A488000C22F7 /* NewBucket.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewBucket.storyboard; sourceTree = "<group>"; };
 		AACAC852268525A9002E9E43 /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
 		C3188C93C2B51D68B5DDF585 /* Pods-BucketList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BucketList.release.xcconfig"; path = "Target Support Files/Pods-BucketList/Pods-BucketList.release.xcconfig"; sourceTree = "<group>"; };
 		D3317EECED0B32C26F983252 /* Pods_BucketList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BucketList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -256,6 +256,8 @@
 		AA67204A26810709003D43A0 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				AA25B5382683E99900B0E13F /* NewPost.storyboard */,
+				AA954C572686A488000C22F7 /* NewBucket.storyboard */,
 				AA02FF8326810501004EA782 /* LaunchScreen.storyboard */,
 				AA02FF7E26810500004EA782 /* Main.storyboard */,
 				AA672053268107D2003D43A0 /* ethan */,
@@ -273,7 +275,6 @@
 			children = (
 				AA67204B268107A2003D43A0 /* Authenticate.storyboard */,
 				AA25B5072682397D00B0E13F /* LoadUsers.storyboard */,
-				AA954C572686A488000C22F7 /* Bucket.storyboard */,
 			);
 			path = ethan;
 			sourceTree = "<group>";
@@ -290,7 +291,6 @@
 			isa = PBXGroup;
 			children = (
 				AA67204F268107AD003D43A0 /* gavin.storyboard */,
-				AA25B5382683E99900B0E13F /* gavinPost.storyboard */,
 			);
 			path = gavin;
 			sourceTree = "<group>";
@@ -485,13 +485,13 @@
 			files = (
 				AA349491268CD7C900467C0C /* PostDetail.storyboard in Resources */,
 				AA67204E268107A7003D43A0 /* josh.storyboard in Resources */,
-				AA25B5392683E99900B0E13F /* gavinPost.storyboard in Resources */,
+				AA25B5392683E99900B0E13F /* NewPost.storyboard in Resources */,
 				AA02FF8526810501004EA782 /* LaunchScreen.storyboard in Resources */,
 				AA672050268107AD003D43A0 /* gavin.storyboard in Resources */,
 				AA02FF8226810501004EA782 /* Assets.xcassets in Resources */,
 				AA02FF8026810500004EA782 /* Main.storyboard in Resources */,
 				AA672052268107B4003D43A0 /* justin.storyboard in Resources */,
-				AA954C582686A488000C22F7 /* Bucket.storyboard in Resources */,
+				AA954C582686A488000C22F7 /* NewBucket.storyboard in Resources */,
 				EA5C90672683EEA3008BE058 /* GoogleService-Info.plist in Resources */,
 				AA349495268CE57D00467C0C /* ProfileDetail.storyboard in Resources */,
 				AA25B5082682397D00B0E13F /* LoadUsers.storyboard in Resources */,

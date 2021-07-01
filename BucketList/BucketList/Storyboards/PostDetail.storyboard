@@ -159,7 +159,13 @@
                             <constraint firstItem="QNU-kp-hIs" firstAttribute="leading" secondItem="n5i-VQ-wjF" secondAttribute="leading" constant="8" id="w55-m3-1OH"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="wfZ-cQ-ABg"/>
+                    <navigationItem key="navigationItem" id="wfZ-cQ-ABg">
+                        <barButtonItem key="rightBarButtonItem" image="line.horizontal.3.decrease.circle" catalog="system" id="pHD-2R-LRd">
+                            <connections>
+                                <action selector="menuBtn:" destination="55E-2H-65h" id="f9L-je-m8N"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="commentTextField" destination="hjY-Rb-1gy" id="a2z-oX-8nV"/>
                         <outlet property="postDescription" destination="izn-qj-n6n" id="0XK-Fy-Iuv"/>
@@ -195,6 +201,7 @@
     </scenes>
     <resources>
         <image name="arrow.up.bin" catalog="system" width="128" height="93"/>
+        <image name="line.horizontal.3.decrease.circle" catalog="system" width="128" height="121"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
