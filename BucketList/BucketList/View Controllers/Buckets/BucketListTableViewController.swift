@@ -67,7 +67,8 @@ class BucketListTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            var bucketToDelete = sections[indexPath.section][indexPath.row].bucketID
+            let bucketToDelete = sections[indexPath.section][indexPath.row].bucketID
+            print(bucketToDelete)
             BucketFirebaseFunctions.deleteBucket(bucketID: bucketToDelete) { result in
                 DispatchQueue.main.async {
                 switch result {
@@ -111,6 +112,15 @@ class BucketListTableViewController: UITableViewController {
         cell.textLabel?.text = cellText
        
         return cell
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toItemVC" {
+            guard let indexPath = tableView.indexPathForSelectedRow,
+                  let destinationVC = segue.destination as? BucketItemTableViewController else {return}
+            let itemsID = sections[indexPath.section][indexPath.row].itemsID
+            print(itemsID)
+            destinationVC.itemsID = itemsID
+        }
     }
     
 /*

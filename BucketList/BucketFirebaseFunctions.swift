@@ -86,15 +86,97 @@ class BucketFirebaseFunctions {
         }
         
     }
+    
+    static func deleteBucket(bucketID: String, completion: @escaping (Bool)-> Void) {
+        Firestore.firestore().collection("buckets").document(bucketID).delete() { error in
+            if let error = error {
+                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+            } else {
+                completion(true)
+               
+            }
+        }
+    }
+    static func fetchBucketItems(itemsID: String, completion: @escaping ([String : Any])-> Void) {
+        let id = itemsID
+        let itemsData = Firestore.firestore().collection("bucketItems").document(id)
+        itemsData.getDocument { document, error in
+            if let error = error {
+                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+            } else {
+                completion(document!.data()!)
+            }
+        }
+    }
+}
+    
+    
+    
+    
+    
+    
+    
+    /*
     static func deleteBucket(bucketID: String, completion: @escaping (Bool)-> Void) {
         Firestore.firestore().collection("buckets").document(bucketID).collection("bucketID").document().delete() { error in
             if let error = error {
                  print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
             } else {
                completion(true)
-                
+                Firestore.firestore().collection("buckets").document(bucketID).collection("commentsID").document().delete() { error in
+                    if let error = error {
+                         print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                    } else {
+                       completion(true)
+                        Firestore.firestore().collection("buckets").document(bucketID).collection("completion").document().delete() { error in
+                            if let error = error {
+                                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                            } else {
+                               completion(true)
+                                Firestore.firestore().collection("buckets").document(bucketID).collection("isPublic").document().delete() { error in
+                                    if let error = error {
+                                         print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                                    } else {
+                                       completion(true)
+                                        Firestore.firestore().collection("buckets").document(bucketID).collection("itemsID").document().delete() { error in
+                                            if let error = error {
+                                                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                                            } else {
+                                               completion(true)
+                                                Firestore.firestore().collection("buckets").document(bucketID).collection("note").document().delete() { error in
+                                                    if let error = error {
+                                                         print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                                                    } else {
+                                                       completion(true)
+                                                        Firestore.firestore().collection("buckets").document(bucketID).collection("reactions").document().delete() { error in
+                                                            if let error = error {
+                                                                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                                                            } else {
+                                                               completion(true)
+                                                                Firestore.firestore().collection("buckets").document(bucketID).collection("title").document().delete() { error in
+                                                                    if let error = error {
+                                                                         print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                                                                    } else {
+                                                                       completion(true)
+                                                                        Firestore.firestore().collection("buckets").document(bucketID).delete()
+                                                                    }
+                                                                }
+                                                            }
+                                                    }
+                                            }
+                                    }
+                            }
+                    }
+                }
             }
         }
     }
 } // End of Class
 //.document(bucketID).collection("bucketID").document(bucketID).delete()
+                }
+            }
+        }
+    }
+}
+*/
+

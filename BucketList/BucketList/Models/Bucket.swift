@@ -21,19 +21,20 @@ class Bucket {
     var note: String
     var commentsID: String
     var itemsID: String
-    var bucketID: String = UUID().uuidString
+    var bucketID: String
     var completion: Int = 0
     var reactions: [String] = []
     var isPublic: Bool
     
 
-    init(title: String, note: String, commentsID: String, itemsID: String, bucketID: String = UUID().uuidString, completion: Int = 0, reactions: [String] = [], isPublic: Bool) {
+    init(title: String, note: String, commentsID: String, itemsID: String, bucketID: String, completion: Int = 0, reactions: [String] = [], isPublic: Bool) {
 
         self.title = title
         self.note = note
         self.commentsID = bucketID
         self.itemsID = bucketID
         self.isPublic = isPublic
+        self.bucketID = bucketID
     }
 
 

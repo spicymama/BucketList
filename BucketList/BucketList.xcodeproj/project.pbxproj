@@ -67,6 +67,8 @@
 		EA2F64C5268D050600AD2619 /* NewBucketTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F64C4268D050600AD2619 /* NewBucketTableViewController.swift */; };
 		EA2F64C8268E25B800AD2619 /* PostCommentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F64C7268E25B800AD2619 /* PostCommentsTableViewCell.swift */; };
 		EA2F64CA268E31EA00AD2619 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F64C9268E31EA00AD2619 /* NetworkError.swift */; };
+		EA2F64CC268E5FA600AD2619 /* BucketItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F64CB268E5FA600AD2619 /* BucketItemTableViewCell.swift */; };
+		EA2F64CE268E607900AD2619 /* BucketItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F64CD268E607900AD2619 /* BucketItemTableViewController.swift */; };
 		EA5C90672683EEA3008BE058 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA5C90662683EEA3008BE058 /* GoogleService-Info.plist */; };
 		EAB753EF2685255200B2F8C7 /* RecentPostsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB753EE2685255200B2F8C7 /* RecentPostsTableViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -136,6 +138,8 @@
 		EA2F64C4268D050600AD2619 /* NewBucketTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBucketTableViewController.swift; sourceTree = "<group>"; };
 		EA2F64C7268E25B800AD2619 /* PostCommentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentsTableViewCell.swift; sourceTree = "<group>"; };
 		EA2F64C9268E31EA00AD2619 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		EA2F64CB268E5FA600AD2619 /* BucketItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketItemTableViewCell.swift; sourceTree = "<group>"; };
+		EA2F64CD268E607900AD2619 /* BucketItemTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketItemTableViewController.swift; sourceTree = "<group>"; };
 		EA5C90662683EEA3008BE058 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EAB753EE2685255200B2F8C7 /* RecentPostsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentPostsTableViewCell.swift; sourceTree = "<group>"; };
 		F53BB64563576D97B8BB2B09 /* Pods-BucketList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BucketList.debug.xcconfig"; path = "Target Support Files/Pods-BucketList/Pods-BucketList.debug.xcconfig"; sourceTree = "<group>"; };
@@ -244,6 +248,7 @@
 				697358B0268B8CF500E17FC1 /* ConversationTableViewCell.swift */,
 				EA2F64BB268CCDD900AD2619 /* BucketTableViewCell.swift */,
 				EA2F64C7268E25B800AD2619 /* PostCommentsTableViewCell.swift */,
+				EA2F64CB268E5FA600AD2619 /* BucketItemTableViewCell.swift */,
 			);
 			path = "Custom Cells";
 			sourceTree = "<group>";
@@ -348,6 +353,7 @@
 				EA2F64C0268D04E700AD2619 /* CreateBucketViewController.swift */,
 				EA2F64C2268D04F400AD2619 /* BucketItemViewController.swift */,
 				EA2F64C4268D050600AD2619 /* NewBucketTableViewController.swift */,
+				EA2F64CD268E607900AD2619 /* BucketItemTableViewController.swift */,
 			);
 			path = Buckets;
 			sourceTree = "<group>";
@@ -548,6 +554,7 @@
 				EA2F64C5268D050600AD2619 /* NewBucketTableViewController.swift in Sources */,
 				AA25B5242683E2C700B0E13F /* UserController.swift in Sources */,
 				EA2F64BF268D04D500AD2619 /* BucketListTableViewController.swift in Sources */,
+				EA2F64CE268E607900AD2619 /* BucketItemTableViewController.swift in Sources */,
 				AACAC853268525A9002E9E43 /* GlobalFunctions.swift in Sources */,
 				AA25B4F726814A5300B0E13F /* SignUpViewController.swift in Sources */,
 				AA8E96A326810D03003DC8DA /* ConversationListTableViewController.swift in Sources */,
@@ -579,6 +586,7 @@
 				AA25B5222683E2B200B0E13F /* ConversationController.swift in Sources */,
 				EAB753EF2685255200B2F8C7 /* RecentPostsTableViewCell.swift in Sources */,
 				AA8E96A126810CFE003DC8DA /* Notifier.swift in Sources */,
+				EA2F64CC268E5FA600AD2619 /* BucketItemTableViewCell.swift in Sources */,
 				AA25B512268250B500B0E13F /* FirebaseFunctions.swift in Sources */,
 				AA25B5402683EA1500B0E13F /* ProfileTableViewCell.swift in Sources */,
 				AA8E96AD26810D6F003DC8DA /* Bucket.swift in Sources */,
