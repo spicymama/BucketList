@@ -10,6 +10,7 @@ import UIKit
 class FeedTableViewCell: UITableViewCell {
 
     static let shared = FeedTableViewCell()
+    var username: String = ""
     
     
     // MARK: - Outlets
@@ -37,13 +38,28 @@ class FeedTableViewCell: UITableViewCell {
     }
 
     func updateViews() {
-        guard let post = post else {return}
-        
-        profilePic.image = UIImage(named: "peace")
-        usernameLabel.text = "Gavin checked something off his list"
-        postImageView.image = UIImage(named: "lift")
-        postNoteLabel.text = post.description
        
-    }
+           profilePic.image = UIImage(named: "peace")
+           usernameLabel.text = self.post?.title
+           postImageView.image = UIImage(named: "lift")
+           postNoteLabel.text = self.post?.description
+            }
+     
     
+    /*
+func fetchUsername() {
+    
+    guard let post = post else {return}
+    let group = DispatchGroup()
+    FirebaseFunctions.fetchUserData(uid: post.creatorID) { result in
+    group.enter()
+            self.username = result.username
+        group.leave()
+        group.notify(queue: DispatchQueue.main) {
+            self.updateViews()
+
+        }
+    }
+}
+ */
 }

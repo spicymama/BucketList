@@ -33,10 +33,25 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         super.viewDidLoad()
         self.navigationItem.setHidesBackButton(true, animated: true)
         fetchPosts()
-        updateSearchController()
         
+        searchController.searchResultsUpdater = self
+        definesPresentationContext = true
+    
+        let userSearchTable = storyboard!.instantiateViewController(identifier: "userSearchTable") as! SearchUserTableViewController
+        resultSearchController = UISearchController(searchResultsController: userSearchTable)
+        resultSearchController?.searchResultsUpdater = userSearchTable
+        
+        let searchBar = resultSearchController!.searchBar
+        searchBar.sizeToFit()
+        searchBar.placeholder = "Who are we looking for?"
+        navigationItem.searchController = resultSearchController
+        
+        resultSearchController?.hidesNavigationBarDuringPresentation = false
+        resultSearchController?.dimsBackgroundDuringPresentation = true
+        definesPresentationContext = true
         view.backgroundColor = .lightGray
         self.tableView.rowHeight = 650
+    
     }
     
     

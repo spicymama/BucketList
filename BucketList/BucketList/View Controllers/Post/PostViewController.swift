@@ -7,7 +7,8 @@
 
 import UIKit
 
-class PostViewController: UIViewController {
+class PostViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
 
     // MARK: - Properties
     var postID: String?
@@ -16,8 +17,9 @@ class PostViewController: UIViewController {
     var username: String?
     var profilePic: UIImage?
     var timeStamp: Date?
-    
+    static var comments: [String] = ["That's cool!", "You are cool!", "Cool thing you have done!", "Very friggin cool!"]
     @IBOutlet weak var timestampLabel: UILabel!
+    @IBOutlet weak var lilTableView: UITableView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var profilePicImageView: UIImageView!
     @IBOutlet weak var postImageView: UIImageView!
@@ -27,11 +29,19 @@ class PostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchCurrentPost()
+        lilTableView.delegate = self
+        lilTableView.dataSource = self
        // fetchCurrentUser()
        // updateViews()
     }
 
     @IBAction func postCommentButtonTapped(_ sender: Any) {
+        if (commentTextField.text != "") {
+            guard let comment = commentTextField.text else {return}
+            PostViewController.comments.append(comment)
+            commentTextField.text = ""
+            lilTableView.reloadData()
+        }
     }
     
     @IBAction func profileDetailBtn(_ sender: Any) {
@@ -137,23 +147,35 @@ class PostViewController: UIViewController {
     }
     
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return PostViewController.comments.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath)
+        
+        cell.textLabel?.text = PostViewController.comments[indexPath.row]
+        
+        return cell
+    }
 } // End of Class
-
+/*
 
 // MARK: - Extensions
 extension PostDetailTableViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return PostViewController.comments.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath) as? PostCommentsTableViewCell else {return UITableViewCell()}
-        let commentsID = PostViewController.currentPost?.commentsID
-        cell.commentsID = commentsID
+        let cell = tableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath)
+       // let commentsID = PostViewController.currentPost?.commentsID
+       // cell.commentsID = commentsID
+        cell.textLabel?.text = PostViewController.comments[indexPath.row]
         
         return cell
     }
 
 } // End of Extension
 
-
+*/

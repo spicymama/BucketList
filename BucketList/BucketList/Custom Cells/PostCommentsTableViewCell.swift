@@ -14,13 +14,15 @@ class PostCommentsTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    var commentsID: String? {
+    var comment: String? {
         didSet {
-            
+            updateViews()
         }
     }
    
     func updateViews() {
-        
+        guard let comment = comment else {return}
+        print(comment)
+        self.textLabel?.text = comment
     }
 }
