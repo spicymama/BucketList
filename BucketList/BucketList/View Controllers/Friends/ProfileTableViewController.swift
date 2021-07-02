@@ -91,18 +91,7 @@ class ProfileTableViewController: UITableViewController {
             loadViewIfNeeded()
         }
     }
-/*
-    func updateView() {
-        FirebaseFunctions.fetchUsersData(passedUserIDs: []) { (result) in
-            let users: [User] = result
-            for i in users {
-                if i.uid == self.user {
-                    self.currentUser = i
-                }
-            }
-        }
-    }
-*/
+
   
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -151,23 +140,7 @@ extension ProfileTableViewController: UICollectionViewDataSource, UICollectionVi
     }
 }
 
-/*
-extension ProfileTableViewController {
-    func lilTableView(_ tableView: UITableView = ProfileTableViewCell.shared.lilTableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
 
-    
-    func lilTableView(_ tableView: UITableView = ProfileTableViewCell.shared.lilTableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard  let cell = tableView.dequeueReusableCell(withIdentifier: "recentPostCell", for: indexPath) as? ProfileTableViewCell else {return UITableViewCell()}
-        if let user = currentUser {
-        cell.user = user
-        }
-        return cell
-    }
-}
-
-*/
  
 // MARK: - Constants
 private enum Constants {

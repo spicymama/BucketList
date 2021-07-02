@@ -13,6 +13,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: - Properties
     var commentsID: String?
    static var currentPost: Post?
+    static var userID: String?
     var currentUser: User?
     var username: String?
     var profilePic: UIImage?
@@ -28,7 +29,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var titleLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        //fetchCurrentPost()
+        fetchCurrentUser()
         lilTableView.delegate = self
         lilTableView.dataSource = self
         fetchComments()
@@ -68,12 +69,13 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
  */
     func fetchCurrentUser() {
-        guard let post = PostViewController.currentPost else {return}
-        FirebaseFunctions.fetchUserData(uid: post.creatorID) { result in
-            self.username = result.username
+        guard let id = PostViewController.userID else {return}
+        FirebaseFunctions.fetchUserData(uid: id) { result in
+            guard let username: String? = result.username else {return}
+            self.username = username
             self.profilePic = result.profilePicture
             print(self.username)
-            self.updateViews()
+            
         }
     }
     func fetchComments() {

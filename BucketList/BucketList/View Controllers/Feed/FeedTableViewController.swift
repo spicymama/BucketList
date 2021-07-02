@@ -144,9 +144,10 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         
         let post = dataSource[indexPath.row]
         let commentsID = post.commentsID
-       // let userID: String = post.creatorID
+        let userID: String = post.creatorID
         ProfileTableViewCell.post = post
         PostViewController.currentPost = post
+        PostViewController.userID = userID
         
         vc.commentsID = commentsID
         
