@@ -243,7 +243,12 @@ class FirebaseFunctions {
                 let blocked: [String] = data["blocked"] as? [String] ?? []
                 FeedTableViewController.friendsList = friends
                 FeedTableViewController.blocked = blocked
-                return completion(true)
+                group.leave()
+                
+                group.notify(queue: DispatchQueue.main) {
+                   
+                    return completion(true)
+                }
                 
             }
         }

@@ -45,10 +45,9 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         resultSearchController?.hidesNavigationBarDuringPresentation = false
         resultSearchController?.dimsBackgroundDuringPresentation = true
         definesPresentationContext = true
-        
-
         view.backgroundColor = .lightGray
         self.tableView.rowHeight = 650
+    
     }
 
     
@@ -79,6 +78,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
                         self.dataSource = FeedTableViewController.friendsPosts
                         print(FeedTableViewController.friendsList)
                         print(FeedTableViewController.blocked)
+                        
                         self.setupViews()
                         self.loadData()
                     }

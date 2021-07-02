@@ -88,7 +88,7 @@ class BucketListTableViewController: UITableViewController {
                     self.tableView.reloadData()
                 case false:
                      print("Error deleting bucket")
-                }
+                    }
                 }
             }
         }
