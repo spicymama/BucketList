@@ -42,7 +42,6 @@
 		AA25B53E2683EA0E00B0E13F /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B53D2683EA0E00B0E13F /* ProfileCollectionViewCell.swift */; };
 		AA25B5402683EA1500B0E13F /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B53F2683EA1500B0E13F /* ProfileTableViewCell.swift */; };
 		AA34947F268BC42C00467C0C /* BucketFirebaseFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA34947E268BC42C00467C0C /* BucketFirebaseFunctions.swift */; };
-		AA349491268CD7C900467C0C /* PostDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA349490268CD7C900467C0C /* PostDetail.storyboard */; };
 		AA349493268CE50E00467C0C /* PostDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA349492268CE50E00467C0C /* PostDetailTableViewController.swift */; };
 		AA349495268CE57D00467C0C /* ProfileDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA349494268CE57D00467C0C /* ProfileDetail.storyboard */; };
 		AA349497268CF30A00467C0C /* AddBlockReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA349496268CF30A00467C0C /* AddBlockReportViewController.swift */; };
@@ -112,7 +111,6 @@
 		AA25B53D2683EA0E00B0E13F /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		AA25B53F2683EA1500B0E13F /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		AA34947E268BC42C00467C0C /* BucketFirebaseFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketFirebaseFunctions.swift; sourceTree = "<group>"; };
-		AA349490268CD7C900467C0C /* PostDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PostDetail.storyboard; sourceTree = "<group>"; };
 		AA349492268CE50E00467C0C /* PostDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailTableViewController.swift; sourceTree = "<group>"; };
 		AA349494268CE57D00467C0C /* ProfileDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfileDetail.storyboard; sourceTree = "<group>"; };
 		AA349496268CF30A00467C0C /* AddBlockReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBlockReportViewController.swift; sourceTree = "<group>"; };
@@ -302,7 +300,6 @@
 			isa = PBXGroup;
 			children = (
 				AA672051268107B4003D43A0 /* justin.storyboard */,
-				AA349490268CD7C900467C0C /* PostDetail.storyboard */,
 			);
 			path = justin;
 			sourceTree = "<group>";
@@ -497,7 +494,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA349491268CD7C900467C0C /* PostDetail.storyboard in Resources */,
 				AA67204E268107A7003D43A0 /* josh.storyboard in Resources */,
 				AA25B5392683E99900B0E13F /* NewPost.storyboard in Resources */,
 				AA02FF8526810501004EA782 /* LaunchScreen.storyboard in Resources */,
