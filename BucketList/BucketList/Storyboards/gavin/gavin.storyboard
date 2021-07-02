@@ -84,7 +84,7 @@
                                                         <constraint firstAttribute="width" secondItem="7ub-LH-fiI" secondAttribute="height" multiplier="1:1" id="QQf-k9-d1o"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LWp-9Y-5xb">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LWp-9Y-5xb" userLabel="Note Label">
                                                     <rect key="frame" x="0.0" y="506" width="412" height="72"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="72" id="VO5-JH-R5u"/>
@@ -115,8 +115,9 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="noteLabel" destination="LWp-9Y-5xb" id="h5i-by-ual"/>
                                     <outlet property="postImageView" destination="7ub-LH-fiI" id="nNI-JV-6kj"/>
-                                    <outlet property="postNoteLabel" destination="LWp-9Y-5xb" id="eV4-Ol-93D"/>
+                                    <outlet property="postTitle" destination="we1-RS-Kga" id="5h0-U4-TBs"/>
                                     <outlet property="profilePic" destination="6be-Zg-Avy" id="iWf-dj-8E0"/>
                                     <outlet property="usernameLabel" destination="vS2-zT-9E7" id="TU2-0C-FtF"/>
                                 </connections>

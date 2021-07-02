@@ -8,19 +8,23 @@
 import UIKit
 
 class Post {
-    
+
+    let postID: String
+    let authorID: String
+    let note: String
     let commentsID: String
     let photoID: String
-    let description: String
-    let title: String
-    let creatorID: String
+    let bucketID: String?
+    let bucketTitle: String?
     
-    init(commentsID: String, photoID: String, description: String, title: String, creatorID: String) {
+    init(postID: String, authorID: String, note: String, commentsID: String, photoID: String, bucketID: String, bucketTitle: String) {
+        self.postID = postID
+        self.authorID = authorID
+        self.note = note
         self.commentsID = commentsID
         self.photoID = photoID
-        self.description = description
-        self.title = title
-        self.creatorID = creatorID
+        self.bucketID = bucketID
+        self.bucketTitle = bucketTitle
     }
     
 }
