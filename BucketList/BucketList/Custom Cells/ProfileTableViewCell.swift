@@ -49,7 +49,6 @@ class ProfileTableViewCell: UITableViewCell {
             usernameLabel.text = user.username
             achievementLabel.text = user.lastName
             imageView1.image = UIImage(named: "lift")
-            achievementLabel.text = ProfileTableViewCell.post?.title
             collectionView.contentSize = CGSize(width: 2000, height: 100)
             collectionView.addSubview(UIImageView())
         }

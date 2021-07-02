@@ -54,7 +54,7 @@ class CreatePostViewController: UIViewController, UITextViewDelegate {
         //TODO(ethan) Some function that also creates a saved file of an image, and gets us the ID
         //let imageID = ""
         
-        FirebaseFunctions.createPost(note: note, imageID: "lift", bucketID: bucketID)
+        FirebaseFunctions.createPost(note: note, imageID: "lift", bucketID: bucketID, bucketTitle: bucketTitle)
         
         // Go to the Post's page, in front of the Feed page
         let storyBoard: UIStoryboard = UIStoryboard(name: "gavin", bundle: nil)
@@ -83,8 +83,6 @@ class CreatePostViewController: UIViewController, UITextViewDelegate {
             noteTextView.textColor = UIColor.black
         }
     } // End of Func
-    
-    
     
     func updateBucketItBtn(bucketTitle: String) {
         let bucketItBtnTitle = ("Bucket It! " + bucketTitle)

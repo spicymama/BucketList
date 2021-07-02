@@ -117,6 +117,7 @@ class FirebaseFunctions {
                 let username: String = data["username"] as? String ?? "User Name"
                 let uid: String = data["uid"] as? String ?? "uid"
                 let conversationIDs = data["conversationsID"] as? [String] ?? ["conversationIDs"]
+                
                 let user = User(firstName: firstName, lastName: lastName, username: username, uid: uid, conversationsIDs: conversationIDs)
                 FeedTableViewController.currentUser = user
                 print(user.firstName)
@@ -189,6 +190,7 @@ class FirebaseFunctions {
                 let uid: String = data["uid"] as? String ?? "uid"
                 
                 let friendsID: String = data["friendsID"] as? String ?? "You have no friends"
+                
                 var friendsList = FriendsList()
                 FirebaseFunctions.fetchFriends(uid: friendsID) { fetchedFriendsList in
                     friendsList = fetchedFriendsList
@@ -255,18 +257,18 @@ class FirebaseFunctions {
     }
     
     
-    
-    
     // MARK: - Create Post
-    static func createPost(note: String, imageID: String, bucketID: String) {
+    static func createPost(note: String, imageID: String, bucketID: String, bucketTitle: String) {
         guard let currentUserID: String = Auth.auth().currentUser?.uid else { return }
-        let postID = UUID().uuidString
+        let postID: String = UUID().uuidString
         Firestore.firestore().collection("posts").document(postID).setData( [
+            "postID" : postID,
             "authorID" : currentUserID,
             "timeStamp" : Date(),
-            "postNote" : note,
+            "note" : note,
             "photoID" : imageID,
             "bucketID" : bucketID,
+            "bucketTitle" : bucketTitle,
             "commentsID" : postID,
             "reactionsArr" : []
         ]) { err in
@@ -293,6 +295,39 @@ class FirebaseFunctions {
     } // End of Create Post
     
     
+    // MARK: - Edit Post
+    static func editPost(postID: String?, note: String, imageID: String, bucketID: String, oldBucketID: String, bucketTitle: String) {
+        guard let postID = postID else { return }
+        Firestore.firestore().collection("posts").document(postID).updateData( [
+            "timeStamp" : Date(),
+            "note" : note,
+            "photoID" : imageID,
+            "bucketID" : bucketID,
+            "bucketTitle" : bucketTitle,
+            "commentsID" : postID,
+            "reactionsArr" : []
+        ]) { err in
+            if let err = err {
+                print("Error in \(#function)\(#line) : \(err.localizedDescription) \n---\n \(err)")
+            } else {
+                // Add the post to the Bucket's array of post ID's if it exists, or update, or delete
+                if oldBucketID != bucketID {
+                    if bucketID != "" {
+                        // Remove postID from old Bucket post array
+                        Firestore.firestore().collection("buckets").document(oldBucketID).updateData([
+                            "postIDs" : FieldValue.arrayRemove([oldBucketID])
+                        ])
+                        // Add this post ID to new Bucket Post array
+                        Firestore.firestore().collection("buckets").document(bucketID).updateData([
+                            "postsIDs" : FieldValue.arrayUnion([postID])
+                        ])
+                    } // End of if Post has a Bucket
+                } // End of if Bucket ID was changed
+            }
+        }
+    } // End of Create Post
+    
+    
     // MARK: - Fetch All Posts
     static func fetchAllPosts(completion: @escaping ([Post] ) -> Void) {
         Firestore.firestore().collectionGroup("posts").addSnapshotListener { (QuerySnapshot, error) in
@@ -304,20 +339,25 @@ class FirebaseFunctions {
                 let group = DispatchGroup()
                 
                 var postsData: [Post] = []
-                for i in postIDs {
+                for postID in postIDs {
                     group.enter()
-                    FirebaseFunctions.fetchPost(postID: i) { data in
-                        let postID: String = data["commentsID"] as! String
-                        let postDecription: String = data["postNote"] as! String
-                        let postTitle: String = data["title"] as? String ?? "Title"
-                        let photoID: String = "swing"
-                                                            
-                        let creatorID: String = (data["creatorID"] as? String) ?? ""
+                    FirebaseFunctions.fetchPost(postID: postID) { post in
+                        let fetchedPost: Post = post
                         
-                        let post = Post(commentsID: postID, photoID: photoID, description: postDecription, title: postTitle, creatorID: creatorID)
+                        // Data to collect
+                        let postID: String = fetchedPost.postID
+                        let authorID: String = fetchedPost.authorID
+                        let note: String = fetchedPost.note
+                        let commentsID: String = fetchedPost.commentsID
+                        let photoID: String = "swing"
+                        let bucketID: String = fetchedPost.bucketID ?? ""
+                        let bucketTitle: String = fetchedPost.bucketTitle ?? ""
+                        
+                        let post = Post(postID: postID, authorID: authorID, note: note, commentsID: commentsID, photoID: photoID, bucketID: bucketID, bucketTitle: bucketTitle)
+                        
                         postsData.append(post)
                         FeedTableViewController.posts.append(post)
-                        if FeedTableViewController.friendsList.contains(post.creatorID) {
+                        if FeedTableViewController.friendsList.contains(post.authorID) {
                             FeedTableViewController.friendsPosts.append(post)
                         }
                         
@@ -333,14 +373,27 @@ class FirebaseFunctions {
     
     
     // MARK: - FetchPost
-    static func fetchPost(postID: String, 🐶: @escaping ( [String : Any]) -> Void) {
+    static func fetchPost(postID: String, 🐶: @escaping ( Post ) -> Void) {
         let id = postID
         let data = Firestore.firestore().collection("posts").document(id)
         data.getDocument { (document, error) in
             if let error = error {
                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
             } else {
-                🐶(document!.data()!)
+                guard let data = document else { return }
+                
+                // Data to collect
+                let postID: String = data["postID"] as? String ?? ""
+                let authorID: String = (data["authorID"] as? String) ?? ""
+                let note: String = data["note"] as? String ?? ""
+                let commentsID: String = data["commentsID"] as? String ?? ""
+                let photoID: String = "swing"
+                let bucketID: String = data["bucketID"] as? String ?? ""
+                let bucketTitle: String = data["bucketTitle"] as? String ?? ""
+                
+                let fetchedPost = Post(postID: postID, authorID: authorID, note: note, commentsID: commentsID, photoID: photoID, bucketID: bucketID, bucketTitle: bucketTitle)
+                
+                🐶(fetchedPost)
             }
         }
     } // End of Fetch Post

@@ -10,29 +10,39 @@ import UIKit
 class PostViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
 
-    // MARK: - Properties
-    var postID: String?
-   static var currentPost: Post?
-    var currentUser: User?
-    var username: String?
-    var profilePic: UIImage?
-    var timeStamp: Date?
-    static var comments: [String] = ["That's cool!", "You are cool!", "Cool thing you have done!", "Very friggin cool!"]
+    // MARK: - Outlets
     @IBOutlet weak var timestampLabel: UILabel!
     @IBOutlet weak var lilTableView: UITableView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var profilePicImageView: UIImageView!
     @IBOutlet weak var postImageView: UIImageView!
     @IBOutlet weak var commentTextField: UITextField!
-    @IBOutlet weak var postDescription: UILabel!
+    @IBOutlet weak var postNote: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
+
+
+    // MARK: - Properties
+    var postID: String?
+    static var currentPost: Post?
+    var currentUser: User?
+    var username: String?
+    var profilePic: UIImage?
+    var timeStamp: Date?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchCurrentPost()
         lilTableView.delegate = self
         lilTableView.dataSource = self
        // fetchCurrentUser()
-       // updateViews()
+        updateViews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchCurrentPost()
+        updateViews()
     }
 
     @IBAction func postCommentButtonTapped(_ sender: Any) {
@@ -44,6 +54,16 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    @IBAction func editPostBtn(_ sender: Any) {
+        // Send over the post data
+        EditPostViewController.postID = postID
+        
+        // Move over to the right VC
+        let storyBoard: UIStoryboard = UIStoryboard(name: "EditPost", bundle: nil)
+        let vs = storyBoard.instantiateViewController(withIdentifier: "editPostVC")
+        self.navigationController?.pushViewController(vs, animated: true)
+    }
+    
     @IBAction func profileDetailBtn(_ sender: Any) {
         let storyboard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "profileDetailVC")
@@ -52,17 +72,11 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func fetchCurrentPost() {
-        guard let ID = postID else {return}
-        FirebaseFunctions.fetchPost(postID: ID) { data in
-                
-            let postID: String = data["commentsID"] as! String
-            let postDecription: String = data["postNote"] as! String
-            let postTitle: String = data["title"] as? String ?? "Title"
-            let photoID: String = "swing"
-            let creatorID: String = (data["creatorID"] as? String) ?? ""
-     
+        postID = PostViewController.currentPost?.postID
+        FirebaseFunctions.fetchPost(postID: postID!) { post in
+            let fetchedPost: Post = post
             
-            PostViewController.currentPost = Post(commentsID: postID, photoID: photoID, description: postDecription, title: postTitle, creatorID: creatorID)
+            PostViewController.currentPost = fetchedPost
             self.fetchCurrentUser()
         }
         
@@ -70,21 +84,26 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     func fetchCurrentUser() {
         guard let post = PostViewController.currentPost else {return}
-        FirebaseFunctions.fetchUserData(uid: post.creatorID) { result in
+        FirebaseFunctions.fetchUserData(uid: post.authorID) { result in
             self.username = result.username
             self.profilePic = result.profilePicture
-            print(self.username)
+            print(self.username ?? "")
             self.updateViews()
         }
     }
     
     func updateViews() {
+        guard let post = PostViewController.currentPost else { return }
+        if post.bucketTitle != "" {
+            self.titleLabel.text = post.bucketTitle
+        } else {
+            self.titleLabel.text = ""
+        }
         self.usernameLabel.text = self.username
-        self.titleLabel.text = PostViewController.currentPost?.title
         self.postImageView.image = UIImage(named: PostViewController.currentPost?.photoID ?? "peace" )
         self.profilePicImageView.image = UIImage(named: "justin")
-        self.postDescription.text = PostViewController.currentPost?.description
-    }
+        self.postNote.text = PostViewController.currentPost?.note
+    } // End of Function update Views
     
     
     // MARK: - Menu Button Stuff

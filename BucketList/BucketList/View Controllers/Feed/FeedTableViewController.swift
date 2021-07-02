@@ -54,7 +54,6 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
     
     }
     
-    
     // MARK: - Actions
     @IBAction func segmentWasChanged(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
@@ -152,13 +151,13 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         let storyboard: UIStoryboard = UIStoryboard(name: "PostDetail", bundle: nil)
         guard let vc = storyboard.instantiateViewController(withIdentifier: "postDetailVC") as? PostViewController else { return }
         
-        let post = dataSource[indexPath.row]
-        let postID = post.commentsID
+        let post: Post = dataSource[indexPath.row]
+        let postID = post.postID
         // let userID: String = post.creatorID
         ProfileTableViewCell.post = post
+        PostViewController.currentPost = post
         
         vc.postID = postID
-        
         navigationController?.pushViewController(vc, animated: true)
     }
     

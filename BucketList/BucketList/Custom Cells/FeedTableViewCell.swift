@@ -8,36 +8,41 @@
 import UIKit
 
 class FeedTableViewCell: UITableViewCell {
-
+    
     static let shared = FeedTableViewCell()
     var username: String = ""
-    
     
     // MARK: - Outlets
     @IBOutlet weak var profilePic: UIImageView!
     @IBOutlet weak var postImageView: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var postNoteLabel: UILabel!
+    @IBOutlet weak var noteLabel: UILabel!
+    @IBOutlet weak var postTitle: UILabel!
     
+    // MARK: - Properties
+    var user: User?
+    var post: Post? {
+        didSet {
+            FirebaseFunctions.fetchUserData(uid: post!.authorID) { fetchedUser in
+                self.user = fetchedUser
+                self.updateViews()
+            }
+        }
+    }
     
+    // MARK: - LIfecycle
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-/*
-    @IBAction func profileButtonTapped(_ sender: Any) {
-        guard let profileTableViewController = UIStoryboard(name: "gavin", bundle: nil).instantiateViewController(identifier: "profilePage") as? ProfileTableViewController else {return}
-
-        profileTableViewController.userID = post?.creatorID
-    }
-    */
-    var post: Post? {
-        didSet {
-          updateViews()
-     
-        }
-    }
-
+    
     func updateViews() {
+        guard let post = post else {return}
+        
+        profilePic.image = UIImage(named: "peace")
+        usernameLabel.text = ((user?.username ?? "User") + " checked " + (post.bucketTitle ?? "something") + "off their list!")
+        postImageView.image = UIImage(named: "lift")
+        noteLabel.text = post.note
+        postTitle.text = post.bucketTitle
        
            profilePic.image = UIImage(named: "peace")
            usernameLabel.text = self.post?.title
