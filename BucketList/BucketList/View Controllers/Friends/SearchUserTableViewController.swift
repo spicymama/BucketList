@@ -74,3 +74,17 @@ extension SearchUserTableViewController {
 }
 
 
+extension SearchUserTableViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toProfileVC" {
+            guard let indexPath = tableView.indexPathForSelectedRow,
+                  let destinationVC = segue.destination as? ProfileTableViewController else {return}
+            let user = self.users[indexPath.row]
+            destinationVC.profileUser = user
+            
+        }
+    }
+}
+
+
+

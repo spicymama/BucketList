@@ -12,6 +12,8 @@ class SearchViewController: UIViewController {
     
     //MARK: - Properties
     var resultSearchController: UISearchController? = nil
+    lazy var searchBar:UISearchBar = UISearchBar()
+    
     
     //MARK: - Lifecycle
     
@@ -20,10 +22,12 @@ class SearchViewController: UIViewController {
         resultSearchController = UISearchController(searchResultsController: userSearchTable)
         resultSearchController?.searchResultsUpdater = userSearchTable
         
-        let searchBar = resultSearchController!.searchBar
+        //let searchBar = resultSearchController!.searchBar
         searchBar.sizeToFit()
         searchBar.placeholder = "Who are we looking for?"
         navigationItem.searchController = resultSearchController
+       
+        
         
         resultSearchController?.hidesNavigationBarDuringPresentation = false
         resultSearchController?.dimsBackgroundDuringPresentation = true
