@@ -17,25 +17,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KZd-te-1j2">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KZd-te-1j2">
                                 <rect key="frame" x="20" y="163" width="388" height="256"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="256" id="rYa-2y-MTU"/>
+                                </constraints>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9XJ-i2-Zu6">
-                                <rect key="frame" x="20" y="125" width="68" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9XJ-i2-Zu6">
+                                <rect key="frame" x="20" y="125" width="256" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="256" id="X4v-C5-KZg"/>
+                                </constraints>
                                 <state key="normal" title="Bucket It?"/>
                                 <connections>
                                     <segue destination="D8n-8j-MMd" kind="presentation" id="F0z-3q-WEe"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WBH-2l-jtX">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WBH-2l-jtX">
                                 <rect key="frame" x="168" y="476" width="93" height="85"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal">
                                     <imageReference key="image" image="photo" catalog="system" symbolScale="default"/>
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
@@ -44,6 +47,15 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="KWT-Y6-fy9"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="KZd-te-1j2" firstAttribute="trailing" secondItem="cks-Xs-b1R" secondAttribute="trailingMargin" id="GJB-bv-h25"/>
+                            <constraint firstItem="KZd-te-1j2" firstAttribute="top" secondItem="9XJ-i2-Zu6" secondAttribute="bottom" constant="8" symbolic="YES" id="I9A-Y4-W5t"/>
+                            <constraint firstItem="9XJ-i2-Zu6" firstAttribute="leading" secondItem="KZd-te-1j2" secondAttribute="leading" id="SSG-Ld-qDk"/>
+                            <constraint firstItem="WBH-2l-jtX" firstAttribute="top" secondItem="KZd-te-1j2" secondAttribute="bottom" constant="57" id="SgZ-X0-mNV"/>
+                            <constraint firstItem="9XJ-i2-Zu6" firstAttribute="top" secondItem="KWT-Y6-fy9" secondAttribute="top" constant="37" id="Ycy-HO-i1c"/>
+                            <constraint firstItem="9XJ-i2-Zu6" firstAttribute="leading" secondItem="cks-Xs-b1R" secondAttribute="leadingMargin" id="gso-cd-T4e"/>
+                            <constraint firstItem="KZd-te-1j2" firstAttribute="centerX" secondItem="WBH-2l-jtX" secondAttribute="centerX" id="mru-fo-edd"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Make a Post" id="UpD-eP-roo">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="zVL-yD-zgZ">

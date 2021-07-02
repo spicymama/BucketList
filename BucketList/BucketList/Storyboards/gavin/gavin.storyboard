@@ -3,7 +3,6 @@
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -131,16 +130,6 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="htB-JK-RIf">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="HE2-2f-Ur3">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="MsF-tI-efB">
-                                <rect key="frame" x="20" y="7" width="95" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="New Post"/>
-                                <connections>
-                                    <action selector="newPostBtn:" destination="opJ-De-DRE" eventType="touchUpInside" id="yEg-a9-AnO"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="wq5-b4-SBd">
                             <rect key="frame" x="147.66666666666666" y="5" width="132.99999999999997" height="34"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -152,18 +141,11 @@
                                 <action selector="segmentWasChanged:" destination="opJ-De-DRE" eventType="valueChanged" id="sK9-z2-gBK"/>
                             </connections>
                         </segmentedControl>
-                        <rightBarButtonItems>
-                            <barButtonItem image="list.bullet" catalog="system" id="cZW-16-CfV">
-                                <connections>
-                                    <segue destination="9Kw-23-inO" kind="show" id="N1l-FI-KxH"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem image="envelope" catalog="system" id="YuF-LK-v45">
-                                <connections>
-                                    <action selector="conversationBtn:" destination="opJ-De-DRE" id="PKK-Mt-mL8"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" image="line.horizontal.3.decrease.circle" catalog="system" id="lwL-uX-TGC">
+                            <connections>
+                                <action selector="menuBtn:" destination="opJ-De-DRE" id="3vY-06-XGZ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -173,153 +155,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wvp-MC-GHZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5572.4299065420555" y="77.105831533477328"/>
-        </scene>
-        <!--Bucket List Table View Controller-->
-        <scene sceneID="yC8-xz-MxS">
-            <objects>
-                <tableViewController storyboardIdentifier="BucketListTableVC" id="9Kw-23-inO" customClass="BucketListTableViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Vtm-6w-b9F">
-                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="listItemCell" textLabel="FsW-Kk-AWm" style="IBUITableViewCellStyleDefault" id="EOc-hM-WUv">
-                                <rect key="frame" x="0.0" y="24.333333969116211" width="428" height="43.666667938232422"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EOc-hM-WUv" id="1c2-Do-PUG">
-                                    <rect key="frame" x="0.0" y="0.0" width="428" height="43.666667938232422"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FsW-Kk-AWm">
-                                            <rect key="frame" x="20" y="0.0" width="388" height="43.666667938232422"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="9Kw-23-inO" id="J2k-LQ-VbY"/>
-                            <outlet property="delegate" destination="9Kw-23-inO" id="zXn-L5-3we"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="N6t-Te-7PE">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="plus.viewfinder" catalog="system" id="bX7-uo-kX2">
-                            <connections>
-                                <segue destination="sTS-cg-gtx" kind="show" id="cv5-GH-dsi"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="MDE-Dq-kZC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5572" y="-600"/>
-        </scene>
-        <!--Create Bucket View Controller-->
-        <scene sceneID="BmW-DL-cGF">
-            <objects>
-                <viewController id="sTS-cg-gtx" customClass="CreateBucketViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="npw-bw-R3a">
-                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="66" translatesAutoresizingMaskIntoConstraints="NO" id="ONk-fa-41h">
-                                <rect key="frame" x="21.333333333333343" y="160.66666666666663" width="385.33333333333326" height="610"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create new bucket" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ja-1U-icv">
-                                        <rect key="frame" x="0.0" y="0.0" width="385.33333333333331" height="55"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="55" id="om9-lX-BCP"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Will this bucket be public or private?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ilM-3y-O8R">
-                                        <rect key="frame" x="0.0" y="121.00000000000003" width="385.33333333333331" height="35"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="REb-Fb-v45"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="100" translatesAutoresizingMaskIntoConstraints="NO" id="CKm-Lr-PzY">
-                                        <rect key="frame" x="0.0" y="222.00000000000003" width="385.33333333333331" height="30"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mBd-J2-WAX">
-                                                <rect key="frame" x="0.0" y="0.0" width="142.66666666666666" height="30"/>
-                                                <state key="normal" title="Public"/>
-                                                <connections>
-                                                    <action selector="publicButtonWasTapped:" destination="sTS-cg-gtx" eventType="touchUpInside" id="o9E-Xs-Kzr"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uSK-je-8iX">
-                                                <rect key="frame" x="242.66666666666669" y="0.0" width="142.66666666666669" height="30"/>
-                                                <state key="normal" title="Private"/>
-                                                <connections>
-                                                    <action selector="privateButtonWasTapped:" destination="sTS-cg-gtx" eventType="touchUpInside" id="z7K-Bw-Ch9"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title here..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lFY-vu-8l0">
-                                        <rect key="frame" x="0.0" y="318" width="385.33333333333331" height="55"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="55" id="8pu-yp-bdm"/>
-                                            <constraint firstAttribute="height" constant="55" id="pfb-Cm-iKW"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="What do you plan to do?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Eah-I8-da6">
-                                        <rect key="frame" x="0.0" y="439" width="385.33333333333331" height="55"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="55" id="H3X-It-K8I"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="al8-tE-sAN">
-                                        <rect key="frame" x="0.0" y="560" width="385.33333333333331" height="50"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WmT-aR-1kB">
-                                                <rect key="frame" x="0.0" y="0.0" width="385.33333333333331" height="50"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="tjf-Xi-dc0"/>
-                                                </constraints>
-                                                <state key="normal" title="Save"/>
-                                                <connections>
-                                                    <action selector="saveButtonTapped:" destination="sTS-cg-gtx" eventType="touchUpInside" id="0n3-XQ-No6"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                            </stackView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="00h-Ii-hpl"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="ONk-fa-41h" firstAttribute="centerX" secondItem="00h-Ii-hpl" secondAttribute="centerX" id="2dT-3W-3Oh"/>
-                            <constraint firstItem="ONk-fa-41h" firstAttribute="width" secondItem="npw-bw-R3a" secondAttribute="width" multiplier="0.9" id="Afm-td-GBx"/>
-                            <constraint firstItem="ONk-fa-41h" firstAttribute="centerY" secondItem="00h-Ii-hpl" secondAttribute="centerY" id="y3k-IS-e2a"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="xZo-Kt-zQp"/>
-                    <connections>
-                        <outlet property="goalTextField" destination="Eah-I8-da6" id="Mrc-W2-YIW"/>
-                        <outlet property="privateButton" destination="uSK-je-8iX" id="GoJ-br-pVJ"/>
-                        <outlet property="publicButton" destination="mBd-J2-WAX" id="wEq-CB-BYr"/>
-                        <outlet property="titleTextField" destination="lFY-vu-8l0" id="dOq-Ys-pWp"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HPo-jP-wRx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="6428.9719626168217" y="-600"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="cJm-8W-dhs">
@@ -339,11 +174,56 @@
             </objects>
             <point key="canvasLocation" x="4662.3188405797109" y="77.678571428571431"/>
         </scene>
+        <!--Search User Table View Controller-->
+        <scene sceneID="2SH-lA-5jA">
+            <objects>
+                <tableViewController storyboardIdentifier="userSearchTable" id="u8b-UL-Ww0" customClass="SearchUserTableViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="OGb-8w-MvN">
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="searchCell" rowHeight="137" id="bSo-jA-blK" customClass="SearchTableViewCell" customModule="BucketList" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="24.333333969116211" width="428" height="137"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bSo-jA-blK" id="Sbu-3A-wmi">
+                                    <rect key="frame" x="0.0" y="0.0" width="428" height="137"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="39" translatesAutoresizingMaskIntoConstraints="NO" id="87L-2M-pvX">
+                                            <rect key="frame" x="142" y="11" width="50" height="50"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="72" translatesAutoresizingMaskIntoConstraints="NO" id="N8g-ie-jPH">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="N8g-ie-jPH" firstAttribute="leading" secondItem="87L-2M-pvX" secondAttribute="leadingMargin" id="XcR-oL-8vX"/>
+                                            </constraints>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="87L-2M-pvX" firstAttribute="leading" secondItem="Sbu-3A-wmi" secondAttribute="leading" constant="142" id="7KS-8b-pyM"/>
+                                        <constraint firstItem="87L-2M-pvX" firstAttribute="top" secondItem="Sbu-3A-wmi" secondAttribute="topMargin" id="m0I-VO-vi0"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="87L-2M-pvX" secondAttribute="bottom" constant="65" id="pzh-Pj-dY9"/>
+                                        <constraint firstAttribute="trailing" secondItem="87L-2M-pvX" secondAttribute="trailing" constant="236" id="qg7-Px-GH7"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="u8b-UL-Ww0" id="dw5-FC-EYu"/>
+                            <outlet property="delegate" destination="u8b-UL-Ww0" id="ikJ-a7-VR5"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rV8-tH-C15" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5571" y="754"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="envelope" catalog="system" width="128" height="93"/>
-        <image name="list.bullet" catalog="system" width="128" height="88"/>
-        <image name="plus.viewfinder" catalog="system" width="128" height="115"/>
+        <image name="line.horizontal.3.decrease.circle" catalog="system" width="128" height="121"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

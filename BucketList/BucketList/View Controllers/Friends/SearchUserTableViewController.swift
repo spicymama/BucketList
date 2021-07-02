@@ -7,7 +7,6 @@
 
 import UIKit
 import Firebase
-
 class SearchUserTableViewController: UITableViewController {
     
     let searchController = UISearchController(searchResultsController: nil)

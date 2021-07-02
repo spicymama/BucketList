@@ -7,7 +7,13 @@
 
 import UIKit
 
-class FeedTableViewController: UITableViewController {
+class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        
+    }
+    
+    // MARK: - Properties
     static var currentUser: User = User()
     static var friendsList: [String] = []
     static var blocked: [String] = []
@@ -16,13 +22,44 @@ class FeedTableViewController: UITableViewController {
     var refresh: UIRefreshControl = UIRefreshControl()
     var searchController = UISearchController()
     var dataSource: [Post] = []
+    var resultSearchController: UISearchController? = nil
     
+    
+    // MARK: - Outlets
     @IBOutlet weak var segmentedController: UISegmentedControl!
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
-        navigationItem.searchController = searchController
-        
         super.viewDidLoad()
+        self.navigationItem.setHidesBackButton(true, animated: true)
+        fetchPosts()
+        updateSearchController()
+        
+        view.backgroundColor = .lightGray
+        self.tableView.rowHeight = 650
+    }
+    
+    
+    // MARK: - Actions
+    @IBAction func segmentWasChanged(_ sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0 {
+            dataSource = FeedTableViewController.friendsPosts
+            
+            view.backgroundColor = .gray
+            tableView.backgroundColor = .lightGray
+            tableView.reloadData()
+        }
+        else if sender.selectedSegmentIndex == 1 {
+            dataSource = FeedTableViewController.posts
+            
+            view.backgroundColor = .blue
+            tableView.backgroundColor = .systemBlue
+            tableView.reloadData()
+        }
+    }
+    
+    // MARK: - Functions
+    func fetchPosts() {
         FirebaseFunctions.fetchCurrentUser { result in
             switch result {
             case true:
@@ -45,28 +82,7 @@ class FeedTableViewController: UITableViewController {
             }
             self.updateViews()
         }
-
-        view.backgroundColor = .lightGray
-        self.tableView.rowHeight = 650
     }
-    
-    @IBAction func segmentWasChanged(_ sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 0 {
-            dataSource = FeedTableViewController.friendsPosts
-            
-            view.backgroundColor = .gray
-            tableView.backgroundColor = .lightGray
-            tableView.reloadData()
-        }
-        else if sender.selectedSegmentIndex == 1 {
-            dataSource = FeedTableViewController.posts
-            
-            view.backgroundColor = .blue
-            tableView.backgroundColor = .systemBlue
-            tableView.reloadData()
-        }
-    }
-    
     func setupViews() {
         refresh.attributedTitle = NSAttributedString(string: "Pull to see new Posts")
         refresh.addTarget(self, action: #selector(loadData), for: .valueChanged)
@@ -84,6 +100,25 @@ class FeedTableViewController: UITableViewController {
         self.updateViews()
     }
     
+    func updateSearchController() {
+        
+        searchController.searchResultsUpdater = self
+        definesPresentationContext = true
+        
+        let userSearchTable = storyboard!.instantiateViewController(identifier: "userSearchTable") as! SearchUserTableViewController
+        resultSearchController = UISearchController(searchResultsController: userSearchTable)
+        resultSearchController?.searchResultsUpdater = userSearchTable
+        
+        let searchBar = resultSearchController!.searchBar
+        searchBar.sizeToFit()
+        searchBar.placeholder = "Who are we looking for?"
+        navigationItem.searchController = resultSearchController
+        
+        resultSearchController?.hidesNavigationBarDuringPresentation = false
+        resultSearchController?.dimsBackgroundDuringPresentation = true
+        definesPresentationContext = true
+    }
+    
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -93,53 +128,82 @@ class FeedTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as? FeedTableViewCell
         let post = dataSource[indexPath.row]
         cell?.post = post
-    
+        
         return cell ?? UITableViewCell()
     }
+    
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyboard: UIStoryboard = UIStoryboard(name: "PostDetail", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "postDetailVC") as? PostViewController else { return }
         
+        let post = dataSource[indexPath.row]
+        let postID = post.commentsID
+        // let userID: String = post.creatorID
+        ProfileTableViewCell.post = post
+        
+        vc.postID = postID
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    // MARK: - Alert Action
+    @IBAction func menuBtn(_ sender: Any) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        // The buttons!
+        let cancelBtn = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            self.dismiss(animated: true, completion: nil)
+        }
+        cancelBtn.setValue(UIColor.red, forKey: "titleTextColor")
+        alert.addAction(cancelBtn)
+        
+        let conversationBtn = UIAlertAction(title: "Messsages", style: .default) { _ in
+            self.conversationBtn()
+        }
+        alert.addAction(conversationBtn)
+        
+        let newPostBtn = UIAlertAction(title: "Make New Post", style: .default) { _ in
+            self.newPostBtn()
+        }
+        alert.addAction(newPostBtn)
+        
+        let bucketBtn = UIAlertAction(title: "My Buckets", style: .default) { _ in
+            self.newBucketBtn()
+        }
+        alert.addAction(bucketBtn)
+        
+        let profileBtn = UIAlertAction(title: "My Profile", style: .default) { _ in
+            self.myProfileBtn()
+        }
+        alert.addAction(profileBtn)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     // MARK: - Navigation
-    @IBAction func conversationBtn(_ sender: Any) {
+    func conversationBtn() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "justin", bundle: nil)
         let vs = storyBoard.instantiateViewController(withIdentifier: "conversationListVC")
         self.navigationController?.pushViewController(vs, animated: true)
     }
     
-    
-    @IBAction func newPostBtn(_ sender: Any) {
-        let storyBoard: UIStoryboard = UIStoryboard(name: "gavinPost", bundle: nil)
+    func newPostBtn() {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "NewPost", bundle: nil)
         let vs = storyBoard.instantiateViewController(withIdentifier: "newPostVC")
         self.navigationController?.pushViewController(vs, animated: true)
     }
-
     
-    // MARK: - Navigation
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let storyboard: UIStoryboard = UIStoryboard(name: "PostDetail", bundle: nil)
-        guard let vc = storyboard.instantiateViewController(withIdentifier: "postDetailVC") as? PostDetailTableViewController else { return }
-        
-        let post = dataSource[indexPath.row]
-        let userID: String = post.creatorID
-        ProfileTableViewCell.post = post
-        
-        vc.profileUserID = userID
-        
-        navigationController?.pushViewController(vc, animated: true)
+    func newBucketBtn() {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "NewBucket", bundle: nil)
+        let vs = storyBoard.instantiateViewController(withIdentifier: "BucketListTableVC")
+        self.navigationController?.pushViewController(vs, animated: true)
+    }
+
+    func myProfileBtn() {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
+        let vs = storyBoard.instantiateViewController(withIdentifier: "profileDetailVC")
+        self.navigationController?.pushViewController(vs, animated: true)
     }
     
-/*
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toProfileDetailVC" {
-            guard let indexPath = tableView.indexPathForSelectedRow,
-                  let destinationVC = segue.destination as? ProfileTableViewController else {return}
-            let post = dataSource[indexPath.row]
-            let userID = post.creatorID
-            ProfileTableViewCell.post = post
-            
-            destinationVC.profileUserID = userID
-        }
-    } // End of Function
-    */
-    
 } // End of Class
-
-

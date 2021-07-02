@@ -196,9 +196,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Iqz-6k-8xi">
-                        <barButtonItem key="rightBarButtonItem" image="envelope" catalog="system" style="plain" id="cUk-QM-jgZ">
+                        <barButtonItem key="rightBarButtonItem" image="line.horizontal.3.decrease.circle" catalog="system" style="plain" id="cUk-QM-jgZ">
                             <connections>
-                                <action selector="conversationBtn:" destination="ZXD-k4-Wus" id="sz2-Wh-h47"/>
+                                <action selector="menuBtn:" destination="ZXD-k4-Wus" id="EBX-y8-10p"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -299,7 +299,7 @@
     </scenes>
     <resources>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
-        <image name="envelope" catalog="system" width="128" height="93"/>
+        <image name="line.horizontal.3.decrease.circle" catalog="system" width="128" height="121"/>
         <image name="star.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -130,15 +130,63 @@ class ProfileTableViewController: UITableViewController {
 
     
     // MARK: - Navigation
-    @IBAction func conversationBtn(_ sender: Any) {
-        // Go to ConversationMessageViewController
+    @IBAction func menuBtn(_ sender: Any) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        // The buttons!
+        let cancelBtn = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            self.dismiss(animated: true, completion: nil)
+        }
+        cancelBtn.setValue(UIColor.red, forKey: "titleTextColor")
+        alert.addAction(cancelBtn)
+        
+        let conversationBtn = UIAlertAction(title: "Messsages", style: .default) { _ in
+            self.conversationBtn()
+        }
+        alert.addAction(conversationBtn)
+        
+        let newPostBtn = UIAlertAction(title: "Make New Post", style: .default) { _ in
+            self.newPostBtn()
+        }
+        alert.addAction(newPostBtn)
+        
+        let bucketBtn = UIAlertAction(title: "My Buckets", style: .default) { _ in
+            self.newBucketBtn()
+        }
+        alert.addAction(bucketBtn)
+        
+        let profileBtn = UIAlertAction(title: "My Profile", style: .default) { _ in
+            self.myProfileBtn()
+        }
+        alert.addAction(profileBtn)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    // MARK: - Navigation
+    func conversationBtn() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "justin", bundle: nil)
         let vs = storyBoard.instantiateViewController(withIdentifier: "conversationListVC")
         self.navigationController?.pushViewController(vs, animated: true)
-    } // End of Conversation Button
+    }
     
-   
+    func newPostBtn() {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "NewPost", bundle: nil)
+        let vs = storyBoard.instantiateViewController(withIdentifier: "newPostVC")
+        self.navigationController?.pushViewController(vs, animated: true)
+    }
+    
+    func newBucketBtn() {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "NewBucket", bundle: nil)
+        let vs = storyBoard.instantiateViewController(withIdentifier: "BucketListTableVC")
+        self.navigationController?.pushViewController(vs, animated: true)
+    }
 
+    func myProfileBtn() {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
+        let vs = storyBoard.instantiateViewController(withIdentifier: "profileDetailVC")
+        self.navigationController?.pushViewController(vs, animated: true)
+    }
 } // End of Class
 
 

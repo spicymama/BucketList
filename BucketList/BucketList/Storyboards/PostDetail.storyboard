@@ -11,7 +11,7 @@
         <!--Post Detail-->
         <scene sceneID="tdu-DC-CCe">
             <objects>
-                <viewController storyboardIdentifier="postDetailVC" title="Post Detail" id="55E-2H-65h" customClass="PostDetailTableViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="postDetailVC" title="Post Detail" id="55E-2H-65h" customClass="PostViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3RA-Oc-6u1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -102,6 +102,9 @@
                                                 <state key="normal" image="arrow.up.bin" catalog="system">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="32"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="postCommentButtonTapped:" destination="55E-2H-65h" eventType="touchUpInside" id="6q8-HP-Wuu"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -123,7 +126,7 @@
                                 <rect key="frame" x="8" y="691.5" width="398" height="204.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="commentCell" id="CIK-Bs-eIq">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="commentCell" id="CIK-Bs-eIq" customClass="PostCommentsTableViewCell" customModule="BucketList" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="24.5" width="398" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CIK-Bs-eIq" id="RwY-4s-4kQ">
@@ -156,7 +159,22 @@
                             <constraint firstItem="QNU-kp-hIs" firstAttribute="leading" secondItem="n5i-VQ-wjF" secondAttribute="leading" constant="8" id="w55-m3-1OH"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="wfZ-cQ-ABg"/>
+                    <navigationItem key="navigationItem" id="wfZ-cQ-ABg">
+                        <barButtonItem key="rightBarButtonItem" image="line.horizontal.3.decrease.circle" catalog="system" id="pHD-2R-LRd">
+                            <connections>
+                                <action selector="menuBtn:" destination="55E-2H-65h" id="f9L-je-m8N"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="commentTextField" destination="hjY-Rb-1gy" id="a2z-oX-8nV"/>
+                        <outlet property="postDescription" destination="izn-qj-n6n" id="0XK-Fy-Iuv"/>
+                        <outlet property="postImageView" destination="n7k-IY-vj2" id="wyH-0J-d9y"/>
+                        <outlet property="profilePicImageView" destination="VQX-Wy-ipV" id="dMw-LL-EXP"/>
+                        <outlet property="timestampLabel" destination="gVc-Ev-BGW" id="RRy-bv-4PV"/>
+                        <outlet property="titleLabel" destination="2fd-Jh-66u" id="3cZ-2T-iOt"/>
+                        <outlet property="usernameLabel" destination="C62-Za-PXt" id="B0u-hj-qSB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c8Z-Mt-Utg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -183,6 +201,7 @@
     </scenes>
     <resources>
         <image name="arrow.up.bin" catalog="system" width="128" height="93"/>
+        <image name="line.horizontal.3.decrease.circle" catalog="system" width="128" height="121"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
