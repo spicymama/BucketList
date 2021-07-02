@@ -261,8 +261,8 @@
 			isa = PBXGroup;
 			children = (
 				AA6EBBE3268F85970087EA34 /* Posts Storyboards */,
-				AA954C572686A488000C22F7 /* NewBucket.storyboard */,
 				AA349494268CE57D00467C0C /* ProfileDetail.storyboard */,
+				AA954C572686A488000C22F7 /* NewBucket.storyboard */,
 				AA02FF8326810501004EA782 /* LaunchScreen.storyboard */,
 				AA02FF7E26810500004EA782 /* Main.storyboard */,
 				AA672053268107D2003D43A0 /* ethan */,
@@ -302,6 +302,7 @@
 			isa = PBXGroup;
 			children = (
 				AA672051268107B4003D43A0 /* justin.storyboard */,
+				AA349490268CD7C900467C0C /* PostDetail.storyboard */,
 			);
 			path = justin;
 			sourceTree = "<group>";
@@ -309,7 +310,6 @@
 		AA6EBBE3268F85970087EA34 /* Posts Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				AA349490268CD7C900467C0C /* PostDetail.storyboard */,
 				AA25B5382683E99900B0E13F /* NewPost.storyboard */,
 				AA6EBBDF268F83DB0087EA34 /* EditPost.storyboard */,
 			);
