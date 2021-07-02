@@ -11,13 +11,13 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     
 
     // MARK: - Properties
-    var postID: String?
+    var commentsID: String?
    static var currentPost: Post?
     var currentUser: User?
     var username: String?
     var profilePic: UIImage?
     var timeStamp: Date?
-    static var comments: [String] = ["That's cool!", "You are cool!", "Cool thing you have done!", "Very friggin cool!"]
+    static var comments: [String] = []
     @IBOutlet weak var timestampLabel: UILabel!
     @IBOutlet weak var lilTableView: UITableView!
     @IBOutlet weak var usernameLabel: UILabel!
@@ -28,11 +28,11 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var titleLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchCurrentPost()
+        //fetchCurrentPost()
         lilTableView.delegate = self
         lilTableView.dataSource = self
-       // fetchCurrentUser()
-       // updateViews()
+        fetchComments()
+        updateViews()
     }
 
     @IBAction func postCommentButtonTapped(_ sender: Any) {
@@ -50,7 +50,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         navigationController?.pushViewController(vc, animated: true)
     }
-    
+    /*
     func fetchCurrentPost() {
         guard let ID = postID else {return}
         FirebaseFunctions.fetchPost(postID: ID) { data in
@@ -65,9 +65,8 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
             PostViewController.currentPost = Post(commentsID: postID, photoID: photoID, description: postDecription, title: postTitle, creatorID: creatorID)
             self.fetchCurrentUser()
         }
-        
-        
     }
+ */
     func fetchCurrentUser() {
         guard let post = PostViewController.currentPost else {return}
         FirebaseFunctions.fetchUserData(uid: post.creatorID) { result in
@@ -77,7 +76,14 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.updateViews()
         }
     }
-    
+    func fetchComments() {
+        guard let post = PostViewController.currentPost else {return}
+        FirebaseFunctions.fetchComments(commentsID: post.commentsID) { result in
+            DispatchQueue.main.async {
+                self.lilTableView.reloadData()
+            }
+        }
+    }
     func updateViews() {
         self.usernameLabel.text = self.username
         self.titleLabel.text = PostViewController.currentPost?.title

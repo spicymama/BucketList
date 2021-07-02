@@ -307,14 +307,15 @@ class FirebaseFunctions {
                 for i in postIDs {
                     group.enter()
                     FirebaseFunctions.fetchPost(postID: i) { data in
-                        let postID: String = data["commentsID"] as! String
-                        let postDecription: String = data["postNote"] as! String
-                        let postTitle: String = data["title"] as? String ?? "Title"
+                        let commentsID: String = data["commentsID"] as! String
+                        let postDecription: String = data["note"] as! String
+                        let postTitle: String = data["bucketTitle"] as? String ?? "Title"
                         let photoID: String = "swing"
-                                                            
-                        let creatorID: String = (data["creatorID"] as? String) ?? ""
+                        let bucketID: String = data["bucketID"] as! String
+                        let timestamp: Timestamp = data["timeStamp"] as? Timestamp ?? Timestamp(date: Date())
+                        let creatorID: String = (data["authorID"] as? String) ?? ""
                         
-                        let post = Post(commentsID: postID, photoID: photoID, description: postDecription, title: postTitle, creatorID: creatorID)
+                        let post = Post(commentsID: commentsID, photoID: photoID, description: postDecription, title: postTitle, creatorID: creatorID)
                         postsData.append(post)
                         FeedTableViewController.posts.append(post)
                         if FeedTableViewController.friendsList.contains(post.creatorID) {
@@ -344,5 +345,31 @@ class FirebaseFunctions {
             }
         }
     } // End of Fetch Post
+    
+    static func fetchComments(commentsID: String, completion: @escaping ([String])-> Void) {
+        
+        let id = commentsID
+        let data = Firestore.firestore().collection("comments").document(id)
+        data.getDocument { document, error in
+            if let error = error {
+                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+            } else {
+                if let document = document {
+                    print(id)
+                    guard let data = document.data() else {return}
+                    let comments: [String] = data["commentsArr"] as? [String] ?? [""]
+                    PostViewController.comments = comments
+                    return completion(comments)
+                }
+            }
+        }
+    }
 } // End of Class
 
+
+
+
+
+// guard let comments: [String] = data["commentsArr"] as? [String] else {return}
+//PostViewController.comments = comments
+//print(comments)
