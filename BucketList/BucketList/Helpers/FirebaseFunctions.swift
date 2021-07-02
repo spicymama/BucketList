@@ -398,5 +398,31 @@ class FirebaseFunctions {
             }
         }
     } // End of Fetch Post
+    
+    static func fetchComments(commentsID: String, completion: @escaping ([String])-> Void) {
+        
+        let id = commentsID
+        let data = Firestore.firestore().collection("comments").document(id)
+        data.getDocument { document, error in
+            if let error = error {
+                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+            } else {
+                if let document = document {
+                    print(id)
+                    guard let data = document.data() else {return}
+                    let comments: [String] = data["commentsArr"] as? [String] ?? [""]
+                    PostViewController.comments = comments
+                    return completion(comments)
+                }
+            }
+        }
+    }
 } // End of Class
 
+
+
+
+
+// guard let comments: [String] = data["commentsArr"] as? [String] else {return}
+//PostViewController.comments = comments
+//print(comments)

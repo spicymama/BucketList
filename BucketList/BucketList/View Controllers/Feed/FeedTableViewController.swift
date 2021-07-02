@@ -151,13 +151,15 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         let storyboard: UIStoryboard = UIStoryboard(name: "PostDetail", bundle: nil)
         guard let vc = storyboard.instantiateViewController(withIdentifier: "postDetailVC") as? PostViewController else { return }
         
-        let post: Post = dataSource[indexPath.row]
-        let postID = post.postID
-        // let userID: String = post.creatorID
+        let post = dataSource[indexPath.row]
+        let commentsID = post.commentsID
+        let userID: String = post.creatorID
         ProfileTableViewCell.post = post
         PostViewController.currentPost = post
+        PostViewController.userID = userID
         
-        vc.postID = postID
+        vc.commentsID = commentsID
+        
         navigationController?.pushViewController(vc, animated: true)
     }
     

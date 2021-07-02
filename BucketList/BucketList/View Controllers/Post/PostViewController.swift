@@ -10,7 +10,15 @@ import UIKit
 class PostViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
 
-    // MARK: - Outlets
+    // MARK: - Properties
+    var commentsID: String?
+   static var currentPost: Post?
+    static var userID: String?
+    var currentUser: User?
+    var username: String?
+    var profilePic: UIImage?
+    var timeStamp: Date?
+    static var comments: [String] = []
     @IBOutlet weak var timestampLabel: UILabel!
     @IBOutlet weak var lilTableView: UITableView!
     @IBOutlet weak var usernameLabel: UILabel!
@@ -33,16 +41,10 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchCurrentPost()
+        fetchCurrentUser()
         lilTableView.delegate = self
         lilTableView.dataSource = self
-       // fetchCurrentUser()
-        updateViews()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        fetchCurrentPost()
+        fetchComments()
         updateViews()
     }
 
@@ -71,7 +73,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         navigationController?.pushViewController(vc, animated: true)
     }
-    
+    /*
     func fetchCurrentPost() {
         postID = PostViewController.currentPost?.postID
         FirebaseFunctions.fetchPost(postID: postID!) { post in
@@ -80,19 +82,26 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
             PostViewController.currentPost = fetchedPost
             self.fetchCurrentUser()
         }
-        
-        
     }
+ */
     func fetchCurrentUser() {
-        guard let post = PostViewController.currentPost else {return}
-        FirebaseFunctions.fetchUserData(uid: post.authorID) { result in
-            self.username = result.username
+        guard let id = PostViewController.userID else {return}
+        FirebaseFunctions.fetchUserData(uid: id) { result in
+            guard let username: String? = result.username else {return}
+            self.username = username
             self.profilePic = result.profilePicture
-            print(self.username ?? "")
-            self.updateViews()
+            print(self.username)
+            
         }
     }
-    
+    func fetchComments() {
+        guard let post = PostViewController.currentPost else {return}
+        FirebaseFunctions.fetchComments(commentsID: post.commentsID) { result in
+            DispatchQueue.main.async {
+                self.lilTableView.reloadData()
+            }
+        }
+    }
     func updateViews() {
         guard let post = PostViewController.currentPost else { return }
         if post.bucketTitle != "" {
