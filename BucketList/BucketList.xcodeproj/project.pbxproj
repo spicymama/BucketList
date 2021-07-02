@@ -53,6 +53,7 @@
 		AA672052268107B4003D43A0 /* justin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA672051268107B4003D43A0 /* justin.storyboard */; };
 		AA6EBBE0268F83DB0087EA34 /* EditPost.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA6EBBDF268F83DB0087EA34 /* EditPost.storyboard */; };
 		AA6EBBE2268F85280087EA34 /* EditPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6EBBE1268F85280087EA34 /* EditPostViewController.swift */; };
+		AA6EBBE7268FA9590087EA34 /* PostDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA6EBBE6268FA9590087EA34 /* PostDetail.storyboard */; };
 		AA8E96A126810CFE003DC8DA /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E96A026810CFE003DC8DA /* Notifier.swift */; };
 		AA8E96A326810D03003DC8DA /* ConversationListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E96A226810D03003DC8DA /* ConversationListTableViewController.swift */; };
 		AA8E96AB26810D68003DC8DA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E96AA26810D68003DC8DA /* User.swift */; };
@@ -122,6 +123,7 @@
 		AA672051268107B4003D43A0 /* justin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = justin.storyboard; sourceTree = "<group>"; };
 		AA6EBBDF268F83DB0087EA34 /* EditPost.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditPost.storyboard; sourceTree = "<group>"; };
 		AA6EBBE1268F85280087EA34 /* EditPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostViewController.swift; sourceTree = "<group>"; };
+		AA6EBBE6268FA9590087EA34 /* PostDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PostDetail.storyboard; sourceTree = "<group>"; };
 		AA8E96A026810CFE003DC8DA /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
 		AA8E96A226810D03003DC8DA /* ConversationListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListTableViewController.swift; sourceTree = "<group>"; };
 		AA8E96AA26810D68003DC8DA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -259,7 +261,6 @@
 			isa = PBXGroup;
 			children = (
 				AA6EBBE3268F85970087EA34 /* Posts Storyboards */,
-				AA349494268CE57D00467C0C /* ProfileDetail.storyboard */,
 				AA954C572686A488000C22F7 /* NewBucket.storyboard */,
 				AA02FF8326810501004EA782 /* LaunchScreen.storyboard */,
 				AA02FF7E26810500004EA782 /* Main.storyboard */,
@@ -310,6 +311,7 @@
 			children = (
 				AA25B5382683E99900B0E13F /* NewPost.storyboard */,
 				AA6EBBDF268F83DB0087EA34 /* EditPost.storyboard */,
+				AA6EBBE6268FA9590087EA34 /* PostDetail.storyboard */,
 			);
 			path = "Posts Storyboards";
 			sourceTree = "<group>";
@@ -498,6 +500,7 @@
 				AA67204E268107A7003D43A0 /* josh.storyboard in Resources */,
 				AA25B5392683E99900B0E13F /* NewPost.storyboard in Resources */,
 				AA02FF8526810501004EA782 /* LaunchScreen.storyboard in Resources */,
+				AA6EBBE7268FA9590087EA34 /* PostDetail.storyboard in Resources */,
 				AA6EBBE0268F83DB0087EA34 /* EditPost.storyboard in Resources */,
 				AA672050268107AD003D43A0 /* gavin.storyboard in Resources */,
 				AA02FF8226810501004EA782 /* Assets.xcassets in Resources */,

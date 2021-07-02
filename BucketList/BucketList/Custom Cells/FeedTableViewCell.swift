@@ -43,28 +43,23 @@ class FeedTableViewCell: UITableViewCell {
         postImageView.image = UIImage(named: "lift")
         noteLabel.text = post.note
         postTitle.text = post.bucketTitle
-       
-           profilePic.image = UIImage(named: "peace")
-           usernameLabel.text = self.post?.title
-           postImageView.image = UIImage(named: "lift")
-           postNoteLabel.text = self.post?.description
-            }
-     
+    }
+    
     
     /*
-func fetchUsername() {
-    
-    guard let post = post else {return}
-    let group = DispatchGroup()
-    FirebaseFunctions.fetchUserData(uid: post.creatorID) { result in
-    group.enter()
-            self.username = result.username
-        group.leave()
-        group.notify(queue: DispatchQueue.main) {
-            self.updateViews()
-
-        }
-    }
-}
- */
+     func fetchUsername() {
+     
+     guard let post = post else {return}
+     let group = DispatchGroup()
+     FirebaseFunctions.fetchUserData(uid: post.creatorID) { result in
+     group.enter()
+     self.username = result.username
+     group.leave()
+     group.notify(queue: DispatchQueue.main) {
+     self.updateViews()
+     
+     }
+     }
+     }
+     */
 }

@@ -23,6 +23,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     // MARK: - Properties
     var postID: String?
+    static var comments: [String] = ["That's cool!", "You are cool!", "Cool thing you have done!", "Very friggin cool!"]
     static var currentPost: Post?
     var currentUser: User?
     var username: String?
