@@ -127,6 +127,7 @@ class FirebaseFunctions {
         } // End of getDocument
     } // End of Function fetchData
     
+    
     // MARK: - Fetch all Users data
     static func fetchUsersData(passedUserIDs: [String]?, 🐶: @escaping ( [User] ) -> Void) {
         Firestore.firestore().collection("users").getDocuments { snapshot, 🛑 in

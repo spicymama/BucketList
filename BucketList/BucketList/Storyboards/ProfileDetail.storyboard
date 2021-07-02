@@ -226,7 +226,6 @@
                                         <state key="normal" title="Add Friend"/>
                                         <connections>
                                             <action selector="addFriendBtn:" destination="SJG-db-AwK" eventType="touchUpInside" id="cQK-0r-CGk"/>
-                                            <action selector="reportBtn:" destination="SJG-db-AwK" eventType="touchUpInside" id="Hbq-Z7-Gn7"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IDh-Ux-DsP">
@@ -261,6 +260,9 @@
                                         <state key="normal" title="Report">
                                             <color key="titleColor" red="0.96494096519999994" green="0.28642871980000001" blue="0.060493983330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="reportBtn:" destination="SJG-db-AwK" eventType="touchUpInside" id="KJJ-Uo-Eei"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>

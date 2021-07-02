@@ -117,7 +117,7 @@ class ConversationController {
                     let userIDs = doc.data()
                     guard let userID = userIDs["userID"] as? String else {return}
                     
-                    if userID == UserController.shared.currentUser.uid {
+                    if userID == ConversationController.shared.currentUser!.uid {
                         //do nothing
                     } else {
                         conversationUserIDs.append(userID)

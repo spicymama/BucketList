@@ -105,7 +105,8 @@ class ConversationCreationTableViewController: UITableViewController {
         for cell in selectedCells {
             selected.append(users[cell.row])
         }
-        selected.append(UserController.shared.currentUser)
+        selected.append(ConversationController.shared.currentUser!
+        )
     }
     
     // MARK: - Navigation

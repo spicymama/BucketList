@@ -174,50 +174,6 @@
             </objects>
             <point key="canvasLocation" x="1047.8260869565217" y="137.94642857142856"/>
         </scene>
-        <!--AccountVC-->
-        <scene sceneID="h2s-tp-ivT">
-            <objects>
-                <viewController restorationIdentifier="AccountVC" storyboardIdentifier="AccountVC" title="AccountVC" id="573-Sz-x9G" customClass="AccountViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="S5R-io-70m">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="TzS-yJ-Snz">
-                                <rect key="frame" x="64" y="76" width="286" height="57"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="firstName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C2x-4i-qlf">
-                                        <rect key="frame" x="0.0" y="0.0" width="286" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lastName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ef-zb-ysO">
-                                        <rect key="frame" x="0.0" y="36.5" width="286" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="yng-zh-sbQ"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="TzS-yJ-Snz" firstAttribute="leading" secondItem="yng-zh-sbQ" secondAttribute="leading" constant="64" id="RVC-gW-3jM"/>
-                            <constraint firstItem="yng-zh-sbQ" firstAttribute="trailing" secondItem="TzS-yJ-Snz" secondAttribute="trailing" constant="64" id="k5N-fX-qjK"/>
-                            <constraint firstItem="TzS-yJ-Snz" firstAttribute="top" secondItem="yng-zh-sbQ" secondAttribute="top" constant="32" id="rJ7-uP-Sqt"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Feed Page" id="3Ud-nk-TrT"/>
-                    <connections>
-                        <outlet property="firstNameLabel" destination="C2x-4i-qlf" id="OLu-Ev-iYy"/>
-                        <outlet property="lastNameLabel" destination="0Ef-zb-ysO" id="anf-ea-7VP"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kCE-Yn-E3w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2852" y="138"/>
-        </scene>
     </scenes>
     <resources>
         <systemColor name="systemBackgroundColor">
