@@ -4,7 +4,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Image references" minToolsVersion="12.0"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -54,7 +53,7 @@
                                                             </constraints>
                                                             <state key="normal" image="ellipsis" catalog="system"/>
                                                             <connections>
-                                                                <segue destination="SJG-db-AwK" kind="showDetail" id="vak-aZ-c65"/>
+                                                                <action selector="detailsButtonTapped:" destination="ZXD-k4-Wus" eventType="touchUpInside" id="5LG-7g-iiX"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -172,11 +171,24 @@
                                                 <constraint firstItem="Zol-61-Nfi" firstAttribute="top" secondItem="bga-Vo-IjA" secondAttribute="top" constant="1027" id="qhS-af-No1"/>
                                             </constraints>
                                         </stackView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hdk-4e-J7h">
+                                            <rect key="frame" x="20" y="11" width="123" height="123"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="123" id="HkF-B9-Vrb"/>
+                                                <constraint firstAttribute="width" constant="123" id="Tpv-DP-xCf"/>
+                                            </constraints>
+                                            <state key="normal" title="Button"/>
+                                            <connections>
+                                                <action selector="profilePicButtonTapped:" destination="DvC-dz-5Yq" eventType="touchUpInside" id="7rb-zq-YfV"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="bottomMargin" secondItem="bga-Vo-IjA" secondAttribute="bottom" constant="85" id="0az-pa-tY6"/>
                                         <constraint firstItem="bga-Vo-IjA" firstAttribute="top" secondItem="sV4-bM-sAt" secondAttribute="topMargin" id="Rlh-vT-NbP"/>
+                                        <constraint firstItem="hdk-4e-J7h" firstAttribute="leading" secondItem="sV4-bM-sAt" secondAttribute="leadingMargin" id="ZOo-RB-PWV"/>
                                         <constraint firstItem="bga-Vo-IjA" firstAttribute="leading" secondItem="sV4-bM-sAt" secondAttribute="leadingMargin" id="ZYZ-jP-SmW"/>
+                                        <constraint firstItem="hdk-4e-J7h" firstAttribute="top" secondItem="sV4-bM-sAt" secondAttribute="topMargin" id="g1W-ab-9Kh"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -206,79 +218,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JAk-iO-Zmz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="7295.652173913044" y="76.339285714285708"/>
-        </scene>
-        <!--Add Block Report View Controller-->
-        <scene sceneID="zV9-nz-0lT">
-            <objects>
-                <viewController id="SJG-db-AwK" customClass="AddBlockReportViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="MoS-R2-k0H">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="V5T-vs-1Ql">
-                                <rect key="frame" x="20.5" y="238" width="373" height="332"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SUy-As-Dof">
-                                        <rect key="frame" x="0.0" y="0.0" width="373" height="65"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="65" id="9wJ-6N-Ads"/>
-                                        </constraints>
-                                        <state key="normal" title="Add Friend"/>
-                                        <connections>
-                                            <action selector="addFriendBtn:" destination="SJG-db-AwK" eventType="touchUpInside" id="cQK-0r-CGk"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IDh-Ux-DsP">
-                                        <rect key="frame" x="0.0" y="89" width="373" height="65"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="65" id="aRN-sq-5nL"/>
-                                        </constraints>
-                                        <state key="normal" title="Message"/>
-                                        <connections>
-                                            <action selector="messageBtn:" destination="SJG-db-AwK" eventType="touchUpInside" id="F0a-RV-tib"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IQo-OH-SqS">
-                                        <rect key="frame" x="0.0" y="178" width="373" height="65"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="65" id="WiU-B0-VJI"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                        <state key="normal" title="Block">
-                                            <color key="titleColor" red="0.96494096519999994" green="0.28642871980000001" blue="0.060493983330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="blockBtn:" destination="SJG-db-AwK" eventType="touchUpInside" id="rT7-FT-oX5"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eIj-1b-GnJ">
-                                        <rect key="frame" x="0.0" y="267" width="373" height="65"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="65" id="H3M-Fa-y9P"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" title="Report">
-                                            <color key="titleColor" red="0.96494096519999994" green="0.28642871980000001" blue="0.060493983330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="reportBtn:" destination="SJG-db-AwK" eventType="touchUpInside" id="KJJ-Uo-Eei"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="3iI-Fs-MQO"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="V5T-vs-1Ql" firstAttribute="centerY" secondItem="3iI-Fs-MQO" secondAttribute="centerY" id="TsL-v7-g4V"/>
-                            <constraint firstItem="V5T-vs-1Ql" firstAttribute="width" secondItem="MoS-R2-k0H" secondAttribute="width" multiplier="0.9" id="caL-Eb-qpj"/>
-                            <constraint firstItem="V5T-vs-1Ql" firstAttribute="centerX" secondItem="3iI-Fs-MQO" secondAttribute="centerX" id="ywa-6z-rVK"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="y9M-Un-vu8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="8073.9130434782619" y="75.669642857142847"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ck2-ce-7qF">

@@ -153,7 +153,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         
         let post = dataSource[indexPath.row]
         let commentsID = post.commentsID
-        let userID: String = post.creatorID
+        let userID: String = post.authorID
         ProfileTableViewCell.post = post
         PostViewController.currentPost = post
         PostViewController.userID = userID
@@ -194,8 +194,14 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         }
         alert.addAction(profileBtn)
         
+        let myFriendsListBtn = UIAlertAction(title: "My Friends", style: .default) { _ in
+            self.myFriendsListBtn()
+        }
+        alert.addAction(myFriendsListBtn)
+        
         self.present(alert, animated: true, completion: nil)
     }
+    
     
     // MARK: - Navigation
     func conversationBtn() {
@@ -220,6 +226,10 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         let storyBoard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
         let vs = storyBoard.instantiateViewController(withIdentifier: "profileDetailVC")
         self.navigationController?.pushViewController(vs, animated: true)
+    }
+    
+    func myFriendsListBtn() {
+        
     }
     
 } // End of Class

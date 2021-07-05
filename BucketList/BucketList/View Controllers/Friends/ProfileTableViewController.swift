@@ -8,6 +8,7 @@ import UIKit
 import Firebase
 
 class ProfileTableViewController: UITableViewController {
+    static let shared = ProfileTableViewController()
     var refresh: UIRefreshControl = UIRefreshControl()
     let db = Firestore.firestore()
     var currentUser: User?
@@ -16,32 +17,40 @@ class ProfileTableViewController: UITableViewController {
     //MARK: - Outlets
     
     @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var addFriendButton: UIButton!
-    @IBOutlet weak var blockUserButton: UIButton!
-    @IBOutlet weak var messageButton: UIButton!
-    @IBOutlet weak var bucketListButton: UIButton!
-    @IBOutlet weak var friendsListButton: UIButton!
-    
+   
     //MARK: - Actions
     
-    @IBAction func addFriendButtonTapped(_ sender: Any) {
-        FriendsListModelController.sharedInstance.addFriend()
-    }
-    @IBAction func blockUserButtonTapped(_ sender: Any) {
-        guard let profileUser = profileUser else {return}
-        FriendsListModelController.sharedInstance.blockUser(profileUID: profileUser.uid)
-    }
-    @IBAction func messageButtonTapped(_ sender: Any) {
-        FriendsListModelController.sharedInstance.checkForBlockedUser()
-        guard let currentUser = currentUser else {return}
-        guard let profileUser = profileUser else {return}
-        ConversationController.shared.createAndSaveConversation(users: [currentUser, profileUser]) { conversation in
-            if let conversationListVC = self.storyboard?.instantiateViewController(identifier: "conversationListVC") {
-                self.navigationController?.pushViewController(conversationListVC, animated: true)
-            }
+    @IBAction func detailsButtonTapped(_ sender: Any) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        // The buttons!
+        let cancelBtn = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            self.dismiss(animated: true, completion: nil)
         }
-            
-    
+        cancelBtn.setValue(UIColor.red, forKey: "titleTextColor")
+        alert.addAction(cancelBtn)
+        
+        let messageBtn = UIAlertAction(title: "Messsage", style: .default) { _ in
+            self.messageBtn()
+        }
+        alert.addAction(messageBtn)
+        
+        let addFriendBtn = UIAlertAction(title: "Add Friend", style: .default) { _ in
+            self.addFriendButton()
+        }
+        alert.addAction(addFriendBtn)
+        
+        let reportBtn = UIAlertAction(title: "Report", style: .default) { _ in
+            self.reportBtn()
+        }
+        alert.addAction(reportBtn)
+        
+        let blockBtn = UIAlertAction(title: "Block", style: .default) { _ in
+            self.blockBtn()
+        }
+        alert.addAction(blockBtn)
+        
+        self.present(alert, animated: true, completion: nil)
     }
     @IBAction func bucketListButtonTapped(_ sender: Any) {
         if let bucketList = self.storyboard?.instantiateViewController(identifier: "BucketListTableVC") {
@@ -129,52 +138,49 @@ class ProfileTableViewController: UITableViewController {
         cancelBtn.setValue(UIColor.red, forKey: "titleTextColor")
         alert.addAction(cancelBtn)
         
-        let conversationBtn = UIAlertAction(title: "Messsages", style: .default) { _ in
-            self.conversationBtn()
+        let messageBtn = UIAlertAction(title: "Messsage", style: .default) { _ in
+            self.messageBtn()
         }
-        alert.addAction(conversationBtn)
+        alert.addAction(messageBtn)
         
-        let newPostBtn = UIAlertAction(title: "Make New Post", style: .default) { _ in
-            self.newPostBtn()
+        let addFriendBtn = UIAlertAction(title: "Add Friend", style: .default) { _ in
+            self.addFriendButton()
         }
-        alert.addAction(newPostBtn)
+        alert.addAction(addFriendBtn)
         
-        let bucketBtn = UIAlertAction(title: "My Buckets", style: .default) { _ in
-            self.newBucketBtn()
+        let reportBtn = UIAlertAction(title: "Report", style: .default) { _ in
+            self.reportBtn()
         }
-        alert.addAction(bucketBtn)
+        alert.addAction(reportBtn)
         
-        let profileBtn = UIAlertAction(title: "My Profile", style: .default) { _ in
-            self.myProfileBtn()
+        let blockBtn = UIAlertAction(title: "Block", style: .default) { _ in
+            self.blockBtn()
         }
-        alert.addAction(profileBtn)
+        alert.addAction(blockBtn)
         
         self.present(alert, animated: true, completion: nil)
     }
     
     // MARK: - Navigation
-    func conversationBtn() {
+    func messageBtn() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "justin", bundle: nil)
         let vs = storyBoard.instantiateViewController(withIdentifier: "conversationListVC")
         self.navigationController?.pushViewController(vs, animated: true)
+        }
+    
+    func addFriendButton() {
+        FriendsListModelController.sharedInstance.addFriend()
+        print("Added new friend (good thing too cuz you need them)")
     }
     
-    func newPostBtn() {
-        let storyBoard: UIStoryboard = UIStoryboard(name: "NewPost", bundle: nil)
-        let vs = storyBoard.instantiateViewController(withIdentifier: "newPostVC")
-        self.navigationController?.pushViewController(vs, animated: true)
-    }
-    
-    func newBucketBtn() {
-        let storyBoard: UIStoryboard = UIStoryboard(name: "NewBucket", bundle: nil)
-        let vs = storyBoard.instantiateViewController(withIdentifier: "BucketListTableVC")
-        self.navigationController?.pushViewController(vs, animated: true)
+    func reportBtn() {
+        print("We will review this report probably")
     }
 
-    func myProfileBtn() {
-        let storyBoard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
-        let vs = storyBoard.instantiateViewController(withIdentifier: "profileDetailVC")
-        self.navigationController?.pushViewController(vs, animated: true)
+    func blockBtn() {
+        guard let profileUser = profileUser else {return}
+        FriendsListModelController.sharedInstance.blockUser(profileUID: profileUser.uid)
+        print("Blocked that nasty user")
     }
 } // End of Class
 
@@ -206,3 +212,25 @@ private enum Constants {
     static let reuseID = "collectionCell"
 }
 
+/*
+ 
+ @IBAction func addFriendButtonTapped(_ sender: Any) {
+     FriendsListModelController.sharedInstance.addFriend()
+ }
+ @IBAction func blockUserButtonTapped(_ sender: Any) {
+     guard let profileUser = profileUser else {return}
+     FriendsListModelController.sharedInstance.blockUser(profileUID: profileUser.uid)
+ }
+ @IBAction func messageButtonTapped(_ sender: Any) {
+     FriendsListModelController.sharedInstance.checkForBlockedUser()
+     guard let currentUser = currentUser else {return}
+     guard let profileUser = profileUser else {return}
+     ConversationController.shared.createAndSaveConversation(users: [currentUser, profileUser]) { conversation in
+         if let conversationListVC = self.storyboard?.instantiateViewController(identifier: "conversationListVC") {
+             self.navigationController?.pushViewController(conversationListVC, animated: true)
+         }
+     }
+         
+ 
+ }
+ */

@@ -27,16 +27,6 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var commentTextField: UITextField!
     @IBOutlet weak var postNote: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
-
-
-    // MARK: - Properties
-    var postID: String?
-    static var comments: [String] = ["That's cool!", "You are cool!", "Cool thing you have done!", "Very friggin cool!"]
-    static var currentPost: Post?
-    var currentUser: User?
-    var username: String?
-    var profilePic: UIImage?
-    var timeStamp: Date?
     
     
     override func viewDidLoad() {
@@ -59,7 +49,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBAction func editPostBtn(_ sender: Any) {
         // Send over the post data
-        EditPostViewController.postID = postID
+        EditPostViewController.postID = PostViewController.currentPost?.postID
         
         // Move over to the right VC
         let storyBoard: UIStoryboard = UIStoryboard(name: "EditPost", bundle: nil)
@@ -68,30 +58,22 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @IBAction func profileDetailBtn(_ sender: Any) {
+        ProfileTableViewCell.profileUser = self.currentUser
         let storyboard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "profileDetailVC")
         
         navigationController?.pushViewController(vc, animated: true)
     }
-    /*
-    func fetchCurrentPost() {
-        postID = PostViewController.currentPost?.postID
-        FirebaseFunctions.fetchPost(postID: postID!) { post in
-            let fetchedPost: Post = post
-            
-            PostViewController.currentPost = fetchedPost
-            self.fetchCurrentUser()
-        }
-    }
- */
+
     func fetchCurrentUser() {
         guard let id = PostViewController.userID else {return}
         FirebaseFunctions.fetchUserData(uid: id) { result in
-            guard let username: String? = result.username else {return}
+            let username: String = result.username
             self.username = username
             self.profilePic = result.profilePicture
             print(self.username)
-            
+            let user: User = User(firstName: result.firstName, lastName: result.lastName, username: result.username, profilePicture: result.profilePicture, allPictures: [], dob: result.dob ?? "", bucketIDs: result.bucketIDs ?? [""], uid: result.uid, friendsList: result.friendsList ?? FriendsList(), conversationsIDs: result.conversationsIDs)
+            self.currentUser = user
         }
     }
     func fetchComments() {
