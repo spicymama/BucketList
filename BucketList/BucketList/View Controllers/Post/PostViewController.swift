@@ -6,19 +6,12 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class PostViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-
-    // MARK: - Properties
-    var commentsID: String?
-   static var currentPost: Post?
-    static var userID: String?
-    var currentUser: User?
-    var username: String?
-    var profilePic: UIImage?
-    var timeStamp: Date?
-    static var comments: [String] = []
+    
+    // MARK: - Outlets
     @IBOutlet weak var timestampLabel: UILabel!
     @IBOutlet weak var lilTableView: UITableView!
     @IBOutlet weak var usernameLabel: UILabel!
@@ -29,23 +22,45 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var titleLabel: UILabel!
     
     
+    // MARK: - Properties
+    var postID: String?
+    var postComments: [Comment] = []
+    static var currentPost: Post?
+    var currentUser: User?
+    var username: String?
+    var profilePic: UIImage?
+    var timeStamp: Date?
+    
+    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchCurrentUser()
         lilTableView.delegate = self
         lilTableView.dataSource = self
-        fetchComments()
-        updateViews()
-    }
-
+        // fetchCurrentUser()
+        fetchData()
+    } // End of View did load
+    
+    
+    // MARK: - Actions
     @IBAction func postCommentButtonTapped(_ sender: Any) {
         if (commentTextField.text != "") {
-            guard let comment = commentTextField.text else {return}
-            PostViewController.comments.append(comment)
-            commentTextField.text = ""
-            lilTableView.reloadData()
+            guard let commentNote = commentTextField.text else {return}
+            guard let commentAuthorID = Auth.auth().currentUser?.uid else { return }
+            
+            FirebaseFunctions.fetchUserData(uid: commentAuthorID) { User in
+                let authorUsername = User.username
+                let comment = Comment(commentsID: self.postID!, authorUsername: authorUsername, note: commentNote)
+                
+                FirebaseFunctions.postComment(comment: comment)
+                self.postComments.append(comment)
+                
+                self.commentTextField.text = ""
+                self.lilTableView.reloadData()
+            }
         }
-    }
+    } // End of Post Comment Button Tapped
     
     @IBAction func editPostBtn(_ sender: Any) {
         // Send over the post data
@@ -55,7 +70,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         let storyBoard: UIStoryboard = UIStoryboard(name: "EditPost", bundle: nil)
         let vs = storyBoard.instantiateViewController(withIdentifier: "editPostVC")
         self.navigationController?.pushViewController(vs, animated: true)
-    }
+    } // End of Edit post button
     
     @IBAction func profileDetailBtn(_ sender: Any) {
         ProfileTableViewCell.profileUser = self.currentUser
@@ -63,27 +78,17 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         let vc = storyboard.instantiateViewController(withIdentifier: "profileDetailVC")
         
         navigationController?.pushViewController(vc, animated: true)
+    } // End of Profile Detail Button
+    
+    
+    // MARK: - Functions
+    func fetchData() {
+        fetchCurrentPost()
+        fetchCurrentUser()
+        fetchPostComments()
+        updateViews()
     }
-
-    func fetchCurrentUser() {
-        guard let id = PostViewController.userID else {return}
-        FirebaseFunctions.fetchUserData(uid: id) { result in
-            let username: String = result.username
-            self.username = username
-            self.profilePic = result.profilePicture
-            print(self.username)
-            let user: User = User(firstName: result.firstName, lastName: result.lastName, username: result.username, profilePicture: result.profilePicture, allPictures: [], dob: result.dob ?? "", bucketIDs: result.bucketIDs ?? [""], uid: result.uid, friendsList: result.friendsList ?? FriendsList(), conversationsIDs: result.conversationsIDs)
-            self.currentUser = user
-        }
-    }
-    func fetchComments() {
-        guard let post = PostViewController.currentPost else {return}
-        FirebaseFunctions.fetchComments(commentsID: post.commentsID) { result in
-            DispatchQueue.main.async {
-                self.lilTableView.reloadData()
-            }
-        }
-    }
+    
     func updateViews() {
         guard let post = PostViewController.currentPost else { return }
         if post.bucketTitle != "" {
@@ -96,6 +101,39 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.profilePicImageView.image = UIImage(named: "justin")
         self.postNote.text = PostViewController.currentPost?.note
     } // End of Function update Views
+    
+    func fetchCurrentPost() {
+        postID = PostViewController.currentPost?.postID
+        FirebaseFunctions.fetchPost(postID: postID!) { post in
+            let fetchedPost: Post = post
+            
+            PostViewController.currentPost = fetchedPost
+        }
+    } // End of Fetch Current Post
+    
+    func fetchCurrentUser() {
+        guard let post = PostViewController.currentPost else {return}
+        FirebaseFunctions.fetchUserData(uid: post.authorID) { result in
+            self.username = result.username
+            self.profilePic = result.profilePicture
+            self.currentUser = result
+            
+            self.updateViews()
+        }
+    } // End of Fetch current user
+    
+    func fetchPostComments() {
+        postID = PostViewController.currentPost?.postID
+        FirebaseFunctions.fetchCommentsData(postID: postID!) { Comments in
+            DispatchQueue.main.async {
+                self.postComments = Comments
+                
+                self.updateViews()
+                self.lilTableView.reloadData()
+            }
+        }
+    } // End of Fetch Post Comments
+    
     
     
     // MARK: - Menu Button Stuff
@@ -150,7 +188,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         let vs = storyBoard.instantiateViewController(withIdentifier: "BucketListTableVC")
         self.navigationController?.pushViewController(vs, animated: true)
     }
-
+    
     func myProfileBtn() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
         let vs = storyBoard.instantiateViewController(withIdentifier: "profileDetailVC")
@@ -159,34 +197,35 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return PostViewController.comments.count
+        return self.postComments.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath)
         
-        cell.textLabel?.text = PostViewController.comments[indexPath.row]
+        cell.textLabel?.text = self.postComments[indexPath.row].note
+        cell.detailTextLabel?.text = self.postComments[indexPath.row].authorUsername
         
         return cell
     }
 } // End of Class
 /*
-
-// MARK: - Extensions
-extension PostDetailTableViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return PostViewController.comments.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath)
-       // let commentsID = PostViewController.currentPost?.commentsID
-       // cell.commentsID = commentsID
-        cell.textLabel?.text = PostViewController.comments[indexPath.row]
-        
-        return cell
-    }
-
-} // End of Extension
-
-*/
+ 
+ // MARK: - Extensions
+ extension PostDetailTableViewController: UITableViewDelegate, UITableViewDataSource {
+ func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+ return PostViewController.comments.count
+ }
+ 
+ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+ let cell = tableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath)
+ // let commentsID = PostViewController.currentPost?.commentsID
+ // cell.commentsID = commentsID
+ cell.textLabel?.text = PostViewController.comments[indexPath.row]
+ 
+ return cell
+ }
+ 
+ } // End of Extension
+ 
+ */

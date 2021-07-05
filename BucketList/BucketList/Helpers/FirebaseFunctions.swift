@@ -91,9 +91,9 @@ class FirebaseFunctions {
                 let uid: String = data["uid"] as? String ?? "uid"
                 let conversationIDs = data["conversationsID"] as? [String] ?? ["conversationIDs"]
                 
-                🐶(User(firstName: firstName, lastName: lastName, username: username, uid: uid, conversationsIDs: conversationIDs))
                 let user = User(firstName: firstName, lastName: lastName, username: username, uid: uid, conversationsIDs: conversationIDs)
-                FeedTableViewController.currentUser = user
+                🐶(user)
+                
                 group.leave()
             }
             
@@ -249,23 +249,23 @@ class FirebaseFunctions {
                 group.leave()
                 
                 group.notify(queue: DispatchQueue.main) {
-                   
+                    
                     return completion(true)
                 }
                 
             }
         }
-    }
+    } // End of Fetch Friendz
     
     
     // MARK: - Create Post
     static func createPost(note: String, imageID: String, bucketID: String, bucketTitle: String) {
         guard let currentUserID: String = Auth.auth().currentUser?.uid else { return }
         let postID: String = UUID().uuidString
-        Firestore.firestore().collection("posts").document(postID).setData( [
+        Firestore.firestore().collection("posts").document(postID).setData([
             "postID" : postID,
             "authorID" : currentUserID,
-            "timeStamp" : Date(),
+            "timestamp" : FieldValue.serverTimestamp(),
             "note" : note,
             "photoID" : imageID,
             "bucketID" : bucketID,
@@ -300,7 +300,7 @@ class FirebaseFunctions {
     static func editPost(postID: String?, note: String, imageID: String, bucketID: String, oldBucketID: String, bucketTitle: String) {
         guard let postID = postID else { return }
         Firestore.firestore().collection("posts").document(postID).updateData( [
-            "timeStamp" : Date(),
+            "timestamp" : FieldValue.serverTimestamp(),
             "note" : note,
             "photoID" : imageID,
             "bucketID" : bucketID,
@@ -362,9 +362,9 @@ class FirebaseFunctions {
                             FeedTableViewController.friendsPosts.append(post)
                         }
                         
-                    }
+                    } // End of Fetch Post
                     group.leave()
-                }
+                } // End of Post in Posts Loop
                 group.notify(queue: DispatchQueue.main) {
                     completion(postsData)
                 }
@@ -399,24 +399,56 @@ class FirebaseFunctions {
         }
     } // End of Fetch Post
     
-    static func fetchComments(commentsID: String, completion: @escaping ([String])-> Void) {
+    
+    // MARK: - Post Comment
+    static func postComment(comment: Comment) {
+        let authorID: String = comment.authorID ?? ""
+        let commentsID: String = comment.commentsID ?? ""
+        let commentID: String = comment.commentID ?? ""
+        let authorUsername: String = comment.authorUsername ?? ""
         
-        let id = commentsID
-        let data = Firestore.firestore().collection("comments").document(id)
-        data.getDocument { document, error in
-            if let error = error {
-                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+        Firestore.firestore().collection("comments").document(commentsID).collection("comment").document(commentID).setData([
+            "commentsID" : commentsID,
+            "commentID" : commentID,
+            "authorID" : authorID,
+            "authorUsername" : authorUsername,
+            "timestamp" : FieldValue.serverTimestamp(),
+            "note" : comment.note
+        ])
+        print("Comment posted")
+    } // End of Post comment
+    
+    
+    // MARK: - Fetch Comments
+    static func fetchCommentsData(postID: String, 🐶: @escaping ( [Comment] ) -> Void) {
+        Firestore.firestore().collection("comments").document(postID).collection("comment").addSnapshotListener { QuerySnapshot, 🛑 in
+            if let 🛑 = 🛑 {
+                print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
             } else {
-                if let document = document {
-                    print(id)
-                    guard let data = document.data() else {return}
-                    let comments: [String] = data["commentsArr"] as? [String] ?? [""]
-                    PostViewController.comments = comments
-                    return completion(comments)
-                }
+                if let snapshot = QuerySnapshot {
+                    var commentsData: [Comment] = []
+                    
+                    for document in snapshot.documents {
+                        let data = document.data()
+                        
+                        // Data to collect
+                        let authorID: String = data["authorID"] as? String ?? ""
+                        let authorUsername: String = data["authorUsername"] as? String ?? ""
+                        let commentID: String = data["commentID"] as? String ?? ""
+                        let commentsID: String = data["commentsID"] as? String ?? ""
+                        let note: String = data["note"] as? String ?? ""
+                        let timestamp: String = data["timestamp"] as? String ?? ""
+                        
+                        let fetchedComment = Comment(commentsID: commentsID, commentID: commentID, authorID: authorID, timestamp: timestamp, authorUsername: authorUsername, note: note)
+                        
+                        commentsData.append(fetchedComment)
+                    }
+                    🐶(commentsData)
+                } // End of Snapshot in query snapshot
             }
-        }
-    }
+        } // End of snapshot listener
+    } // End of Function fetchComments
+    
 } // End of Class
 
 

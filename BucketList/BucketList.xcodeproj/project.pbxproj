@@ -52,6 +52,7 @@
 		AA8E96AD26810D6F003DC8DA /* Bucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E96AC26810D6F003DC8DA /* Bucket.swift */; };
 		AA954C54268658E4000C22F7 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA954C53268658E4000C22F7 /* PostViewController.swift */; };
 		AA954C582686A488000C22F7 /* NewBucket.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA954C572686A488000C22F7 /* NewBucket.storyboard */; };
+		AAC79494269363D30029718E /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC79493269363D30029718E /* CommentModel.swift */; };
 		AACAC853268525A9002E9E43 /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACAC852268525A9002E9E43 /* GlobalFunctions.swift */; };
 		EA2F64BF268D04D500AD2619 /* BucketListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F64BE268D04D500AD2619 /* BucketListTableViewController.swift */; };
 		EA2F64C1268D04E700AD2619 /* CreateBucketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F64C0268D04E700AD2619 /* CreateBucketViewController.swift */; };
@@ -110,6 +111,7 @@
 		AA8E96AC26810D6F003DC8DA /* Bucket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bucket.swift; sourceTree = "<group>"; };
 		AA954C53268658E4000C22F7 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		AA954C572686A488000C22F7 /* NewBucket.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewBucket.storyboard; sourceTree = "<group>"; };
+		AAC79493269363D30029718E /* CommentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
 		AACAC852268525A9002E9E43 /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
 		C3188C93C2B51D68B5DDF585 /* Pods-BucketList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BucketList.release.xcconfig"; path = "Target Support Files/Pods-BucketList/Pods-BucketList.release.xcconfig"; sourceTree = "<group>"; };
 		D3317EECED0B32C26F983252 /* Pods_BucketList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BucketList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -344,6 +346,7 @@
 				AA25B52F2683E8A300B0E13F /* Post.swift */,
 				9A2D612E26852D5100424AE4 /* Friend.swift */,
 				AA524EAC268A6D7300DF39D4 /* BucketItem.swift */,
+				AAC79493269363D30029718E /* CommentModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -537,6 +540,7 @@
 				697358B1268B8CF500E17FC1 /* ConversationTableViewCell.swift in Sources */,
 				AA25B5262683E32B00B0E13F /* Conversation.swift in Sources */,
 				EA2F64CA268E31EA00AD2619 /* NetworkError.swift in Sources */,
+				AAC79494269363D30029718E /* CommentModel.swift in Sources */,
 				AA25B5222683E2B200B0E13F /* ConversationController.swift in Sources */,
 				EAB753EF2685255200B2F8C7 /* RecentPostsTableViewCell.swift in Sources */,
 				EA2F64CC268E5FA600AD2619 /* BucketItemTableViewCell.swift in Sources */,

@@ -39,7 +39,7 @@ class FeedTableViewCell: UITableViewCell {
         guard let post = post else {return}
         
         profilePic.image = UIImage(named: "peace")
-        usernameLabel.text = ((user?.username ?? "User") + " checked " + (post.bucketTitle ?? "something") + "off their list!")
+        usernameLabel.text = ((user?.username ?? "User") + " checked " + (post.bucketTitle ?? "something") + " off their list!")
         postImageView.image = UIImage(named: "lift")
         noteLabel.text = post.note
         postTitle.text = post.bucketTitle
