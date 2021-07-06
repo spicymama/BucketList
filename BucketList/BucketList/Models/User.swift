@@ -14,7 +14,7 @@ class User {
     var firstName: String
     var lastName: String
     var dob: String?
-    var profilePicture: UIImage?
+    var profilePicUrl: String?
     var allPictures: [UIImage?]
     var bucketIDs: [String]?
     var friendsList: FriendsList?
@@ -23,7 +23,7 @@ class User {
     init(firstName: String = "",
          lastName: String = "",
          username: String = "",
-         profilePicture: UIImage? = UIImage(),
+         profilePicUrl: String? = "",
          allPictures: [UIImage?] = [],
          dob: String = "",
          bucketIDs: [String] = [],
@@ -34,7 +34,7 @@ class User {
         self.firstName = firstName
         self.lastName = lastName
         self.username = username
-        self.profilePicture = profilePicture
+        self.profilePicUrl = profilePicUrl
         self.allPictures = allPictures
         self.dob = dob
         self.bucketIDs = bucketIDs

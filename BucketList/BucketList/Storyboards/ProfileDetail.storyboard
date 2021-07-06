@@ -42,8 +42,8 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="99" id="tFc-wA-jtC"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V5p-C5-rLU">
@@ -177,9 +177,8 @@
                                                 <constraint firstAttribute="height" constant="123" id="HkF-B9-Vrb"/>
                                                 <constraint firstAttribute="width" constant="123" id="Tpv-DP-xCf"/>
                                             </constraints>
-                                            <state key="normal" title="Button"/>
                                             <connections>
-                                                <action selector="profilePicButtonTapped:" destination="DvC-dz-5Yq" eventType="touchUpInside" id="7rb-zq-YfV"/>
+                                                <action selector="profilePicButtonTapped:" destination="ZXD-k4-Wus" eventType="touchUpInside" id="Etb-bo-KjI"/>
                                             </connections>
                                         </button>
                                     </subviews>

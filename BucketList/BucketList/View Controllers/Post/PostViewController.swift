@@ -9,7 +9,7 @@ import UIKit
 import FirebaseAuth
 
 class PostViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
+    static let shared = PostViewController()
     
     // MARK: - Outlets
     @IBOutlet weak var timestampLabel: UILabel!
@@ -38,7 +38,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         fetchCurrentUser()
         lilTableView.delegate = self
         lilTableView.dataSource = self
-        // fetchCurrentUser()
+        //fetchCurrentUser()
         fetchData()
     } // End of View did load
     
@@ -73,7 +73,9 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     } // End of Edit post button
     
     @IBAction func profileDetailBtn(_ sender: Any) {
-        ProfileTableViewCell.profileUser = self.currentUser
+        guard let currentUser = currentUser else {return}
+        ProfileTableViewCell.shared.user = currentUser
+        ProfileTableViewController.shared.currentUser = self.currentUser
         let storyboard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "profileDetailVC")
         
@@ -115,7 +117,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         guard let post = PostViewController.currentPost else {return}
         FirebaseFunctions.fetchUserData(uid: post.authorID) { result in
             self.username = result.username
-            self.profilePic = result.profilePicture
+                //  self.profilePic = result.profilePictureURL
             self.currentUser = result
             
             self.updateViews()
@@ -192,6 +194,9 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     func myProfileBtn() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
         let vs = storyBoard.instantiateViewController(withIdentifier: "profileDetailVC")
+        guard let currentUser = currentUser else {return}
+        ProfileTableViewCell.shared.user = currentUser
+        ProfileTableViewController.shared.currentUser = self.currentUser
         self.navigationController?.pushViewController(vs, animated: true)
     }
     
@@ -205,7 +210,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         cell.textLabel?.text = self.postComments[indexPath.row].note
         cell.detailTextLabel?.text = self.postComments[indexPath.row].authorUsername
-        
+       
         return cell
     }
 } // End of Class

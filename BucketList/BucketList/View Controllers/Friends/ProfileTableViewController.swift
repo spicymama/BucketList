@@ -6,19 +6,27 @@
 //
 import UIKit
 import Firebase
+import FirebaseStorage
 
-class ProfileTableViewController: UITableViewController {
+class ProfileTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     static let shared = ProfileTableViewController()
     var refresh: UIRefreshControl = UIRefreshControl()
     let db = Firestore.firestore()
     var currentUser: User?
-    var profileUser: User?
+   // var profileUser: User?
     
     //MARK: - Outlets
     
     @IBOutlet weak var usernameLabel: UILabel!
-   
     //MARK: - Actions
+   
+    @IBAction func profilePicButtonTapped(_ sender: Any) {
+        let picker = UIImagePickerController()
+        picker.sourceType = .photoLibrary
+        picker.delegate = self
+        picker.allowsEditing = true
+        present(picker, animated: true)
+    }
     
     @IBAction func detailsButtonTapped(_ sender: Any) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -88,20 +96,91 @@ class ProfileTableViewController: UITableViewController {
             self.refresh.endRefreshing()
         }
     }
-
-     /*
-    func fetchUser() {
-        FirebaseFunctions.fetchUserData(uid: profileUserID ?? "" ) { (result) in
-            self.currentUser = result
-//            self.updateViews()
-        }
+    func getProfilePic(user: User) {
+        
+        guard let urlString = UserDefaults.standard.value(forKey: "url") as? String,
+              let url = URL(string: urlString) else { return }
+        
+        let task = URLSession.shared.dataTask(with: url, completionHandler: { 📀, _, 🛑 in
+            guard let 📀 = 📀, 🛑 == nil else {
+                print("Error in \(#function)\(#line)")
+                return
+            }
+            DispatchQueue.main.async {
+                let image = UIImage(data: 📀)
+                //self.imageView.image = image
+            } // End of Dispatch Queue
+        })
+        task.resume()
+        
+        updateViews()
     }
-    */
+        
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        // Dismiss the picker
+        picker.dismiss(animated: true, completion: nil)
+        // Grab the image as an image
+        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
+        // Grab image data
+        guard let imageData = image.pngData() else { return }
+       // guard let title = imageTitleField.text else { return }
+        //guard let creator = creatorNameField.text else { return }
+        let storage = Storage.storage().reference()
+        // This is the Firebase save stuff
+        // This is where you set the file name, this should be random or something I guess
+        let ref = storage.child("images/\(String(describing: currentUser?.uid)).png")
+        // This is the Firebase command bit to actually store things
+        ref.putData(imageData, metadata: nil, completion: { _, 🛑 in
+            // Error handling
+            if let 🛑 = 🛑 {
+                print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
+                return
+            }
+            // Download a url
+            ref.downloadURL(completion: { url, 🛑 in
+                if let 🛑 = 🛑 {
+                    print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
+                }
+                
+                guard var urlString = url?.absoluteString else {return}
+                UserDefaults.standard.set(urlString, forKey: "url")
+                
+                let newUrlString = self.removePrefix(url: urlString)
+                let documentref = Firestore.firestore().collection("users").document("\(String(describing: self.currentUser?.uid))")
+                documentref.setData(["profilePicUrl" : urlString]) { error in
+                    if let error = error {
+                        print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                    }
+                    print(newUrlString)
+                }
+            }) // End of Download URL
+        }) // End of Firebase stuff
+    } // End of Function
     
+    // When the user clicks away
     
-   // var users: [User] = []
-        @objc func loadData() {
-                self.updateViews()
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    } // End of Function
+
+    func removePrefix(url: String)-> String {
+        var count = 0
+        var url = url
+        for i in url {
+            if count <= 7 {
+            guard let index = url.firstIndex(of: i) else {return "problem"}
+            url.remove(at: index)
+            count += 1
+            }
+        }
+        return url
+    }
+
+    @objc func loadData() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.refresh.endRefreshing()
+        }
     }
   
     var user: String? {
@@ -178,8 +257,8 @@ class ProfileTableViewController: UITableViewController {
     }
 
     func blockBtn() {
-        guard let profileUser = profileUser else {return}
-        FriendsListModelController.sharedInstance.blockUser(profileUID: profileUser.uid)
+        guard let currentUser = currentUser else {return}
+        FriendsListModelController.sharedInstance.blockUser(profileUID: currentUser.uid)
         print("Blocked that nasty user")
     }
 } // End of Class

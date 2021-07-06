@@ -10,12 +10,13 @@ import Firebase
 import FirebaseStorage
 
 
-class ProfileTableViewCell: UITableViewCell, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ProfileTableViewCell: UITableViewCell {
 
     private let storage = Storage.storage().reference()
     static let shared = ProfileTableViewCell()
     static var post: Post?
-    static var profileUser: User?
+    //var currentUser: String?
+    var user: User?
     var buckitz: [Bucket] = []
     
         @IBOutlet weak var profilePic: UIImageView!
@@ -34,87 +35,41 @@ class ProfileTableViewCell: UITableViewCell, UIImagePickerControllerDelegate, UI
             lilTableView.dataSource = self
             collectionView.delegate = self
             collectionView.dataSource = self
-        
             updateViews()
         }
-    @IBAction func profilePicButtonTapped(_ sender: Any) {
-        
-        
-    }
-   
-        func updateViews(){
-            guard let user = ProfileTableViewCell.profileUser else {return}
-            BucketFirebaseFunctions.fetchBuckets { result in
+ 
+    func updateViews(){
+        BucketFirebaseFunctions.fetchBuckets { result in
                 self.buckitz = result
                 print(self.buckitz)
             }
-            profilePic.image = UIImage(named: "swing")
-            usernameLabel.text = user.username
-          //  achievementLabel.text = user.
-            imageView1.image = UIImage(named: "lift")
+       /*
+        fetchProfilePic(pictureURL: user?.profilePicUrl ?? "") { result in
+                self.profilePic.image = result
+            }
+ */
+            usernameLabel.text = user?.username
             collectionView.contentSize = CGSize(width: 2000, height: 100)
             collectionView.addSubview(UIImageView())
         }
     
-    
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        // Dismiss the picker
-        picker.dismiss(animated: true, completion: nil)
-        // Grab the image as an image
-        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
-        // Grab image data
-        guard let imageData = image.pngData() else { return }
-       // guard let title = imageTitleField.text else { return }
-        //guard let creator = creatorNameField.text else { return }
+    func fetchProfilePic(pictureURL: String, completion: @escaping (UIImage) -> Void){
+        guard let url = URL(string: pictureURL) else {return}
         
-        // This is the Firebase save stuff
-        // This is where you set the file name, this should be random or something I guess
-        let ref = storage.child("images/file.png")
-        // This is the Firebase command bit to actually store things
-        ref.putData(imageData, metadata: nil, completion: { _, 🛑 in
-            // Error handling
-            if let 🛑 = 🛑 {
-                print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
+        let task = URLSession.shared.dataTask(with: url, completionHandler: { 📀, _, 🛑 in
+            guard let 📀 = 📀, 🛑 == nil else {
+                print("Error in \(#function)\(#line)")
                 return
             }
-            // Download a url
-            ref.downloadURL(completion: { url, 🛑 in
-                if let 🛑 = 🛑 {
-                    print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
-                }
-                
-                guard var urlString = url?.absoluteString else {return}
-                UserDefaults.standard.set(urlString, forKey: "url")
-                
-                let newUrlString = self.removePrefix(url: urlString)
-                let documentref = Firestore.firestore().collection("photourls").document("url")
-                documentref.setData(["url" : urlString]) { error in
-                    if let error = error {
-                        print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
-                    }
-                    print(newUrlString)
-                }
-            }) // End of Download URL
-        }) // End of Firebase stuff
-    } // End of Function
-    
-    // When the user clicks away
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.dismiss(animated: true, completion: nil)
-    } // End of Function
-
-    func removePrefix(url: String)-> String {
-        var count = 0
-        var url = url
-        for i in url {
-            if count <= 7 {
-            guard let index = url.firstIndex(of: i) else {return "problem"}
-            url.remove(at: index)
-            count += 1
-            }
-        }
-        return url
+            DispatchQueue.main.async {
+                guard let image = UIImage(data: 📀) else {return}
+               self.profilePic.image = image
+               completion(image)
+            } // End of Dispatch Queue
+        })
+        task.resume()
+        
+      //  updateViews()
     }
 }
     extension ProfileTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

@@ -97,12 +97,12 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
             self.updateViews()
         }
     }
+    
     func setupViews() {
-        refresh.attributedTitle = NSAttributedString(string: "Pull to see new Posts")
+        refresh.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refresh.addTarget(self, action: #selector(loadData), for: .valueChanged)
         tableView.addSubview(refresh)
     }
-    
     func updateViews() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -154,11 +154,9 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         let post = dataSource[indexPath.row]
         let commentsID = post.commentsID
         let userID: String = post.authorID
-        ProfileTableViewCell.post = post
+       
         PostViewController.currentPost = post
-        PostViewController.userID = userID
-        
-        vc.commentsID = commentsID
+     
         
         navigationController?.pushViewController(vc, animated: true)
     }
