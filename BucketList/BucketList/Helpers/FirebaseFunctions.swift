@@ -431,6 +431,18 @@ class FirebaseFunctions {
     } // End of Fetch Post
     
     
+    // MARK: - Delete Post
+    static func deletePost(postID: String) {
+        Firestore.firestore().collection("posts").document(postID).delete() { 🛑 in
+            if let 🛑 = 🛑 {
+                print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
+            } else {
+                print("Post deleted")
+            }
+        }
+    } // End of Delete Post
+    
+    
     // MARK: - Post Comment
     static func postComment(comment: Comment) {
         let authorID: String = comment.authorID ?? ""

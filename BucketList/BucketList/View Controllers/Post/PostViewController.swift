@@ -63,12 +63,42 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBAction func editPostBtn(_ sender: Any) {
         // Send over the post data
-        EditPostViewController.postID = postID
+        let alert = UIAlertController(title: "Edit Post", message: nil, preferredStyle: .actionSheet)
         
-        // Move over to the right VC
-        let storyBoard: UIStoryboard = UIStoryboard(name: "EditPost", bundle: nil)
-        let vs = storyBoard.instantiateViewController(withIdentifier: "editPostVC")
-        self.navigationController?.pushViewController(vs, animated: true)
+        let cancelBtn = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            self.dismiss(animated: true, completion: nil)
+        }
+        alert.addAction(cancelBtn)
+        
+        let editBtn = UIAlertAction(title: "Edit", style: .default) { _ in
+            EditPostViewController.postID = self.postID
+            let storyBoard: UIStoryboard = UIStoryboard(name: "EditPost", bundle: nil)
+            let vs = storyBoard.instantiateViewController(withIdentifier: "editPostVC")
+            self.navigationController?.pushViewController(vs, animated: true)
+        }
+        alert.addAction(editBtn)
+        
+        let deleteBtn = UIAlertAction(title: "Delete Post", style: .default) { _ in
+            let deleteAlert = UIAlertController(title: "Delete Post", message: "Are you sure you want to delete?", preferredStyle: .alert)
+            
+            let cancelBtn = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+                self.dismiss(animated: true, completion: nil)
+            }
+            deleteAlert.addAction(cancelBtn)
+            
+            let confirmDeleteBtn = UIAlertAction(title: "Yes, Delete", style: .default) { _ in
+                FirebaseFunctions.deletePost(postID: self.postID!)
+                self.navigationController?.popViewController(animated: true)
+            }
+            confirmDeleteBtn.setValue(UIColor.red, forKey: "titleTextColor")
+            deleteAlert.addAction(confirmDeleteBtn)
+            
+            self.present(deleteAlert, animated: true, completion: nil)
+        }
+        deleteBtn.setValue(UIColor.red, forKey: "titleTextColor")
+        alert.addAction(deleteBtn)
+        
+        present(alert, animated: true, completion: nil)
     } // End of Edit post button
     
     @IBAction func profileDetailBtn(_ sender: Any) {
@@ -207,23 +237,3 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         return cell
     }
 } // End of Class
-/*
- 
- // MARK: - Extensions
- extension PostDetailTableViewController: UITableViewDelegate, UITableViewDataSource {
- func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
- return PostViewController.comments.count
- }
- 
- func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
- let cell = tableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath)
- // let commentsID = PostViewController.currentPost?.commentsID
- // cell.commentsID = commentsID
- cell.textLabel?.text = PostViewController.comments[indexPath.row]
- 
- return cell
- }
- 
- } // End of Extension
- 
- */
