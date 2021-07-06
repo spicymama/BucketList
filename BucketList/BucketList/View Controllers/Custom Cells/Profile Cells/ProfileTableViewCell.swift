@@ -6,19 +6,24 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseStorage
 
 
 class ProfileTableViewCell: UITableViewCell {
 
+    private let storage = Storage.storage().reference()
     static let shared = ProfileTableViewCell()
     static var post: Post?
+    var postArr: [Post] = []
+    //var currentUser: String?
+    static var user: User?
     var buckitz: [Bucket] = []
     
-        @IBOutlet weak var profilePic: UIImageView!
+    @IBOutlet weak var profilePicButton: UIButton!
+    @IBOutlet weak var profilePic: UIImageView!
         @IBOutlet weak var usernameLabel: UILabel!
         @IBOutlet weak var publicListTableView: UITableView!
-        @IBOutlet weak var imageView1: UIImageView!
-        @IBOutlet weak var achievementLabel: UILabel!
         @IBOutlet weak var collectionView: UICollectionView!
         @IBOutlet weak var lilTableView: UITableView!
     
@@ -30,41 +35,70 @@ class ProfileTableViewCell: UITableViewCell {
             lilTableView.dataSource = self
             collectionView.delegate = self
             collectionView.dataSource = self
-        }
-       
-    var user: User? {
-        didSet {
+            print(ProfileTableViewCell.user?.username)
             updateViews()
-            
         }
-    }
-    
-        func updateViews(){
-            guard let user = user else {return}
-            BucketFirebaseFunctions.fetchBuckets { result in
+ 
+    func updateViews(){
+        BucketFirebaseFunctions.fetchBuckets { result in
                 self.buckitz = result
                 print(self.buckitz)
+            self.lilTableView.reloadData()
             }
-            profilePic.image = UIImage(named: "swing")
-            usernameLabel.text = user.username
-            achievementLabel.text = user.lastName
-            imageView1.image = UIImage(named: "lift")
+       
+        fetchProfilePic(pictureURL: ProfileTableViewCell.user?.profilePicUrl ?? "") { result in
+                self.profilePic.image = result
+            }
+        /*
+        FirebaseFunctions.fetchAllPosts { result in
+            DispatchQueue.main.async {
+                
+                for post in result {
+                    if post.authorID == ProfileTableViewCell.user?.uid {
+                        self.postArr.append(post)
+                    }
+                }
+                self.lilTableView.reloadData()
+            }
+        }
+ */
+        if ProfileTableViewController.shared.currentUser?.uid != Auth.auth().currentUser?.uid {
+            profilePicButton.isHidden = true
+        }
+        usernameLabel.text = ProfileTableViewCell.user?.username
             collectionView.contentSize = CGSize(width: 2000, height: 100)
             collectionView.addSubview(UIImageView())
+        
         }
     
-    
+    func fetchProfilePic(pictureURL: String, completion: @escaping (UIImage) -> Void){
+        guard let url = URL(string: pictureURL) else {return}
+        
+        let task = URLSession.shared.dataTask(with: url, completionHandler: { 📀, _, 🛑 in
+            guard let 📀 = 📀, 🛑 == nil else {
+                print("Error in \(#function)\(#line)")
+                return
+            }
+            DispatchQueue.main.async {
+                guard let image = UIImage(data: 📀) else {return}
+               self.profilePic.image = image
+               completion(image)
+            } // End of Dispatch Queue
+        })
+        task.resume()
+        
+      //  updateViews()
+    }
 }
     extension ProfileTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return 5
+            return FeedTableViewController.shared.dataSource.count
         }
         
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath) as? ProfileCollectionViewCell else {return UICollectionViewCell()}
-            let text = "Recent Accomplishment..."
+            let text = FeedTableViewController.shared.dataSource[indexPath.row].note
             cell.text = text
-            
             return cell
         }
         
@@ -81,9 +115,11 @@ extension ProfileTableViewCell: UITableViewDataSource, UITableViewDelegate {
         buckitz.count
     }
     
-    func tableView(_ tableView: UITableView = ProfileTableViewCell.shared.lilTableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell { guard let cell = tableView.dequeueReusableCell(withIdentifier: "recentPostCell", for: indexPath) as? RecentPostsTableViewCell else {return UITableViewCell()}
+    func tableView(_ tableView: UITableView = ProfileTableViewCell.shared.lilTableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "recentPostCell", for: indexPath)
         let string = buckitz[indexPath.row].title
-    cell.string = string
+        print(string)
+        cell.textLabel?.text = string
     return cell
 }
     }

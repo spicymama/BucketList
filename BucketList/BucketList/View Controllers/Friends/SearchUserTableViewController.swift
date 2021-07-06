@@ -73,7 +73,7 @@ extension SearchUserTableViewController {
     }
 }
 
-
+/*
 extension SearchUserTableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toProfileVC" {
@@ -85,3 +85,9 @@ extension SearchUserTableViewController {
         }
     }
 }
+<<<<<<< HEAD
+=======
+
+
+*/
+>>>>>>> gavin

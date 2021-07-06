@@ -121,8 +121,9 @@ class FirebaseFunctions {
                 let username: String = data["username"] as? String ?? "User Name"
                 let uid: String = data["uid"] as? String ?? "uid"
                 let conversationIDs = data["conversationsID"] as? [String] ?? ["conversationIDs"]
+                let profilePicURL = data["profilePicURL"] as? String
                 
-                let user = User(firstName: firstName, lastName: lastName, username: username, uid: uid, conversationsIDs: conversationIDs)
+                let user = User(firstName: firstName, lastName: lastName, username: username, profilePicUrl: profilePicURL, uid: uid, conversationsIDs: conversationIDs)
                 🐶(user)
                 
                 group.leave()
@@ -148,8 +149,9 @@ class FirebaseFunctions {
                 let username: String = data["username"] as? String ?? "User Name"
                 let uid: String = data["uid"] as? String ?? "uid"
                 let conversationIDs = data["conversationsID"] as? [String] ?? ["conversationIDs"]
+                let profilePicURL = data["profilePicURL"] as? String
                 
-                let user = User(firstName: firstName, lastName: lastName, username: username, uid: uid, conversationsIDs: conversationIDs)
+                let user = User(firstName: firstName, lastName: lastName, username: username, profilePicUrl: profilePicURL, uid: uid, conversationsIDs: conversationIDs)
                 FeedTableViewController.currentUser = user
                 print(user.firstName)
                 completion(true)
@@ -204,7 +206,7 @@ class FirebaseFunctions {
     
     
     // MARK: - Fetch User Data
-    static func fetchUserData(uid: String ,🐶: @escaping ( User ) -> Void) {
+    static func fetchUserData(uid: String, 🐶: @escaping ( User ) -> Void) {
         // Get current user UID
         let uid = uid
         // Fetch data
@@ -220,6 +222,7 @@ class FirebaseFunctions {
                 let lastName: String = data["lastName"] as? String ?? "Last Name"
                 let username: String = data["username"] as? String ?? "User Name"
                 let uid: String = data["uid"] as? String ?? "uid"
+                let profilePicURL = data["profilePicUrl"] as? String
                 
                 let friendsID: String = data["friendsID"] as? String ?? "You have no friends"
                 
@@ -228,7 +231,7 @@ class FirebaseFunctions {
                     friendsList = fetchedFriendsList
                 }
                 
-                🐶(User(firstName: firstName, lastName: lastName, username: username, uid: uid, friendsList: friendsList))
+                🐶(User(firstName: firstName, lastName: lastName, username: username, profilePicUrl: profilePicURL, uid: uid, friendsList: friendsList))
             }
         } // End of getDocument
     } // End of Function fetchData
@@ -292,7 +295,7 @@ class FirebaseFunctions {
     // MARK: - Create Post
     static func createPost(note: String, imageID: String, bucketID: String, bucketTitle: String) {
         guard let currentUserID: String = Auth.auth().currentUser?.uid else { return }
-        let postID: String = UUID().uuidString
+        let postID: String = currentUserID
         Firestore.firestore().collection("posts").document(postID).setData([
             "postID" : postID,
             "authorID" : currentUserID,
@@ -494,3 +497,10 @@ class FirebaseFunctions {
     
 } // End of Class
 
+
+
+
+
+// guard let comments: [String] = data["commentsArr"] as? [String] else {return}
+//PostViewController.comments = comments
+//print(comments)

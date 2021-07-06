@@ -14,14 +14,15 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
     }
     
     // MARK: - Properties
+    static let shared = FeedTableViewController()
     static var currentUser: User = User()
     static var friendsList: [String] = []
     static var blocked: [String] = []
     static var friendsPosts: [Post] = []
     static var posts: [Post] = []
+    var dataSource: [Post] = []
     var refresh: UIRefreshControl = UIRefreshControl()
     var searchController = UISearchController()
-    var dataSource: [Post] = []
     var resultSearchController: UISearchController? = nil
     
     
@@ -81,7 +82,8 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
                     switch result {
                     case true:
                         FirebaseFunctions.fetchAllPosts { result in
-                            self.dataSource = FeedTableViewController.friendsPosts
+                            self.dataSource = result
+                            
                             print(FeedTableViewController.friendsList)
                             print(FeedTableViewController.blocked)
                             self.setupViews()
@@ -97,12 +99,12 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
             self.updateViews()
         }
     }
+    
     func setupViews() {
-        refresh.attributedTitle = NSAttributedString(string: "Pull to see new Posts")
+        refresh.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refresh.addTarget(self, action: #selector(loadData), for: .valueChanged)
         tableView.addSubview(refresh)
     }
-    
     func updateViews() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -151,13 +153,13 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         let storyboard: UIStoryboard = UIStoryboard(name: "PostDetail", bundle: nil)
         guard let vc = storyboard.instantiateViewController(withIdentifier: "postDetailVC") as? PostViewController else { return }
         
-        let post: Post = dataSource[indexPath.row]
-        let postID = post.postID
-        // let userID: String = post.creatorID
-        ProfileTableViewCell.post = post
+        let post = dataSource[indexPath.row]
+        let commentsID = post.commentsID
+        let userID: String = post.authorID
+       
         PostViewController.currentPost = post
+     
         
-        vc.postID = postID
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -192,8 +194,14 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         }
         alert.addAction(profileBtn)
         
+        let myFriendsListBtn = UIAlertAction(title: "My Friends", style: .default) { _ in
+            self.myFriendsListBtn()
+        }
+        alert.addAction(myFriendsListBtn)
+        
         self.present(alert, animated: true, completion: nil)
     }
+    
     
     // MARK: - Navigation
     func conversationBtn() {
@@ -218,6 +226,10 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         let storyBoard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
         let vs = storyBoard.instantiateViewController(withIdentifier: "profileDetailVC")
         self.navigationController?.pushViewController(vs, animated: true)
+    }
+    
+    func myFriendsListBtn() {
+        
     }
     
 } // End of Class
