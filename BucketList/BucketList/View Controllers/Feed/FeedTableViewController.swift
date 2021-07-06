@@ -14,14 +14,15 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
     }
     
     // MARK: - Properties
+    static let shared = FeedTableViewController()
     static var currentUser: User = User()
     static var friendsList: [String] = []
     static var blocked: [String] = []
     static var friendsPosts: [Post] = []
     static var posts: [Post] = []
+    var dataSource: [Post] = []
     var refresh: UIRefreshControl = UIRefreshControl()
     var searchController = UISearchController()
-    var dataSource: [Post] = []
     var resultSearchController: UISearchController? = nil
     
     
@@ -81,7 +82,8 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
                     switch result {
                     case true:
                         FirebaseFunctions.fetchAllPosts { result in
-                            self.dataSource = FeedTableViewController.friendsPosts
+                            self.dataSource = result
+                            
                             print(FeedTableViewController.friendsList)
                             print(FeedTableViewController.blocked)
                             self.setupViews()

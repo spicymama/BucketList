@@ -9,6 +9,8 @@ import UIKit
 
 
 class ProfileCollectionViewCell: UICollectionViewCell {
+    static var currentUser: User?
+    var post: Post?
     
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var imageView: UIImageView!
@@ -24,6 +26,7 @@ class ProfileCollectionViewCell: UICollectionViewCell {
             updateViews()
         }
     }
+ 
     override func awakeFromNib() {
          super.awakeFromNib()
          
@@ -37,12 +40,22 @@ class ProfileCollectionViewCell: UICollectionViewCell {
          ])
      }
     func updateViews() {
-        guard let text = text else {return}
+        guard let currentUser = ProfileCollectionViewCell.currentUser else {return}
         label.text = text
-        imageView.image = UIImage(named: "peace")
+        print(text)
+        self.reloadInputViews()
+    
+       // imageView.image = post?.photoID
     }
+    
         func configure() {
         imageView.image = UIImage(named: "peace")
         label.text = "It worked!"
+    }
+    
+    func fetchUsersPosts(postId: String) {
+        FirebaseFunctions.fetchPost(postID: postId) { result in
+        self.post = result
+        }
     }
 }

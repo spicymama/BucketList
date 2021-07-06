@@ -264,7 +264,7 @@ class FirebaseFunctions {
     // MARK: - Create Post
     static func createPost(note: String, imageID: String, bucketID: String, bucketTitle: String) {
         guard let currentUserID: String = Auth.auth().currentUser?.uid else { return }
-        let postID: String = UUID().uuidString
+        let postID: String = currentUserID
         Firestore.firestore().collection("posts").document(postID).setData([
             "postID" : postID,
             "authorID" : currentUserID,

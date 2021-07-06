@@ -74,12 +74,24 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBAction func profileDetailBtn(_ sender: Any) {
         guard let currentUser = currentUser else {return}
-        ProfileTableViewCell.shared.user = currentUser
+        if currentUser.uid == PostViewController.currentPost?.authorID {
+        ProfileTableViewCell.user = currentUser
         ProfileTableViewController.shared.currentUser = self.currentUser
-        let storyboard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "profileDetailVC")
+        ProfileCollectionViewCell.currentUser = currentUser
+            let storyboard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "profileDetailVC")
+            navigationController?.pushViewController(vc, animated: true)
+        } else {
+            FirebaseFunctions.fetchUserData(uid: PostViewController.currentPost?.authorID ?? "") { result in
+                ProfileTableViewCell.user = result
+                ProfileTableViewController.shared.currentUser = result
+                ProfileCollectionViewCell.currentUser = result
+            let storyboard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "profileDetailVC")
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
         
-        navigationController?.pushViewController(vc, animated: true)
     } // End of Profile Detail Button
     
     
@@ -195,7 +207,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         let storyBoard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
         let vs = storyBoard.instantiateViewController(withIdentifier: "profileDetailVC")
         guard let currentUser = currentUser else {return}
-        ProfileTableViewCell.shared.user = currentUser
+        ProfileTableViewCell.user = currentUser
         ProfileTableViewController.shared.currentUser = self.currentUser
         self.navigationController?.pushViewController(vs, animated: true)
     }

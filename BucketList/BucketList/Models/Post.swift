@@ -28,3 +28,8 @@ class Post {
     }
     
 }
+extension Post: Equatable {
+    static func == (lhs: Post, rhs: Post) -> Bool {
+        return lhs.postID == rhs.postID
+    }
+}

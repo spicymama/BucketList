@@ -17,7 +17,8 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     
     //MARK: - Outlets
     
-    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var profilePicButton: UIButton!
+   
     //MARK: - Actions
    
     @IBAction func profilePicButtonTapped(_ sender: Any) {
@@ -96,26 +97,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             self.refresh.endRefreshing()
         }
     }
-    func getProfilePic(user: User) {
-        
-        guard let urlString = UserDefaults.standard.value(forKey: "url") as? String,
-              let url = URL(string: urlString) else { return }
-        
-        let task = URLSession.shared.dataTask(with: url, completionHandler: { 📀, _, 🛑 in
-            guard let 📀 = 📀, 🛑 == nil else {
-                print("Error in \(#function)\(#line)")
-                return
-            }
-            DispatchQueue.main.async {
-                let image = UIImage(data: 📀)
-                //self.imageView.image = image
-            } // End of Dispatch Queue
-        })
-        task.resume()
-        
-        updateViews()
-    }
-        
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         // Dismiss the picker
         picker.dismiss(animated: true, completion: nil)
@@ -128,7 +110,8 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
         let storage = Storage.storage().reference()
         // This is the Firebase save stuff
         // This is where you set the file name, this should be random or something I guess
-        let ref = storage.child("images/\(String(describing: currentUser?.uid)).png")
+        guard let user = Auth.auth().currentUser else {return}
+        let ref = storage.child("images/\(user.uid).png")
         // This is the Firebase command bit to actually store things
         ref.putData(imageData, metadata: nil, completion: { _, 🛑 in
             // Error handling
@@ -142,16 +125,15 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
                     print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
                 }
                 
-                guard var urlString = url?.absoluteString else {return}
+                guard let urlString = url?.absoluteString else {return}
                 UserDefaults.standard.set(urlString, forKey: "url")
-                
-                let newUrlString = self.removePrefix(url: urlString)
-                let documentref = Firestore.firestore().collection("users").document("\(String(describing: self.currentUser?.uid))")
-                documentref.setData(["profilePicUrl" : urlString]) { error in
+        
+                let documentref = Firestore.firestore().collection("users").document(user.uid)
+                documentref.updateData(["profilePicUrl" : urlString]) { error in
                     if let error = error {
                         print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
                     }
-                    print(newUrlString)
+                   
                 }
             }) // End of Download URL
         }) // End of Firebase stuff
