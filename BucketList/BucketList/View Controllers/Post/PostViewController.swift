@@ -102,10 +102,23 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     } // End of Edit post button
     
     @IBAction func profileDetailBtn(_ sender: Any) {
-        let storyboard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "profileDetailVC")
+        // Check if the post is the logged in user's
+        // Current User == The post's user
+        guard let postUserID = currentUser?.uid,
+              let loggedInUserID = Auth.auth().currentUser?.uid else { return }
         
-        navigationController?.pushViewController(vc, animated: true)
+        if postUserID == loggedInUserID {
+            let storyboard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "currentProfileDetailVC")
+            // Pass over the user id
+            navigationController?.pushViewController(vc, animated: true)
+        } else {
+            let storyboard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "profileDetailVC")
+            // Pass over the user information
+            ProfileTableViewController.profileUser = self.currentUser
+            navigationController?.pushViewController(vc, animated: true)
+        }
     } // End of Profile Detail Button
     
     

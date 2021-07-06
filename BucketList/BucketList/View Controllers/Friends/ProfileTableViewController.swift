@@ -3,133 +3,53 @@
 //  BucketList
 //
 //  Created by Gavin Woffinden on 6/21/21.
+//  Mostly worked on by Josh Hoyle - His problem(s)
 //
+
+
 import UIKit
 import Firebase
 
 class ProfileTableViewController: UITableViewController {
+    
+    // MARK: - Properties
     var refresh: UIRefreshControl = UIRefreshControl()
-    let db = Firestore.firestore()
+    static var profileUser: User?
     var currentUser: User?
-    var profileUser: User?
-    
+
     //MARK: - Outlets
-    
     @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var addFriendButton: UIButton!
-    @IBOutlet weak var blockUserButton: UIButton!
-    @IBOutlet weak var messageButton: UIButton!
-    @IBOutlet weak var bucketListButton: UIButton!
-    @IBOutlet weak var friendsListButton: UIButton!
+    @IBOutlet weak var profilePicImageView: UIImageView!
+    
+    
+    // MARK: - Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        loadCurrentUser()
+        updateView()
+    } // End of View did load
+
+    
+    // MARK: - Functions
+    func loadCurrentUser() {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        
+        FirebaseFunctions.fetchUserData(uid: userID) { fetchedUser in
+            self.currentUser = fetchedUser
+        }
+    } // End of Load current user
+
+    func updateView() {
+        guard let user: User = ProfileTableViewController.profileUser else { return }
+        
+        usernameLabel.text = user.username
+        // How does this work? How is it handled?
+        profilePicImageView.image = user.profilePicture
+    }
     
     //MARK: - Actions
     
-    @IBAction func addFriendButtonTapped(_ sender: Any) {
-        FriendsListModelController.sharedInstance.addFriend()
-    }
-    @IBAction func blockUserButtonTapped(_ sender: Any) {
-        guard let profileUser = profileUser else {return}
-        FriendsListModelController.sharedInstance.blockUser(profileUID: profileUser.uid)
-    }
-    @IBAction func messageButtonTapped(_ sender: Any) {
-        FriendsListModelController.sharedInstance.checkForBlockedUser()
-        guard let currentUser = currentUser else {return}
-        guard let profileUser = profileUser else {return}
-        ConversationController.shared.createAndSaveConversation(users: [currentUser, profileUser]) { conversation in
-            if let conversationListVC = self.storyboard?.instantiateViewController(identifier: "conversationListVC") {
-                self.navigationController?.pushViewController(conversationListVC, animated: true)
-            }
-        }
-            
-    
-    }
-    @IBAction func bucketListButtonTapped(_ sender: Any) {
-        if let bucketList = self.storyboard?.instantiateViewController(identifier: "BucketListTableVC") {
-            self.navigationController?.pushViewController(bucketList, animated: true)
-        }
-    }
-
-    @IBAction func friendsListButtonTapped(_ sender: Any) {
-        if let friendsList = self.storyboard?.instantiateViewController(identifier: "friendsListVC") {
-          self.navigationController?.pushViewController(friendsList, animated: true)
-        }
-    }
-    
-    
-    
- 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.tableView.rowHeight = 1400
-//        fetchUser()
-       setupViews()
-        loadData()
-
-    }
-    
-    func setupViews() {
-        refresh.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        refresh.addTarget(self, action: #selector(loadData), for: .valueChanged)
-        tableView.addSubview(refresh)
-    }
-    func updateViews() {
-        
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-            self.refresh.endRefreshing()
-        }
-    }
-
-     /*
-    func fetchUser() {
-        FirebaseFunctions.fetchUserData(uid: profileUserID ?? "" ) { (result) in
-            self.currentUser = result
-//            self.updateViews()
-        }
-    }
-    */
-    
-    
-   // var users: [User] = []
-        @objc func loadData() {
-                self.updateViews()
-    }
-  
-    var user: String? {
-        didSet {
-            loadViewIfNeeded()
-        }
-    }
-/*
-    func updateView() {
-        FirebaseFunctions.fetchUsersData(passedUserIDs: []) { (result) in
-            let users: [User] = result
-            for i in users {
-                if i.uid == self.user {
-                    self.currentUser = i
-                }
-            }
-        }
-    }
-*/
-  
-    // MARK: - Table view data source
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard  let cell = tableView.dequeueReusableCell(withIdentifier: "profileCell", for: indexPath) as? ProfileTableViewCell else {return UITableViewCell()}
-        if let user = currentUser {
-//        cell.user = user
-        }
-        return cell
-    }
-    
-
-    
-    // MARK: - Navigation
+    // MARK: - Menu Button
     @IBAction func menuBtn(_ sender: Any) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -163,7 +83,7 @@ class ProfileTableViewController: UITableViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    // MARK: - Navigation
+    // MARK: - Menu Button Navigation
     func conversationBtn() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "justin", bundle: nil)
         let vs = storyBoard.instantiateViewController(withIdentifier: "conversationListVC")
@@ -187,6 +107,65 @@ class ProfileTableViewController: UITableViewController {
         let vs = storyBoard.instantiateViewController(withIdentifier: "profileDetailVC")
         self.navigationController?.pushViewController(vs, animated: true)
     }
+    
+    
+    // MARK: - Profile ... Button
+    @IBAction func profileDotDotDotBtn(_ sender: Any) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        // The buttons!
+        let addFriendButton = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            // Add friend Function
+            guard let userID = ProfileTableViewController.profileUser?.uid else { return }
+            FriendsListModelController.sharedInstance.addFriend(newFriendUserID: userID)
+            
+            self.dismiss(animated: true, completion: nil)
+        }
+        alert.addAction(addFriendButton)
+        
+        let blockUserButton = UIAlertAction(title: "Messsages", style: .default) { _ in
+            self.conversationBtn()
+        }
+        blockUserButton.setValue(UIColor.red, forKey: "titleTextColor")
+        alert.addAction(blockUserButton)
+        
+        let messageButton = UIAlertAction(title: "Make New Post", style: .default) { _ in
+            self.newPostBtn()
+        }
+        alert.addAction(messageButton)
+        
+        let reportButton = UIAlertAction(title: "My Profile", style: .default) { _ in
+            self.myProfileBtn()
+        }
+        alert.addAction(reportButton)
+        
+        let signOutButton = UIAlertAction(title: "Sign Out", style: .default) { _ in
+//            signout()
+        }
+        
+        self.present(alert, animated: true, completion: nil)
+    } // End of Profile ... button
+    
+    
+    // MARK: - Profile Button Functions
+
+    func blockUserButtonTapped() {
+        guard let profileUser = ProfileTableViewController.profileUser else {return}
+        FriendsListModelController.sharedInstance.blockUser(profileUID: profileUser.uid)
+    } // End of Block user
+    
+    @IBAction func messageButtonTapped(_ sender: Any) {
+        FriendsListModelController.sharedInstance.checkForBlockedUser()
+        guard let currentUser = currentUser else {return}
+        guard let profileUser = ProfileTableViewController.profileUser else {return}
+        ConversationController.shared.createAndSaveConversation(users: [currentUser, profileUser]) { conversation in
+            if let conversationListVC = self.storyboard?.instantiateViewController(identifier: "conversationListVC") {
+                self.navigationController?.pushViewController(conversationListVC, animated: true)
+            }
+        }
+    } // End of Message Button tapped
+
+    
 } // End of Class
 
 
@@ -201,35 +180,7 @@ extension ProfileTableViewController: UICollectionViewDataSource, UICollectionVi
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.reuseID, for: indexPath) as! ProfileCollectionViewCell
         
         cell.label.text = currentUser?.username
-        cell.layer.borderWidth = Constants.borderWidth
-        cell.layer.borderColor = UIColor.lightGray.cgColor
-        cell.backgroundColor = .orange
+
         return cell
     }
-}
-
-/*
-extension ProfileTableViewController {
-    func lilTableView(_ tableView: UITableView = ProfileTableViewCell.shared.lilTableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-
-    
-    func lilTableView(_ tableView: UITableView = ProfileTableViewCell.shared.lilTableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard  let cell = tableView.dequeueReusableCell(withIdentifier: "recentPostCell", for: indexPath) as? ProfileTableViewCell else {return UITableViewCell()}
-        if let user = currentUser {
-        cell.user = user
-        }
-        return cell
-    }
-}
-
-*/
- 
-// MARK: - Constants
-private enum Constants {
-    static let spacing: CGFloat = 16
-    static let borderWidth: CGFloat = 0.5
-    static let reuseID = "collectionCell"
-}
-
+} // End of Extension
