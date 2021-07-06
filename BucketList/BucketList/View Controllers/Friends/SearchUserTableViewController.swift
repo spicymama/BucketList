@@ -85,8 +85,6 @@ extension SearchUserTableViewController {
         }
     }
 }
-<<<<<<< HEAD
-=======
 
 
 */
