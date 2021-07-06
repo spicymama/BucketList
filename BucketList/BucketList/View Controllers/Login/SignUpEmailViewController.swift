@@ -22,11 +22,11 @@ class SignUpEmailViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupKeyboard()
     } // End of View did load
     
     
     // MARK: - Actions
-
     @IBAction func toPasswordBtn(_ sender: Any) {
         if validateEmail() == true {
             SignUpPasswordViewController.username = SignUpEmailViewController.username
@@ -42,6 +42,19 @@ class SignUpEmailViewController: UIViewController {
     
 
     // MARK: - Functions
+    func setupKeyboard() {
+        self.emailField.keyboardType = .emailAddress
+        self.emailField.textContentType = .emailAddress
+        
+        self.confirmEmailField.keyboardType = .emailAddress
+        self.confirmEmailField.textContentType = .emailAddress
+    } // End of Func setupkeyboard
+    
+    // This function makes the keyboard go away when typing around
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    } // End of Function
+    
     func validateEmail() -> Bool {
         if emailField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
             confirmEmailField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {

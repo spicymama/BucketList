@@ -10,8 +10,8 @@ import Foundation
 extension Date {
     func formatToString() -> String {
         let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.timeStyle = .short
+        formatter.dateStyle = .long
+        formatter.timeStyle = .none
         return formatter.string(from: self)
     }
 } // End of Extension

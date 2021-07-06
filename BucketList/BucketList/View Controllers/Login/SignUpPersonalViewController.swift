@@ -35,7 +35,16 @@ class SignUpPersonalViewController: UIViewController {
     } // End of To email Button
  
     
+    @IBAction func dobPickerTap(_ sender: Any) {
+        self.view.endEditing(true)
+    } // End of Function
+    
     // MARK: - Functions
+    // This function makes the keyboard go away when typing around
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    } // End of Function
+    
     func validatePersonalInformation() -> Bool {
         // Check for filled in fields
         if usernameField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||

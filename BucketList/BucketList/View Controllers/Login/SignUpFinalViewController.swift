@@ -47,6 +47,11 @@ class SignUpFinalViewController: UIViewController {
     
     
     // MARK: - Functions
+    // This function makes the keyboard go away when typing around
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    } // End of Function
+    
     func updateFinalView() {
         usernameLabel.text = "Username: " + SignUpFinalViewController.username!
         emailLabel.text = "email: " + SignUpFinalViewController.email!
