@@ -17,7 +17,7 @@
 		AA02FF7B26810500004EA782 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA02FF7A26810500004EA782 /* SceneDelegate.swift */; };
 		AA02FF8226810501004EA782 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA02FF8126810501004EA782 /* Assets.xcassets */; };
 		AA02FF8526810501004EA782 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA02FF8326810501004EA782 /* LaunchScreen.storyboard */; };
-		AA25B4F726814A5300B0E13F /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B4F626814A5300B0E13F /* SignUpViewController.swift */; };
+		AA25B4F726814A5300B0E13F /* SignUpFinalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B4F626814A5300B0E13F /* SignUpFinalViewController.swift */; };
 		AA25B504268156F400B0E13F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B503268156F400B0E13F /* LoginViewController.swift */; };
 		AA25B512268250B500B0E13F /* FirebaseFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B510268250B500B0E13F /* FirebaseFunctions.swift */; };
 		AA25B513268250B500B0E13F /* PasswordValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B511268250B500B0E13F /* PasswordValidator.swift */; };
@@ -53,6 +53,10 @@
 		AA954C54268658E4000C22F7 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA954C53268658E4000C22F7 /* PostViewController.swift */; };
 		AA954C582686A488000C22F7 /* NewBucket.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA954C572686A488000C22F7 /* NewBucket.storyboard */; };
 		AAC79494269363D30029718E /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC79493269363D30029718E /* CommentModel.swift */; };
+		AAC794962693C71C0029718E /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC794952693C71C0029718E /* DateFormatter.swift */; };
+		AAC794982693D1720029718E /* SignUpPersonalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC794972693D1720029718E /* SignUpPersonalViewController.swift */; };
+		AAC7949A2693D18F0029718E /* SignUpEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC794992693D18F0029718E /* SignUpEmailViewController.swift */; };
+		AAC7949C2693D1AA0029718E /* SignUpPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC7949B2693D1AA0029718E /* SignUpPasswordViewController.swift */; };
 		AACAC853268525A9002E9E43 /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACAC852268525A9002E9E43 /* GlobalFunctions.swift */; };
 		EA2F64BF268D04D500AD2619 /* BucketListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F64BE268D04D500AD2619 /* BucketListTableViewController.swift */; };
 		EA2F64C1268D04E700AD2619 /* CreateBucketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F64C0268D04E700AD2619 /* CreateBucketViewController.swift */; };
@@ -76,7 +80,7 @@
 		AA02FF8126810501004EA782 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AA02FF8426810501004EA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AA02FF8626810501004EA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AA25B4F626814A5300B0E13F /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		AA25B4F626814A5300B0E13F /* SignUpFinalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFinalViewController.swift; sourceTree = "<group>"; };
 		AA25B503268156F400B0E13F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		AA25B510268250B500B0E13F /* FirebaseFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseFunctions.swift; sourceTree = "<group>"; };
 		AA25B511268250B500B0E13F /* PasswordValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordValidator.swift; sourceTree = "<group>"; };
@@ -112,6 +116,10 @@
 		AA954C53268658E4000C22F7 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		AA954C572686A488000C22F7 /* NewBucket.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewBucket.storyboard; sourceTree = "<group>"; };
 		AAC79493269363D30029718E /* CommentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
+		AAC794952693C71C0029718E /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		AAC794972693D1720029718E /* SignUpPersonalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPersonalViewController.swift; sourceTree = "<group>"; };
+		AAC794992693D18F0029718E /* SignUpEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpEmailViewController.swift; sourceTree = "<group>"; };
+		AAC7949B2693D1AA0029718E /* SignUpPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPasswordViewController.swift; sourceTree = "<group>"; };
 		AACAC852268525A9002E9E43 /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
 		C3188C93C2B51D68B5DDF585 /* Pods-BucketList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BucketList.release.xcconfig"; path = "Target Support Files/Pods-BucketList/Pods-BucketList.release.xcconfig"; sourceTree = "<group>"; };
 		D3317EECED0B32C26F983252 /* Pods_BucketList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BucketList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -199,6 +207,7 @@
 				AA25B511268250B500B0E13F /* PasswordValidator.swift */,
 				AACAC852268525A9002E9E43 /* GlobalFunctions.swift */,
 				EA2F64C9268E31EA00AD2619 /* NetworkError.swift */,
+				AAC794952693C71C0029718E /* DateFormatter.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -298,8 +307,11 @@
 		AA8E969A26810C8F003DC8DA /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				AA25B4F626814A5300B0E13F /* SignUpViewController.swift */,
 				AA25B503268156F400B0E13F /* LoginViewController.swift */,
+				AAC794972693D1720029718E /* SignUpPersonalViewController.swift */,
+				AAC794992693D18F0029718E /* SignUpEmailViewController.swift */,
+				AAC7949B2693D1AA0029718E /* SignUpPasswordViewController.swift */,
+				AA25B4F626814A5300B0E13F /* SignUpFinalViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -517,7 +529,8 @@
 				EA2F64BF268D04D500AD2619 /* BucketListTableViewController.swift in Sources */,
 				EA2F64CE268E607900AD2619 /* BucketItemTableViewController.swift in Sources */,
 				AACAC853268525A9002E9E43 /* GlobalFunctions.swift in Sources */,
-				AA25B4F726814A5300B0E13F /* SignUpViewController.swift in Sources */,
+				AA25B4F726814A5300B0E13F /* SignUpFinalViewController.swift in Sources */,
+				AAC7949A2693D18F0029718E /* SignUpEmailViewController.swift in Sources */,
 				AA8E96A326810D03003DC8DA /* ConversationListTableViewController.swift in Sources */,
 				AA25B52A2683E44400B0E13F /* ConversationMessageViewController.swift in Sources */,
 				AA25B5282683E42800B0E13F /* ConversationCreationTableViewController.swift in Sources */,
@@ -527,6 +540,7 @@
 				AA25B53E2683EA0E00B0E13F /* ProfileCollectionViewCell.swift in Sources */,
 				AA02FF7926810500004EA782 /* AppDelegate.swift in Sources */,
 				AA8E96AB26810D68003DC8DA /* User.swift in Sources */,
+				AAC794962693C71C0029718E /* DateFormatter.swift in Sources */,
 				AA349497268CF30A00467C0C /* AddBlockReportViewController.swift in Sources */,
 				AA25B513268250B500B0E13F /* PasswordValidator.swift in Sources */,
 				EA2F64C8268E25B800AD2619 /* PostCommentsTableViewCell.swift in Sources */,
@@ -538,6 +552,7 @@
 				9A2D613126862D1000424AE4 /* FriendsListTableViewCell.swift in Sources */,
 				AA25B53C2683E9FF00B0E13F /* FeedTableViewCell.swift in Sources */,
 				697358B1268B8CF500E17FC1 /* ConversationTableViewCell.swift in Sources */,
+				AAC7949C2693D1AA0029718E /* SignUpPasswordViewController.swift in Sources */,
 				AA25B5262683E32B00B0E13F /* Conversation.swift in Sources */,
 				EA2F64CA268E31EA00AD2619 /* NetworkError.swift in Sources */,
 				AAC79494269363D30029718E /* CommentModel.swift in Sources */,
@@ -547,6 +562,7 @@
 				AA25B512268250B500B0E13F /* FirebaseFunctions.swift in Sources */,
 				AA25B5402683EA1500B0E13F /* ProfileTableViewCell.swift in Sources */,
 				AA8E96AD26810D6F003DC8DA /* Bucket.swift in Sources */,
+				AAC794982693D1720029718E /* SignUpPersonalViewController.swift in Sources */,
 				AA524EAD268A6D7300DF39D4 /* BucketItem.swift in Sources */,
 				9A2D612F26852D5100424AE4 /* Friend.swift in Sources */,
 				AA25B504268156F400B0E13F /* LoginViewController.swift in Sources */,

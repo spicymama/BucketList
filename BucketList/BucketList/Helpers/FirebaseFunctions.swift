@@ -11,6 +11,37 @@ import Firebase
 class FirebaseFunctions {
     var sourceOfTruth: FriendsList = FriendsList()
     
+    // MARK: - Username is avaliable checker
+    static func usernameIsAvaliable(username: String, 🐶: @escaping ( Bool ) -> Void) {
+        var usernameIsAvaliable: Bool = false
+        Firestore.firestore().collection("users").getDocuments { QuerySnapshot, 🛑 in
+            if let 🛑 = 🛑 {
+                print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
+            } else {
+                guard let snapshot = QuerySnapshot else { return }
+                let group = DispatchGroup()
+                
+                let username: String = username.lowercased()
+                var failCount: Int = 0
+                
+                for document in snapshot.documents {
+                    group.enter()
+                    let fetchedUsername: String = document["username"] as? String ?? ""
+                    if username == fetchedUsername.lowercased() {
+                        failCount += 1
+                    }
+                    group.leave()
+                } // End of For loop
+                if failCount == 0 {
+                    usernameIsAvaliable = true
+                }
+                group.notify(queue: DispatchQueue.main) {
+                    🐶(usernameIsAvaliable)
+                }
+            } // End of Username is avaliable check
+        }
+    } // End of Username Is Avaliable
+    
     // MARK: - Create User
     static func createUser(email: String, password: String, firstName: String, lastName: String, dob: Date, username: String) {
         // This creates the user
