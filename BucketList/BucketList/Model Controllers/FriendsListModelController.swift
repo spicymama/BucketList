@@ -46,7 +46,7 @@ class FriendsListModelController {
     /* !!! -- This stuff is a WIP -- !!! */
     func checkForBlockedUser(userID: String) {
         // Check the logged in user's blocked list, make sure the friend isn't on it
-        FirebaseFunctions.fetchFriends(uid: loggedInUserID) { friendsList in
+        FirebaseFunctions.fetchFriends(friendsListID: loggedInUserID) { friendsList in
             let blockedUsers: [String] = friendsList.blocked
             print(blockedUsers)
             

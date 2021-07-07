@@ -52,7 +52,7 @@ class FirebaseFunctions {
             } else {
                 let data = [
                     "uid" : result!.user.uid,
-                    "friendsID" : result!.user.uid,
+                    "friendsListID" : result!.user.uid,
                     "conversationsID" : [""],
                     "bucketsID" : [""],
                     "username" : username,
@@ -132,13 +132,12 @@ class FirebaseFunctions {
         } // End of getDocument
     } // End of Function fetchData
     
-    static func fetchCurrentUser(completion: @escaping ( Bool )-> Void) {
+    static func fetchCurrentUser(completion: @escaping ( User )-> Void) {
         let uid = Auth.auth().currentUser?.uid
         let userData = Firestore.firestore().collection("users").document(uid!)
         userData.getDocument { ( document, error ) in
             if let error = error {
                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
-                return completion(false)
             } else {
                 guard let data = document!.data() else { return }
                 let group = DispatchGroup()
@@ -150,11 +149,11 @@ class FirebaseFunctions {
                 let uid: String = data["uid"] as? String ?? "uid"
                 let conversationIDs = data["conversationsID"] as? [String] ?? ["conversationIDs"]
                 let profilePicURL = data["profilePicURL"] as? String
+                let friendsListID = data["friendsListID"] as? String ?? "No friends"
                 
-                let user = User(firstName: firstName, lastName: lastName, username: username, profilePicUrl: profilePicURL, uid: uid, conversationsIDs: conversationIDs)
-                FeedTableViewController.currentUser = user
-                print(user.firstName)
-                completion(true)
+                let fetchedUser = User(firstName: firstName, lastName: lastName, username: username, profilePicUrl: profilePicURL, uid: uid, friendsListID: friendsListID, conversationsIDs: conversationIDs)
+
+                completion(fetchedUser)
                 group.leave()
             }
         } // End of getDocument
@@ -223,29 +222,21 @@ class FirebaseFunctions {
                 let username: String = data["username"] as? String ?? "User Name"
                 let uid: String = data["uid"] as? String ?? "uid"
                 let profilePicURL = data["profilePicUrl"] as? String ?? "defaultProfileImage"
+                let friendsListID: String = data["friendsID"] as? String ?? "You have no friends"
                 
-                let friendsID: String = data["friendsID"] as? String ?? "You have no friends"
-                
-                var friendsList = FriendsList()
-                FirebaseFunctions.fetchFriends(uid: friendsID) { fetchedFriendsList in
-                    friendsList = fetchedFriendsList
-                }
-                
-                🐶(User(firstName: firstName, lastName: lastName, username: username, profilePicUrl: profilePicURL, uid: uid, friendsList: friendsList))
+                🐶(User(firstName: firstName, lastName: lastName, username: username, profilePicUrl: profilePicURL, uid: uid, friendsListID: friendsListID))
             }
         } // End of getDocument
     } // End of Function fetchData
     
     
     // MARK: - Fetch Friends
-    static func fetchFriends(uid: String ,completion: @escaping ( FriendsList ) -> Void) {
+    static func fetchFriends(friendsListID: String ,completion: @escaping ( FriendsList ) -> Void) {
         let group = DispatchGroup()
         group.enter()
         
-        // Get current user UID
-        let uid = uid
         // Fetch data
-        let userData = Firestore.firestore().collection("friends").document(uid)
+        let userData = Firestore.firestore().collection("friends").document(friendsListID)
         userData.getDocument {  document, error  in
             if let error = error {
                 print("Error in \(#function)\(#line) : \(error.localizedDescription) \n---\n \(error)")
@@ -262,34 +253,6 @@ class FirebaseFunctions {
             }
         } // End of Get Document
     } // End of Function fetch friends
-    
-    static func fetchFriendz(uid: String, completion: @escaping ( Bool )-> Void) {
-        let group = DispatchGroup()
-        group.enter()
-        
-        let uid = uid
-        let userData = Firestore.firestore().collection("friends").document(uid)
-        userData.getDocument { document, error in
-            if let error = error {
-                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
-                return completion(false)
-            }
-            if let document = document {
-                guard let data = document.data() else {return}
-                let friends: [String] = data["friends"] as? [String] ?? []
-                let blocked: [String] = data["blocked"] as? [String] ?? []
-                FeedTableViewController.friendsList = friends
-                FeedTableViewController.blocked = blocked
-                group.leave()
-                
-                group.notify(queue: DispatchQueue.main) {
-                    
-                    return completion(true)
-                }
-                
-            }
-        }
-    } // End of Fetch Friendz
     
     
     // MARK: - Create Post
@@ -334,7 +297,7 @@ class FirebaseFunctions {
     static func editPost(postID: String?, note: String, imageID: String, bucketID: String, oldBucketID: String, bucketTitle: String) {
         guard let postID = postID else { return }
         Firestore.firestore().collection("posts").document(postID).updateData( [
-            "timestamp" : FieldValue.serverTimestamp(),
+            "editedTimestamp" : FieldValue.serverTimestamp(),
             "note" : note,
             "photoID" : imageID,
             "bucketID" : bucketID,
@@ -364,7 +327,7 @@ class FirebaseFunctions {
     
     
     // MARK: - Fetch All Posts
-    static func fetchAllPosts(completion: @escaping ([Post] ) -> Void) {
+    static func fetchAllPosts(completion: @escaping ( [Post] ) -> Void) {
         Firestore.firestore().collectionGroup("posts").addSnapshotListener { (QuerySnapshot, error) in
             if let snapshot = QuerySnapshot {
                 var postIDs: [String] = []
@@ -387,21 +350,17 @@ class FirebaseFunctions {
                         let photoID: String = "swing"
                         let bucketID: String = fetchedPost.bucketID ?? ""
                         let bucketTitle: String = fetchedPost.bucketTitle ?? ""
+                        let timestamp: Date = fetchedPost.timestamp
                         
-                        let post = Post(postID: postID, authorID: authorID, note: note, commentsID: commentsID, photoID: photoID, bucketID: bucketID, bucketTitle: bucketTitle)
+                        let post = Post(postID: postID, authorID: authorID, note: note, commentsID: commentsID, photoID: photoID, bucketID: bucketID, bucketTitle: bucketTitle, timestamp: timestamp)
                         
                         postsData.append(post)
-                        FeedTableViewController.posts.append(post)
-                        if FeedTableViewController.friendsList.contains(post.authorID) {
-                            FeedTableViewController.friendsPosts.append(post)
-                        }
-                        
-                    } // End of Fetch Post
-                    group.leave()
-                } // End of Post in Posts Loop
-                group.notify(queue: DispatchQueue.main) {
-                    completion(postsData)
-                }
+                        group.leave()
+                    } // End of Post in Posts Loop
+                    group.notify(queue: DispatchQueue.main) {
+                        completion(postsData)
+                    }
+                } // End of Fetch Post
             }
         } // End of Firestore function
     } // End of Fetch all posts
@@ -425,8 +384,9 @@ class FirebaseFunctions {
                 let photoID: String = "swing"
                 let bucketID: String = data["bucketID"] as? String ?? ""
                 let bucketTitle: String = data["bucketTitle"] as? String ?? ""
+                let timestamp: Date = data["timestamp"] as? Date ?? Date()
                 
-                let fetchedPost = Post(postID: postID, authorID: authorID, note: note, commentsID: commentsID, photoID: photoID, bucketID: bucketID, bucketTitle: bucketTitle)
+                let fetchedPost = Post(postID: postID, authorID: authorID, note: note, commentsID: commentsID, photoID: photoID, bucketID: bucketID, bucketTitle: bucketTitle, timestamp: timestamp)
                 
                 🐶(fetchedPost)
             }
@@ -463,22 +423,16 @@ class FirebaseFunctions {
                             let photoID: String = "swing"
                             let bucketID: String = fetchedPost.bucketID ?? ""
                             let bucketTitle: String = fetchedPost.bucketTitle ?? ""
+                            let timestamp: Date = fetchedPost.timestamp
                             
-                            let post = Post(postID: postID, authorID: authorID, note: note, commentsID: commentsID, photoID: photoID, bucketID: bucketID, bucketTitle: bucketTitle)
-                            print("The post is!!!")
-                            print(post)
+                            let post = Post(postID: postID, authorID: authorID, note: note, commentsID: commentsID, photoID: photoID, bucketID: bucketID, bucketTitle: bucketTitle, timestamp: timestamp)
                             
                             postsData.append(post)
-                            FeedTableViewController.posts.append(post)
-                            if FeedTableViewController.friendsList.contains(post.authorID) {
-                                FeedTableViewController.friendsPosts.append(post)
-                            }
+                            
                             group.leave()
                         } // End of Fetch Post
                     } // End of Post in Posts Loop
                     group.notify(queue: DispatchQueue.main) {
-                        print("Posts data is!!!")
-                        print(postsData)
                         🐶(postsData)
                     }
                 }

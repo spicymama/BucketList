@@ -41,6 +41,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchLoggedInUser()
+        fetchPostUser()
         fetchPosts()
 
         tableView.delegate = self
@@ -75,7 +76,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         cancelBtn.setValue(UIColor.red, forKey: "titleTextColor")
         alert.addAction(cancelBtn)
         
-        let conversationBtn = UIAlertAction(title: "Messsages", style: .default) { _ in
+        let conversationBtn = UIAlertAction(title: "Messages", style: .default) { _ in
             conversationBtn()
         }
         alert.addAction(conversationBtn)
@@ -199,12 +200,16 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         FirebaseFunctions.fetchCurrentUserData { FetchedUser in
             self.loggedInUser = FetchedUser
         }
-    } // End of Func fetche logged in user
+    } // End of Func fetch logged in user
+    
+    func fetchPostUser() {
+        
+    }
     
     func updateView() {
         guard let profileUser = ProfileViewController.profileUser else { return }
         
-        usernameLabel.text = ("~" + profileUser.username)
+        usernameLabel.text = ("~" + profileUser.username + "'s Buckets Page")
         updateProfilePicture(profileUser: profileUser)
         
         tableView.reloadData()
@@ -264,7 +269,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     } // End of Function
     
     func fetchPosts() {
-        FirebaseFunctions.fetchAllPostsForUser(userID: ProfileViewController.profileUser!.uid) { UsersPosts in
+        FirebaseFunctions.fetchAllPostsForUser(userID: ProfileViewController.profileUser?.uid ?? "") { UsersPosts in
             self.posts = UsersPosts
             self.tableView.reloadData()
         }

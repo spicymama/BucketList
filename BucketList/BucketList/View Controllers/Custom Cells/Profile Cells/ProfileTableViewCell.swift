@@ -17,6 +17,7 @@ class ProfileTableViewCell: UITableViewCell {
     @IBOutlet weak var timestampLabel: UILabel!
     @IBOutlet weak var postImageView: UIImageView!
     @IBOutlet weak var noteLabel: UILabel!
+
     
     
     // MARK: - Properties
@@ -42,6 +43,7 @@ class ProfileTableViewCell: UITableViewCell {
         postImageView.image = UIImage(named: "lift")
         noteLabel.text = post.note
         titleLabel.text = post.bucketTitle
+        timestampLabel.text = post.timestamp.formatToString()
     } // End of Update Views
 
     

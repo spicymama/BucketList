@@ -29,7 +29,6 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     var postUser: User?
     var username: String?
     var profilePic: UIImage?
-    var timeStamp: Date?
     
     
     // MARK: - Lifecycle
@@ -40,7 +39,14 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         lilTableView.dataSource = self
         //fetchCurrentUser()
         fetchData()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(PostViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(PostViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     } // End of View did load
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    } // End of Function
     
     
     // MARK: - Actions
@@ -134,6 +140,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.usernameLabel.text = ("~" + (self.username ?? "User") )
         self.postImageView.image = UIImage(named: PostViewController.currentPost?.photoID ?? "peace" )
         self.postNote.text = PostViewController.currentPost?.note
+        self.timestampLabel.text = PostViewController.currentPost?.timestamp.formatToString()
       
     } // End of Function update Views
     
@@ -188,6 +195,17 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
     } // End of Fetch Post Comments
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+            return
+        }
+        self.view.frame.origin.y = 0 - keyboardSize.height
+    } // End of Function keyboard will show
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        self.view.frame.origin.y = 0
+    } // End of Keyboard will hide Function
     
     
     // MARK: - Menu Button Stuff
@@ -262,7 +280,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cell = tableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath)
         
         cell.textLabel?.text = self.postComments[indexPath.row].note
-        cell.detailTextLabel?.text = self.postComments[indexPath.row].authorUsername
+        cell.detailTextLabel?.text = ("~" + self.postComments[indexPath.row].authorUsername!)
         
         return cell
     }

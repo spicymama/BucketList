@@ -119,6 +119,7 @@
                                     <outlet property="postImageView" destination="7ub-LH-fiI" id="nNI-JV-6kj"/>
                                     <outlet property="postTitle" destination="we1-RS-Kga" id="5h0-U4-TBs"/>
                                     <outlet property="profilePic" destination="6be-Zg-Avy" id="iWf-dj-8E0"/>
+                                    <outlet property="timestampLabel" destination="hR9-ji-tDG" id="yxn-5h-Ufc"/>
                                     <outlet property="usernameLabel" destination="vS2-zT-9E7" id="TU2-0C-FtF"/>
                                 </connections>
                             </tableViewCell>

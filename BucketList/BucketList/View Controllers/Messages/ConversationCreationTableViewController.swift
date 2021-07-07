@@ -50,7 +50,7 @@ class ConversationCreationTableViewController: UITableViewController {
     
     func fetchFriends() {
         guard let userID = ConversationController.shared.currentUser?.uid else {return}
-        FirebaseFunctions.fetchFriends(uid: userID) { result in
+        FirebaseFunctions.fetchFriends(friendsListID: userID) { result in
             FirebaseFunctions.fetchUsersData(passedUserIDs: result.friends) { users in
                 self.users = users
                 DispatchQueue.main.async {
