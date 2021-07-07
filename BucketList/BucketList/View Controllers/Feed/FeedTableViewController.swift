@@ -235,10 +235,10 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
     
     func myProfileBtn() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
-        let vc = storyBoard.instantiateViewController(withIdentifier: "profileDetailVC")
+       guard let vc = storyBoard.instantiateViewController(withIdentifier: "profileDetailVC") as? ProfileViewController else {return}
         
         FirebaseFunctions.fetchCurrentUserData { fetchedUser in
-            ProfileViewController.profileUser = fetchedUser
+            vc.profileUser = fetchedUser
             self.navigationController?.pushViewController(vc, animated: true)
         }
     } // End of My Profile Button

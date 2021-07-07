@@ -111,9 +111,9 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBAction func profileDetailBtn(_ sender: Any) {
         let storyboard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "profileDetailVC")
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "profileDetailVC") as? ProfileViewController else {return}
         // Pass over the user information
-        ProfileViewController.profileUser = self.postUser
+        vc.profileUser = self.postUser
         navigationController?.pushViewController(vc, animated: true)
     } // End of Profile Detail Button
     
@@ -140,7 +140,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.usernameLabel.text = ("~" + (self.username ?? "User") )
         self.postImageView.image = UIImage(named: PostViewController.currentPost?.photoID ?? "peace" )
         self.postNote.text = PostViewController.currentPost?.note
-        self.timestampLabel.text = PostViewController.currentPost?.timestamp.formatToString()
+       // self.timestampLabel.text = PostViewController.currentPost?.timestamp.formatToString()
       
     } // End of Function update Views
     
@@ -263,10 +263,10 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func myProfileBtn() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
-        let vc = storyBoard.instantiateViewController(withIdentifier: "profileDetailVC")
+        guard let vc = storyBoard.instantiateViewController(withIdentifier: "profileDetailVC") as? ProfileViewController else {return}
         
         FirebaseFunctions.fetchCurrentUserData { fetchedUser in
-            ProfileViewController.profileUser = fetchedUser
+            vc.profileUser = fetchedUser
             self.navigationController?.pushViewController(vc, animated: true)
         }
     } // End of My Profile Button

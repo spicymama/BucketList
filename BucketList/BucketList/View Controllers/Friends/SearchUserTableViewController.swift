@@ -39,6 +39,7 @@ class SearchUserTableViewController: UITableViewController {
                         
                         sortedUsers.append(User(firstName: firstName, lastName: lastName))
                     }
+                    self.users = sortedUsers
                 }
                 completion(sortedUsers)
             }
@@ -71,6 +72,26 @@ extension SearchUserTableViewController {
         cell.textLabel?.text = "\(user.firstName) \(user.lastName)"
                 return cell
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toProfileDetailVC" {
+            guard let indexPath = tableView.indexPathForSelectedRow,
+                  let destinationVC = segue.destination as? ProfileViewController else {return}
+            let user = self.users[indexPath.row]
+            destinationVC.profileUser = user
+            
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyboard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "profileDetailVC") as? ProfileViewController else {return}
+        // Pass over the user information
+        vc.profileUser = users[indexPath.row]
+        self.dismiss(animated: true) {
+            self.navigationController?.present(vc, animated: true)
+        }
+    }
+ 
 }
 
 /*

@@ -42,7 +42,7 @@ class ProfileTableViewCell: UITableViewCell {
         postImageView.image = UIImage(named: "lift")
         noteLabel.text = post.note
         titleLabel.text = post.bucketTitle
-        timestampLabel.text = post.timestamp.formatToString()
+       // timestampLabel.text = post.timestamp.formatToString()
     } // End of Update Views
 
 

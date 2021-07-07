@@ -30,7 +30,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     // MARK: - Properties
     static let shared = ProfileViewController()
     var refresh: UIRefreshControl = UIRefreshControl()
-    static var profileUser: User?
+    var profileUser: User?
     static var profileUserIsLoggedInUser: Bool?
     var loggedInUser: User?
     
@@ -178,7 +178,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             }
         
         func addFriendButton() {
-            guard let profileUserID = ProfileViewController.profileUser?.uid else { return }
+            guard let profileUserID = profileUser?.uid else { return }
             FriendsListModelController.sharedInstance.addFriend(newFriendUserID: profileUserID)
             print("Added new friend (good thing too cuz you need them)")
         }
@@ -188,7 +188,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
 
         func blockBtn() {
-            guard let profileUserID = ProfileViewController.profileUser?.uid else { return }
+            guard let profileUserID = profileUser?.uid else { return }
             FriendsListModelController.sharedInstance.blockUser(profileUID: profileUserID)
             print("Blocked that nasty user")
         }
@@ -207,7 +207,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     func updateView() {
-        guard let profileUser = ProfileViewController.profileUser else { return }
+        guard let profileUser = profileUser else { return }
         
         usernameLabel.text = ("~" + profileUser.username + "'s Buckets Page")
         updateProfilePicture(profileUser: profileUser)
@@ -269,7 +269,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     } // End of Function
     
     func fetchPosts() {
-        FirebaseFunctions.fetchAllPostsForUser(userID: ProfileViewController.profileUser?.uid ?? "") { UsersPosts in
+        FirebaseFunctions.fetchAllPostsForUser(userID: profileUser?.uid ?? "") { UsersPosts in
             self.posts = UsersPosts
             self.tableView.reloadData()
         }
