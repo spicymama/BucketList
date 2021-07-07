@@ -44,22 +44,5 @@ class FeedTableViewCell: UITableViewCell {
         noteLabel.text = post.note
         postTitle.text = post.bucketTitle
     }
-    
-    
-    /*
-     func fetchUsername() {
-     
-     guard let post = post else {return}
-     let group = DispatchGroup()
-     FirebaseFunctions.fetchUserData(uid: post.creatorID) { result in
-     group.enter()
-     self.username = result.username
-     group.leave()
-     group.notify(queue: DispatchQueue.main) {
-     self.updateViews()
-     
-     }
-     }
-     }
-     */
-}
+
+} // End of Feed Table View Cell

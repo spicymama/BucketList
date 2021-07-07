@@ -4,11 +4,16 @@
 //
 //  Created by Gavin Woffinden on 6/21/21.
 //
+
+
+/*
+
 import UIKit
 import Firebase
 import FirebaseStorage
 
-class ProfileTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class OldProfileTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
     static let shared = ProfileTableViewController()
     var refresh: UIRefreshControl = UIRefreshControl()
     let db = Firestore.firestore()
@@ -29,6 +34,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
         present(picker, animated: true)
     }
     
+    // MARK: - Details Button
     @IBAction func detailsButtonTapped(_ sender: Any) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -60,7 +66,8 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
         alert.addAction(blockBtn)
         
         self.present(alert, animated: true, completion: nil)
-    }
+    } // End of Details Button
+    
     @IBAction func bucketListButtonTapped(_ sender: Any) {
         if let bucketList = self.storyboard?.instantiateViewController(identifier: "BucketListTableVC") {
             self.navigationController?.pushViewController(bucketList, animated: true)
@@ -247,7 +254,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
 
 
 // MARK: - Extensions
-extension ProfileTableViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension OldProfileTableViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return currentUser?.allPictures.count ?? 4
@@ -294,4 +301,6 @@ private enum Constants {
          
  
  }
+ */
+
  */

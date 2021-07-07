@@ -21,9 +21,17 @@ class LoginViewController: UIViewController {
     // MARK: - Lifecylce
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.leftBarButtonItem = nil
+        self.navigationItem.setHidesBackButton(true, animated: true);
         setupKeyboard()
         konamiLoginFunc()
     } // End of Function
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationItem.leftBarButtonItem = nil
+        self.navigationItem.setHidesBackButton(true, animated: true);
+    }
     
     func konamiLoginFunc() {
         emailField.text = "AndersenEthanG@gmail.com"

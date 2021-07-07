@@ -5,6 +5,7 @@
 //  Created by Ethan Andersen on 6/30/21.
 //
 
+/*
 import UIKit
 import Firebase
 import FirebaseAuth
@@ -79,3 +80,4 @@ class AddBlockReportViewController: UIViewController {
     } // End of Sign out button
     
 } // End of Class
+*/
