@@ -231,7 +231,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         picker.dismiss(animated: true, completion: nil)
         
         guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
-        guard let imageData = image.pngData() else { return }
+        guard let imageData = image.jpegData(compressionQuality: 0.25) else { return }
         
         let storage = Storage.storage().reference()
         guard let user = Auth.auth().currentUser else {return}

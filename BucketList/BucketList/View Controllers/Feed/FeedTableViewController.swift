@@ -37,7 +37,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         
         searchController.searchResultsUpdater = self
         definesPresentationContext = true
-    
+        
         let userSearchTable = storyboard!.instantiateViewController(identifier: "userSearchTable") as! SearchUserTableViewController
         resultSearchController = UISearchController(searchResultsController: userSearchTable)
         resultSearchController?.searchResultsUpdater = userSearchTable
@@ -52,7 +52,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         definesPresentationContext = true
         view.backgroundColor = .lightGray
         self.tableView.rowHeight = 650
-    
+        
     }
     
     // MARK: - Actions
@@ -142,6 +142,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         resultSearchController?.dimsBackgroundDuringPresentation = true
         definesPresentationContext = true
     }
+   
     
     // MARK: - Table view data source
     
@@ -161,7 +162,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         let storyboard: UIStoryboard = UIStoryboard(name: "PostDetail", bundle: nil)
         guard let vc = storyboard.instantiateViewController(withIdentifier: "postDetailVC") as? PostViewController else { return }
         let post = dataSource[indexPath.row]
-       
+        
         PostViewController.currentPost = post
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -224,7 +225,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         let vs = storyBoard.instantiateViewController(withIdentifier: "BucketListTableVC")
         self.navigationController?.pushViewController(vs, animated: true)
     }
-
+    
     func myProfileBtn() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
         let vs = storyBoard.instantiateViewController(withIdentifier: "profileDetailVC")

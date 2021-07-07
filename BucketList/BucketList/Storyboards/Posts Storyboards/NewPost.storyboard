@@ -43,6 +43,9 @@
                                     <imageReference key="image" image="photo" catalog="system" symbolScale="default"/>
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                                 </state>
+                                <connections>
+                                    <action selector="postPictureButtonTapped:" destination="AKp-R9-7nF" eventType="touchUpInside" id="Pjy-ua-Zbv"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="KWT-Y6-fy9"/>
