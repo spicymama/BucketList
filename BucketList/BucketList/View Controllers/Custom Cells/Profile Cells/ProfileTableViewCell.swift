@@ -49,19 +49,7 @@ class ProfileTableViewCell: UITableViewCell {
         fetchProfilePic(pictureURL: ProfileTableViewCell.user?.profilePicUrl ?? "") { result in
                 self.profilePic.image = result
             }
-        /*
-        FirebaseFunctions.fetchAllPosts { result in
-            DispatchQueue.main.async {
-                
-                for post in result {
-                    if post.authorID == ProfileTableViewCell.user?.uid {
-                        self.postArr.append(post)
-                    }
-                }
-                self.lilTableView.reloadData()
-            }
-        }
- */
+       
         if ProfileTableViewController.shared.currentUser?.uid != Auth.auth().currentUser?.uid {
             profilePicButton.isHidden = true
         }
