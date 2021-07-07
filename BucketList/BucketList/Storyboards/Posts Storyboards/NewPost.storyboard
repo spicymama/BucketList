@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wo5-Vy-seq">
+    <device id="retina6_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Make a Post-->
+        <scene sceneID="i8C-tr-XSM">
+            <objects>
+                <viewController storyboardIdentifier="newPostVC" id="AKp-R9-7nF" customClass="CreatePostViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cks-Xs-b1R">
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KZd-te-1j2">
+                                <rect key="frame" x="20" y="163" width="388" height="256"/>
+                                <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="256" id="rYa-2y-MTU"/>
+                                </constraints>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9XJ-i2-Zu6">
+                                <rect key="frame" x="20" y="125" width="256" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="256" id="X4v-C5-KZg"/>
+                                </constraints>
+                                <state key="normal" title="Bucket It?"/>
+                                <connections>
+                                    <segue destination="D8n-8j-MMd" kind="presentation" id="F0z-3q-WEe"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WBH-2l-jtX">
+                                <rect key="frame" x="168" y="476" width="93" height="85"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="photo" catalog="system" symbolScale="default"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="KWT-Y6-fy9"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="KZd-te-1j2" firstAttribute="trailing" secondItem="cks-Xs-b1R" secondAttribute="trailingMargin" id="GJB-bv-h25"/>
+                            <constraint firstItem="KZd-te-1j2" firstAttribute="top" secondItem="9XJ-i2-Zu6" secondAttribute="bottom" constant="8" symbolic="YES" id="I9A-Y4-W5t"/>
+                            <constraint firstItem="9XJ-i2-Zu6" firstAttribute="leading" secondItem="KZd-te-1j2" secondAttribute="leading" id="SSG-Ld-qDk"/>
+                            <constraint firstItem="WBH-2l-jtX" firstAttribute="top" secondItem="KZd-te-1j2" secondAttribute="bottom" constant="57" id="SgZ-X0-mNV"/>
+                            <constraint firstItem="9XJ-i2-Zu6" firstAttribute="top" secondItem="KWT-Y6-fy9" secondAttribute="top" constant="37" id="Ycy-HO-i1c"/>
+                            <constraint firstItem="9XJ-i2-Zu6" firstAttribute="leading" secondItem="cks-Xs-b1R" secondAttribute="leadingMargin" id="gso-cd-T4e"/>
+                            <constraint firstItem="KZd-te-1j2" firstAttribute="centerX" secondItem="WBH-2l-jtX" secondAttribute="centerX" id="mru-fo-edd"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Make a Post" id="UpD-eP-roo">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="zVL-yD-zgZ">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="vCq-ER-5b6">
+                                <rect key="frame" x="377" y="7" width="31" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Post"/>
+                                <connections>
+                                    <action selector="postButtonTapped:" destination="AKp-R9-7nF" eventType="touchUpInside" id="fBA-RM-Q1s"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="bucketItBtn" destination="9XJ-i2-Zu6" id="8TL-6J-dtL"/>
+                        <outlet property="noteTextView" destination="KZd-te-1j2" id="fSJ-bL-XEe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QzG-rQ-yr2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1293" y="77"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="EtX-tR-Yjz">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wo5-Vy-seq" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="UXU-la-siu">
+                        <rect key="frame" x="0.0" y="44" width="428" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="AKp-R9-7nF" kind="relationship" relationship="rootViewController" id="zoF-eo-Z0K"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RUB-yw-h17" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="382.60869565217394" y="77.678571428571431"/>
+        </scene>
+        <!--Bucket It Table View Controller-->
+        <scene sceneID="fI4-NB-lhg">
+            <objects>
+                <tableViewController storyboardIdentifier="bucketItTableVC" id="D8n-8j-MMd" customClass="BucketItTableViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="1U9-1Z-vVV">
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="872"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="bucketItemCell" textLabel="hts-hk-pQi" style="IBUITableViewCellStyleDefault" id="7r9-QN-tKY">
+                                <rect key="frame" x="0.0" y="24.333333969116211" width="428" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7r9-QN-tKY" id="ZPl-Ba-VNX">
+                                    <rect key="frame" x="0.0" y="0.0" width="428" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hts-hk-pQi">
+                                            <rect key="frame" x="20" y="0.0" width="388" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="D8n-8j-MMd" id="IA3-9h-DvV"/>
+                            <outlet property="delegate" destination="D8n-8j-MMd" id="a2R-hC-SrW"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="gwd-ak-lds"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kAr-um-73P" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1293" y="-675"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="photo" catalog="system" width="128" height="93"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

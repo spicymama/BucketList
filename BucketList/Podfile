@@ -10,5 +10,6 @@ target 'BucketList' do
   pod 'Firebase/Firestore'
   pod 'Firebase/Auth'
   pod 'NotificationBannerSwift', '3.0.0'
+  pod 'Firebase/Storage'
 
 end
