@@ -8,6 +8,7 @@
 import UIKit
 
 class BucketListTableViewController: UITableViewController {
+
     static let shared = BucketListTableViewController()
     var refresh: UIRefreshControl = UIRefreshControl()
 
@@ -30,21 +31,20 @@ class BucketListTableViewController: UITableViewController {
         refresh.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refresh.addTarget(self, action: #selector(loadData), for: .valueChanged)
         tableView.addSubview(refresh)
-    }
+    } // End of Setup Views
     
     func updateViews() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
             self.refresh.endRefreshing()
         }
-    }
+    } // End of UPdate Views
     
     @objc func loadData() {
-
         sections = [[], []]
         bucketList = []
         self.updateViews()
-        BucketFirebaseFunctions.fetchBuckets { result in
+        BucketFirebaseFunctions.fetchAllBuckets { result in
             for bucket in result {
                 if bucket.isPublic == true {
                     if !self.sections[0].contains(bucket) {
@@ -61,10 +61,10 @@ class BucketListTableViewController: UITableViewController {
             }
             self.updateViews()
         }
-    }
+    } // End of Load Data
+    
     
     // MARK: - Table view data source
-    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let bucketToDelete = sections[indexPath.section][indexPath.row].bucketID
@@ -122,15 +122,5 @@ class BucketListTableViewController: UITableViewController {
             destinationVC.itemsID = itemsID
         }
     }
-    
-/*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 } // End of Class Bucket List Table VC

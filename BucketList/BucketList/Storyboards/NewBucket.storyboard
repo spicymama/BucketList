@@ -121,19 +121,19 @@
             </objects>
             <point key="canvasLocation" x="8155" y="146"/>
         </scene>
-        <!--Create Bucket View Controller-->
+        <!--Bucket Detail View Controller-->
         <scene sceneID="S9m-Ka-Izs">
             <objects>
-                <viewController id="Ofl-pt-vdT" customClass="CreateBucketViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Ofl-pt-vdT" customClass="BucketDetailViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rTl-8I-2hZ">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="66" translatesAutoresizingMaskIntoConstraints="NO" id="xra-QK-Tze">
-                                <rect key="frame" x="21.333333333333343" y="185" width="385.33333333333326" height="610"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="xra-QK-Tze">
+                                <rect key="frame" x="32" y="120" width="364" height="374"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create new bucket" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mLs-7V-D6b">
-                                        <rect key="frame" x="0.0" y="0.0" width="385.33333333333331" height="55"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create New Bucket" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mLs-7V-D6b">
+                                        <rect key="frame" x="0.0" y="0.0" width="364" height="55"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="55" id="KHb-25-v42"/>
                                         </constraints>
@@ -141,36 +141,25 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Will this bucket be public or private?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VPA-Hi-9xI">
-                                        <rect key="frame" x="0.0" y="121" width="385.33333333333331" height="35"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="dDM-ig-T3R"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="100" translatesAutoresizingMaskIntoConstraints="NO" id="8hj-pF-dET">
-                                        <rect key="frame" x="0.0" y="222" width="385.33333333333331" height="30"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="8hj-pF-dET" userLabel="Visibility Stack">
+                                        <rect key="frame" x="0.0" y="87" width="364" height="31"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FaL-3j-mhe">
-                                                <rect key="frame" x="0.0" y="0.0" width="142.66666666666666" height="30"/>
-                                                <state key="normal" title="Public"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Public" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hzf-yJ-wkL">
+                                                <rect key="frame" x="0.0" y="0.0" width="299" height="31"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wlx-08-34K">
+                                                <rect key="frame" x="315" y="0.0" width="51" height="31"/>
                                                 <connections>
-                                                    <action selector="publicButtonWasTapped:" destination="Ofl-pt-vdT" eventType="touchUpInside" id="tcB-QL-DZU"/>
+                                                    <action selector="visibilitySwitch:" destination="Ofl-pt-vdT" eventType="valueChanged" id="4nb-NC-No9"/>
                                                 </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZPd-io-5cX">
-                                                <rect key="frame" x="242.66666666666669" y="0.0" width="142.66666666666669" height="30"/>
-                                                <state key="normal" title="Private"/>
-                                                <connections>
-                                                    <action selector="privateButtonWasTapped:" destination="Ofl-pt-vdT" eventType="touchUpInside" id="XjU-wx-dLf"/>
-                                                </connections>
-                                            </button>
+                                            </switch>
                                         </subviews>
                                     </stackView>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title here..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kyi-X9-tOB">
-                                        <rect key="frame" x="0.0" y="318" width="385.33333333333331" height="55"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Bucket Title Here..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kyi-X9-tOB">
+                                        <rect key="frame" x="0.0" y="150" width="364" height="55"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="55" id="5YY-KK-kOq"/>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="55" id="akk-eN-Dng"/>
@@ -178,8 +167,8 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="What do you plan to do?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gRm-8x-ARz">
-                                        <rect key="frame" x="0.0" y="439" width="385.33333333333331" height="55"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Notes about this Bucket List?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gRm-8x-ARz">
+                                        <rect key="frame" x="0.0" y="237" width="364" height="55"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="55" id="RHG-F2-cH7"/>
                                         </constraints>
@@ -187,17 +176,14 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="XJF-kj-tYx">
-                                        <rect key="frame" x="0.0" y="560" width="385.33333333333331" height="50"/>
+                                        <rect key="frame" x="0.0" y="324" width="364" height="50"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oz7-T4-eoT">
-                                                <rect key="frame" x="0.0" y="0.0" width="385.33333333333331" height="50"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="364" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="Jgs-DV-EuK"/>
                                                 </constraints>
                                                 <state key="normal" title="Save"/>
-                                                <connections>
-                                                    <action selector="saveButtonTapped:" destination="Ofl-pt-vdT" eventType="touchUpInside" id="hbZ-im-qoj"/>
-                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -207,17 +193,21 @@
                         <viewLayoutGuide key="safeArea" id="hBA-8n-Dy6"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="xra-QK-Tze" firstAttribute="centerY" secondItem="hBA-8n-Dy6" secondAttribute="centerY" id="3yZ-4K-lMM"/>
-                            <constraint firstItem="xra-QK-Tze" firstAttribute="width" secondItem="rTl-8I-2hZ" secondAttribute="width" multiplier="0.9" id="Ska-dB-ShA"/>
-                            <constraint firstItem="xra-QK-Tze" firstAttribute="centerX" secondItem="hBA-8n-Dy6" secondAttribute="centerX" id="TbQ-WJ-kbl"/>
+                            <constraint firstItem="xra-QK-Tze" firstAttribute="top" secondItem="hBA-8n-Dy6" secondAttribute="top" constant="32" id="DwE-fC-pp4"/>
+                            <constraint firstItem="xra-QK-Tze" firstAttribute="leading" secondItem="hBA-8n-Dy6" secondAttribute="leading" constant="32" id="EJU-Pb-NmR"/>
+                            <constraint firstItem="hBA-8n-Dy6" firstAttribute="trailing" secondItem="xra-QK-Tze" secondAttribute="trailing" constant="32" id="Kzu-WW-TAt"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="FGO-RG-yES"/>
                     <connections>
+                        <outlet property="bucketNoteField" destination="gRm-8x-ARz" id="RSr-81-kNl"/>
+                        <outlet property="bucketTitleField" destination="Kyi-X9-tOB" id="hRs-sr-xCq"/>
+                        <outlet property="createNewBucketLabel" destination="mLs-7V-D6b" id="5nC-0h-KAT"/>
                         <outlet property="goalTextField" destination="gRm-8x-ARz" id="s44-R2-HMt"/>
-                        <outlet property="privateButton" destination="ZPd-io-5cX" id="9ld-EK-m0O"/>
-                        <outlet property="publicButton" destination="FaL-3j-mhe" id="QSH-9M-JBt"/>
                         <outlet property="titleTextField" destination="Kyi-X9-tOB" id="RPT-vf-5sE"/>
+                        <outlet property="viewTitleLabel" destination="mLs-7V-D6b" id="C3c-9D-UAj"/>
+                        <outlet property="visibilityLabel" destination="Hzf-yJ-wkL" id="VqU-Rc-UoP"/>
+                        <outlet property="visibilitySwitch" destination="Wlx-08-34K" id="H7y-M1-hOv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pOF-gu-Zbj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

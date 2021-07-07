@@ -11,9 +11,8 @@ import Firebase
 class BucketFirebaseFunctions {
     
 
-    
-    static func fetchBuckets(completion: @escaping ([Bucket])-> Void) {
-        
+    // MARK: - Fetch All Buckets
+    static func fetchAllBuckets(completion: @escaping ([Bucket])-> Void) {
         Firestore.firestore().collectionGroup("buckets").addSnapshotListener { QuerySnapshot, error in
             guard let documents = QuerySnapshot?.documents else {
                 print("No documents")
@@ -30,17 +29,9 @@ class BucketFirebaseFunctions {
                 for i in bucketIDs {
                     group.enter()
                     BucketFirebaseFunctions.fetchBucket(bucketID: i) { data in
-                        let title = data["title"] as! String
-                        let bucketID = data["bucketID"] as! String
-                        let isPublic = data["isPublic"] as! Bool
-                        let note = data["note"] as! String
-                        let commentsID = data["commentsID"] as! String
-                        let itemsID = data["itemsID"] as! String
-                        let completion = data["completion"] as! Int
-                        let reactions = data["reactions"] as! [String]
-                        
-                        let bucket = Bucket(title: title, note: note, commentsID: commentsID, itemsID: itemsID, bucketID: bucketID, completion: completion, reactions: reactions, isPublic: isPublic)
-                        bucketData.append(bucket)
+                        let fetchedBucket: Bucket = data
+
+                        bucketData.append(fetchedBucket)
                         group.leave()
                     }
                 }
@@ -49,54 +40,76 @@ class BucketFirebaseFunctions {
                 }
             }
         }
-    }
-    static func fetchBucket(bucketID: String, completion: @escaping ([String : Any])-> Void) {
+    } // End of Fetch all Buckets
+    
+    
+    // MARK: - Fetch Bucket
+    static func fetchBucket(bucketID: String, 🐶: @escaping ( Bucket ) -> Void) {
         let bucketID = bucketID
         let bucketData = Firestore.firestore().collection("buckets").document(bucketID)
         bucketData.getDocument { document, error in
             if let error = error {
                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
             } else {
-                completion(document!.data()!)
+                // Data to collect
+                guard let document = document else { return }
                 
+                let title = document["title"] as! String
+                let bucketID = document["bucketID"] as! String
+                let isPublic = document["isPublic"] as! Bool
+                let note = document["note"] as! String
+                let commentsID = document["commentsID"] as! String
+                let itemsID = document["itemsID"] as! String
+                let completion = document["completion"] as! Int
+                let reactions = document["reactions"] as! [String]
+                
+                let fetchedBucket = Bucket(title: title, note: note, commentsID: commentsID, itemsID: itemsID, bucketID: bucketID, completion: completion, reactions: reactions, isPublic: isPublic)
+                
+                🐶(fetchedBucket)
             }
         }
-    }
+    } // End of Fetch Bucket
     
-    static func createBucket(title: String, bucketID: String = UUID().uuidString, completion: Int = 0, isPublic: Bool = true, itemsID: String, note: String, commentsID: String, reactions: [String] = []) {
-        
-        let uid = Auth.auth().currentUser?.uid
-        Firestore.firestore().collection("buckets").document(bucketID).setData([
-            "bucketID" : bucketID,
-            "completion" : completion,
-            "title" : title,
-            "isPublic" : isPublic,
-            "itemsID" : itemsID,
-            "note" : note,
-            "commentsID" : commentsID,
-            "reactions" : reactions
+    
+    // MARK: - Create Bucket
+    static func createBucket(newBucket: Bucket) {
+        guard let userID: String = Auth.auth().currentUser?.uid else { return }
+        Firestore.firestore().collection("buckets").document(newBucket.bucketID).setData([
+            //Data to store
+            "bucketID" : newBucket.bucketID,
+            "completion" : newBucket.completion,
+            "title" : newBucket.title,
+            "isPublic" : newBucket.isPublic,
+            "itemsID" : newBucket.itemsID,
+            "note" : newBucket.note,
+            "commentsID" : newBucket.commentsID,
+            "reactions" : newBucket.reactions
         ]) { error in
             if let error = error {
-
                  print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
-
             } else {
-                print("Bucket for user \(uid ?? "") was created")
+                // Add new Bucket to User's array of bucketsIDs
+                Firestore.firestore().collection("users").document(userID).updateData([
+                    "bucketIDs" : FieldValue.arrayUnion([newBucket.bucketID])
+                ])
+                print("Bucket for user \(userID) was created")
             }
         }
-        
-    }
+    } // End of Create Bucket
     
+    
+    // MARK: - Delete Bucket
     static func deleteBucket(bucketID: String, completion: @escaping (Bool)-> Void) {
         Firestore.firestore().collection("buckets").document(bucketID).delete() { error in
             if let error = error {
                  print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
             } else {
                 completion(true)
-               
             }
         }
-    }
+    } // End of Delete Bucket
+    
+    // MARK: - Fetch Bucket Items
     static func fetchBucketItems(itemsID: String, completion: @escaping ([String : Any])-> Void) {
         let id = itemsID
         let itemsData = Firestore.firestore().collection("bucketItems").document(id)
@@ -107,8 +120,9 @@ class BucketFirebaseFunctions {
                 completion(document!.data()!)
             }
         }
-    }
-}
+    } // End of Fetch Bucket Items
+    
+} // End of BucketFirebaseFunctions
     
     
     

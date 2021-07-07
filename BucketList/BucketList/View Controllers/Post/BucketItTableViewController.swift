@@ -61,7 +61,7 @@ class BucketItTableViewController: UITableViewController {
     
     // MARK: - Functions
     func fetchBuckets() {
-        BucketFirebaseFunctions.fetchBuckets { data in
+        BucketFirebaseFunctions.fetchAllBuckets { data in
             self.buckets = data
             self.tableView.reloadData()
         }
