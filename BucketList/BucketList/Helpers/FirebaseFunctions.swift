@@ -256,42 +256,59 @@ class FirebaseFunctions {
     
     
     // MARK: - Create Post
-    static func createPost(note: String, imageID: String, bucketID: String, bucketTitle: String) {
+    static func createPost(note: String, bucketID: String, bucketTitle: String, image: UIImage) {
         guard let currentUserID: String = Auth.auth().currentUser?.uid else { return }
-        let postID: String = currentUserID
-        Firestore.firestore().collection("posts").document(postID).setData([
-            "postID" : postID,
-            "authorID" : currentUserID,
-            "timestamp" : FieldValue.serverTimestamp(),
-            "note" : note,
-            "photoID" : imageID,
-            "bucketID" : bucketID,
-            "bucketTitle" : bucketTitle,
-            "commentsID" : postID,
-            "reactionsArr" : []
-        ]) { err in
-            if let err = err {
-                print("Error in \(#function)\(#line) : \(err.localizedDescription) \n---\n \(err)")
-            } else {
-                // Make the comments Document
-                Firestore.firestore().collection("comments").document(postID).setData([
-                    "referenceID" : postID
-                ])
-                Firestore.firestore().collection("comments").document(postID).collection("comment")
-                
-                // Add the post to the Bucket's array of post ID's if it exists
-                if bucketID != "" {
-                    // Add this post ID to the Bucket Post array
-                    Firestore.firestore().collection("buckets").document(bucketID).updateData([
-                        "postsIDs" : FieldValue.arrayUnion([postID])
-                    ])
-                    print("PostID added to Bucket")
-                }
-                print("Post for user \(currentUserID) was created")
+        let postID: String = UUID().uuidString
+        guard let imageData = image.jpegData(compressionQuality: 0.25) else { return }
+        let storage = Storage.storage().reference()
+        let ref = storage.child("images/\(postID).profilePic.png")
+        ref.putData(imageData, metadata: nil) { _, 🛑 in
+            if let 🛑 = 🛑 {
+                print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
+                return
             }
         }
-    } // End of Create Post
-    
+        ref.downloadURL(completion:) { url, 🛑 in
+            if let 🛑 = 🛑 {
+                print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
+            }
+            guard let urlString = url?.absoluteString else {return}
+            Firestore.firestore().collection("posts").document(postID).setData([
+                "postID" : postID,
+                "authorID" : currentUserID,
+                "timestamp" : FieldValue.serverTimestamp(),
+                "note" : note,
+                "photoID" : urlString,
+                "bucketID" : bucketID,
+                "bucketTitle" : bucketTitle,
+                "commentsID" : postID,
+                "reactionsArr" : []
+            ]) { err in
+                if let err = err {
+                    print("Error in \(#function)\(#line) : \(err.localizedDescription) \n---\n \(err)")
+                } else {
+                    // Make the comments Document
+                    Firestore.firestore().collection("comments").document(postID).setData([
+                        "referenceID" : postID
+                    ])
+                    Firestore.firestore().collection("comments").document(postID).collection("comment")
+                    
+                    // Add the post to the Bucket's array of post ID's if it exists
+                    if bucketID != "" {
+                        // Add this post ID to the Bucket Post array
+                        Firestore.firestore().collection("buckets").document(bucketID).updateData([
+                            "postsIDs" : FieldValue.arrayUnion([postID])
+                        ])
+                        print("PostID added to Bucket")
+                    }
+                    print("Post for user \(currentUserID) was created")
+                }
+            }
+        } // End of Create Post
+        
+        }
+           
+      
     
     // MARK: - Edit Post
     static func editPost(postID: String?, note: String, imageID: String, bucketID: String, oldBucketID: String, bucketTitle: String) {

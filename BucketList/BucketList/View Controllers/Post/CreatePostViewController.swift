@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseStorage
 
 // This whole thing should be presented Modally
-class CreatePostViewController: UIViewController, UITextViewDelegate {
+class CreatePostViewController: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     
     // MARK: - Outlets
@@ -21,6 +23,7 @@ class CreatePostViewController: UIViewController, UITextViewDelegate {
     let noteTextViewPlaceholder: String = "Notes, Thoughts, Questions?"
     var bucketID = "0"
     var bucketTitle = ""
+    var selectedImage: UIImage?
     //TODO(ethan) V2.0 - You can post to individual Bucket Items
     
     
@@ -32,6 +35,13 @@ class CreatePostViewController: UIViewController, UITextViewDelegate {
         updateView()
     }
     
+    @IBAction func postPictureButtonTapped(_ sender: Any) {
+        let picker = UIImagePickerController()
+        picker.sourceType = .photoLibrary
+        picker.delegate = self
+        picker.allowsEditing = true
+        present(picker, animated: true)
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
@@ -43,18 +53,26 @@ class CreatePostViewController: UIViewController, UITextViewDelegate {
         self.view.endEditing(true)
     } // End of Function
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        
+        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
+        selectedImage = image
+    } // End of Image picker Function
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    } // End of Function
     
     // MARK: - Actions
     @IBAction func postButtonTapped(_ sender: Any) {
+        guard let image = selectedImage else {return}
         // Properties
         //TODO(ethan) V2.0 - Let users make posts off of the already existing buckets page - Not just the "create post" page
         let note = noteTextView.text ?? "Post Note"
         let bucketID: String = bucketID
-        
-        //TODO(ethan) Some function that also creates a saved file of an image, and gets us the ID
-        //let imageID = ""
-        
-        FirebaseFunctions.createPost(note: note, imageID: "lift", bucketID: bucketID, bucketTitle: bucketTitle)
+            
+        FirebaseFunctions.createPost(note: note, bucketID: bucketID, bucketTitle: bucketTitle, image: image)
         
         // Go to the Post's page, in front of the Feed page
         let storyBoard: UIStoryboard = UIStoryboard(name: "gavin", bundle: nil)
