@@ -204,7 +204,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     func updateView() {
         guard let profileUser = ProfileViewController.profileUser else { return }
         
-        usernameLabel.text = profileUser.username
+        usernameLabel.text = ("~" + profileUser.username)
         updateProfilePicture(profileUser: profileUser)
         
         tableView.reloadData()

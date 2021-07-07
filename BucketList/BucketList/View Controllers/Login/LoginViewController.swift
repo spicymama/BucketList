@@ -63,6 +63,7 @@ class LoginViewController: UIViewController {
 
     // MARK: - Function
     func setupKeyboard() {
+        self.passwordField.isSecureTextEntry = true
         self.emailField.keyboardType = .emailAddress
         self.emailField.textContentType = UITextContentType.username
         self.passwordField.textContentType = UITextContentType.password

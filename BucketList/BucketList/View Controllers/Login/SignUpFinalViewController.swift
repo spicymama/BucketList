@@ -53,7 +53,7 @@ class SignUpFinalViewController: UIViewController {
     } // End of Function
     
     func updateFinalView() {
-        usernameLabel.text = "Username: " + SignUpFinalViewController.username!
+        usernameLabel.text = "Username: ~" + SignUpFinalViewController.username!
         emailLabel.text = "email: " + SignUpFinalViewController.email!
         nameLabel.text = ("Name: \(SignUpFinalViewController.firstName!) \(SignUpFinalViewController.lastName!)")
         birthDateLabel.text = "Birthday: " + SignUpFinalViewController.dob!.formatToString()

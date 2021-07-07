@@ -58,6 +58,11 @@ class SignUpEmailViewController: UIViewController {
     func validateEmail() -> Bool {
         if emailField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
             confirmEmailField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+            let alert = GlobalFunctions.basicOkAlert(title: "Error", message: "Please fill out all fields")
+            self.present(alert, animated: true, completion: nil)
+            return false
+        }
+        if emailField.text != confirmEmailField.text {
             let alert = GlobalFunctions.basicOkAlert(title: "Error", message: "Please confirm that emails match")
             self.present(alert, animated: true, completion: nil)
             return false

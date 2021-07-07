@@ -51,7 +51,7 @@ class ConversationTableViewCell: UITableViewCell {
         //        if conversation.users.count >= 3 {
         //            userAvatarImageView.image = UIImage(systemName: "heart.fill")
         //        }
-        usernameLabel.text = usernameString
+        usernameLabel.text = ("~" + usernameString)
         recentMessageTextView.text = mostRecentMessage
         userAvatarImageView.layer.masksToBounds = false
         userAvatarImageView.clipsToBounds = true

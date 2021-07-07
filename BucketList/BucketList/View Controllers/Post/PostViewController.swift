@@ -127,11 +127,11 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         } else {
             self.titleLabel.text = ""
         }
-        fetchProfilePic(pictureURL: currentUser?.profilePicUrl ?? "") { result in
+        fetchProfilePic(pictureURL: postUser?.profilePicUrl ?? "") { result in
             self.profilePicImageView.image = result
             self.updateViews()
             }
-        self.usernameLabel.text = self.username
+        self.usernameLabel.text = ("~" + (self.username ?? "User") )
         self.postImageView.image = UIImage(named: PostViewController.currentPost?.photoID ?? "peace" )
         self.postNote.text = PostViewController.currentPost?.note
       

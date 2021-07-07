@@ -222,7 +222,7 @@ class FirebaseFunctions {
                 let lastName: String = data["lastName"] as? String ?? "Last Name"
                 let username: String = data["username"] as? String ?? "User Name"
                 let uid: String = data["uid"] as? String ?? "uid"
-                let profilePicURL = data["profilePicUrl"] as? String
+                let profilePicURL = data["profilePicUrl"] as? String ?? "defaultProfileImage"
                 
                 let friendsID: String = data["friendsID"] as? String ?? "You have no friends"
                 
