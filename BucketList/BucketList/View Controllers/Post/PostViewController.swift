@@ -127,11 +127,16 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         } else {
             self.titleLabel.text = ""
         }
+        fetchProfilePic(pictureURL: currentUser?.profilePicUrl ?? "") { result in
+            self.profilePicImageView.image = result
+            self.updateViews()
+            }
         self.usernameLabel.text = self.username
         self.postImageView.image = UIImage(named: PostViewController.currentPost?.photoID ?? "peace" )
-        self.profilePicImageView.image = UIImage(named: "justin")
         self.postNote.text = PostViewController.currentPost?.note
+      
     } // End of Function update Views
+    
     
     func fetchCurrentPost() {
         postID = PostViewController.currentPost?.postID
@@ -141,6 +146,25 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
             PostViewController.currentPost = fetchedPost
         }
     } // End of Fetch Current Post
+    
+    func fetchProfilePic(pictureURL: String, completion: @escaping (UIImage) -> Void){
+        
+        guard let url = URL(string: pictureURL) else {return}
+        let task = URLSession.shared.dataTask(with: url, completionHandler: { 📀, _, 🛑 in
+            guard let 📀 = 📀, 🛑 == nil else {
+                print("Error in \(#function)\(#line)")
+                return
+            }
+            DispatchQueue.main.async {
+                guard let image = UIImage(data: 📀) else {return}
+                self.profilePicImageView.image = image
+               completion(image)
+            } // End of Dispatch Queue
+        })
+        task.resume()
+        
+      //  updateViews()
+    }
     
     func fetchCurrentUser() {
         guard let post = PostViewController.currentPost else {return}

@@ -59,14 +59,13 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
     @IBAction func segmentWasChanged(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
             dataSource = FeedTableViewController.friendsPosts
-            
+            print(FeedTableViewController.friendsPosts)
             view.backgroundColor = .gray
             tableView.backgroundColor = .lightGray
             tableView.reloadData()
         }
         else if sender.selectedSegmentIndex == 1 {
             dataSource = FeedTableViewController.posts
-            
             view.backgroundColor = .blue
             tableView.backgroundColor = .systemBlue
             tableView.reloadData()
@@ -83,6 +82,12 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
                     case true:
                         FirebaseFunctions.fetchAllPosts { result in
                             self.dataSource = result
+                            for i in result {
+                                if FeedTableViewController.friendsList.contains(i.authorID) {
+                                    print("Friends list = \(FeedTableViewController.friendsList)")
+                                    FeedTableViewController.friendsPosts.append(i)
+                                }
+                            }
                             
                             print(FeedTableViewController.friendsList)
                             print(FeedTableViewController.blocked)
@@ -113,7 +118,10 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
     }
     
     @objc func loadData() {
-        self.updateViews()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.refresh.endRefreshing()
+        }
     }
     
     func updateSearchController() {
@@ -152,14 +160,9 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyboard: UIStoryboard = UIStoryboard(name: "PostDetail", bundle: nil)
         guard let vc = storyboard.instantiateViewController(withIdentifier: "postDetailVC") as? PostViewController else { return }
-        
         let post = dataSource[indexPath.row]
-        let commentsID = post.commentsID
-        let userID: String = post.authorID
        
         PostViewController.currentPost = post
-     
-        
         navigationController?.pushViewController(vc, animated: true)
     }
     
