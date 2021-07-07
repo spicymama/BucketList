@@ -39,8 +39,8 @@ class FeedTableViewCell: UITableViewCell {
     
     func updateViews() {
         guard let post = post else {return}
-        usernameLabel.text = ((user?.username ?? "User") + " checked " + (post.bucketTitle ?? "something") + " off their list!")
-        postImageView.image = UIImage(named: "lift")
+        usernameLabel.text = ("~" + (user?.username ?? "User") + " checked " + (post.bucketTitle ?? "something") + " off their list!")
+        postImageView.image = UIImage(named: randomPhoto())
         noteLabel.text = post.note
         postTitle.text = post.bucketTitle
         fetchProfilePic(pictureURL: user?.profilePicUrl ?? "") { result in
@@ -64,33 +64,11 @@ class FeedTableViewCell: UITableViewCell {
         task.resume()
     }
     
-    /*
-    func removePrefix(url: String)-> String {
-        var count = 0
-        var url = url
-        for i in url {
-            if count <= 7 {
-           guard let index = url.firstIndex(of: i) else {return ""}
-            url.remove(at: index)
-            count += 1
-            }
-        }
-        return url
+    func randomPhoto() -> String {
+        let randomNumber = Int.random(in: 0...9)
+        
+        return String(randomNumber)
     }
     
-     func fetchUsername() {
-     
-     guard let post = post else {return}
-     let group = DispatchGroup()
-     FirebaseFunctions.fetchUserData(uid: post.creatorID) { result in
-     group.enter()
-     self.username = result.username
-     group.leave()
-     group.notify(queue: DispatchQueue.main) {
-     self.updateViews()
-     
-     }
-     }
-     }
-     */
-}
+    
+} // End of Feed Table View Cell

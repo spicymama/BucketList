@@ -203,7 +203,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         alert.addAction(myFriendsListBtn)
         
         self.present(alert, animated: true, completion: nil)
-    }
+    } // End of Menu Button
     
     
     // MARK: - Navigation

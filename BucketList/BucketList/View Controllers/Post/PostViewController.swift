@@ -26,7 +26,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     var postID: String?
     var postComments: [Comment] = []
     static var currentPost: Post?
-    var currentUser: User?
+    var postUser: User?
     var username: String?
     var profilePic: UIImage?
     var timeStamp: Date?
@@ -64,34 +64,51 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBAction func editPostBtn(_ sender: Any) {
         // Send over the post data
+        let alert = UIAlertController(title: "Edit Post", message: nil, preferredStyle: .actionSheet)
         EditPostViewController.postID = PostViewController.currentPost?.postID
         
-        // Move over to the right VC
-        let storyBoard: UIStoryboard = UIStoryboard(name: "EditPost", bundle: nil)
-        let vs = storyBoard.instantiateViewController(withIdentifier: "editPostVC")
-        self.navigationController?.pushViewController(vs, animated: true)
+        let cancelBtn = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            self.dismiss(animated: true, completion: nil)
+        }
+        alert.addAction(cancelBtn)
+        
+        let editBtn = UIAlertAction(title: "Edit", style: .default) { _ in
+            EditPostViewController.postID = self.postID
+            let storyBoard: UIStoryboard = UIStoryboard(name: "EditPost", bundle: nil)
+            let vs = storyBoard.instantiateViewController(withIdentifier: "editPostVC")
+            self.navigationController?.pushViewController(vs, animated: true)
+        }
+        alert.addAction(editBtn)
+        
+        let deleteBtn = UIAlertAction(title: "Delete Post", style: .default) { _ in
+            let deleteAlert = UIAlertController(title: "Delete Post", message: "Are you sure you want to delete?", preferredStyle: .alert)
+            
+            let cancelBtn = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+                self.dismiss(animated: true, completion: nil)
+            }
+            deleteAlert.addAction(cancelBtn)
+            
+            let confirmDeleteBtn = UIAlertAction(title: "Yes, Delete", style: .default) { _ in
+                FirebaseFunctions.deletePost(postID: self.postID!)
+                self.navigationController?.popViewController(animated: true)
+            }
+            confirmDeleteBtn.setValue(UIColor.red, forKey: "titleTextColor")
+            deleteAlert.addAction(confirmDeleteBtn)
+            
+            self.present(deleteAlert, animated: true, completion: nil)
+        }
+        deleteBtn.setValue(UIColor.red, forKey: "titleTextColor")
+        alert.addAction(deleteBtn)
+        
+        present(alert, animated: true, completion: nil)
     } // End of Edit post button
     
     @IBAction func profileDetailBtn(_ sender: Any) {
-        guard let currentUser = currentUser else {return}
-        if currentUser.uid == PostViewController.currentPost?.authorID {
-        ProfileTableViewCell.user = currentUser
-        ProfileTableViewController.shared.currentUser = self.currentUser
-        ProfileCollectionViewCell.currentUser = currentUser
-            let storyboard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "profileDetailVC")
-            navigationController?.pushViewController(vc, animated: true)
-        } else {
-            FirebaseFunctions.fetchUserData(uid: PostViewController.currentPost?.authorID ?? "") { result in
-                ProfileTableViewCell.user = result
-                ProfileTableViewController.shared.currentUser = result
-                ProfileCollectionViewCell.currentUser = result
-            let storyboard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "profileDetailVC")
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
-        }
-        
+        let storyboard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "profileDetailVC")
+        // Pass over the user information
+        ProfileViewController.profileUser = self.postUser
+        navigationController?.pushViewController(vc, animated: true)
     } // End of Profile Detail Button
     
     
@@ -110,11 +127,11 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         } else {
             self.titleLabel.text = ""
         }
-        fetchProfilePic(pictureURL: currentUser?.profilePicUrl ?? "") { result in
+        fetchProfilePic(pictureURL: postUser?.profilePicUrl ?? "") { result in
             self.profilePicImageView.image = result
             self.updateViews()
             }
-        self.usernameLabel.text = self.username
+        self.usernameLabel.text = ("~" + (self.username ?? "User") )
         self.postImageView.image = UIImage(named: PostViewController.currentPost?.photoID ?? "peace" )
         self.postNote.text = PostViewController.currentPost?.note
       
@@ -153,8 +170,8 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         guard let post = PostViewController.currentPost else {return}
         FirebaseFunctions.fetchUserData(uid: post.authorID) { result in
             self.username = result.username
-                //  self.profilePic = result.profilePictureURL
-            self.currentUser = result
+            //  self.profilePic = result.profilePictureURL
+            self.postUser = result
             
             self.updateViews()
         }
@@ -171,7 +188,6 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
     } // End of Fetch Post Comments
-    
     
     
     // MARK: - Menu Button Stuff
@@ -211,30 +227,31 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: - Navigation
     func conversationBtn() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "justin", bundle: nil)
-        let vs = storyBoard.instantiateViewController(withIdentifier: "conversationListVC")
-        self.navigationController?.pushViewController(vs, animated: true)
+        let vc = storyBoard.instantiateViewController(withIdentifier: "conversationListVC")
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func newPostBtn() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "NewPost", bundle: nil)
-        let vs = storyBoard.instantiateViewController(withIdentifier: "newPostVC")
-        self.navigationController?.pushViewController(vs, animated: true)
+        let vc = storyBoard.instantiateViewController(withIdentifier: "newPostVC")
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func newBucketBtn() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "NewBucket", bundle: nil)
-        let vs = storyBoard.instantiateViewController(withIdentifier: "BucketListTableVC")
-        self.navigationController?.pushViewController(vs, animated: true)
+        let vc = storyBoard.instantiateViewController(withIdentifier: "BucketListTableVC")
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func myProfileBtn() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
-        let vs = storyBoard.instantiateViewController(withIdentifier: "profileDetailVC")
-        guard let currentUser = currentUser else {return}
-        ProfileTableViewCell.user = currentUser
-        ProfileTableViewController.shared.currentUser = self.currentUser
-        self.navigationController?.pushViewController(vs, animated: true)
-    }
+        let vc = storyBoard.instantiateViewController(withIdentifier: "profileDetailVC")
+        
+        FirebaseFunctions.fetchCurrentUserData { fetchedUser in
+            ProfileViewController.profileUser = fetchedUser
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    } // End of My Profile Button
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -246,27 +263,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         cell.textLabel?.text = self.postComments[indexPath.row].note
         cell.detailTextLabel?.text = self.postComments[indexPath.row].authorUsername
-       
+        
         return cell
     }
 } // End of Class
-/*
- 
- // MARK: - Extensions
- extension PostDetailTableViewController: UITableViewDelegate, UITableViewDataSource {
- func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
- return PostViewController.comments.count
- }
- 
- func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
- let cell = tableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath)
- // let commentsID = PostViewController.currentPost?.commentsID
- // cell.commentsID = commentsID
- cell.textLabel?.text = PostViewController.comments[indexPath.row]
- 
- return cell
- }
- 
- } // End of Extension
- 
- */

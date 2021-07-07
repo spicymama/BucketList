@@ -21,8 +21,17 @@ class LoginViewController: UIViewController {
     // MARK: - Lifecylce
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.leftBarButtonItem = nil
+        self.navigationItem.setHidesBackButton(true, animated: true);
+        setupKeyboard()
         konamiLoginFunc()
     } // End of Function
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationItem.leftBarButtonItem = nil
+        self.navigationItem.setHidesBackButton(true, animated: true);
+    }
     
     func konamiLoginFunc() {
         emailField.text = "AndersenEthanG@gmail.com"
@@ -51,9 +60,20 @@ class LoginViewController: UIViewController {
             print("Error in \(#function)\(#line)")
         }
     } // End of Action
-    
-    
+
     // MARK: - Function
+    func setupKeyboard() {
+        self.passwordField.isSecureTextEntry = true
+        self.emailField.keyboardType = .emailAddress
+        self.emailField.textContentType = UITextContentType.username
+        self.passwordField.textContentType = UITextContentType.password
+    } // End of Func setup Keyboard
+    
+    // This function makes the keyboard go away when typing around
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    } // End of Function
+    
     func validateFields() -> Bool {
         // Simply checks if the fields are not empty
         if emailField.text == "" ||

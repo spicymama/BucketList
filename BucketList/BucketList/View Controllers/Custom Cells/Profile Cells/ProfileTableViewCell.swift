@@ -94,21 +94,23 @@ class ProfileTableViewCell: UITableViewCell {
             let width = frame.width * 0.75
             return CGSize(width: width, height: 120)
         }
-        
-        
-}
-
-extension ProfileTableViewCell: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView = ProfileTableViewCell.shared.lilTableView, numberOfRowsInSection section: Int) -> Int {
-        buckitz.count
-    }
+    } // End of Post variable
     
-    func tableView(_ tableView: UITableView = ProfileTableViewCell.shared.lilTableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "recentPostCell", for: indexPath)
-        let string = buckitz[indexPath.row].title
-        print(string)
-        cell.textLabel?.text = string
-    return cell
-}
-    }
+    
+    // MARK: - LIfecycle
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    } // End of Lifecycle
+    
+    
+    // MARK: - Functions
+    func updateView() {
+        guard let post = post else {return}
+        
+        postImageView.image = UIImage(named: "lift")
+        noteLabel.text = post.note
+        titleLabel.text = post.bucketTitle
+    } // End of Update Views
 
+    
+} // End of Class Profile Table View Cell

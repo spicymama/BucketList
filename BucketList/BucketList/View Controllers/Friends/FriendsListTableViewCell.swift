@@ -33,7 +33,7 @@ class FriendsListTableViewCell: UITableViewCell {
         guard let user = user else {return}
         firstNameLabel.text = user.firstName
         lastNameLabel.text = user.lastName
-        signinLabel.text = user.username
+        signinLabel.text = ("~" + user.username)
         let profileToViewUID = user.uid
         
     }

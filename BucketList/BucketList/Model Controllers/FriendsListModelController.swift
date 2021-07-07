@@ -10,39 +10,33 @@ import Firebase
 
 class FriendsListModelController {
     
-    static let sharedInstance = FriendsListModelController()
-    
-    var user: [User] = []
-    
     // MARK: - Properties
+    static let sharedInstance = FriendsListModelController()
+    var user: [User] = []
     let db = Firestore.firestore()
-    
-    let uid: String = Auth.auth().currentUser?.uid ?? "0"
-    // let viewedUserUID = aksjdlfkasd
+    let loggedInUserID: String = Auth.auth().currentUser?.uid ?? "0"
     
     
     //MARK: - CRUD Functions
-    func addFriend() {
-        checkForBlockedUser()
-        let newFriendRef = db.collection("friends").document(uid)
+    func addFriend(newFriendUserID: String) {
+        checkForBlockedUser(userID: newFriendUserID)
+        let newFriendRef = db.collection("friends").document(loggedInUserID)
         newFriendRef.updateData([
             "friends": FieldValue.arrayUnion(["CURRENT PROFILE UID HERE"])
         ])
     } // End of Function add Friend
     
     func removeFriend() {
-        let unfriendedUserRef = db.collection("friends").document(uid)
+        let unfriendedUserRef = db.collection("friends").document(loggedInUserID)
         unfriendedUserRef.updateData([
             "friends": FieldValue.arrayRemove(["CURRENT PROFILE UID HERE"])
         ])
     } // End of Function remove friend
     
-    
-    
     func blockUser(profileUID: String) {
         let arrayProfileID: [String] = [profileUID]
-        FirebaseFunctions.fetchUserData(uid: uid) { data in
-            let blockedUserRef = self.db.collection("friends").document(self.uid)
+        FirebaseFunctions.fetchUserData(uid: loggedInUserID) { data in
+            let blockedUserRef = self.db.collection("friends").document(self.loggedInUserID)
             blockedUserRef.updateData([
                 "blocked": FieldValue.arrayUnion(arrayProfileID)
             ])
@@ -50,12 +44,13 @@ class FriendsListModelController {
     } // End of function block user
     
     /* !!! -- This stuff is a WIP -- !!! */
-    func checkForBlockedUser() {
-        FirebaseFunctions.fetchFriends(uid: uid) { friendsList in
+    func checkForBlockedUser(userID: String) {
+        // Check the logged in user's blocked list, make sure the friend isn't on it
+        FirebaseFunctions.fetchFriends(uid: loggedInUserID) { friendsList in
             let blockedUsers: [String] = friendsList.blocked
             print(blockedUsers)
             
-            if blockedUsers.contains(self.uid) {
+            if blockedUsers.contains(self.loggedInUserID) {
                 let alertController = UIAlertController(title: "Error adding or messaging user.", message: "Sorry you are unable to add or message this user at this time.", preferredStyle: .alert)
                 
                 let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)

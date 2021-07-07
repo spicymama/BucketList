@@ -11,6 +11,37 @@ import Firebase
 class FirebaseFunctions {
     var sourceOfTruth: FriendsList = FriendsList()
     
+    // MARK: - Username is avaliable checker
+    static func usernameIsAvaliable(username: String, 🐶: @escaping ( Bool ) -> Void) {
+        var usernameIsAvaliable: Bool = false
+        Firestore.firestore().collection("users").getDocuments { QuerySnapshot, 🛑 in
+            if let 🛑 = 🛑 {
+                print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
+            } else {
+                guard let snapshot = QuerySnapshot else { return }
+                let group = DispatchGroup()
+                
+                let username: String = username.lowercased()
+                var failCount: Int = 0
+                
+                for document in snapshot.documents {
+                    group.enter()
+                    let fetchedUsername: String = document["username"] as? String ?? ""
+                    if username == fetchedUsername.lowercased() {
+                        failCount += 1
+                    }
+                    group.leave()
+                } // End of For loop
+                if failCount == 0 {
+                    usernameIsAvaliable = true
+                }
+                group.notify(queue: DispatchQueue.main) {
+                    🐶(usernameIsAvaliable)
+                }
+            } // End of Username is avaliable check
+        }
+    } // End of Username Is Avaliable
+    
     // MARK: - Create User
     static func createUser(email: String, password: String, firstName: String, lastName: String, dob: Date, username: String) {
         // This creates the user
@@ -191,7 +222,7 @@ class FirebaseFunctions {
                 let lastName: String = data["lastName"] as? String ?? "Last Name"
                 let username: String = data["username"] as? String ?? "User Name"
                 let uid: String = data["uid"] as? String ?? "uid"
-                let profilePicURL = data["profilePicUrl"] as? String
+                let profilePicURL = data["profilePicUrl"] as? String ?? "defaultProfileImage"
                 
                 let friendsID: String = data["friendsID"] as? String ?? "You have no friends"
                 
@@ -403,6 +434,71 @@ class FirebaseFunctions {
     } // End of Fetch Post
     
     
+    // MARK: - Fetch all posts for user
+    static func fetchAllPostsForUser(userID: String, 🐶: @escaping ( [Post] ) -> Void) {
+        Firestore.firestore().collectionGroup("posts").addSnapshotListener { (QuerySnapshot, error) in
+            if let 🛑 = error {
+                print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
+            } else {
+                if let snapshot = QuerySnapshot {
+                    var postIDs: [String] = []
+                    for document in snapshot.documents {
+                        if userID == document["authorID"] as? String {
+                            postIDs.append(document["postID"] as? String ?? "")
+                        }
+                    }
+                    let group = DispatchGroup()
+                    
+                    var postsData: [Post] = []
+                    for postID in postIDs {
+                        group.enter()
+                        FirebaseFunctions.fetchPost(postID: postID) { post in
+                            let fetchedPost: Post = post
+                            
+                            // Data to collect
+                            let postID: String = fetchedPost.postID
+                            let authorID: String = fetchedPost.authorID
+                            let note: String = fetchedPost.note
+                            let commentsID: String = fetchedPost.commentsID
+                            let photoID: String = "swing"
+                            let bucketID: String = fetchedPost.bucketID ?? ""
+                            let bucketTitle: String = fetchedPost.bucketTitle ?? ""
+                            
+                            let post = Post(postID: postID, authorID: authorID, note: note, commentsID: commentsID, photoID: photoID, bucketID: bucketID, bucketTitle: bucketTitle)
+                            print("The post is!!!")
+                            print(post)
+                            
+                            postsData.append(post)
+                            FeedTableViewController.posts.append(post)
+                            if FeedTableViewController.friendsList.contains(post.authorID) {
+                                FeedTableViewController.friendsPosts.append(post)
+                            }
+                            group.leave()
+                        } // End of Fetch Post
+                    } // End of Post in Posts Loop
+                    group.notify(queue: DispatchQueue.main) {
+                        print("Posts data is!!!")
+                        print(postsData)
+                        🐶(postsData)
+                    }
+                }
+            }
+        } // End of Firestore function
+    } // End of Fetch All posts for Users
+    
+    
+    // MARK: - Delete Post
+    static func deletePost(postID: String) {
+        Firestore.firestore().collection("posts").document(postID).delete() { 🛑 in
+            if let 🛑 = 🛑 {
+                print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
+            } else {
+                print("Post deleted")
+            }
+        }
+    } // End of Delete Post
+    
+    
     // MARK: - Post Comment
     static func postComment(comment: Comment) {
         let authorID: String = comment.authorID ?? ""
@@ -451,6 +547,24 @@ class FirebaseFunctions {
             }
         } // End of snapshot listener
     } // End of Function fetchComments
+    
+    
+    // MARK: - Fetch Profile Picture
+    static func fetchProfileImage(user: User, 🐶: @escaping ( UIImage ) -> Void) {
+        guard let profilePicUrl: URL = URL(string: user.profilePicUrl ?? "") else { return }
+        
+        let task = URLSession.shared.dataTask(with: profilePicUrl, completionHandler: { data, _, error in
+            guard let data = data, error == nil else {
+                print("Error in (#function)(#line)")
+                return
+            }
+            DispatchQueue.main.async {
+                let fetchedImage: UIImage = UIImage(data: data) ?? UIImage(named: "defaultProfileImage") as! UIImage
+                🐶(fetchedImage)
+            } // End of Dispatch Queue
+        })
+        task.resume()
+    } // End of Fetch Profile Image
     
 } // End of Class
 

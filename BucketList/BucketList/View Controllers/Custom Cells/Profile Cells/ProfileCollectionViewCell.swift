@@ -3,10 +3,10 @@
 //  BucketList
 //
 //  Created by Gavin Woffinden on 6/22/21.
+//  Worked on by Ethan Andersen
 //
 
 import UIKit
-
 
 class ProfileCollectionViewCell: UICollectionViewCell {
     static var currentUser: User?
