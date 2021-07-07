@@ -16,6 +16,7 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var loginBtn: UIButton!
     
     
     // MARK: - Lifecylce
@@ -40,6 +41,9 @@ class LoginViewController: UIViewController {
     
     // MARK: - Actions
     @IBAction func loginBtn(_ sender: Any) {
+        // Disable login button
+        loginBtn.isUserInteractionEnabled = false
+        loginBtn.isEnabled = false
         // Validate
         if validateFields() == true {
             // Firebase login stuff
@@ -59,6 +63,9 @@ class LoginViewController: UIViewController {
         } else {
             print("Error in \(#function)\(#line)")
         }
+        // Enable login button
+        loginBtn.isUserInteractionEnabled = true
+        loginBtn.isEnabled = true
     } // End of Action
 
     // MARK: - Function

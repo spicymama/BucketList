@@ -18,6 +18,7 @@ class FeedTableViewCell: UITableViewCell {
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var noteLabel: UILabel!
     @IBOutlet weak var postTitle: UILabel!
+    @IBOutlet weak var timestampLabel: UILabel!
     
     // MARK: - Properties
     var user: User?
@@ -43,6 +44,7 @@ class FeedTableViewCell: UITableViewCell {
         postImageView.image = UIImage(named: randomPhoto())
         noteLabel.text = post.note
         postTitle.text = post.bucketTitle
+        timestampLabel.text = post.timestamp.formatToString()
         fetchProfilePic(pictureURL: user?.profilePicUrl ?? "") { result in
                 self.profilePic.image = result
             }

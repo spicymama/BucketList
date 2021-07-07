@@ -16,8 +16,9 @@ class Post {
     let photoID: String
     let bucketID: String?
     let bucketTitle: String?
+    let timestamp: Date
     
-    init(postID: String, authorID: String, note: String, commentsID: String, photoID: String, bucketID: String, bucketTitle: String) {
+    init(postID: String, authorID: String, note: String, commentsID: String, photoID: String, bucketID: String, bucketTitle: String, timestamp: Date) {
         self.postID = postID
         self.authorID = authorID
         self.note = note
@@ -25,6 +26,7 @@ class Post {
         self.photoID = photoID
         self.bucketID = bucketID
         self.bucketTitle = bucketTitle
+        self.timestamp = timestamp
     }
     
 }

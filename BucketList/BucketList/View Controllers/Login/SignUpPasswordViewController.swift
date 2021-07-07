@@ -75,7 +75,7 @@ class SignUpPasswordViewController: UIViewController {
             return false
         }
         if PasswordValidator.passwordValid(passwordField.text!) == false {
-            let alert = GlobalFunctions.basicOkAlert(title: "Error", message: "Password must have one capital letter, one number, one symbol, and be between 6 and 24 characters")
+            let alert = GlobalFunctions.basicOkAlert(title: "Error", message: "Password must have one capital letter and be between 6 and 24 characters")
             self.present(alert, animated: true, completion: nil)
             return false
         }

@@ -67,6 +67,12 @@ class SignUpEmailViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
             return false
         }
+        if GlobalFunctions.emailValidator(email: emailField.text!) != true {
+            let alert = GlobalFunctions.basicOkAlert(title: "Error", message: "Email address does not appear to be valid?")
+            self.present(alert, animated: true, completion: nil)
+            return false
+        }
+        
         return true
     } // End of Validate Email
 

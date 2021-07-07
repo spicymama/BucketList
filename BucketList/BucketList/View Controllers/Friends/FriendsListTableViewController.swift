@@ -49,7 +49,7 @@ class FriendsListTableViewController: UITableViewController {
     }
     
     func fetchFriendsData() {
-        FirebaseFunctions.fetchFriends(uid: uid ?? "0") { data in
+        FirebaseFunctions.fetchFriends(friendsListID: uid ?? "0") { data in
             self.friendsList = data.friends
         }
         

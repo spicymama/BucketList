@@ -41,7 +41,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="85" id="rE0-h8-WtI"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -128,7 +128,7 @@
                                         <connections>
                                             <outlet property="noteLabel" destination="qHh-VX-3o0" id="Ggv-vD-3oG"/>
                                             <outlet property="postImageView" destination="K1c-WW-fJT" id="hgu-M0-3BK"/>
-                                            <outlet property="timestampLabel" destination="BAk-Sy-W8g" id="yv8-vH-9xY"/>
+                                            <outlet property="timestampLabel" destination="BAk-Sy-W8g" id="Zz5-Pe-k4G"/>
                                             <outlet property="titleLabel" destination="Pyv-Qv-2vI" id="lAu-Lv-y1E"/>
                                         </connections>
                                     </tableViewCell>

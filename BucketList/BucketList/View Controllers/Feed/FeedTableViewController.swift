@@ -18,8 +18,8 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
     static var currentUser: User = User()
     static var friendsList: [String] = []
     static var blocked: [String] = []
-    static var friendsPosts: [Post] = []
-    static var posts: [Post] = []
+    var friendsPosts: [Post] = []
+    var popularPosts: [Post] = []
     var dataSource: [Post] = []
     var refresh: UIRefreshControl = UIRefreshControl()
     var searchController = UISearchController()
@@ -32,8 +32,10 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Can't return to login screen
         self.navigationItem.setHidesBackButton(true, animated: true)
-        fetchPosts()
+        
+        checkSegmentIndex()
         
         searchController.searchResultsUpdater = self
         definesPresentationContext = true
@@ -52,64 +54,68 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         definesPresentationContext = true
         view.backgroundColor = .lightGray
         self.tableView.rowHeight = 650
-    
-    }
+    } // End of View Did load
     
     // MARK: - Actions
     @IBAction func segmentWasChanged(_ sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 0 {
-            dataSource = FeedTableViewController.friendsPosts
-            print(FeedTableViewController.friendsPosts)
-            view.backgroundColor = .gray
-            tableView.backgroundColor = .lightGray
-            tableView.reloadData()
-        }
-        else if sender.selectedSegmentIndex == 1 {
-            dataSource = FeedTableViewController.posts
-            view.backgroundColor = .blue
-            tableView.backgroundColor = .systemBlue
-            tableView.reloadData()
-        }
-    }
+        dataSource = []
+        checkSegmentIndex()
+    } // End of Segment was changed
     
     // MARK: - Functions
-    func fetchPosts() {
-        FirebaseFunctions.fetchCurrentUser { result in
-            switch result {
-            case true:
-                FirebaseFunctions.fetchFriendz(uid: FeedTableViewController.currentUser.uid) { result in
-                    switch result {
-                    case true:
-                        FirebaseFunctions.fetchAllPosts { result in
-                            self.dataSource = result
-                            for i in result {
-                                if FeedTableViewController.friendsList.contains(i.authorID) {
-                                    print("Friends list = \(FeedTableViewController.friendsList)")
-                                    FeedTableViewController.friendsPosts.append(i)
-                                }
-                            }
-                            
-                            print(FeedTableViewController.friendsList)
-                            print(FeedTableViewController.blocked)
-                            self.setupViews()
-                            self.loadData()
-                        }
-                    case false:
-                        print("error fetching posts")
-                    }
-                }
-            case false:
-                print("error fetching current user")
-            }
-            self.updateViews()
+    func checkSegmentIndex() {
+        if segmentedController.selectedSegmentIndex == 0 {
+            self.fetchFriendsPosts()
         }
-    }
+        else if segmentedController.selectedSegmentIndex == 1 {
+            self.fetchPopularPosts()
+        }
+    } // End of Setup post fetching
+    
+    func fetchPopularPosts() {
+        FirebaseFunctions.fetchAllPosts { fetchedAllPosts in
+            if fetchedAllPosts.count > 0 {
+                self.popularPosts.append(contentsOf: fetchedAllPosts)
+                
+                self.dataSource = self.popularPosts
+                self.popularPosts = []
+                self.view.backgroundColor = .blue
+                self.tableView.backgroundColor = .systemBlue
+                self.tableView.reloadData()
+                
+                self.updateViews()
+            }
+        }
+    } // End of Func fetch Popular Posts
+    
+    func fetchFriendsPosts() {
+        FirebaseFunctions.fetchCurrentUser { fetchedUser in
+            let friendsListID: String = fetchedUser.friendsListID!
+            
+            FirebaseFunctions.fetchFriends(friendsListID: friendsListID) { fetchedFriendsList in
+                let friendsIDs: [String] = fetchedFriendsList.friends
+                                
+                for friendID in friendsIDs {
+                    FirebaseFunctions.fetchAllPostsForUser(userID: friendID) { fetchedFriendsPosts in
+                        self.friendsPosts.append(contentsOf: fetchedFriendsPosts)
+    
+                        self.dataSource = self.friendsPosts
+                        self.friendsPosts = []
+                        self.view.backgroundColor = .gray
+                        self.tableView.backgroundColor = .lightGray
+                        self.tableView.reloadData()
+                    } // End of Fetch all posts for users
+                } // End of Friend id in friends id loop
+            } // End of Fetch Friends
+        } // End of Fetch Current User
+    } // End of Fetch Post
     
     func setupViews() {
         refresh.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refresh.addTarget(self, action: #selector(loadData), for: .valueChanged)
         tableView.addSubview(refresh)
     }
+    
     func updateViews() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -148,6 +154,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.count
     }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as? FeedTableViewCell
         let post = dataSource[indexPath.row]
@@ -227,9 +234,13 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
 
     func myProfileBtn() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
-        let vs = storyBoard.instantiateViewController(withIdentifier: "profileDetailVC")
-        self.navigationController?.pushViewController(vs, animated: true)
-    }
+        let vc = storyBoard.instantiateViewController(withIdentifier: "profileDetailVC")
+        
+        FirebaseFunctions.fetchCurrentUserData { fetchedUser in
+            ProfileViewController.profileUser = fetchedUser
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    } // End of My Profile Button
     
     func myFriendsListBtn() {
         
