@@ -198,8 +198,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     // MARK: - Functions
     func fetchLoggedInUser() {
         FirebaseFunctions.fetchCurrentUserData { FetchedUser in
+            guard let profileUser = self.profileUser else {return}
             self.loggedInUser = FetchedUser
-            self.updateProfilePicture(profileUser: self.profileUser ?? User())
+            self.profilePicImageView.image = self.cacheImage(user: profileUser)
+            
         }
     } // End of Func fetch logged in user
     
@@ -217,19 +219,54 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     } // End of Func update view
     
     
-    func updateProfilePicture(profileUser: User) {
-        FirebaseFunctions.fetchProfileImage(user: profileUser) { fetchedProfileImage in
-            self.profilePicImageView.image = fetchedProfileImage
-        }
-        
-        if profileUser.uid == loggedInUser?.uid {
-            // Show pick photo thing
-            self.profilePicBtn.isHidden = false
+    func cacheImage(user: User)-> UIImage {
+        var picture = UIImage()
+        let cache = ImageCacheController.shared.cache
+        let cacheKey = NSString(string: user.profilePicUrl ?? "")
+        if let image = cache.object(forKey: cacheKey) {
+            picture = image
         } else {
-            // Hide pick photo thing
-            self.profilePicBtn.isHidden = true
+            if user.profilePicUrl == "" {
+                picture = UIImage(named: "defaultProfileImage") ?? UIImage()
+            }
+            
+            let session = URLSession.shared
+            
+            if user.profilePicUrl != "" {
+                let url = URL(string: user.profilePicUrl ?? "")!
+                let task = session.dataTask(with: url) { (data, response, error) in
+                    if let error = error {
+                        print("Error in \(#function): On Line \(#line) : \(error.localizedDescription) \n---\n \(error)")
+                        print("Unable to fetch image for \(user.username)")
+                    }
+                    if let data = data {
+                        DispatchQueue.main.async {
+                            if let image = UIImage(data: data) {
+                                picture = image
+                                cache.setObject(image, forKey: cacheKey)
+                            }
+                        }
+                    }
+                }
+                task.resume()
+            }
         }
-    } // End of Update profile Picture
+        return picture
+    }
+    
+//    func updateProfilePicture(profileUser: User) {
+//        FirebaseFunctions.fetchProfileImage(user: profileUser) { fetchedProfileImage in
+//            self.profilePicImageView.image = fetchedProfileImage
+//        }
+//
+//        if profileUser.uid == loggedInUser?.uid {
+//            // Show pick photo thing
+//            self.profilePicBtn.isHidden = false
+//        } else {
+//            // Hide pick photo thing
+//            self.profilePicBtn.isHidden = true
+//        }
+//    } // End of Update profile Picture
     
     
     // MARK: - Image Picker
