@@ -133,7 +133,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         } else {
             self.titleLabel.text = ""
         }
-        cacheImage(user: postUser ?? User())
+        self.profilePicImageView.image = cacheImage(user: postUser ?? User())
         self.usernameLabel.text = ("~" + (self.username ?? "User") )
         self.postImageView.image = UIImage(named: PostViewController.currentPost?.photoID ?? "peace" )
         self.postNote.text = PostViewController.currentPost?.note
