@@ -133,10 +133,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         } else {
             self.titleLabel.text = ""
         }
-        fetchProfilePic(pictureURL: postUser?.profilePicUrl ?? "") { result in
-            self.profilePicImageView.image = result
-            self.updateViews()
-            }
+        cacheImage(user: postUser ?? User())
         self.usernameLabel.text = ("~" + (self.username ?? "User") )
         self.postImageView.image = UIImage(named: PostViewController.currentPost?.photoID ?? "peace" )
         self.postNote.text = PostViewController.currentPost?.note
@@ -154,24 +151,41 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     } // End of Fetch Current Post
     
-    func fetchProfilePic(pictureURL: String, completion: @escaping (UIImage) -> Void){
-        
-        guard let url = URL(string: pictureURL) else {return}
-        let task = URLSession.shared.dataTask(with: url, completionHandler: { 📀, _, 🛑 in
-            guard let 📀 = 📀, 🛑 == nil else {
-                print("Error in \(#function)\(#line)")
-                return
+    func cacheImage(user: User)-> UIImage {
+        var picture = UIImage()
+        let cache = ImageCacheController.shared.cache
+        let cacheKey = NSString(string: user.profilePicUrl ?? "")
+        if let image = cache.object(forKey: cacheKey) {
+            picture = image
+        } else {
+            if user.profilePicUrl == "" {
+                picture = UIImage(named: "defaultProfileImage") ?? UIImage()
             }
-            DispatchQueue.main.async {
-                guard let image = UIImage(data: 📀) else {return}
-                self.profilePicImageView.image = image
-               completion(image)
-            } // End of Dispatch Queue
-        })
-        task.resume()
-        
-      //  updateViews()
+            
+            let session = URLSession.shared
+            
+            if user.profilePicUrl != "" {
+                let url = URL(string: user.profilePicUrl ?? "")!
+                let task = session.dataTask(with: url) { (data, response, error) in
+                    if let error = error {
+                        print("Error in \(#function): On Line \(#line) : \(error.localizedDescription) \n---\n \(error)")
+                        print("Unable to fetch image for \(user.username)")
+                    }
+                    if let data = data {
+                        DispatchQueue.main.async {
+                            if let image = UIImage(data: data) {
+                                picture = image
+                                cache.setObject(image, forKey: cacheKey)
+                            }
+                        }
+                    }
+                }
+                task.resume()
+            }
+        }
+        return picture
     }
+    
     
     func fetchCurrentUser() {
         guard let post = PostViewController.currentPost else {return}

@@ -43,7 +43,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         fetchLoggedInUser()
         fetchPostUser()
         fetchPosts()
-
+        
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -199,6 +199,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     func fetchLoggedInUser() {
         FirebaseFunctions.fetchCurrentUserData { FetchedUser in
             self.loggedInUser = FetchedUser
+            self.updateProfilePicture(profileUser: self.profileUser ?? User())
         }
     } // End of Func fetch logged in user
     
@@ -210,7 +211,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         guard let profileUser = profileUser else { return }
         
         usernameLabel.text = ("~" + profileUser.username + "'s Buckets Page")
-        updateProfilePicture(profileUser: profileUser)
+    
         
         tableView.reloadData()
     } // End of Func update view

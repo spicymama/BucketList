@@ -16,16 +16,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mca-Tt-XdY" userLabel="Profile Pic Button">
-                                <rect key="frame" x="8" y="96" width="85" height="85"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="85" id="bDK-95-UOh"/>
-                                    <constraint firstAttribute="width" secondItem="Mca-Tt-XdY" secondAttribute="height" multiplier="1:1" id="qNe-4b-Exv"/>
-                                </constraints>
-                                <connections>
-                                    <action selector="profilePicBtn:" destination="29L-5W-BiG" eventType="touchUpInside" id="oVe-Z7-tiv"/>
-                                </connections>
-                            </button>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="A6P-fD-lZm" userLabel="Profile User Stack View">
                                 <rect key="frame" x="8" y="96" width="412" height="85"/>
                                 <subviews>
@@ -57,6 +47,19 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mca-Tt-XdY" userLabel="Profile Pic Button">
+                                <rect key="frame" x="8" y="96" width="85" height="85"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="85" id="bDK-95-UOh"/>
+                                    <constraint firstAttribute="width" secondItem="Mca-Tt-XdY" secondAttribute="height" multiplier="1:1" id="qNe-4b-Exv"/>
+                                </constraints>
+                                <state key="normal" title="Button Bitch">
+                                    <color key="titleColor" red="0.96494096517562866" green="0.28642871975898743" blue="0.060493983328342438" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="profilePicBtn:" destination="29L-5W-BiG" eventType="touchUpInside" id="oVe-Z7-tiv"/>
+                                </connections>
+                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5kZ-bp-WiS">
                                 <rect key="frame" x="8" y="189" width="412" height="737"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>

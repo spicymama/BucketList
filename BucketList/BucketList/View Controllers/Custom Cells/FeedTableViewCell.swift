@@ -42,7 +42,7 @@ class FeedTableViewCell: UITableViewCell {
         guard let post = post,
                let user = user else {return}
         usernameLabel.text = ("~" + (user.username) + " checked " + (post.bucketTitle ?? "something") + " off their list!")
-        postImageView.image = UIImage(named: randomPhoto())
+        postImageView.image = cachePostImage(post: post)
         noteLabel.text = post.note
         postTitle.text = post.bucketTitle
         profilePic.image = cacheImage(user: user)
@@ -62,6 +62,9 @@ class FeedTableViewCell: UITableViewCell {
         if let image = cache.object(forKey: cacheKey) {
             picture = image
         } else {
+            if user.profilePicUrl == "" {
+                picture = UIImage(named: "defaultProfileImage") ?? UIImage()
+            }
             
             let session = URLSession.shared
             
@@ -71,6 +74,38 @@ class FeedTableViewCell: UITableViewCell {
                     if let error = error {
                         print("Error in \(#function): On Line \(#line) : \(error.localizedDescription) \n---\n \(error)")
                         print("Unable to fetch image for \(user.username)")
+                    }
+                    if let data = data {
+                        DispatchQueue.main.async {
+                            if let image = UIImage(data: data) {
+                                picture = image
+                                cache.setObject(image, forKey: cacheKey)
+                            }
+                        }
+                    }
+                }
+                task.resume()
+            }
+        }
+        return picture
+    }
+    
+    func cachePostImage(post: Post) -> UIImage {
+        var picture = UIImage()
+        let cache = ImageCacheController.shared.cache
+        let cacheKey = NSString(string: post.photoID )
+        if let image = cache.object(forKey: cacheKey) {
+            picture = image
+        } else {
+            
+            let session = URLSession.shared
+            
+            if post.photoID != "" {
+                let url = URL(string: post.photoID)!
+                let task = session.dataTask(with: url) { (data, response, error) in
+                    if let error = error {
+                        print("Error in \(#function): On Line \(#line) : \(error.localizedDescription) \n---\n \(error)")
+                        print("Unable to fetch image for \(post.postID)")
                     }
                     if let data = data {
                         DispatchQueue.main.async {

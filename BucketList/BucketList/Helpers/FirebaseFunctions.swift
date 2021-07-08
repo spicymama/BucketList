@@ -261,7 +261,7 @@ class FirebaseFunctions {
         let postID: String = UUID().uuidString
         guard let imageData = image.jpegData(compressionQuality: 0.25) else { return }
         let storage = Storage.storage().reference()
-        let ref = storage.child("images/\(postID).profilePic.png")
+        let ref = storage.child("images/\(postID).post.jpeg")
         ref.putData(imageData, metadata: nil) { _, 🛑 in
             if let 🛑 = 🛑 {
                 print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
@@ -367,9 +367,9 @@ class FirebaseFunctions {
                         let photoID: String = "swing"
                         let bucketID: String = fetchedPost.bucketID ?? ""
                         let bucketTitle: String = fetchedPost.bucketTitle ?? ""
-                        let timestamp: Date = fetchedPost.timestamp
+                      //  let timestamp: Date = fetchedPost.timestamp
                         
-                        let post = Post(postID: postID, authorID: authorID, note: note, commentsID: commentsID, photoID: photoID, bucketID: bucketID, bucketTitle: bucketTitle, timestamp: timestamp)
+                        let post = Post(postID: postID, authorID: authorID, note: note, commentsID: commentsID, photoID: photoID, bucketID: bucketID, bucketTitle: bucketTitle)
                         
                         postsData.append(post)
                         group.leave()
@@ -403,7 +403,7 @@ class FirebaseFunctions {
                 let bucketTitle: String = data["bucketTitle"] as? String ?? ""
                 let timestamp: Date = data["timestamp"] as? Date ?? Date()
                 
-                let fetchedPost = Post(postID: postID, authorID: authorID, note: note, commentsID: commentsID, photoID: photoID, bucketID: bucketID, bucketTitle: bucketTitle, timestamp: timestamp)
+                let fetchedPost = Post(postID: postID, authorID: authorID, note: note, commentsID: commentsID, photoID: photoID, bucketID: bucketID, bucketTitle: bucketTitle)
                 
                 🐶(fetchedPost)
             }
@@ -440,9 +440,9 @@ class FirebaseFunctions {
                             let photoID: String = "swing"
                             let bucketID: String = fetchedPost.bucketID ?? ""
                             let bucketTitle: String = fetchedPost.bucketTitle ?? ""
-                            let timestamp: Date = fetchedPost.timestamp
+                           // let timestamp: Date = fetchedPost.timestamp
                             
-                            let post = Post(postID: postID, authorID: authorID, note: note, commentsID: commentsID, photoID: photoID, bucketID: bucketID, bucketTitle: bucketTitle, timestamp: timestamp)
+                            let post = Post(postID: postID, authorID: authorID, note: note, commentsID: commentsID, photoID: photoID, bucketID: bucketID, bucketTitle: bucketTitle)
                             
                             postsData.append(post)
                             
