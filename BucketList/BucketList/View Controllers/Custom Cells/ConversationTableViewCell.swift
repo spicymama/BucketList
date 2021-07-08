@@ -28,6 +28,7 @@ class ConversationTableViewCell: UITableViewCell {
     }
     
     var mostRecentMessage: String = ""
+    var otherUser: User?
     
     //MARK: - Functions
     
@@ -38,6 +39,7 @@ class ConversationTableViewCell: UITableViewCell {
             if user.uid == currentUser.uid {
                 //do nothing
             } else {
+                otherUser = user
                 if usernameString == "" {
                     usernameString = usernameString + user.firstName
                 } else {
@@ -45,12 +47,13 @@ class ConversationTableViewCell: UITableViewCell {
                 }
             }
         }
-        //        if conversation.users.count < 3 {
-        //            userAvatarImageView.image = UIImage(systemName: "heart")
-        //        }
-        //        if conversation.users.count >= 3 {
-        //            userAvatarImageView.image = UIImage(systemName: "heart.fill")
-        //        }
+                if conversation.users.count < 3 {
+                    guard let otherUser = otherUser else {return}
+                    userAvatarImageView.image = cacheImage(user: otherUser )
+                }
+                if conversation.users.count >= 3 {
+                    userAvatarImageView.image = UIImage(systemName: "defaultProfilePhoto")
+                }
         usernameLabel.text = ("~" + usernameString)
         recentMessageTextView.text = mostRecentMessage
         userAvatarImageView.layer.masksToBounds = false
@@ -71,6 +74,41 @@ class ConversationTableViewCell: UITableViewCell {
                 completion(users)
             }
         }
+    }
+    
+    func cacheImage(user: User)-> UIImage {
+        var picture = UIImage()
+        let cache = ImageCacheController.shared.cache
+        let cacheKey = NSString(string: user.profilePicUrl ?? "")
+        if let image = cache.object(forKey: cacheKey) {
+            picture = image
+        } else {
+            if user.profilePicUrl == "" {
+                picture = UIImage(named: "defaultProfileImage") ?? UIImage()
+            }
+            
+            let session = URLSession.shared
+            
+            if user.profilePicUrl != "" {
+                let url = URL(string: user.profilePicUrl ?? "")!
+                let task = session.dataTask(with: url) { (data, response, error) in
+                    if let error = error {
+                        print("Error in \(#function): On Line \(#line) : \(error.localizedDescription) \n---\n \(error)")
+                        print("Unable to fetch image for \(user.username)")
+                    }
+                    if let data = data {
+                        DispatchQueue.main.async {
+                            if let image = UIImage(data: data) {
+                                picture = image
+                                cache.setObject(image, forKey: cacheKey)
+                            }
+                        }
+                    }
+                }
+                task.resume()
+            }
+        }
+        return picture
     }
     
     
