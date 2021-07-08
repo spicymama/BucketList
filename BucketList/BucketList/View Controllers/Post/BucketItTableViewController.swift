@@ -52,7 +52,7 @@ class BucketItTableViewController: UITableViewController {
         let bucketTitle = buckets[indexPath.row].title
         let bucketID = buckets[indexPath.row].bucketID
         
-        BucketItTableViewController.delegate?.BucketItPicked(bucketTitle: bucketTitle, bucketID: bucketID)
+        BucketItTableViewController.delegate?.BucketItPicked(bucketTitle: bucketTitle, bucketID: bucketID!)
         
         self.navigationController?.popViewController(animated: true)
         self.dismiss(animated: true, completion: nil)

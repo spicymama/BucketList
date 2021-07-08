@@ -19,22 +19,23 @@ class List {
 class Bucket {
     var title: String
     var note: String
-    var commentsID: String
-    var itemsID: String
-    var bucketID: String
+    var commentsID: String?
+    var itemsID: String?
+    var bucketID: String?
     var completion: Int = 0
-    var reactions: [String] = []
+    var reactions: [String]?
     var isPublic: Bool
     
 
-    init(title: String, note: String, commentsID: String, itemsID: String, bucketID: String, completion: Int = 0, reactions: [String] = [], isPublic: Bool) {
-
+    init(title: String, note: String, commentsID: String = "", itemsID: String = "", bucketID: String = "", completion: Int = 0, reactions: [String] = [], isPublic: Bool) {
         self.title = title
         self.note = note
-        self.commentsID = bucketID
-        self.itemsID = bucketID
-        self.isPublic = isPublic
+        self.commentsID = commentsID
+        self.itemsID = itemsID
         self.bucketID = bucketID
+        self.completion = completion
+        self.reactions = reactions
+        self.isPublic = isPublic
     }
 
 
@@ -49,5 +50,4 @@ extension List: Equatable {
     static func == (lhs: List, rhs: List) -> Bool {
         return lhs.title == rhs.title
     }
-}
-
+} // End of Extension

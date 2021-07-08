@@ -35,10 +35,12 @@ class BucketDetailViewController: UIViewController {
     func updateView() {
         let bucket = BucketDetailViewController.bucket
         if bucket != nil {
-            createNewBucketLabel.text = ""
+            createNewBucketLabel.text = bucket?.title
             self.isPublic = bucket!.isPublic
             bucketTitleField.text = bucket!.title
             bucketNoteField.text = bucket!.note
+        } else {
+            isPublic = true
         }
         updateVisibilityStatus()
     } // End of Func update View
@@ -78,14 +80,38 @@ class BucketDetailViewController: UIViewController {
             visibilityLabel.text = "Private"
             visibilitySwitch.isOn = false
         }
-    }
+    } // End of Update visibility switch
+    
     
     // MARK: - Actions
     @IBAction func visibilitySwitch(_ sender: Any) {
         isPublic?.toggle()
         updateVisibilityStatus()
-    }
-    
+    } // End of Visibility switch toggle
 
+    @IBAction func saveBtn(_ sender: Any) {
+        // Check if the bucket exists
+        if (BucketDetailViewController.bucket == nil) {
+            // Create new Bucket
+            guard let title = bucketTitleField.text else { return }
+            let note = bucketNoteField.text ?? ""
+            let isPublic = isPublic ?? true
+            
+            let newBucket = Bucket(title: title, note: note, isPublic: isPublic)
+            
+            BucketFirebaseFunctions.createBucket(newBucket: newBucket)
+        } else {
+            // Update bucket
+            guard let title = bucketTitleField.text else { return }
+            let note = bucketNoteField.text ?? ""
+            let isPublic = isPublic ?? true
+            
+            let bucketToUpdate = Bucket(title: title, note: note, isPublic: isPublic)
+            
+            BucketFirebaseFunctions.updateBucket(bucketToUpdate: bucketToUpdate)
+        }
+        self.navigationController?.popViewController(animated: true)
+    } // End of Save Button
+    
 
 } // End of Class Create Bucket

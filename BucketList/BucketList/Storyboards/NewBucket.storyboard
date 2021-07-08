@@ -141,17 +141,20 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="8hj-pF-dET" userLabel="Visibility Stack">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="8hj-pF-dET" userLabel="Visibility Stack">
                                         <rect key="frame" x="0.0" y="87" width="364" height="31"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Public" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hzf-yJ-wkL">
-                                                <rect key="frame" x="0.0" y="0.0" width="299" height="31"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="80" height="31"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="80" id="gMH-ZU-SCl"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wlx-08-34K">
-                                                <rect key="frame" x="315" y="0.0" width="51" height="31"/>
+                                                <rect key="frame" x="96" y="0.0" width="270" height="31"/>
                                                 <connections>
                                                     <action selector="visibilitySwitch:" destination="Ofl-pt-vdT" eventType="valueChanged" id="4nb-NC-No9"/>
                                                 </connections>
@@ -184,6 +187,9 @@
                                                     <constraint firstAttribute="height" constant="50" id="Jgs-DV-EuK"/>
                                                 </constraints>
                                                 <state key="normal" title="Save"/>
+                                                <connections>
+                                                    <action selector="saveBtn:" destination="Ofl-pt-vdT" eventType="touchUpInside" id="MWX-Sf-7fe"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -203,9 +209,6 @@
                         <outlet property="bucketNoteField" destination="gRm-8x-ARz" id="RSr-81-kNl"/>
                         <outlet property="bucketTitleField" destination="Kyi-X9-tOB" id="hRs-sr-xCq"/>
                         <outlet property="createNewBucketLabel" destination="mLs-7V-D6b" id="5nC-0h-KAT"/>
-                        <outlet property="goalTextField" destination="gRm-8x-ARz" id="s44-R2-HMt"/>
-                        <outlet property="titleTextField" destination="Kyi-X9-tOB" id="RPT-vf-5sE"/>
-                        <outlet property="viewTitleLabel" destination="mLs-7V-D6b" id="C3c-9D-UAj"/>
                         <outlet property="visibilityLabel" destination="Hzf-yJ-wkL" id="VqU-Rc-UoP"/>
                         <outlet property="visibilitySwitch" destination="Wlx-08-34K" id="H7y-M1-hOv"/>
                     </connections>

@@ -5,7 +5,7 @@
 //  Created by Gavin Woffinden on 6/22/21.
 //
 
-import UIKit
+import Foundation
 
 class Post {
 
@@ -29,9 +29,11 @@ class Post {
         self.timestamp = timestamp
     }
     
-}
+} // End of Class Post
+
+// MARK: - Extensions
 extension Post: Equatable {
     static func == (lhs: Post, rhs: Post) -> Bool {
         return lhs.postID == rhs.postID
     }
-}
+} // End of Extension
