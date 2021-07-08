@@ -49,11 +49,12 @@ class ConversationMessagesViewController: MessagesViewController, MessagesDataSo
     }
     
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
-        let avatar = ConversationController.shared.getAvatarFor(message.sender)
+        guard let avatar = getAvatar(for: message.sender) else {return}
         avatarView.set(avatar: avatar)
         avatarView.isHidden = isNextMessageSameSender(at: indexPath)
         avatarView.layer.borderWidth = 2
-        avatarView.layer.borderColor = UIColor.black.cgColor
+        avatarView.layer.borderColor = UIColor.systemBlue.cgColor
+        avatarView.backgroundColor = UIColor.systemBackground
     }
     
 //    @objc func dismissInputView() {
@@ -86,6 +87,54 @@ class ConversationMessagesViewController: MessagesViewController, MessagesDataSo
     func isNextMessageSameSender(at indexPath: IndexPath) -> Bool {
         guard indexPath.section + 1 < messages.count else { return false }
         return messages[indexPath.section].sender.senderId == messages[indexPath.section + 1].sender.senderId
+    }
+    
+    func getAvatar(for sender: SenderType) -> Avatar? {
+        var profileImage: UIImage?
+        var initials: String = ""
+        guard let users = users else {return Avatar(image: UIImage(named: "defaultProfileImage"), initials: "def")}
+        for user in users {
+            if sender.senderId == user.uid {
+                profileImage = cacheImage(user: user)
+                initials = "\(user.firstName.first ?? "a")\(user.lastName.first ?? "a")"
+            }
+        }
+        return Avatar(image: profileImage, initials: initials)
+    }
+    
+    func cacheImage(user: User)-> UIImage {
+        var picture = UIImage()
+        let cache = ImageCacheController.shared.cache
+        let cacheKey = NSString(string: user.profilePicUrl ?? "")
+        if let image = cache.object(forKey: cacheKey) {
+            picture = image
+        } else {
+            if user.profilePicUrl == "" {
+                picture = UIImage(named: "defaultProfileImage") ?? UIImage()
+            }
+            
+            let session = URLSession.shared
+            
+            if user.profilePicUrl != "" {
+                let url = URL(string: user.profilePicUrl ?? "")!
+                let task = session.dataTask(with: url) { (data, response, error) in
+                    if let error = error {
+                        print("Error in \(#function): On Line \(#line) : \(error.localizedDescription) \n---\n \(error)")
+                        print("Unable to fetch image for \(user.username)")
+                    }
+                    if let data = data {
+                        DispatchQueue.main.async {
+                            if let image = UIImage(data: data) {
+                                picture = image
+                                cache.setObject(image, forKey: cacheKey)
+                            }
+                        }
+                    }
+                }
+                task.resume()
+            }
+        }
+        return picture
     }
     
 }//End of Class

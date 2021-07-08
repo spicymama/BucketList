@@ -17,6 +17,8 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, UIImagePic
     // MARK: - Outlets
     @IBOutlet weak var noteTextView: UITextView!
     @IBOutlet weak var bucketItBtn: UIButton!
+    @IBOutlet weak var postPictureButton: UIButton!
+    @IBOutlet weak var selectedImageImageView: UIImageView!
     
     
     // MARK: - Properties
@@ -58,6 +60,8 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, UIImagePic
         
         guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
         selectedImage = image
+        self.selectedImageImageView.image = image
+        self.postPictureButton.setImage(UIImage(), for: .normal)
     } // End of Image picker Function
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
