@@ -25,12 +25,18 @@ class LoginViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = nil
         self.navigationItem.setHidesBackButton(true, animated: true);
         setupKeyboard()
+        konamiCode()
     } // End of Function
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.leftBarButtonItem = nil
         self.navigationItem.setHidesBackButton(true, animated: true);
+    }
+    
+    func konamiCode() {
+        emailField.text = "AndersenEthanG@gmail.com"
+        passwordField.text = "Bucketeers"
     }
     
     
