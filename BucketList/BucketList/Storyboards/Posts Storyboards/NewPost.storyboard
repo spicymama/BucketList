@@ -37,8 +37,14 @@
                                     <segue destination="D8n-8j-MMd" kind="presentation" id="F0z-3q-WEe"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WBH-2l-jtX">
-                                <rect key="frame" x="168" y="476" width="93" height="85"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="d6O-ki-wX5">
+                                <rect key="frame" x="20" y="443" width="388" height="388"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="d6O-ki-wX5" secondAttribute="height" multiplier="1:1" id="pD3-l7-n1d"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WBH-2l-jtX">
+                                <rect key="frame" x="20" y="443" width="388" height="388"/>
                                 <state key="normal">
                                     <imageReference key="image" image="photo" catalog="system" symbolScale="default"/>
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
@@ -51,13 +57,19 @@
                         <viewLayoutGuide key="safeArea" id="KWT-Y6-fy9"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="WBH-2l-jtX" firstAttribute="bottom" secondItem="d6O-ki-wX5" secondAttribute="bottom" id="6co-rI-yeX"/>
+                            <constraint firstItem="WBH-2l-jtX" firstAttribute="leading" secondItem="d6O-ki-wX5" secondAttribute="leading" id="8fd-GB-0rJ"/>
+                            <constraint firstItem="d6O-ki-wX5" firstAttribute="centerX" secondItem="KWT-Y6-fy9" secondAttribute="centerX" id="DFy-qm-hcJ"/>
                             <constraint firstItem="KZd-te-1j2" firstAttribute="trailing" secondItem="cks-Xs-b1R" secondAttribute="trailingMargin" id="GJB-bv-h25"/>
                             <constraint firstItem="KZd-te-1j2" firstAttribute="top" secondItem="9XJ-i2-Zu6" secondAttribute="bottom" constant="8" symbolic="YES" id="I9A-Y4-W5t"/>
                             <constraint firstItem="9XJ-i2-Zu6" firstAttribute="leading" secondItem="KZd-te-1j2" secondAttribute="leading" id="SSG-Ld-qDk"/>
-                            <constraint firstItem="WBH-2l-jtX" firstAttribute="top" secondItem="KZd-te-1j2" secondAttribute="bottom" constant="57" id="SgZ-X0-mNV"/>
                             <constraint firstItem="9XJ-i2-Zu6" firstAttribute="top" secondItem="KWT-Y6-fy9" secondAttribute="top" constant="37" id="Ycy-HO-i1c"/>
                             <constraint firstItem="9XJ-i2-Zu6" firstAttribute="leading" secondItem="cks-Xs-b1R" secondAttribute="leadingMargin" id="gso-cd-T4e"/>
+                            <constraint firstItem="WBH-2l-jtX" firstAttribute="top" secondItem="d6O-ki-wX5" secondAttribute="top" id="jQD-EH-6Ap"/>
                             <constraint firstItem="KZd-te-1j2" firstAttribute="centerX" secondItem="WBH-2l-jtX" secondAttribute="centerX" id="mru-fo-edd"/>
+                            <constraint firstItem="WBH-2l-jtX" firstAttribute="trailing" secondItem="d6O-ki-wX5" secondAttribute="trailing" id="ny6-7U-c1o"/>
+                            <constraint firstItem="d6O-ki-wX5" firstAttribute="leading" secondItem="KWT-Y6-fy9" secondAttribute="leading" constant="20" id="tyX-oJ-lDT"/>
+                            <constraint firstItem="d6O-ki-wX5" firstAttribute="top" secondItem="KZd-te-1j2" secondAttribute="bottom" constant="24" id="w3Q-cn-Bsb"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Make a Post" id="UpD-eP-roo">
@@ -75,11 +87,13 @@
                     <connections>
                         <outlet property="bucketItBtn" destination="9XJ-i2-Zu6" id="8TL-6J-dtL"/>
                         <outlet property="noteTextView" destination="KZd-te-1j2" id="fSJ-bL-XEe"/>
+                        <outlet property="postPictureButton" destination="WBH-2l-jtX" id="4Jf-Lt-Fxd"/>
+                        <outlet property="selectedImageImageView" destination="d6O-ki-wX5" id="DTY-6j-w9e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QzG-rQ-yr2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1293" y="77"/>
+            <point key="canvasLocation" x="1292.5233644859813" y="76.45788336933046"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="EtX-tR-Yjz">

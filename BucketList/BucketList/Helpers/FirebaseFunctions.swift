@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import FirebaseStorage
 
 class FirebaseFunctions {
     var sourceOfTruth: FriendsList = FriendsList()

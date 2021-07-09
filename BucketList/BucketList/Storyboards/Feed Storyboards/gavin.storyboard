@@ -142,12 +142,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wvp-MC-GHZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5572.4299065420555" y="77.105831533477328"/>
+            <point key="canvasLocation" x="5431" y="77"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="cJm-8W-dhs">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HQx-2Q-34Q" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HQx-2Q-34Q" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="UKg-fF-hzQ">
                         <rect key="frame" x="0.0" y="44" width="428" height="44"/>
@@ -156,50 +156,21 @@
                     <nil name="viewControllers"/>
                     <connections>
                         <segue destination="opJ-De-DRE" kind="relationship" relationship="rootViewController" id="t3o-VP-mqe"/>
-                        <segue destination="u8b-UL-Ww0" kind="show" id="DE1-ZK-n0f"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bfk-Nm-DYo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4662.3188405797109" y="77.678571428571431"/>
         </scene>
-        <!--Search User Table View Controller-->
-        <scene sceneID="2SH-lA-5jA">
+        <!--profileDetailVC-->
+        <scene sceneID="pZr-Gz-FaL">
             <objects>
-                <tableViewController storyboardIdentifier="userSearchTable" id="u8b-UL-Ww0" customClass="SearchUserTableViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="OGb-8w-MvN">
-                        <rect key="frame" x="0.0" y="0.0" width="428" height="872"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="searchCell" textLabel="du7-zk-q4J" rowHeight="137" style="IBUITableViewCellStyleDefault" id="bSo-jA-blK" customClass="SearchTableViewCell" customModule="BucketList" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="24.333333969116211" width="428" height="137"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bSo-jA-blK" id="Sbu-3A-wmi">
-                                    <rect key="frame" x="0.0" y="0.0" width="428" height="137"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="du7-zk-q4J">
-                                            <rect key="frame" x="20" y="0.0" width="388" height="137"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="u8b-UL-Ww0" id="dw5-FC-EYu"/>
-                            <outlet property="delegate" destination="u8b-UL-Ww0" id="ikJ-a7-VR5"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="GXW-5p-BRa"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rV8-tH-C15" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardIdentifier="profileDetailVC" storyboardName="ProfileDetail" referencedIdentifier="profileDetailVC" id="j1I-Ar-tFi" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="v3r-cv-KZg"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Obt-6n-8NP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5572" y="770"/>
+            <point key="canvasLocation" x="6209" y="768"/>
         </scene>
     </scenes>
     <resources>
