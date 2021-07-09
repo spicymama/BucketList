@@ -44,7 +44,7 @@ class EditPostViewController: UIViewController, UITextViewDelegate {
         FirebaseFunctions.fetchPost(postID: postID) { post in
             let fetchedPost: Post = post
             
-            self.noteText = fetchedPost.note
+            self.noteText = fetchedPost.note!
             self.bucketID = fetchedPost.bucketID
             self.oldBucketID = fetchedPost.bucketID
             self.bucketTitle = fetchedPost.bucketTitle

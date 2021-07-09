@@ -135,7 +135,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         self.profilePicImageView.image = cacheImage(user: postUser ?? User())
         self.usernameLabel.text = ("~" + (self.username ?? "User") )
-        self.postImageView.image = UIImage(named: PostViewController.currentPost?.photoID ?? "peace" )
+        self.postImageView.image = UIImage(named: PostViewController.currentPost?.imageURL ?? "peace" )
         self.postNote.text = PostViewController.currentPost?.note
        // self.timestampLabel.text = PostViewController.currentPost?.timestamp.formatToString()
       
@@ -189,7 +189,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func fetchCurrentUser() {
         guard let post = PostViewController.currentPost else {return}
-        FirebaseFunctions.fetchUserData(uid: post.authorID) { result in
+        FirebaseFunctions.fetchUserData(uid: post.authorID ?? "") { result in
             self.username = result.username
             //  self.profilePic = result.profilePictureURL
             self.postUser = result

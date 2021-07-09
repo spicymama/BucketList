@@ -25,7 +25,6 @@ class LoginViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = nil
         self.navigationItem.setHidesBackButton(true, animated: true);
         setupKeyboard()
-        konamiLoginFunc()
     } // End of Function
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,10 +33,6 @@ class LoginViewController: UIViewController {
         self.navigationItem.setHidesBackButton(true, animated: true);
     }
     
-    func konamiLoginFunc() {
-        emailField.text = "AndersenEthanG@gmail.com"
-        passwordField.text  = "Str0ngP@ssw0rd."
-    }
     
     // MARK: - Actions
     @IBAction func loginBtn(_ sender: Any) {
@@ -70,16 +65,19 @@ class LoginViewController: UIViewController {
 
     // MARK: - Function
     func setupKeyboard() {
-        self.passwordField.isSecureTextEntry = true
+        //TODO(ethan) Auto fill doesn't work, make this two items?
         self.emailField.keyboardType = .emailAddress
-        self.emailField.textContentType = UITextContentType.username
-        self.passwordField.textContentType = UITextContentType.password
+        self.emailField.textContentType = .emailAddress
+        
+        self.passwordField.isSecureTextEntry = true
+        self.passwordField.textContentType = .password
     } // End of Func setup Keyboard
     
     // This function makes the keyboard go away when typing around
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     } // End of Function
+    
     
     func validateFields() -> Bool {
         // Simply checks if the fields are not empty
