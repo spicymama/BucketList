@@ -39,8 +39,8 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         
         searchController.searchResultsUpdater = self
         definesPresentationContext = true
-        
-        let userSearchTable = storyboard!.instantiateViewController(identifier: "userSearchTable") as! SearchUserTableViewController
+        let storyboard: UIStoryboard = UIStoryboard(name: "SearchBar", bundle: nil)
+        let userSearchTable = storyboard.instantiateViewController(identifier: "userSearchTable") as! SearchUserTableViewController
         resultSearchController = UISearchController(searchResultsController: userSearchTable)
         resultSearchController?.searchResultsUpdater = userSearchTable
         
