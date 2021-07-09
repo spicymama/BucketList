@@ -112,7 +112,6 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
     
     func setupViews() {
         refresh.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        refresh.addTarget(self, action: #selector(loadData), for: .valueChanged)
         tableView.addSubview(refresh)
     }
     

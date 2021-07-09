@@ -133,9 +133,9 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         } else {
             self.titleLabel.text = ""
         }
-        cacheImage(user: postUser ?? User())
+        self.profilePicImageView.image = cacheImage(user: postUser ?? User())
         self.usernameLabel.text = ("~" + (self.username ?? "User") )
-        self.postImageView.image = UIImage(named: PostViewController.currentPost?.photoID ?? "peace" )
+        self.postImageView.image = cachePostImage(post: post)
         self.postNote.text = PostViewController.currentPost?.note
        // self.timestampLabel.text = PostViewController.currentPost?.timestamp.formatToString()
       
@@ -170,6 +170,38 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
                     if let error = error {
                         print("Error in \(#function): On Line \(#line) : \(error.localizedDescription) \n---\n \(error)")
                         print("Unable to fetch image for \(user.username)")
+                    }
+                    if let data = data {
+                        DispatchQueue.main.async {
+                            if let image = UIImage(data: data) {
+                                picture = image
+                                cache.setObject(image, forKey: cacheKey)
+                            }
+                        }
+                    }
+                }
+                task.resume()
+            }
+        }
+        return picture
+    }
+    
+    func cachePostImage(post: Post) -> UIImage {
+        var picture = UIImage()
+        let cache = ImageCacheController.shared.cache
+        let cacheKey = NSString(string: post.photoID )
+        if let image = cache.object(forKey: cacheKey) {
+            picture = image
+        } else {
+            
+            let session = URLSession.shared
+            
+            if post.photoID != "" {
+                let url = URL(string: post.photoID)!
+                let task = session.dataTask(with: url) { (data, response, error) in
+                    if let error = error {
+                        print("Error in \(#function): On Line \(#line) : \(error.localizedDescription) \n---\n \(error)")
+                        print("Unable to fetch image for \(post.postID)")
                     }
                     if let data = data {
                         DispatchQueue.main.async {

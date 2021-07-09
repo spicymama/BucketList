@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import FirebaseStorage
 
 class FirebaseFunctions {
     var sourceOfTruth: FriendsList = FriendsList()
@@ -54,7 +55,7 @@ class FirebaseFunctions {
                     "uid" : result!.user.uid,
                     "friendsListID" : result!.user.uid,
                     "conversationsID" : [""],
-                    "bucketsID" : [""],
+                    "bucketsIDs" : [""],
                     "username" : username,
                     "firstName" : firstName,
                     "lastName" : lastName,
