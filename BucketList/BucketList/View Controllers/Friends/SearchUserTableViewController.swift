@@ -21,7 +21,6 @@ class SearchUserTableViewController: UITableViewController {
     }
     
     
-    
     func fetchUsers(for searchTerm: String, completion: @escaping ([User]) -> Void) {
         var sortedUsers: [User] = []
         db.collection("users").addSnapshotListener { snapshot, error in
@@ -46,8 +45,6 @@ class SearchUserTableViewController: UITableViewController {
         }
     }
     
-    
-    
 }//end of class
 extension SearchUserTableViewController : UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
@@ -70,42 +67,68 @@ extension SearchUserTableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell")!
         let user = users[indexPath.row]
         cell.textLabel?.text = "\(user.firstName) \(user.lastName)"
-                return cell
-    }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toProfileDetailVC" {
-            guard let indexPath = tableView.indexPathForSelectedRow,
-                  let destinationVC = segue.destination as? ProfileViewController else {return}
-            let user = self.users[indexPath.row]
-            destinationVC.profileUser = user
-            
-        }
+        return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let storyboard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
-        guard let vc = storyboard.instantiateViewController(withIdentifier: "profileDetailVC") as? ProfileViewController else {return}
-        // Pass over the user information
-        vc.profileUser = users[indexPath.row]
-        self.dismiss(animated: true) {
-            self.navigationController?.present(vc, animated: true)
-        }
-    }
+   
+ override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    navigationController?.popToRootViewController(animated: true)
+ let storyboard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
+ guard let vc = storyboard.instantiateViewController(withIdentifier: "profileDetailVC") as? ProfileViewController else {return}
+ // Pass over the user information
+ vc.profileUser = users[indexPath.row]
+    navigationController?.pushViewController(vc, animated: true)
+ }
+ }
  
-}
-
 /*
-extension SearchUserTableViewController {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toProfileVC" {
-            guard let indexPath = tableView.indexPathForSelectedRow,
-                  let destinationVC = segue.destination as? ProfileTableViewController else {return}
-            let user = self.users[indexPath.row]
-            destinationVC.profileUser = user
-            
-        }
-    }
+ 
+ 
+ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     if segue.identifier == "toProfileVC" {
+         self.navigationController?.popToRootViewController(animated: true)
+         guard let indexPath = self.tableView.indexPathForSelectedRow,
+               let destinationVC = segue.destination as? ProfileViewController else {return}
+         let user = self.users[indexPath.row]
+         destinationVC.profileUser = user
+         
+     }
+ }
 }
-
-
-*/
+ 
+ 
+ let storyboard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
+ guard let vc = storyboard.instantiateViewController(withIdentifier: "profileDetailVC") as? ProfileViewController else {return}
+ vc.profileUser = self.users[indexPath.row]
+ vc.navigationController?.pushViewController(vc, animated: true)
+ 
+ }
+ 
+ extension SearchUserTableViewController {
+ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+ if segue.identifier == "toProfileVC" {
+ guard let indexPath = tableView.indexPathForSelectedRow,
+ let destinationVC = segue.destination as? ProfileTableViewController else {return}
+ let user = self.users[indexPath.row]
+ destinationVC.profileUser = user
+ 
+ }
+ }
+ }
+ 
+ 
+ 
+ 
+ func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+ if segue.identifier == "toProfileVC" {
+ guard let indexPath = self.tableView.indexPathForSelectedRow,
+ let destinationVC = segue.destination as? ProfileViewController else {return}
+ let user = self.users[indexPath.row]
+ destinationVC.profileUser = user
+ }
+ }
+ 
+ 
+ 
+ 
+ */
