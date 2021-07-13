@@ -67,6 +67,7 @@
 		EA5C90672683EEA3008BE058 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA5C90662683EEA3008BE058 /* GoogleService-Info.plist */; };
 		EAEFFF02269621420052F80B /* BucketFirebaseFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEFFF01269621420052F80B /* BucketFirebaseFunctions.swift */; };
 		EAEFFF04269622770052F80B /* ImageCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEFFF03269622770052F80B /* ImageCacheController.swift */; };
+		EAEFFF0626979D4C0052F80B /* SearchBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EAEFFF0526979D4B0052F80B /* SearchBar.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -133,6 +134,7 @@
 		EA5C90662683EEA3008BE058 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EAEFFF01269621420052F80B /* BucketFirebaseFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BucketFirebaseFunctions.swift; sourceTree = "<group>"; };
 		EAEFFF03269622770052F80B /* ImageCacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheController.swift; sourceTree = "<group>"; };
+		EAEFFF0526979D4B0052F80B /* SearchBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchBar.storyboard; sourceTree = "<group>"; };
 		F53BB64563576D97B8BB2B09 /* Pods-BucketList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BucketList.debug.xcconfig"; path = "Target Support Files/Pods-BucketList/Pods-BucketList.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -278,6 +280,7 @@
 			isa = PBXGroup;
 			children = (
 				AA67204F268107AD003D43A0 /* gavin.storyboard */,
+				EAEFFF0526979D4B0052F80B /* SearchBar.storyboard */,
 			);
 			path = "Feed Storyboards";
 			sourceTree = "<group>";
@@ -471,6 +474,7 @@
 				AA954C582686A488000C22F7 /* NewBucket.storyboard in Resources */,
 				EA5C90672683EEA3008BE058 /* GoogleService-Info.plist in Resources */,
 				AA349495268CE57D00467C0C /* ProfileDetail.storyboard in Resources */,
+				EAEFFF0626979D4C0052F80B /* SearchBar.storyboard in Resources */,
 				AA67204C268107A2003D43A0 /* Authenticate.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

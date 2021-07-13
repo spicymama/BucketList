@@ -37,23 +37,38 @@
                                     <action selector="bucketItBtn:" destination="hIy-pd-TDe" eventType="touchUpInside" id="7pz-dN-iXh"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dvh-97-XEF">
-                                <rect key="frame" x="168" y="476" width="93" height="85"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gvH-Zu-5OT">
+                                <rect key="frame" x="20" y="458" width="388" height="392"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dvh-97-XEF">
+                                <rect key="frame" x="20" y="458" width="388" height="392"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Dvh-97-XEF" secondAttribute="height" multiplier="97:98" id="ujY-Ia-v21"/>
+                                </constraints>
                                 <state key="normal">
                                     <imageReference key="image" image="photo" catalog="system" symbolScale="default"/>
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                                 </state>
+                                <connections>
+                                    <action selector="PostPicButtonTapped:" destination="hIy-pd-TDe" eventType="touchUpInside" id="a07-4B-96H"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="rBe-41-saA"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="rBe-41-saA" firstAttribute="bottom" secondItem="Dvh-97-XEF" secondAttribute="bottom" constant="42" id="6au-HO-XO7"/>
+                            <constraint firstItem="gvH-Zu-5OT" firstAttribute="trailing" secondItem="Dvh-97-XEF" secondAttribute="trailing" id="BZx-zk-YsA"/>
+                            <constraint firstItem="rBe-41-saA" firstAttribute="trailing" secondItem="Dvh-97-XEF" secondAttribute="trailing" constant="20" id="GMH-Uq-cSu"/>
                             <constraint firstItem="GRR-YV-iHE" firstAttribute="centerX" secondItem="Dvh-97-XEF" secondAttribute="centerX" id="Guc-eZ-jd8"/>
+                            <constraint firstItem="gvH-Zu-5OT" firstAttribute="bottom" secondItem="Dvh-97-XEF" secondAttribute="bottom" id="Imf-bw-wu1"/>
                             <constraint firstItem="GRR-YV-iHE" firstAttribute="trailing" secondItem="MQl-uN-pgq" secondAttribute="trailingMargin" id="MfN-eY-wPM"/>
+                            <constraint firstItem="Dvh-97-XEF" firstAttribute="leading" secondItem="rBe-41-saA" secondAttribute="leading" constant="20" id="QVV-gP-6te"/>
+                            <constraint firstItem="gvH-Zu-5OT" firstAttribute="leading" secondItem="Dvh-97-XEF" secondAttribute="leading" id="Ti9-ac-s2m"/>
                             <constraint firstItem="jK1-ky-Xgx" firstAttribute="leading" secondItem="GRR-YV-iHE" secondAttribute="leading" id="fs8-ap-hIE"/>
                             <constraint firstItem="GRR-YV-iHE" firstAttribute="top" secondItem="jK1-ky-Xgx" secondAttribute="bottom" constant="8" symbolic="YES" id="gX6-bP-cpf"/>
+                            <constraint firstItem="gvH-Zu-5OT" firstAttribute="top" secondItem="Dvh-97-XEF" secondAttribute="top" id="gZi-cW-cUw"/>
                             <constraint firstItem="jK1-ky-Xgx" firstAttribute="leading" secondItem="MQl-uN-pgq" secondAttribute="leadingMargin" id="k10-YS-WUK"/>
-                            <constraint firstItem="Dvh-97-XEF" firstAttribute="top" secondItem="GRR-YV-iHE" secondAttribute="bottom" constant="57" id="sCI-Wx-qve"/>
                             <constraint firstItem="jK1-ky-Xgx" firstAttribute="top" secondItem="rBe-41-saA" secondAttribute="top" constant="37" id="tPJ-0b-CNi"/>
                         </constraints>
                     </view>
@@ -72,11 +87,13 @@
                     <connections>
                         <outlet property="bucketItBtn" destination="jK1-ky-Xgx" id="4JT-Pf-9yX"/>
                         <outlet property="noteTextView" destination="GRR-YV-iHE" id="NUY-0D-JVR"/>
+                        <outlet property="postPicButton" destination="Dvh-97-XEF" id="xtX-S9-LjD"/>
+                        <outlet property="postPicImageView" destination="gvH-Zu-5OT" id="JbA-Y7-k36"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jRx-Jd-Svc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2202.898550724638" y="76.339285714285708"/>
+            <point key="canvasLocation" x="2202.3364485981306" y="75.809935205183592"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="vBw-eh-Dpv">
