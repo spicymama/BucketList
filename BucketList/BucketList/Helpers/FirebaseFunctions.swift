@@ -46,14 +46,16 @@ class FirebaseFunctions {
     // MARK: - Create User
     static func createUser(email: String, password: String, firstName: String, lastName: String, dob: Date, username: String) {
         // This creates the user
+        var newUserID: String = ""
         Auth.auth().createUser(withEmail: email, password: password) { result, 🛑 in
             // Check for errors
             if let 🛑 = 🛑 {
                 print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
             } else {
+                newUserID = result!.user.uid
                 let data = [
-                    "uid" : result!.user.uid,
-                    "friendsListID" : result!.user.uid,
+                    "uid" : newUserID,
+                    "friendsListID" : newUserID,
                     "conversationsID" : [""],
                     "bucketsIDs" : [""],
                     "username" : username,
@@ -67,22 +69,19 @@ class FirebaseFunctions {
                         print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
                     }
                 }
+                // This creates the base user's friends lis
+                Firestore.firestore().collection("friends").document(newUserID).setData( [
+                    "friends" : [""],
+                    "blocked" : [""]
+                ]) { err in
+                    if let err = err {
+                        print("Error in \(#function)\(#line) : \(err.localizedDescription) \n---\n \(err)")
+                    } else {
+                        print("Friend list for user \(newUserID) was created")
+                    }
+                } // End of create users friends list
             }
         } // End of base user creation
-        
-        // This creates the base user's friends list
-        let uid = Auth.auth().currentUser?.uid ?? UUID().uuidString
-        
-        Firestore.firestore().collection("friends").document(uid).setData( [
-            "friends" : [""],
-            "blocked" : [""]
-        ]) { err in
-            if let err = err {
-                print("Error in \(#function)\(#line) : \(err.localizedDescription) \n---\n \(err)")
-            } else {
-                print("Friend list for user \(uid) was created")
-            }
-        } // End of create users friends list
         
     } // End of Create user Function
     
