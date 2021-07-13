@@ -71,7 +71,7 @@ class FirebaseFunctions {
         } // End of base user creation
         
         // This creates the base user's friends list
-        let uid = Auth.auth().currentUser?.uid ?? UUID().uuidString
+        let uid = Auth.auth().currentUser?.uid
         
         Firestore.firestore().collection("friends").document(uid).setData( [
             "friends" : [""],
