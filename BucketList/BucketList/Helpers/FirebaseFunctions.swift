@@ -85,6 +85,7 @@ class FirebaseFunctions {
         
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         // This creates the base user's friends list
         let uid = Auth.auth().currentUser?.uid
         
@@ -99,6 +100,8 @@ class FirebaseFunctions {
             }
         } // End of create users friends list
         
+=======
+>>>>>>> 7f675c7240c1089c5283b9fbbd99c4560512a834
 =======
 >>>>>>> 7f675c7240c1089c5283b9fbbd99c4560512a834
 =======
