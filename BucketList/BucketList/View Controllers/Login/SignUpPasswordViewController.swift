@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SignUpPasswordViewController: UIViewController {
+class SignUpPasswordViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Properties
     static var username: String?
@@ -54,13 +54,15 @@ class SignUpPasswordViewController: UIViewController {
     } // End of Function
     
     func setupKeyboard() {
+        self.passwordField.delegate = self
+        self.confirmPasswordField.delegate = self
+        
+        //TODO(ethan) suggest a new password 
+        self.passwordField.textContentType = .newPassword
         self.passwordField.isSecureTextEntry = true
-        //TODO(ethan) Make these work, becauses it just crashes right now
-//        self.passwordField.textContentType = UITextContentType.newPassword
         
         self.confirmPasswordField.isSecureTextEntry = true
-        //TODO(ethan) Make these work, becauses it just crashes right now
-//        self.confirmPasswordField.textContentType = UITextContentType.password
+        self.confirmPasswordField.textContentType = .password
     } // End of Function setup keyboard
     
     func validatePassword() -> Bool {
