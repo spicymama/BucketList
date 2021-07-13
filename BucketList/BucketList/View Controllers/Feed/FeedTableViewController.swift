@@ -65,10 +65,20 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
     // MARK: - Functions
     func checkSegmentIndex() {
         if segmentedController.selectedSegmentIndex == 0 {
+            if friendsPosts == [] {
             self.fetchFriendsPosts()
+                self.updateViews()
+            } else {
+              return
+            }
         }
         else if segmentedController.selectedSegmentIndex == 1 {
+            if popularPosts == [] {
             self.fetchPopularPosts()
+                self.updateViews()
+            } else {
+                return
+            }
         }
     } // End of Setup post fetching
     
