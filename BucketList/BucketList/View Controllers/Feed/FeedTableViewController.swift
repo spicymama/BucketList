@@ -243,7 +243,10 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
     } // End of My Profile Button
     
     func myFriendsListBtn() {
+        let storyboard: UIStoryboard = UIStoryboard(name: "Friends", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(identifier: "FriendsListVC") as? FriendsListTableViewController else {return}
         
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
 } // End of Class

@@ -35,27 +35,43 @@ class FriendsListTableViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "friendsListCell", for: indexPath) as? FriendsListTableViewCell else {return UITableViewCell()}
         let friend = self.friends[indexPath.row]
         cell.user = friend
+        
                
         
         return cell
     }
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toProfileDetailVC" {
+            guard let indexPath = tableView.indexPathForSelectedRow,
+                  let destinationVC = segue.destination as? ProfileViewController else {return}
+            let friend = self.friends[indexPath.row]
+            destinationVC.profileUser = friend
+            
+        }
+    }
+        
     
 
     //MARK: - Functions
-    func updateViews() {
-        
-    }
+   
     
     func fetchFriendsData() {
         FirebaseFunctions.fetchFriends(friendsListID: uid ?? "0") { data in
-            self.friendsList = data.friends
+            for friend in data.friends {
+                self.friendsList.append(friend)
+            }
+            FirebaseFunctions.fetchUsersData(passedUserIDs: self.friendsList) { data in
+                for friend in data {
+                    self.friends.append(friend)
+                                    }
+                self.tableView.reloadData()
+
+               
+            }
         }
         
-        FirebaseFunctions.fetchUsersData(passedUserIDs: friendsList) { data in
-            self.friends = data
-        }
+            
     } // End of Fetch Friends Data
     
 } // End of Class

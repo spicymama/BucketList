@@ -12,6 +12,7 @@
 		9A2D612B268507AB00424AE4 /* FriendsListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2D612A268507AB00424AE4 /* FriendsListTableViewController.swift */; };
 		9A2D612F26852D5100424AE4 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2D612E26852D5100424AE4 /* Friend.swift */; };
 		9A2D613126862D1000424AE4 /* FriendsListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2D613026862D1000424AE4 /* FriendsListTableViewCell.swift */; };
+		9A31F38D26977DE2006470CB /* Friends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A31F38C26977DE2006470CB /* Friends.storyboard */; };
 		9A4056C3268BB7B200307C77 /* SearchUserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4056C2268BB7B200307C77 /* SearchUserTableViewController.swift */; };
 		AA02FF7926810500004EA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA02FF7826810500004EA782 /* AppDelegate.swift */; };
 		AA02FF7B26810500004EA782 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA02FF7A26810500004EA782 /* SceneDelegate.swift */; };
@@ -75,6 +76,7 @@
 		9A2D612A268507AB00424AE4 /* FriendsListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListTableViewController.swift; sourceTree = "<group>"; };
 		9A2D612E26852D5100424AE4 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		9A2D613026862D1000424AE4 /* FriendsListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListTableViewCell.swift; sourceTree = "<group>"; };
+		9A31F38C26977DE2006470CB /* Friends.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Friends.storyboard; sourceTree = "<group>"; };
 		9A4056C2268BB7B200307C77 /* SearchUserTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserTableViewController.swift; sourceTree = "<group>"; };
 		AA02FF7526810500004EA782 /* BucketList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BucketList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA02FF7826810500004EA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -158,6 +160,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9A31F38B26977DC9006470CB /* Friends */ = {
+			isa = PBXGroup;
+			children = (
+				9A31F38C26977DE2006470CB /* Friends.storyboard */,
+			);
+			path = Friends;
+			sourceTree = "<group>";
+		};
 		AA02FF6C26810500004EA782 = {
 			isa = PBXGroup;
 			children = (
@@ -237,6 +247,7 @@
 		AA67204A26810709003D43A0 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				9A31F38B26977DC9006470CB /* Friends */,
 				AA6EBBE3268F85970087EA34 /* Posts Storyboards */,
 				AA6EBBEA268FAE9B0087EA34 /* Feed Storyboards */,
 				AA6EBBEB268FAEAB0087EA34 /* Conversation Storyboards */,
@@ -464,6 +475,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A31F38D26977DE2006470CB /* Friends.storyboard in Resources */,
 				AA25B5392683E99900B0E13F /* NewPost.storyboard in Resources */,
 				AA02FF8526810501004EA782 /* LaunchScreen.storyboard in Resources */,
 				AA6EBBE7268FA9590087EA34 /* PostDetail.storyboard in Resources */,
