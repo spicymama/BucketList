@@ -33,7 +33,7 @@ class EditPostViewController: UIViewController, UITextViewDelegate, UIImagePicke
         fetchPost()
     }
 
-    
+    // If the keyboard is clicked on, this will run
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if noteTextView.text.isEmpty {
             updateNoteText()
@@ -47,7 +47,7 @@ class EditPostViewController: UIViewController, UITextViewDelegate, UIImagePicke
         FirebaseFunctions.fetchPost(postID: postID) { post in
             let fetchedPost: Post = post
             
-            self.noteText = fetchedPost.note
+            self.noteText = fetchedPost.note!
             self.bucketID = fetchedPost.bucketID
             self.oldBucketID = fetchedPost.bucketID
             self.bucketTitle = fetchedPost.bucketTitle

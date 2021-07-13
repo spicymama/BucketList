@@ -20,18 +20,20 @@ class FeedTableViewCell: UITableViewCell {
     @IBOutlet weak var postTitle: UILabel!
     @IBOutlet weak var timestampLabel: UILabel!
     
+    
     // MARK: - Properties
     var user: User?
     var post: Post? {
         didSet {
-            FirebaseFunctions.fetchUserData(uid: post!.authorID) { fetchedUser in
+            FirebaseFunctions.fetchUserData(uid: post!.authorID!) { fetchedUser in
                 DispatchQueue.main.async {
                 self.user = fetchedUser
                 self.updateViews()
                 }
             }
         }
-    }
+    } // End of Post Variable
+    
     
     // MARK: - LIfecycle
     override func awakeFromNib() {
@@ -42,7 +44,11 @@ class FeedTableViewCell: UITableViewCell {
         guard let post = post,
                let user = user else {return}
         usernameLabel.text = ("~" + (user.username) + " checked " + (post.bucketTitle ?? "something") + " off their list!")
-        postImageView.image = cachePostImage(post: post)
+        if post.imageURL == "" {
+            postImageView.isHidden = true
+        } else {
+            postImageView.image = cachePostImage(post: post)
+        }
         noteLabel.text = post.note
         postTitle.text = post.bucketTitle
         profilePic.image = cacheImage(user: user)
@@ -59,49 +65,50 @@ class FeedTableViewCell: UITableViewCell {
         var picture = UIImage()
         let cache = ImageCacheController.shared.cache
         let cacheKey = NSString(string: user.profilePicUrl ?? "")
-        if let image = cache.object(forKey: cacheKey) {
-            picture = image
+        
+        if user.profilePicUrl == "" || user.profilePicUrl == "defaultProfileImage"{
+            picture = UIImage(named: "defaultProfileImage") ?? UIImage()
         } else {
-            if user.profilePicUrl == "" {
-                picture = UIImage(named: "defaultProfileImage") ?? UIImage()
-            }
-            
-            let session = URLSession.shared
-            
-            if user.profilePicUrl != "" {
-                let url = URL(string: user.profilePicUrl ?? "")!
-                let task = session.dataTask(with: url) { (data, response, error) in
-                    if let error = error {
-                        print("Error in \(#function): On Line \(#line) : \(error.localizedDescription) \n---\n \(error)")
-                        print("Unable to fetch image for \(user.username)")
-                    }
-                    if let data = data {
-                        DispatchQueue.main.async {
-                            if let image = UIImage(data: data) {
-                                picture = image
-                                cache.setObject(image, forKey: cacheKey)
+            if let image = cache.object(forKey: cacheKey) {
+                picture = image
+            } else {
+                let session = URLSession.shared
+                
+                if user.profilePicUrl != "" {
+                    let url = URL(string: user.profilePicUrl ?? "")!
+                    let task = session.dataTask(with: url) { (data, response, error) in
+                        if let error = error {
+                            print("Error in \(#function): On Line \(#line) : \(error.localizedDescription) \n---\n \(error)")
+                            print("Unable to fetch image for \(user.username)")
+                        }
+                        if let data = data {
+                            DispatchQueue.main.async {
+                                if let image = UIImage(data: data) {
+                                    picture = image
+                                    cache.setObject(image, forKey: cacheKey)
+                                }
                             }
                         }
                     }
+                    task.resume()
                 }
-                task.resume()
             }
         }
         return picture
-    }
+    } // End of Cache Image
     
     func cachePostImage(post: Post) -> UIImage {
         var picture = UIImage()
         let cache = ImageCacheController.shared.cache
-        let cacheKey = NSString(string: post.photoID )
+        let cacheKey = NSString(string: post.imageURL ?? "" )
         if let image = cache.object(forKey: cacheKey) {
             picture = image
         } else {
             
             let session = URLSession.shared
             
-            if post.photoID != "" {
-                let url = URL(string: post.photoID)!
+            if post.imageURL != "" {
+                let url = URL(string: post.imageURL!)!
                 let task = session.dataTask(with: url) { (data, response, error) in
                     if let error = error {
                         print("Error in \(#function): On Line \(#line) : \(error.localizedDescription) \n---\n \(error)")
@@ -120,7 +127,7 @@ class FeedTableViewCell: UITableViewCell {
             }
         }
         return picture
-    }
+    } // End of Cache post
     
     
 } // End of Feed Table View Cell

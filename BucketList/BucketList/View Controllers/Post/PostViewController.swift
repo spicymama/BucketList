@@ -40,10 +40,12 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         //fetchCurrentUser()
         fetchData()
         
+        // Keyboard moving the screen up and down a little
         NotificationCenter.default.addObserver(self, selector: #selector(PostViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(PostViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     } // End of View did load
     
+    // Makes the keyboard appear and dissapera
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     } // End of Function
@@ -135,7 +137,8 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         self.profilePicImageView.image = cacheImage(user: postUser ?? User())
         self.usernameLabel.text = ("~" + (self.username ?? "User") )
-        self.postImageView.image = cachePostImage(post: post)
+        self.postImageView.image = UIImage(named: PostViewController.currentPost?.imageURL ?? "peace" )
+
         self.postNote.text = PostViewController.currentPost?.note
        // self.timestampLabel.text = PostViewController.currentPost?.timestamp.formatToString()
       
@@ -189,15 +192,15 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     func cachePostImage(post: Post) -> UIImage {
         var picture = UIImage()
         let cache = ImageCacheController.shared.cache
-        let cacheKey = NSString(string: post.photoID )
+        let cacheKey = NSString(string: post.imageURL ?? "" )
         if let image = cache.object(forKey: cacheKey) {
             picture = image
         } else {
             
             let session = URLSession.shared
             
-            if post.photoID != "" {
-                let url = URL(string: post.photoID)!
+            if post.imageURL != "" {
+                let url = URL(string: post.imageURL ?? "")!
                 let task = session.dataTask(with: url) { (data, response, error) in
                     if let error = error {
                         print("Error in \(#function): On Line \(#line) : \(error.localizedDescription) \n---\n \(error)")
@@ -221,7 +224,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func fetchCurrentUser() {
         guard let post = PostViewController.currentPost else {return}
-        FirebaseFunctions.fetchUserData(uid: post.authorID) { result in
+        FirebaseFunctions.fetchUserData(uid: post.authorID ?? "") { result in
             self.username = result.username
             //  self.profilePic = result.profilePictureURL
             self.postUser = result
@@ -242,6 +245,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     } // End of Fetch Post Comments
     
+    // Other Keyboard hide stuff
     @objc func keyboardWillShow(notification: NSNotification) {
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
             return

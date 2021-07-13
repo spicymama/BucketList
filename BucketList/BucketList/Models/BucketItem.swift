@@ -17,8 +17,9 @@ class BucketItem {
     var commentsID: String
     var completed: Bool
     var reactions: [String]
+    var timestamp: Date?
     
-    init(bucketID: String, title: String, note: String, itemID: String = UUID().uuidString, commentsID: String, completed: Bool = false, reactions: [String] = []) {
+    init(bucketID: String, title: String, note: String, itemID: String = "", commentsID: String = "", completed: Bool, reactions: [String] = [], timestamp: Date = Date()) {
         self.bucketID = bucketID
         self.title = title
         self.note = note
@@ -26,6 +27,7 @@ class BucketItem {
         self.commentsID = itemID
         self.completed = completed
         self.reactions = reactions
+        self.timestamp = timestamp
     }
     
 } // End of Class
