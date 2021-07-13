@@ -20,6 +20,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var commentTextField: UITextField!
     @IBOutlet weak var postNote: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var editPostBtn: UIButton!
     
     
     // MARK: - Properties
@@ -29,6 +30,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     var postUser: User?
     var username: String?
     var profilePic: UIImage?
+    var loggedInUser: User?
     
     
     // MARK: - Lifecycle
@@ -122,6 +124,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: - Functions
     func fetchData() {
+        fetchLoggedInUser()
         fetchCurrentPost()
         fetchCurrentUser()
         fetchPostComments()
@@ -130,20 +133,43 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func updateViews() {
         guard let post = PostViewController.currentPost else { return }
+        
+        self.editPostBtn.isHidden = true
+
+        if post.authorID == loggedInUser?.uid {
+            self.editPostBtn.isHidden = false
+            lilTableView.reloadData()
+        }
+        
         if post.bucketTitle != "" {
             self.titleLabel.text = post.bucketTitle
+            self.titleLabel.isHidden = false
         } else {
-            self.titleLabel.text = ""
+            self.titleLabel.isHidden = true
         }
+        
         self.profilePicImageView.image = cacheImage(user: postUser ?? User())
         self.usernameLabel.text = ("~" + (self.username ?? "User") )
-        self.postImageView.image = UIImage(named: PostViewController.currentPost?.imageURL ?? "peace" )
+        
+        if post.imageURL == "" {
+            postImageView.isHidden = true
+        } else {
+            postImageView.isHidden = false
+            self.postImageView.image = UIImage(named: PostViewController.currentPost!.imageURL!)
+        }
 
         self.postNote.text = PostViewController.currentPost?.note
-       // self.timestampLabel.text = PostViewController.currentPost?.timestamp.formatToString()
+        self.timestampLabel.text = PostViewController.currentPost?.timestamp?.formatToString()
       
     } // End of Function update Views
     
+    
+    func fetchLoggedInUser() {
+        FirebaseFunctions.fetchCurrentUserData { fetchedUser in
+            let fetchedUser = fetchedUser
+            self.loggedInUser = fetchedUser
+        }
+    } // End of Fetch logged in user
     
     func fetchCurrentPost() {
         postID = PostViewController.currentPost?.postID
@@ -161,7 +187,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         if let image = cache.object(forKey: cacheKey) {
             picture = image
         } else {
-            if user.profilePicUrl == "" {
+            if user.profilePicUrl == "" || user.profilePicUrl == "defaultProfileImage" {
                 picture = UIImage(named: "defaultProfileImage") ?? UIImage()
             }
             

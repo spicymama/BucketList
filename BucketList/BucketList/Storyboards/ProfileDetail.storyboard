@@ -72,13 +72,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="vI7-xh-v4c">
-                                                    <rect key="frame" x="0.0" y="0.0" width="412" height="508.33333333333331"/>
+                                                    <rect key="frame" x="8" y="8" width="396" height="492.33333333333331"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pmq-au-cYY">
-                                                            <rect key="frame" x="0.0" y="0.0" width="412" height="72.333333333333329"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="396" height="72.333333333333329"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pyv-Qv-2vI">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="412" height="32.333333333333336"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="396" height="32.333333333333336"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="32" id="GXh-NR-ve9"/>
                                                                     </constraints>
@@ -87,7 +87,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timestamp" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BAk-Sy-W8g">
-                                                                    <rect key="frame" x="0.0" y="40.333333333333336" width="412" height="32.000000000000007"/>
+                                                                    <rect key="frame" x="0.0" y="40.333333333333336" width="396" height="32.000000000000007"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -95,13 +95,13 @@
                                                             </subviews>
                                                         </stackView>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="K1c-WW-fJT">
-                                                            <rect key="frame" x="32" y="80.333333333333314" width="348" height="348"/>
+                                                            <rect key="frame" x="32" y="80.333333333333314" width="332" height="332"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="K1c-WW-fJT" secondAttribute="height" multiplier="1:1" id="91n-tb-V5z"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qHh-VX-3o0" userLabel="Note Label">
-                                                            <rect key="frame" x="0.0" y="436.33333333333331" width="412" height="72"/>
+                                                            <rect key="frame" x="0.0" y="420.33333333333331" width="396" height="72"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="72" id="GgO-6d-hJA"/>
                                                             </constraints>
@@ -122,10 +122,10 @@
                                                 </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="vI7-xh-v4c" secondAttribute="bottom" id="3sA-QW-cFb"/>
-                                                <constraint firstItem="vI7-xh-v4c" firstAttribute="leading" secondItem="Xu5-nf-dpu" secondAttribute="leading" id="5ol-qv-iLF"/>
-                                                <constraint firstItem="vI7-xh-v4c" firstAttribute="top" secondItem="Xu5-nf-dpu" secondAttribute="top" id="PIB-gw-EWS"/>
-                                                <constraint firstAttribute="trailing" secondItem="vI7-xh-v4c" secondAttribute="trailing" id="dy0-W7-zyv"/>
+                                                <constraint firstAttribute="bottom" secondItem="vI7-xh-v4c" secondAttribute="bottom" constant="8" id="3sA-QW-cFb"/>
+                                                <constraint firstItem="vI7-xh-v4c" firstAttribute="leading" secondItem="Xu5-nf-dpu" secondAttribute="leading" constant="8" id="5ol-qv-iLF"/>
+                                                <constraint firstItem="vI7-xh-v4c" firstAttribute="top" secondItem="Xu5-nf-dpu" secondAttribute="top" constant="8" id="PIB-gw-EWS"/>
+                                                <constraint firstAttribute="trailing" secondItem="vI7-xh-v4c" secondAttribute="trailing" constant="8" id="dy0-W7-zyv"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>

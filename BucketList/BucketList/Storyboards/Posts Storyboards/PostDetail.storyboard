@@ -195,6 +195,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="commentTextField" destination="hjY-Rb-1gy" id="a2z-oX-8nV"/>
+                        <outlet property="editPostBtn" destination="v9O-Mi-R7X" id="yfH-bJ-k0m"/>
                         <outlet property="lilTableView" destination="QNU-kp-hIs" id="hy5-91-4Lv"/>
                         <outlet property="postImageView" destination="n7k-IY-vj2" id="wyH-0J-d9y"/>
                         <outlet property="postNote" destination="izn-qj-n6n" id="0XK-Fy-Iuv"/>
