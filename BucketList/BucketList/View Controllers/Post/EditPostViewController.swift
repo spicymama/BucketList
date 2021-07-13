@@ -7,11 +7,13 @@
 
 import UIKit
 
-class EditPostViewController: UIViewController, UITextViewDelegate {
+class EditPostViewController: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     // MARK: - Outlets
     @IBOutlet weak var noteTextView: UITextView!
     @IBOutlet weak var bucketItBtn: UIButton!
+    @IBOutlet weak var postPicImageView: UIImageView!
+    @IBOutlet weak var postPicButton: UIButton!
     
     
     // MARK: - Properties
@@ -21,6 +23,7 @@ class EditPostViewController: UIViewController, UITextViewDelegate {
     var bucketID: String?
     var bucketTitle: String?
     var oldBucketID: String?
+    var selectedImage: UIImage?
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -30,7 +33,7 @@ class EditPostViewController: UIViewController, UITextViewDelegate {
         fetchPost()
     }
 
-    
+    // If the keyboard is clicked on, this will run
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if noteTextView.text.isEmpty {
             updateNoteText()
@@ -44,7 +47,7 @@ class EditPostViewController: UIViewController, UITextViewDelegate {
         FirebaseFunctions.fetchPost(postID: postID) { post in
             let fetchedPost: Post = post
             
-            self.noteText = fetchedPost.note
+            self.noteText = fetchedPost.note!
             self.bucketID = fetchedPost.bucketID
             self.oldBucketID = fetchedPost.bucketID
             self.bucketTitle = fetchedPost.bucketTitle
@@ -77,7 +80,27 @@ class EditPostViewController: UIViewController, UITextViewDelegate {
         self.bucketItBtn.setTitle(bucketItBtnTitle, for: .normal)
     }
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        
+        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
+        selectedImage = image
+        self.postPicImageView.image = image
+        self.postPicButton.setImage(UIImage(), for: .normal)
+    } // End of Image picker Function
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    } // End of Function
+    
     // MARK: - Actions
+    @IBAction func PostPicButtonTapped(_ sender: Any) {
+        let picker = UIImagePickerController()
+        picker.sourceType = .photoLibrary
+        picker.delegate = self
+        picker.allowsEditing = true
+        present(picker, animated: true)
+    }
     @IBAction func bucketItBtn(_ sender: Any) {
         oldBucketID = bucketID
         let storyBoard: UIStoryboard = UIStoryboard(name: "NewPost", bundle: nil)

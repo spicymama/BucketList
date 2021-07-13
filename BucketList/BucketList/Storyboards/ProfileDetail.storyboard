@@ -11,7 +11,7 @@
         <!--Profile View Controller-->
         <scene sceneID="72g-61-4yh">
             <objects>
-                <viewController storyboardIdentifier="profileDetailVC" id="29L-5W-BiG" customClass="ProfileViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="profileDetailVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="29L-5W-BiG" customClass="ProfileViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cPq-dd-dyc">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -53,7 +53,7 @@
                                     <constraint firstAttribute="height" constant="85" id="bDK-95-UOh"/>
                                     <constraint firstAttribute="width" secondItem="Mca-Tt-XdY" secondAttribute="height" multiplier="1:1" id="qNe-4b-Exv"/>
                                 </constraints>
-                                <state key="normal" title="Button Bitch">
+                                <state key="normal">
                                     <color key="titleColor" red="0.96494096517562866" green="0.28642871975898743" blue="0.060493983328342438" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>

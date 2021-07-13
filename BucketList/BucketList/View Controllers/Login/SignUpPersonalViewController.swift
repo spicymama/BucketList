@@ -24,16 +24,16 @@ class SignUpPersonalViewController: UIViewController {
     // MARK: - Actions
     @IBAction func toEmailBtn(_ sender: Any) {
         if validatePersonalInformation() == true {
-            SignUpEmailViewController.username = usernameField.text
-            SignUpEmailViewController.firstName = firstNameField.text
-            SignUpEmailViewController.lastName = lastNameField.text
+            SignUpEmailViewController.username = usernameField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+            SignUpEmailViewController.firstName = firstNameField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+            SignUpEmailViewController.lastName = lastNameField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
             SignUpEmailViewController.dob = datePicker.date
             let storyBoard: UIStoryboard = UIStoryboard(name: "Authenticate", bundle: nil)
             let vc = storyBoard.instantiateViewController(withIdentifier: "signUpEmailVC")
             self.navigationController?.pushViewController(vc, animated: true)
         }
     } // End of To email Button
- 
+    
     
     @IBAction func dobPickerTap(_ sender: Any) {
         self.view.endEditing(true)
@@ -44,6 +44,7 @@ class SignUpPersonalViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     } // End of Function
+    
     
     func validatePersonalInformation() -> Bool {
         // Check for filled in fields
@@ -71,6 +72,6 @@ class SignUpPersonalViewController: UIViewController {
         } // End of Username Check
         return true
     } // End of Validate Personal Information
- 
+    
 } // End of Class
 

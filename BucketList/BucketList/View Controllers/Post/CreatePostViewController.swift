@@ -17,6 +17,8 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, UIImagePic
     // MARK: - Outlets
     @IBOutlet weak var noteTextView: UITextView!
     @IBOutlet weak var bucketItBtn: UIButton!
+    @IBOutlet weak var postPictureButton: UIButton!
+    @IBOutlet weak var selectedImageImageView: UIImageView!
     
     
     // MARK: - Properties
@@ -42,6 +44,7 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, UIImagePic
         picker.allowsEditing = true
         present(picker, animated: true)
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
@@ -58,21 +61,27 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, UIImagePic
         
         guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
         selectedImage = image
+        self.selectedImageImageView.image = image
+        self.postPictureButton.setImage(UIImage(), for: .normal)
     } // End of Image picker Function
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     } // End of Function
     
+    
     // MARK: - Actions
     @IBAction func postButtonTapped(_ sender: Any) {
-        guard let image = selectedImage else {return}
-        // Properties
+        let image = selectedImage
         //TODO(ethan) V2.0 - Let users make posts off of the already existing buckets page - Not just the "create post" page
+        //TODO(ethan) Make a characater count for posts
         let note = noteTextView.text ?? "Post Note"
         let bucketID: String = bucketID
-            
-        FirebaseFunctions.createPost(note: note, bucketID: bucketID, bucketTitle: bucketTitle, image: image)
+        let bucketTitle = bucketTitle
+        
+        let newPost = Post(note: note, bucketID: bucketID, bucketTitle: bucketTitle)
+        
+        FirebaseFunctions.createPost(newPost: newPost, image: image)
         
         // Go to the Post's page, in front of the Feed page
         let storyBoard: UIStoryboard = UIStoryboard(name: "gavin", bundle: nil)

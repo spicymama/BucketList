@@ -62,8 +62,9 @@ class BucketFirebaseFunctions {
                 let itemsID = document["itemsID"] as? String ?? ""
                 let completion = document["completion"] as? Int ?? 0
                 let reactions = document["reactions"] as? [String] ?? []
+                let timestamp = document["timestamp"] as? Date ?? Date()
                 
-                let fetchedBucket = Bucket(title: title, note: note, commentsID: commentsID, itemsID: itemsID, bucketID: bucketID, completion: completion, reactions: reactions, isPublic: isPublic)
+                let fetchedBucket = Bucket(title: title, note: note, commentsID: commentsID, itemsID: itemsID, bucketID: bucketID, completion: completion, reactions: reactions, isPublic: isPublic, timestamp: timestamp)
                 
                 🐶(fetchedBucket)
             }
@@ -75,7 +76,7 @@ class BucketFirebaseFunctions {
     static func fetchAllBucketsForUser(userID: String, 🐶: @escaping ( [Bucket] ) -> Void) {
         let userID = userID
         // Get Buckets IDs
-        Firestore.firestore().collection("users").document(userID).getDocument { ( snapshot, error ) in
+        Firestore.firestore().collection("users").document(userID).addSnapshotListener { ( snapshot, error ) in
             if let 🛑 = error {
                 print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
             } else {
@@ -104,8 +105,9 @@ class BucketFirebaseFunctions {
                         let itemsID = fetchedBucket.itemsID ?? ""
                         let completion = fetchedBucket.completion
                         let reactions = fetchedBucket.reactions ?? []
+                        let timestamp = fetchedBucket.timestamp ?? Date()
                         
-                        let cleanFetchedBucket = Bucket(title: title, note: note, commentsID: commentsID, itemsID: itemsID, bucketID: bucketID, completion: completion, reactions: reactions, isPublic: isPublic)
+                        let cleanFetchedBucket = Bucket(title: title, note: note, commentsID: commentsID, itemsID: itemsID, bucketID: bucketID, completion: completion, reactions: reactions, isPublic: isPublic, timestamp: timestamp)
                         
                         usersBuckets.append(cleanFetchedBucket)
                         
@@ -133,7 +135,8 @@ class BucketFirebaseFunctions {
             "itemsID" : bucketID,
             "note" : newBucket.note,
             "commentsID" : bucketID,
-            "reactions" : newBucket.reactions as Any
+            "reactions" : newBucket.reactions as Any,
+            "timestamp" : FieldValue.serverTimestamp()
         ]) { error in
             if let error = error {
                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
@@ -143,7 +146,11 @@ class BucketFirebaseFunctions {
                     "bucketsIDs" : FieldValue.arrayUnion([bucketID])
                 ])
                 print("Bucket for user \(userID) was created")
-            }
+                // Create new Bucket Items collection
+                Firestore.firestore().collection("bucketItems").document(bucketID).setData([
+                    "bucketItemsID" : bucketID
+                ])
+            } // End of Else statement
         }
     } // End of Create Bucket
     
@@ -170,6 +177,7 @@ class BucketFirebaseFunctions {
     // MARK: - Delete Bucket
     static func deleteBucket(bucketID: String, completion: @escaping (Bool)-> Void) {
         guard let userID = Auth.auth().currentUser?.uid else { return }
+        // Delete the bucket from the buckets array
         Firestore.firestore().collection("buckets").document(bucketID).delete() { error in
             if let error = error {
                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
@@ -178,25 +186,90 @@ class BucketFirebaseFunctions {
                 Firestore.firestore().collection("users").document(userID).updateData([
                     "bucketIDs" : FieldValue.arrayRemove([bucketID])
                 ])
+                // Delete the Bucket Items
+                Firestore.firestore().collection("bucketItems").document(bucketID).delete()
                 completion(true)
             }
         }
     } // End of Delete Bucket
     
     
+    // MARK: - Create Bucket Item
+    static func createBucketItem(bucketItem: BucketItem) {
+        let bucketItemsID = bucketItem.bucketID
+        let item = bucketItem
+        item.itemID = UUID().uuidString
+        Firestore.firestore().collection("bucketItems").document(bucketItemsID).collection("bucketItem").document(item.itemID).setData([
+            "bucketID" : item.bucketID,
+            "title" : item.title,
+            "note" : item.note,
+            "itemID" : item.itemID,
+            "commentsID" : item.commentsID,
+            "completed" : item.completed,
+            "reactions" : item.reactions,
+            "timestamp" : FieldValue.serverTimestamp()
+        ])
+    } // End of Create Bucket Item
+    
+    
+    // MARK: - Update Bucket Item
+    static func updateBucketItem(bucketItem: BucketItem) {
+        let bucketItem = bucketItem
+        Firestore.firestore().collection("bucketItems").document(bucketItem.bucketID).collection("bucketItem").document(bucketItem.itemID).updateData([
+            "title" : bucketItem.title,
+            "note" : bucketItem.note,
+            "completed" : bucketItem.completed,
+            "timestamp" : FieldValue.serverTimestamp()
+        ])
+    } // End of Create Bucket Item
+    
+    
     // MARK: - Fetch Bucket Items
-    static func fetchBucketItems(itemsID: String, completion: @escaping ([String : Any])-> Void) {
-        let id = itemsID
-        let itemsData = Firestore.firestore().collection("bucketItems").document(id)
-        itemsData.getDocument { document, error in
+    static func fetchBucketItems(bucketItemsID: String, 🐶: @escaping ( [BucketItem] )-> Void) {
+        Firestore.firestore().collection("bucketItems").document(bucketItemsID).collection("bucketItem") .addSnapshotListener { QuerySnapshot, error in
             if let error = error {
                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
             } else {
-                completion(document!.data()!)
+                if let snapshot = QuerySnapshot?.documents {
+                    let group = DispatchGroup()
+                    
+                    var fetchedBucketItems: [BucketItem] = []
+                    for document in snapshot {
+                        group.enter()
+                        
+                        // Data to collect
+                        let bucketID: String = document["bucketID"] as? String ?? ""
+                        let title: String = document["title"] as? String ?? ""
+                        let note: String = document["note"] as? String ?? ""
+                        let itemID: String = document["itemID"] as? String ?? ""
+                        let commentsID: String = document["commentsID"] as? String ?? ""
+                        let completed: Bool = document["completed"] as? Bool ?? false
+                        let reactions: [String] = document["reactions"] as? [String] ?? []
+                        let timestamp: Date = document["timestamp"] as? Date ?? Date()
+                        
+                        
+                        let fetchedItem = BucketItem(bucketID: bucketID, title: title, note: note, itemID: itemID, commentsID: commentsID, completed: completed, reactions: reactions, timestamp: timestamp)
+                        
+                        fetchedBucketItems.append(fetchedItem)
+                        group.leave()
+                    } // End of For loop
+                    group.notify(queue: DispatchQueue.main) {
+                        🐶(fetchedBucketItems)
+                    } // End of Dispatch Queue notify
+                } // End of snapshot
             }
-        }
+        } // End of Firestore fetch
     } // End of Fetch Bucket Items
     
-} // End of BucketFirebaseFunctions
+    
+    // MARK: - Delete Bucket Item
+    static func deleteBucketItem(bucketItem: BucketItem) -> Void {
+        // Bucket ID == Bucket Item ID
+        // Delete the item
+        Firestore.firestore().collection("bucketItems").document(bucketItem.bucketID).collection("bucketItem").document(bucketItem.itemID).delete()
+    } // End of Delete Bucket Item
+    
+    
+} // End of Bucket Firebase Functions
 
 
