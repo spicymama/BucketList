@@ -192,15 +192,15 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     func cachePostImage(post: Post) -> UIImage {
         var picture = UIImage()
         let cache = ImageCacheController.shared.cache
-        let cacheKey = NSString(string: post.photoID )
+        let cacheKey = NSString(string: post.imageURL ?? "" )
         if let image = cache.object(forKey: cacheKey) {
             picture = image
         } else {
             
             let session = URLSession.shared
             
-            if post.photoID != "" {
-                let url = URL(string: post.photoID)!
+            if post.imageURL != "" {
+                let url = URL(string: post.imageURL ?? "")!
                 let task = session.dataTask(with: url) { (data, response, error) in
                     if let error = error {
                         print("Error in \(#function): On Line \(#line) : \(error.localizedDescription) \n---\n \(error)")
