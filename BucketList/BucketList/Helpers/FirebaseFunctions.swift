@@ -46,14 +46,16 @@ class FirebaseFunctions {
     // MARK: - Create User
     static func createUser(email: String, password: String, firstName: String, lastName: String, dob: Date, username: String) {
         // This creates the user
+        var newUserID: String = ""
         Auth.auth().createUser(withEmail: email, password: password) { result, 🛑 in
             // Check for errors
             if let 🛑 = 🛑 {
                 print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
             } else {
+                newUserID = result!.user.uid
                 let data = [
-                    "uid" : result!.user.uid,
-                    "friendsListID" : result!.user.uid,
+                    "uid" : newUserID,
+                    "friendsListID" : newUserID,
                     "conversationsID" : [""],
                     "bucketsIDs" : [""],
                     "username" : username,
@@ -67,9 +69,21 @@ class FirebaseFunctions {
                         print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
                     }
                 }
+                // This creates the base user's friends lis
+                Firestore.firestore().collection("friends").document(newUserID).setData( [
+                    "friends" : [""],
+                    "blocked" : [""]
+                ]) { err in
+                    if let err = err {
+                        print("Error in \(#function)\(#line) : \(err.localizedDescription) \n---\n \(err)")
+                    } else {
+                        print("Friend list for user \(newUserID) was created")
+                    }
+                } // End of create users friends list
             }
         } // End of base user creation
         
+<<<<<<< HEAD
         // This creates the base user's friends list
         let uid = Auth.auth().currentUser?.uid
         
@@ -84,6 +98,8 @@ class FirebaseFunctions {
             }
         } // End of create users friends list
         
+=======
+>>>>>>> 7f675c7240c1089c5283b9fbbd99c4560512a834
     } // End of Create user Function
     
     
@@ -153,7 +169,7 @@ class FirebaseFunctions {
                 let friendsListID = data["friendsListID"] as? String ?? "No friends"
                 
                 let fetchedUser = User(firstName: firstName, lastName: lastName, username: username, profilePicUrl: profilePicURL, uid: uid, friendsListID: friendsListID, conversationsIDs: conversationIDs)
-
+                
                 completion(fetchedUser)
                 group.leave()
             }
@@ -257,59 +273,63 @@ class FirebaseFunctions {
     
     
     // MARK: - Create Post
-    static func createPost(note: String, bucketID: String, bucketTitle: String, image: UIImage) {
+    static func createPost(newPost: Post, image: UIImage?) {
         guard let currentUserID: String = Auth.auth().currentUser?.uid else { return }
         let postID: String = UUID().uuidString
-        guard let imageData = image.jpegData(compressionQuality: 0.25) else { return }
         let storage = Storage.storage().reference()
         let ref = storage.child("images/\(postID).post.jpeg")
-        ref.putData(imageData, metadata: nil) { _, 🛑 in
-            if let 🛑 = 🛑 {
-                print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
-                return
+        
+        var urlString: String = ""
+        if image != nil {
+            let imageData = image!.jpegData(compressionQuality: 0.25)!
+            ref.putData(imageData, metadata: nil) { _, 🛑 in
+                if let 🛑 = 🛑 {
+                    print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
+                    return
+                }
             }
         }
         ref.downloadURL(completion:) { url, 🛑 in
             if let 🛑 = 🛑 {
                 print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
             }
-            guard let urlString = url?.absoluteString else {return}
-            Firestore.firestore().collection("posts").document(postID).setData([
-                "postID" : postID,
-                "authorID" : currentUserID,
-                "timestamp" : FieldValue.serverTimestamp(),
-                "note" : note,
-                "photoID" : urlString,
-                "bucketID" : bucketID,
-                "bucketTitle" : bucketTitle,
-                "commentsID" : postID,
-                "reactionsArr" : []
-            ]) { err in
-                if let err = err {
-                    print("Error in \(#function)\(#line) : \(err.localizedDescription) \n---\n \(err)")
-                } else {
-                    // Make the comments Document
-                    Firestore.firestore().collection("comments").document(postID).setData([
-                        "referenceID" : postID
-                    ])
-                    Firestore.firestore().collection("comments").document(postID).collection("comment")
-                    
-                    // Add the post to the Bucket's array of post ID's if it exists
-                    if bucketID != "" {
-                        // Add this post ID to the Bucket Post array
-                        Firestore.firestore().collection("buckets").document(bucketID).updateData([
-                            "postsIDs" : FieldValue.arrayUnion([postID])
-                        ])
-                        print("PostID added to Bucket")
-                    }
-                    print("Post for user \(currentUserID) was created")
-                }
-            }
-        } // End of Create Post
-        
+            urlString = url?.absoluteString ?? ""
         }
-           
-      
+        
+        Firestore.firestore().collection("posts").document(postID).setData([
+            "postID" : postID,
+            "authorID" : currentUserID,
+            "timestamp" : FieldValue.serverTimestamp(),
+            "note" : newPost.note,
+            "imageURL" : urlString,
+            "bucketID" : newPost.bucketID ?? "",
+            "bucketTitle" : newPost.bucketTitle ?? "",
+            "commentsID" : newPost.postID,
+            "reactionsArr" : []
+        ]) { err in
+            if let err = err {
+                print("Error in \(#function)\(#line) : \(err.localizedDescription) \n---\n \(err)")
+            } else {
+                // Make the comments Document
+                Firestore.firestore().collection("comments").document(postID).setData([
+                    "referenceID" : postID
+                ])
+                Firestore.firestore().collection("comments").document(postID).collection("comment")
+                
+                // Add the post to the Bucket's array of post ID's if it exists
+                if newPost.bucketID != "" {
+                    // Add this post ID to the Bucket Post array
+                    Firestore.firestore().collection("buckets").document(newPost.bucketID!).updateData([
+                        "postsIDs" : FieldValue.arrayUnion([postID])
+                    ])
+                    print("PostID added to Bucket")
+                }
+                print("Post for user \(currentUserID) was created")
+            }
+        }
+    } // End of Create Post
+    
+    
     
     // MARK: - Edit Post
     static func editPost(postID: String?, note: String, imageID: String, bucketID: String, oldBucketID: String, bucketTitle: String) {
@@ -361,16 +381,16 @@ class FirebaseFunctions {
                         let fetchedPost: Post = post
                         
                         // Data to collect
-                        let postID: String = fetchedPost.postID
-                        let authorID: String = fetchedPost.authorID
-                        let note: String = fetchedPost.note
-                        let commentsID: String = fetchedPost.commentsID
-                        let photoID: String = "swing"
+                        let postID: String = fetchedPost.postID ?? ""
+                        let authorID: String = fetchedPost.authorID ?? ""
+                        let note: String = fetchedPost.note ?? ""
+                        let commentsID: String = fetchedPost.commentsID ?? ""
+                        let imageURL: String = fetchedPost.imageURL ?? ""
                         let bucketID: String = fetchedPost.bucketID ?? ""
                         let bucketTitle: String = fetchedPost.bucketTitle ?? ""
-                      //  let timestamp: Date = fetchedPost.timestamp
+                        //  let timestamp: Date = fetchedPost.timestamp
                         
-                        let post = Post(postID: postID, authorID: authorID, note: note, commentsID: commentsID, photoID: photoID, bucketID: bucketID, bucketTitle: bucketTitle)
+                        let post = Post(postID: postID, authorID: authorID, note: note, commentsID: commentsID, imageURL: imageURL, bucketID: bucketID, bucketTitle: bucketTitle)
                         
                         postsData.append(post)
                         group.leave()
@@ -399,12 +419,12 @@ class FirebaseFunctions {
                 let authorID: String = (data["authorID"] as? String) ?? ""
                 let note: String = data["note"] as? String ?? ""
                 let commentsID: String = data["commentsID"] as? String ?? ""
-                let photoID: String = "swing"
+                let imageURL: String = data["imageURL"] as? String ?? ""
                 let bucketID: String = data["bucketID"] as? String ?? ""
                 let bucketTitle: String = data["bucketTitle"] as? String ?? ""
                 let timestamp: Date = data["timestamp"] as? Date ?? Date()
                 
-                let fetchedPost = Post(postID: postID, authorID: authorID, note: note, commentsID: commentsID, photoID: photoID, bucketID: bucketID, bucketTitle: bucketTitle)
+                let fetchedPost = Post(postID: postID, authorID: authorID, note: note, commentsID: commentsID, imageURL: imageURL, bucketID: bucketID, bucketTitle: bucketTitle)
                 
                 🐶(fetchedPost)
             }
@@ -434,16 +454,16 @@ class FirebaseFunctions {
                             let fetchedPost: Post = post
                             
                             // Data to collect
-                            let postID: String = fetchedPost.postID
-                            let authorID: String = fetchedPost.authorID
-                            let note: String = fetchedPost.note
-                            let commentsID: String = fetchedPost.commentsID
-                            let photoID: String = "swing"
+                            let postID: String = fetchedPost.postID ?? ""
+                            let authorID: String = fetchedPost.authorID ?? ""
+                            let note: String = fetchedPost.note ?? ""
+                            let commentsID: String = fetchedPost.commentsID ?? ""
+                            let imageURL: String = fetchedPost.imageURL ?? ""
                             let bucketID: String = fetchedPost.bucketID ?? ""
                             let bucketTitle: String = fetchedPost.bucketTitle ?? ""
-                           // let timestamp: Date = fetchedPost.timestamp
+                            // let timestamp: Date = fetchedPost.timestamp
                             
-                            let post = Post(postID: postID, authorID: authorID, note: note, commentsID: commentsID, photoID: photoID, bucketID: bucketID, bucketTitle: bucketTitle)
+                            let post = Post(postID: postID, authorID: authorID, note: note, commentsID: commentsID, imageURL: imageURL, bucketID: bucketID, bucketTitle: bucketTitle)
                             
                             postsData.append(post)
                             

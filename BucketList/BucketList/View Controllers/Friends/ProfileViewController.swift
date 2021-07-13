@@ -147,6 +147,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             self.dismiss(animated: true, completion: nil)
         }
         cancelBtn.setValue(UIColor.red, forKey: "titleTextColor")
+        
         alert.addAction(cancelBtn)
         
         let messageBtn = UIAlertAction(title: "Messsage", style: .default) { _ in
@@ -233,8 +234,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             let session = URLSession.shared
             
             if user.profilePicUrl != "" {
-                let url = URL(string: user.profilePicUrl ?? "")!
-                let task = session.dataTask(with: url) { (data, response, error) in
+                let url = URL(string: user.profilePicUrl ?? "")
+                let task = session.dataTask(with: url!) { (data, response, error) in
                     if let error = error {
                         print("Error in \(#function): On Line \(#line) : \(error.localizedDescription) \n---\n \(error)")
                         print("Unable to fetch image for \(user.username)")
@@ -341,7 +342,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         
         let post = posts[indexPath.row]
         let commentsID = post.commentsID
-        let userID: String = post.authorID
+        let userID: String = post.authorID ?? ""
        
         PostViewController.currentPost = post
         

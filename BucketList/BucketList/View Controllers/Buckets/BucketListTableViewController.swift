@@ -117,10 +117,12 @@ class BucketListTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "listItemCell", for: indexPath)
-        let cellText = sections[indexPath.section][indexPath.row].title
+        let cell = tableView.dequeueReusableCell(withIdentifier: "bucketCell", for: indexPath)
+        let bucket = sections[indexPath.section][indexPath.row]
         
-        cell.textLabel?.text = cellText
+        cell.textLabel?.text = bucket.title
+        //TODO(ethan) Make this change colors based on how much is done
+        cell.detailTextLabel?.text = (String(bucket.completion) + "%")
         
         return cell
     }
@@ -130,8 +132,10 @@ class BucketListTableViewController: UITableViewController {
             guard let indexPath = tableView.indexPathForSelectedRow,
                   let destinationVC = segue.destination as? BucketItemTableViewController else {return}
             let itemsID = sections[indexPath.section][indexPath.row].itemsID
-            print(itemsID)
-            destinationVC.itemsID = itemsID
+            let bucket = bucketsList[indexPath.row]
+            
+            destinationVC.bucket = bucket
+            destinationVC.bucketItemsID = itemsID
         }
     }
     
