@@ -85,7 +85,6 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
                 
                 self.tableView.reloadData()
             }
-            self.view.backgroundColor = .blue
             self.tableView.backgroundColor = GlobalFunctions.hexStringToUIColor(hex: "#8cdffe")
             self.updateViews()
         }

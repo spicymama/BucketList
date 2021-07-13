@@ -202,7 +202,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             guard let profileUser = self.profileUser else {return}
             self.loggedInUser = FetchedUser
             self.profilePicImageView.image = self.cacheImage(user: profileUser)
-            
         }
     } // End of Func fetch logged in user
     
@@ -214,7 +213,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         guard let profileUser = profileUser else { return }
         
         usernameLabel.text = ("~" + profileUser.username + "'s Buckets Page")
-    
+        
+        self.view.backgroundColor = GlobalFunctions.hexStringToUIColor(hex: "#8cdffe")
+        self.tableView.backgroundColor = GlobalFunctions.hexStringToUIColor(hex: "#8cdffe")
         
         tableView.reloadData()
     } // End of Func update view
@@ -227,7 +228,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         if let image = cache.object(forKey: cacheKey) {
             picture = image
         } else {
-            if user.profilePicUrl == "" {
+            if user.profilePicUrl == "" || user.profilePicUrl == "defaultProfileImage" || user.profilePicUrl == nil {
                 picture = UIImage(named: "defaultProfileImage") ?? UIImage()
             }
             
@@ -235,7 +236,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             
             if user.profilePicUrl != "" {
                 let url = URL(string: user.profilePicUrl ?? "")
-                let task = session.dataTask(with: url!) { (data, response, error) in
+                let task = session.dataTask(with: url ?? URL(fileURLWithPath:
+                                                                "")) { (data, response, error) in
                     if let error = error {
                         print("Error in \(#function): On Line \(#line) : \(error.localizedDescription) \n---\n \(error)")
                         print("Unable to fetch image for \(user.username)")
@@ -350,4 +352,23 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     
-} // End of Extensino
+    // Height for row at
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let image = posts[indexPath.row].imageURL ?? ""
+        let title = posts[indexPath.row].bucketTitle ?? ""
+        var imageHeight = CGFloat(600)
+        
+        if image == "" {
+            imageHeight = imageHeight - 380
+        }
+        
+        if title == "" {
+            imageHeight = imageHeight - 64
+        }
+        
+        self.tableView.rowHeight = imageHeight
+        
+        return self.tableView.rowHeight
+    } // End of Height for row at
+    
+} // End of Extension
