@@ -42,13 +42,19 @@ class ProfileTableViewCell: UITableViewCell {
         noteLabel.text = post.note
 
         // Image
-        if post.imageURL == "" {
+        if post.imageURL == "" || post.imageURL == nil {
             postImageView.isHidden = true
         } else {
             postImageView.image = cachePostImage(post: post)
         }
         
-        titleLabel.text = post.bucketTitle
+        if post.bucketTitle == "" || post.bucketTitle == nil {
+            titleLabel.isHidden = true
+        } else {
+            titleLabel.isHidden = false
+            titleLabel.text = post.bucketTitle
+        }
+    
         timestampLabel.text = post.timestamp?.formatToString()
         beautifyCell()
     } // End of Update Views
