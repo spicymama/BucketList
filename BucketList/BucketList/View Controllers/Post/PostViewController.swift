@@ -40,10 +40,12 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         //fetchCurrentUser()
         fetchData()
         
+        // Keyboard moving the screen up and down a little
         NotificationCenter.default.addObserver(self, selector: #selector(PostViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(PostViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     } // End of View did load
     
+    // Makes the keyboard appear and dissapera
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     } // End of Function
@@ -210,6 +212,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     } // End of Fetch Post Comments
     
+    // Other Keyboard hide stuff
     @objc func keyboardWillShow(notification: NSNotification) {
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
             return

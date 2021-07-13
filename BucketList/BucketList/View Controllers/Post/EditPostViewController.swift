@@ -30,7 +30,7 @@ class EditPostViewController: UIViewController, UITextViewDelegate {
         fetchPost()
     }
 
-    
+    // If the keyboard is clicked on, this will run
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if noteTextView.text.isEmpty {
             updateNoteText()
