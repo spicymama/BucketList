@@ -159,7 +159,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
 
         self.postNote.text = PostViewController.currentPost?.note
-       // self.timestampLabel.text = PostViewController.currentPost?.timestamp.formatToString()
+        self.timestampLabel.text = PostViewController.currentPost?.timestamp?.formatToString()
       
     } // End of Function update Views
     

@@ -27,8 +27,8 @@ class FeedTableViewCell: UITableViewCell {
         didSet {
             FirebaseFunctions.fetchUserData(uid: post!.authorID!) { fetchedUser in
                 DispatchQueue.main.async {
-                self.user = fetchedUser
-                self.updateViews()
+                    self.user = fetchedUser
+                    self.updateViews()
                 }
             }
         }
@@ -65,8 +65,8 @@ class FeedTableViewCell: UITableViewCell {
         noteLabel.text = post.note
         profilePic.image = cacheImage(user: user)
         
-        beautifyCell()
-    }
+        self.beautifyCell()
+    } // End of Update Views
     
     func randomPhoto() -> String {
         let randomNumber = Int.random(in: 0...9)
@@ -132,6 +132,7 @@ class FeedTableViewCell: UITableViewCell {
                             if let image = UIImage(data: data) {
                                 picture = image
                                 cache.setObject(image, forKey: cacheKey)
+                                
                             }
                         }
                     }
@@ -145,32 +146,14 @@ class FeedTableViewCell: UITableViewCell {
     
 } // End of Feed Table View Cell
 
-/*
-func fetchProfilePic(pictureURL: String, completion: @escaping (UIImage) -> Void){
-    guard let url = URL(string: pictureURL) else {return}
-    
-    let task = URLSession.shared.dataTask(with: url, completionHandler: { 📀, _, 🛑 in
-        guard let 📀 = 📀, 🛑 == nil else {
-            print("Error in \(#function)\(#line)")
-            return
-        }
-        DispatchQueue.main.async {
-            guard let image = UIImage(data: 📀) else {return}
-           //self.profilePic.image = image
-           completion(image)
-        } // End of Dispatch Queue
-    })
-    task.resume()
-}
-*/
 
-
+// MARK: - Extensions
 extension FeedTableViewCell {
     func beautifyCell() {
         self.contentView.backgroundColor = .white
-        self.layer.frame = layer.frame.inset(by: UIEdgeInsets(top: 3, left: 3, bottom: 0, right: 3))
         self.layer.borderWidth = 3.0
         self.layer.borderColor = UIColor.black.cgColor
         self.layer.cornerRadius = 24.0
+        self.layer.frame = layer.frame.inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 0, right: 5))
     } // End of Function
 } // End of Extension
