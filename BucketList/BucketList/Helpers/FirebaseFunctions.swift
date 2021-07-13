@@ -80,33 +80,10 @@ class FirebaseFunctions {
                         print("Friend list for user \(newUserID) was created")
                     }
                 } // End of create users friends list
+               
             }
         } // End of base user creation
-        
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        // This creates the base user's friends list
-        let uid = Auth.auth().currentUser?.uid
-        
-        Firestore.firestore().collection("friends").document(uid).setData( [
-            "friends" : [""],
-            "blocked" : [""]
-        ]) { err in
-            if let err = err {
-                print("Error in \(#function)\(#line) : \(err.localizedDescription) \n---\n \(err)")
-            } else {
-                print("Friend list for user \(uid) was created")
-            }
-        } // End of create users friends list
-        
-=======
->>>>>>> 7f675c7240c1089c5283b9fbbd99c4560512a834
-=======
->>>>>>> 7f675c7240c1089c5283b9fbbd99c4560512a834
-=======
->>>>>>> 7f675c7240c1089c5283b9fbbd99c4560512a834
-    } // End of Create user Function
+    }
     
     
     // MARK: - Sign in

@@ -24,7 +24,9 @@ class BucketFirebaseFunctions {
                     bucketIDs.append(document.documentID)
                 }
                 let group = DispatchGroup()
-                
+                if bucketIDs.count < 1 {
+                    return
+                }
                 var bucketData: [Bucket] = []
                 for i in bucketIDs {
                     group.enter()
@@ -90,6 +92,9 @@ class BucketFirebaseFunctions {
                 let group = DispatchGroup()
                 
                 var usersBuckets: [Bucket] = []
+                if bucketsIDs.count < 1 {
+                    return
+                }
                 for bucketID in bucketsIDs {
                     group.enter()
                     BucketFirebaseFunctions.fetchBucket(bucketID: bucketID) { bucket in

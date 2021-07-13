@@ -18,7 +18,6 @@ class BucketItemTableViewController: UITableViewController {
     
     // MARK: - Properties
     static let shared = BucketItemTableViewController()
-    var refresh: UIRefreshControl = UIRefreshControl()
     var saveBtnDelegate: SaveBtnDelegate?
     
     var bucket: Bucket?
@@ -34,7 +33,6 @@ class BucketItemTableViewController: UITableViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViews()
         loadData()
     }
     
@@ -50,15 +48,9 @@ class BucketItemTableViewController: UITableViewController {
         }
     } // End of Load data
     
-    func setupViews() {
-        refresh.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        tableView.addSubview(refresh)
-    } // End of Setup Views
-    
     func updateViews() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
-            self.refresh.endRefreshing()
         }
     } // End of Update views
     
