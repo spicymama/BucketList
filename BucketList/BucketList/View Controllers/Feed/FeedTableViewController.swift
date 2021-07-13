@@ -80,7 +80,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
                 self.dataSource = self.popularPosts
                 self.popularPosts = []
                 self.view.backgroundColor = .blue
-                self.tableView.backgroundColor = .systemBlue
+                self.tableView.backgroundColor = .orange
                 self.tableView.reloadData()
                 
                 self.updateViews()
