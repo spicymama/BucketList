@@ -80,7 +80,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
                 self.dataSource = self.popularPosts
                 self.popularPosts = []
                 self.view.backgroundColor = .blue
-                self.tableView.backgroundColor = .orange
+                self.tableView.backgroundColor = GlobalFunctions.hexStringToUIColor(hex: "#8cdffe")
                 self.tableView.reloadData()
                 
                 self.updateViews()
@@ -161,8 +161,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         cell?.post = post
         
         return cell ?? UITableViewCell()
-    }
-    
+    } // End of Cell for row at
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyboard: UIStoryboard = UIStoryboard(name: "PostDetail", bundle: nil)
@@ -172,6 +171,25 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         PostViewController.currentPost = post
         navigationController?.pushViewController(vc, animated: true)
     }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let image = dataSource[indexPath.row].imageURL ?? ""
+        let title = dataSource[indexPath.row].bucketTitle ?? ""
+        var imageHeight = CGFloat(600)
+        
+        if image == "" {
+            imageHeight = imageHeight - 380
+        }
+        
+        if title == "" {
+            imageHeight = imageHeight - 64
+        }
+        
+        self.tableView.rowHeight = imageHeight
+        
+        return self.tableView.rowHeight
+    } // End of Height for row at
+    
     
     // MARK: - Alert Action
     @IBAction func menuBtn(_ sender: Any) {
