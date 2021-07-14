@@ -53,7 +53,9 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         resultSearchController?.dimsBackgroundDuringPresentation = true
         definesPresentationContext = true
         view.backgroundColor = .lightGray
-        self.tableView.rowHeight = 650
+        tableView.rowHeight = 650
+        
+        tableView.reloadData()
     } // End of View Did load
     
     // MARK: - Actions
@@ -84,17 +86,17 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
     
     func fetchPopularPosts() {
         FirebaseFunctions.fetchAllPosts { fetchedAllPosts in
+            self.popularPosts = []
+
             if fetchedAllPosts.count > 0 {
                 self.popularPosts.append(contentsOf: fetchedAllPosts)
                 
                 self.dataSource = self.popularPosts
-                self.popularPosts = []
-                self.view.backgroundColor = .blue
-                self.tableView.backgroundColor = .orange
-                self.tableView.reloadData()
                 
-                self.updateViews()
+                self.tableView.reloadData()
             }
+            self.tableView.backgroundColor = GlobalFunctions.hexStringToUIColor(hex: "#8cdffe")
+            self.updateViews()
         }
     } // End of Func fetch Popular Posts
     
@@ -113,6 +115,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
                         self.friendsPosts = []
                         self.view.backgroundColor = .gray
                         self.tableView.backgroundColor = .lightGray
+                        
                         self.tableView.reloadData()
                     } // End of Fetch all posts for users
                 } // End of Friend id in friends id loop
@@ -123,6 +126,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
     func setupViews() {
         refresh.attributedTitle = NSAttributedString(string: "Pull to refresh")
         tableView.addSubview(refresh)
+        self.tableView.reloadData()
     }
     
     func updateViews() {
@@ -156,6 +160,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         resultSearchController?.hidesNavigationBarDuringPresentation = false
         resultSearchController?.dimsBackgroundDuringPresentation = true
         definesPresentationContext = true
+        self.tableView.reloadData()
     }
    
     
@@ -171,8 +176,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         cell?.post = post
         
         return cell ?? UITableViewCell()
-    }
-    
+    } // End of Cell for row at
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyboard: UIStoryboard = UIStoryboard(name: "PostDetail", bundle: nil)
@@ -182,6 +186,25 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         PostViewController.currentPost = post
         navigationController?.pushViewController(vc, animated: true)
     }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let image = dataSource[indexPath.row].imageURL ?? ""
+        let title = dataSource[indexPath.row].bucketTitle ?? ""
+        var imageHeight = CGFloat(600)
+        
+        if image == "" {
+            imageHeight = imageHeight - 380
+        }
+        
+        if title == "" {
+            imageHeight = imageHeight - 64
+        }
+        
+        self.tableView.rowHeight = imageHeight
+        
+        return self.tableView.rowHeight
+    } // End of Height for row at
+    
     
     // MARK: - Alert Action
     @IBAction func menuBtn(_ sender: Any) {

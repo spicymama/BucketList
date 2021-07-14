@@ -39,11 +39,72 @@ class ProfileTableViewCell: UITableViewCell {
     func updateView() {
         guard let post = post else {return}
 
-        postImageView.image = UIImage(named: "lift")
         noteLabel.text = post.note
-        titleLabel.text = post.bucketTitle
-       // timestampLabel.text = post.timestamp.formatToString()
+
+        // Image
+        if post.imageURL == "" || post.imageURL == nil {
+            postImageView.isHidden = true
+        } else {
+            postImageView.image = cachePostImage(post: post)
+        }
+        
+        if post.bucketTitle == "" || post.bucketTitle == nil {
+            titleLabel.isHidden = true
+        } else {
+            titleLabel.isHidden = false
+            titleLabel.text = post.bucketTitle
+        }
+    
+        timestampLabel.text = post.timestamp?.formatToString()
+        beautifyCell()
     } // End of Update Views
 
 
+    // MARK: - Image loading
+    // Cache post image
+    func cachePostImage(post: Post) -> UIImage {
+        var picture = UIImage()
+        let cache = ImageCacheController.shared.cache
+        let cacheKey = NSString(string: post.imageURL ?? "" )
+        if let image = cache.object(forKey: cacheKey) {
+            picture = image
+        } else {
+            
+            let session = URLSession.shared
+            
+            if post.imageURL != "" {
+                let url = URL(string: post.imageURL!)!
+                let task = session.dataTask(with: url) { (data, response, error) in
+                    if let error = error {
+                        print("Error in \(#function): On Line \(#line) : \(error.localizedDescription) \n---\n \(error)")
+                        print("Unable to fetch image for \(post.postID)")
+                    }
+                    if let data = data {
+                        DispatchQueue.main.async {
+                            if let image = UIImage(data: data) {
+                                picture = image
+                                cache.setObject(image, forKey: cacheKey)
+                                
+                            }
+                        }
+                    }
+                }
+                task.resume()
+            }
+        }
+        return picture
+    } // End of Cache post
+    
 } // End of Class Profile Table View Cell
+
+
+// MARK: - Extensions
+extension ProfileTableViewCell {
+    func beautifyCell() {
+        self.contentView.backgroundColor = .white
+        self.layer.borderWidth = 3.0
+        self.layer.borderColor = UIColor.black.cgColor
+        self.layer.cornerRadius = 24.0
+        self.layer.frame = layer.frame.inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 0, right: 5))
+    } // End of Function
+} // End of Extension
