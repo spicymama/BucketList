@@ -33,17 +33,21 @@ class BucketItemTableViewController: UITableViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadData()
+       // loadData()
     }
     
     
     // MARK: - Functions
     @objc func loadData() {
+        bucketItemsArray.removeAll()
+        updateViews()
         guard let bucketItemsID = bucketItemsID else {return}
         BucketFirebaseFunctions.fetchBucketItems(bucketItemsID: bucketItemsID) { fetchedBucketItems in
             for bucketItem in fetchedBucketItems {
+                if !self.bucketItemsArray.contains(bucketItem) {
                 self.bucketItemsArray.append(bucketItem)
                 self.updateViews()
+                }
             }
         }
     } // End of Load data
@@ -100,7 +104,7 @@ class BucketItemTableViewController: UITableViewController {
         
         return cell
     }
-    
+   
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let bucketItem: BucketItem = bucketItemsArray[indexPath.row]

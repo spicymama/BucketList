@@ -162,7 +162,19 @@ class BucketFirebaseFunctions {
     
     // MARK: - Update Bucket
     static func updateBucket(bucketToUpdate: Bucket) {
-        let bucket = bucketToUpdate
+    let bucket = bucketToUpdate
+        var completed = 0
+        
+        BucketFirebaseFunctions.fetchBucketItems(bucketItemsID: bucket.itemsID ?? "") { items in
+            for item in items {
+                if item.completed == true {
+                    completed += 1
+            }
+                if completed > 0 {
+                    bucket.completion = (completed / items.count) * 100
+                }
+        }
+        }
         Firestore.firestore().collection("buckets").document(bucket.bucketID!).updateData([
             //Data to store
             "completion" : bucket.completion,
@@ -226,6 +238,9 @@ class BucketFirebaseFunctions {
             "completed" : bucketItem.completed,
             "timestamp" : FieldValue.serverTimestamp()
         ])
+        fetchBucket(bucketID: bucketItem.bucketID) { bucket in
+            updateBucket(bucketToUpdate: bucket)
+        }
     } // End of Create Bucket Item
     
     

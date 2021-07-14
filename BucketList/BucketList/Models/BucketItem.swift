@@ -31,3 +31,8 @@ class BucketItem {
     }
     
 } // End of Class
+extension BucketItem: Equatable {
+    static func == (lhs: BucketItem, rhs: BucketItem) -> Bool {
+        return lhs.itemID == rhs.itemID
+    }
+} // End of Extension
