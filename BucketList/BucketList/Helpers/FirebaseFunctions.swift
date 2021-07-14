@@ -80,10 +80,10 @@ class FirebaseFunctions {
                         print("Friend list for user \(newUserID) was created")
                     }
                 } // End of create users friends list
+               
             }
         } // End of base user creation
-
-    } // End of Create user Function
+    }
     
     
     // MARK: - Sign in

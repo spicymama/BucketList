@@ -8,7 +8,7 @@
 import UIKit
 
 class BucketItemTableViewCell: UITableViewCell {
-    
+    static let shared = BucketItemTableViewCell()
     // MARK: - Outlets
     @IBOutlet weak var bucketItemTitleField: UITextField!
     @IBOutlet weak var bucketItemNoteField: UITextField!
@@ -17,6 +17,8 @@ class BucketItemTableViewCell: UITableViewCell {
     @IBOutlet weak var saveBtn: UIButton!
     
     var isCompleted: Bool?
+    var selectedCell: UITableViewCell?
+    var bucketItemsArr: [BucketItem] = []
     
     // MARK: - Properties
     var bucketItem: BucketItem? {
@@ -28,11 +30,13 @@ class BucketItemTableViewCell: UITableViewCell {
     
     // MARK: - Functions
     func updateView() {
+        guard let bucketItem = bucketItem else {return}
         saveBtn.isHidden = true
-        bucketItemTitleField.text = bucketItem?.title
-        bucketItemNoteField.text = bucketItem?.note
-        bucketItemTimestampLabel.text = bucketItem?.timestamp?.formatToString()
-        isCompleted = bucketItem!.completed
+        bucketItemTitleField.text = bucketItem.title
+        bucketItemNoteField.text = bucketItem.note
+        bucketItemTimestampLabel.text = bucketItem.timestamp?.formatToString()
+        isCompleted = bucketItem.completed
+        //bucketItemsArr.append(bucketItem)
         updateCompletedBtn()
     } // End of Update View
     
@@ -45,11 +49,28 @@ class BucketItemTableViewCell: UITableViewCell {
         }
     } // End of Update completed Button
     
-    
+    func toggleCompletion(item: BucketItem) {
+        if item.completed == true {
+            item.completed = false
+            BucketFirebaseFunctions.updateBucketItem(bucketItem: item)
+        } else {
+            item.completed = true
+            BucketFirebaseFunctions.updateBucketItem(bucketItem: item)
+        }
+    }
+    func toggleButton() {
+        if completedBtn.imageView?.image == UIImage(systemName: "xmark.seal") {
+            completedBtn.setImage(UIImage(systemName: "checkmark.seal.fill"), for: .normal)
+        } else {
+            completedBtn.setImage(UIImage(systemName: "xmark.seal"), for: .normal)
+        }
+    }
     // MARK: - Actions
     @IBAction func completedBtn(_ sender: Any) {
-        isCompleted?.toggle()
+        guard let item = self.bucketItem else {return}
+        toggleCompletion(item: item)
         updateCompletedBtn()
+        toggleButton()
     } // End of Completed Btn
     
     @IBAction func saveBtn(_ sender: Any) {

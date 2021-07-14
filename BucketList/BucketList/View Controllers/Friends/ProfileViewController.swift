@@ -235,9 +235,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             let session = URLSession.shared
             
             if user.profilePicUrl != "" {
-                let url = URL(string: user.profilePicUrl ?? "")
-                let task = session.dataTask(with: url ?? URL(fileURLWithPath:
-                                                                "")) { (data, response, error) in
+                guard let url = URL(string: user.profilePicUrl ?? "") else {return UIImage(named: "defaultProfileImage") ?? UIImage()}
+                let task = session.dataTask(with: url) { (data, response, error) in
                     if let error = error {
                         print("Error in \(#function): On Line \(#line) : \(error.localizedDescription) \n---\n \(error)")
                         print("Unable to fetch image for \(user.username)")
