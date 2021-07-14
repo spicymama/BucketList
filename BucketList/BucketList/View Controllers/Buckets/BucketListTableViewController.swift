@@ -133,7 +133,7 @@ class BucketListTableViewController: UITableViewController {
                   let destinationVC = segue.destination as? BucketItemTableViewController else {return}
             let itemsID = sections[indexPath.section][indexPath.row].itemsID
             let bucket = bucketsList[indexPath.row]
-            
+            destinationVC.bucketID = bucket.bucketID
             destinationVC.bucket = bucket
             destinationVC.bucketItemsID = itemsID
         }
