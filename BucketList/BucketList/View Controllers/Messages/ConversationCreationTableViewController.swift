@@ -12,11 +12,13 @@ class ConversationCreationTableViewController: UITableViewController {
     //MARK: - Outlets
     @IBOutlet weak var user1TextField: UITextField!
     @IBOutlet weak var user2TextField: UITextField!
+    @IBOutlet weak var startConversationBtn: UIBarButtonItem!
     
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateStartConversationBtn()
         fetchFriends()
         self.tableView.isEditing = true
         self.tableView.allowsMultipleSelectionDuringEditing = true
@@ -64,6 +66,13 @@ class ConversationCreationTableViewController: UITableViewController {
         
     }
     
+    func updateStartConversationBtn() {
+        if selected.count == 0 {
+            self.startConversationBtn.isEnabled = false
+            self.startConversationBtn.title = nil
+        }
+    }
+    
 //    func fetchUsers() {
 //        guard let friendsList = friendsList?.friends else {return}
 //        for friend in friendsList  {
@@ -104,6 +113,7 @@ class ConversationCreationTableViewController: UITableViewController {
         guard let selectedCells = tableView.indexPathsForSelectedRows else {return}
         for cell in selectedCells {
             selected.append(users[cell.row])
+            self.updateStartConversationBtn()
         }
         selected.append(ConversationController.shared.currentUser!
         )

@@ -68,6 +68,7 @@ class FirebaseFunctions {
                         print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
                     }
                 }
+/*
                 // This creates the base user's friends lis
                 Firestore.firestore().collection("friends").document(newUserID).setData( [
                     "friends" : [""],
@@ -79,7 +80,7 @@ class FirebaseFunctions {
                         print("Friend list for user \(newUserID) was created")
                     }
                 } // End of create users friends list
-               
+*/
             }
         } // End of base user creation
     }
