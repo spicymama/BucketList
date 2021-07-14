@@ -57,7 +57,6 @@ class FirebaseFunctions {
                     "uid" : newUserID,
                     "friendsListID" : newUserID,
                     "conversationsID" : [""],
-                    "bucketsIDs" : [""],
                     "username" : username,
                     "firstName" : firstName,
                     "lastName" : lastName,

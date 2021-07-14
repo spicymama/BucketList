@@ -97,33 +97,34 @@ class BucketFirebaseFunctions {
                 var usersBuckets: [Bucket] = []
                 if bucketsIDs.count < 1 {
                     return
-                }
-                for bucketID in bucketsIDs {
-                    group.enter()
-                    BucketFirebaseFunctions.fetchBucket(bucketID: bucketID) { bucket in
-                        let fetchedBucket: Bucket = bucket
-                        
-                        // Data to collect
-                        
-                        let title = fetchedBucket.title
-                        let bucketID = fetchedBucket.bucketID!
-                        let isPublic = fetchedBucket.isPublic
-                        let note = fetchedBucket.note
-                        let commentsID = fetchedBucket.commentsID ?? ""
-                        let itemsID = fetchedBucket.itemsID ?? ""
-                        let completion = fetchedBucket.completion
-                        let reactions = fetchedBucket.reactions ?? []
-                        let timestamp = fetchedBucket.timestamp ?? Date()
-                        
-                        let cleanFetchedBucket = Bucket(title: title, note: note, commentsID: commentsID, itemsID: itemsID, bucketID: bucketID, completion: completion, reactions: reactions, isPublic: isPublic, timestamp: timestamp)
-                        
-                        usersBuckets.append(cleanFetchedBucket)
-                        
-                        group.leave()
-                    } // End of fetch Bucket
-                } // End of For loop
-                group.notify(queue: DispatchQueue.main) {
-                    🐶(usersBuckets)
+                } else {
+                    for bucketID in bucketsIDs {
+                        group.enter()
+                        BucketFirebaseFunctions.fetchBucket(bucketID: bucketID) { bucket in
+                            let fetchedBucket: Bucket = bucket
+                            
+                            // Data to collect
+                            
+                            let title = fetchedBucket.title
+                            let bucketID = fetchedBucket.bucketID!
+                            let isPublic = fetchedBucket.isPublic
+                            let note = fetchedBucket.note
+                            let commentsID = fetchedBucket.commentsID ?? ""
+                            let itemsID = fetchedBucket.itemsID ?? ""
+                            let completion = fetchedBucket.completion
+                            let reactions = fetchedBucket.reactions ?? []
+                            let timestamp = fetchedBucket.timestamp ?? Date()
+                            
+                            let cleanFetchedBucket = Bucket(title: title, note: note, commentsID: commentsID, itemsID: itemsID, bucketID: bucketID, completion: completion, reactions: reactions, isPublic: isPublic, timestamp: timestamp)
+                            
+                            usersBuckets.append(cleanFetchedBucket)
+                            
+                            group.leave()
+                        } // End of fetch Bucket
+                    } // End of For loop
+                    group.notify(queue: DispatchQueue.main) {
+                        🐶(usersBuckets)
+                    }
                 }
             }
         }
