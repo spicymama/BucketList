@@ -276,7 +276,16 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
             return
         }
-        self.view.frame.origin.y = 0 - keyboardSize.height
+        var imageSize: CGFloat = 0
+        if PostViewController.currentPost?.imageURL == "" {
+            self.view.frame.origin.y = 0
+        } else {
+            imageSize = keyboardSize.height
+        }
+        // Cells are 48 tall, postComments
+        let commentSize: CGFloat = CGFloat((postComments.count * 42))
+        
+        self.view.frame.origin.y = 0 - imageSize - commentSize
     } // End of Function keyboard will show
     
     @objc func keyboardWillHide(notification: NSNotification) {

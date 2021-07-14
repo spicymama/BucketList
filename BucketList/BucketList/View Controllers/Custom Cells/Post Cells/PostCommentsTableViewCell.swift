@@ -20,6 +20,11 @@ class PostCommentsTableViewCell: UITableViewCell {
         }
     }
    
+    // Makes the keyboard appear and dissapera
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.contentView.endEditing(true)
+    } // End of Function
+    
     func updateViews() {
         guard let comment = comment else {return}
         print(comment)
