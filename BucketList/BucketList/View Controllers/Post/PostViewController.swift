@@ -276,16 +276,18 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
             return
         }
-        var imageSize: CGFloat = 0
-        if PostViewController.currentPost?.imageURL == "" {
-            self.view.frame.origin.y = 0
-        } else {
-            imageSize = keyboardSize.height
+        var changeAmount: CGFloat = 0
+        
+        if PostViewController.currentPost?.imageURL != "" {
+            //TODO(ethan) After getting post images to work, this might need adjustment
+            changeAmount = changeAmount - keyboardSize.height
         }
+        //TODO(ethan) - Make this shrink the lilTable for the comments based on how many comments there are?
+        // This will shrink the Comments Table
         // Cells are 48 tall, postComments
         let commentSize: CGFloat = CGFloat((postComments.count * 42))
-        
-        self.view.frame.origin.y = 0 - imageSize - commentSize
+    
+        self.view.frame.origin.y = 0 - changeAmount
     } // End of Function keyboard will show
     
     @objc func keyboardWillHide(notification: NSNotification) {
