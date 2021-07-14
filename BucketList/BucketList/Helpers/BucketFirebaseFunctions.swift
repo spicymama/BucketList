@@ -47,28 +47,31 @@ class BucketFirebaseFunctions {
     
     // MARK: - Fetch Bucket
     static func fetchBucket(bucketID: String, 🐶: @escaping ( Bucket ) -> Void) {
-        let bucketID = bucketID
-        let bucketData = Firestore.firestore().collection("buckets").document(bucketID)
-        bucketData.getDocument { document, error in
-            if let error = error {
-                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
-            } else {
-                // Data to collect
-                guard let document = document else { return }
-                
-                let title = document["title"] as? String ?? ""
-                let bucketID = document["bucketID"] as? String ?? ""
-                let isPublic = document["isPublic"] as? Bool ?? false
-                let note = document["note"] as? String ?? ""
-                let commentsID = document["commentsID"] as? String ?? ""
-                let itemsID = document["itemsID"] as? String ?? ""
-                let completion = document["completion"] as? Int ?? 0
-                let reactions = document["reactions"] as? [String] ?? []
-                let timestamp = document["timestamp"] as? Date ?? Date()
-                
-                let fetchedBucket = Bucket(title: title, note: note, commentsID: commentsID, itemsID: itemsID, bucketID: bucketID, completion: completion, reactions: reactions, isPublic: isPublic, timestamp: timestamp)
-                
-                🐶(fetchedBucket)
+        if bucketID == "" {
+            return
+        } else {
+            let bucketData = Firestore.firestore().collection("buckets").document(bucketID)
+            bucketData.getDocument { document, error in
+                if let error = error {
+                    print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                } else {
+                    // Data to collect
+                    guard let document = document else { return }
+                    
+                    let title = document["title"] as? String ?? ""
+                    let bucketID = document["bucketID"] as? String ?? ""
+                    let isPublic = document["isPublic"] as? Bool ?? false
+                    let note = document["note"] as? String ?? ""
+                    let commentsID = document["commentsID"] as? String ?? ""
+                    let itemsID = document["itemsID"] as? String ?? ""
+                    let completion = document["completion"] as? Int ?? 0
+                    let reactions = document["reactions"] as? [String] ?? []
+                    let timestamp = document["timestamp"] as? Date ?? Date()
+                    
+                    let fetchedBucket = Bucket(title: title, note: note, commentsID: commentsID, itemsID: itemsID, bucketID: bucketID, completion: completion, reactions: reactions, isPublic: isPublic, timestamp: timestamp)
+                    
+                    🐶(fetchedBucket)
+                }
             }
         }
     } // End of Fetch Bucket
