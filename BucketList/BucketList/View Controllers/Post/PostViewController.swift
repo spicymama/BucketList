@@ -285,7 +285,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         //TODO(ethan) - Make this shrink the lilTable for the comments based on how many comments there are?
         // This will shrink the Comments Table
         // Cells are 48 tall, postComments
-        let commentSize: CGFloat = CGFloat((postComments.count * 42))
+//        let commentSize: CGFloat = CGFloat((postComments.count * 42))
     
         self.view.frame.origin.y = 0 - changeAmount
     } // End of Function keyboard will show
