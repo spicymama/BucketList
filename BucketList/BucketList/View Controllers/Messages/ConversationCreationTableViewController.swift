@@ -66,6 +66,24 @@ class ConversationCreationTableViewController: UITableViewController {
         
     }
     
+    func youHaveNoFriends() {
+        let alert = UIAlertController(title: "No Friends Found!", message: "Lets go look for them!", preferredStyle: .alert)
+        
+        let cancelBtn = UIAlertAction(title: "Close", style: .cancel) { _ in
+            self.dismiss(animated: true, completion: nil)
+        }
+        alert.addAction(cancelBtn)
+        
+        let startConversationBtn = UIAlertAction(title: "Find some Friends!", style: .default) { _ in
+            //TODO(ethan+josh) Have this pull up a search bar for friends
+            print("\(#function)\(#line) : Function hasn't been setup yet")
+        }
+        alert.addAction(startConversationBtn)
+        
+        present(alert, animated: true, completion: nil)
+    } // End of You have no friends
+    
+    
     func updateStartConversationBtn() {
         if selected.count == 0 {
             self.startConversationBtn.isEnabled = false
@@ -90,7 +108,14 @@ class ConversationCreationTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+        let usersCount = users.count
+        
+        if usersCount == 0 {
+            youHaveNoFriends()
+            return 0
+        } else {
+            return usersCount
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

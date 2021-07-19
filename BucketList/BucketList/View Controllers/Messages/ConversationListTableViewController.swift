@@ -94,7 +94,7 @@ class ConversationListTableViewController: UITableViewController {
         }
         alert.addAction(cancelBtn)
         
-        let startConversationBtn = UIAlertAction(title: "Find some Friends!", style: .default) { _ in
+        let startConversationBtn = UIAlertAction(title: "Start some Conversations!", style: .default) { _ in
             let storyboard: UIStoryboard = UIStoryboard(name: "justin", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "conversationCreationVC")
             self.navigationController?.pushViewController(vc, animated: true)
@@ -102,8 +102,7 @@ class ConversationListTableViewController: UITableViewController {
         alert.addAction(startConversationBtn)
         
         present(alert, animated: true, completion: nil)
-        // Prompt the user to start a conversation
-    }
+    } // End of You have no conversations
     
     // MARK: - Navigation
 
