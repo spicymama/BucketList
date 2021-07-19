@@ -512,7 +512,7 @@ class FirebaseFunctions {
                         let commentID: String = data["commentID"] as? String ?? ""
                         let commentsID: String = data["commentsID"] as? String ?? ""
                         let note: String = data["note"] as? String ?? ""
-                        let timestamp: String = data["timestamp"] as? String ?? ""
+                        let timestamp: Date = data["timestamp"] as? Date ?? Date()
                         
                         let fetchedComment = Comment(commentsID: commentsID, commentID: commentID, authorID: authorID, timestamp: timestamp, authorUsername: authorUsername, note: note)
                         

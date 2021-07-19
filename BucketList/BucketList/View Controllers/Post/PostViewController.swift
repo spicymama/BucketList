@@ -47,6 +47,11 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         NotificationCenter.default.addObserver(self, selector: #selector(PostViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     } // End of View did load
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchData()
+    }
+    
     // Makes the keyboard appear and dissapera
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -142,7 +147,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
         if post.bucketTitle != "" {
-            self.titleLabel.text = post.bucketTitle
+            self.titleLabel.text = "From Bucket: " + post.bucketTitle!
             self.titleLabel.isHidden = false
         } else {
             self.titleLabel.isHidden = true
@@ -365,9 +370,12 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath)
+        let commentData = self.postComments[indexPath.row]
+        let username = commentData.authorUsername!
+        let timestamp: String = (commentData.timestamp?.formatToString())!
         
-        cell.textLabel?.text = self.postComments[indexPath.row].note
-        cell.detailTextLabel?.text = ("~" + self.postComments[indexPath.row].authorUsername!)
+        cell.textLabel?.text = commentData.note
+        cell.detailTextLabel?.text = ("~" + username + ", " + timestamp)
         
         return cell
     }
