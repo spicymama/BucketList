@@ -85,8 +85,8 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         let editBtn = UIAlertAction(title: "Edit", style: .default) { _ in
             EditPostViewController.postID = self.postID
             let storyBoard: UIStoryboard = UIStoryboard(name: "EditPost", bundle: nil)
-            let vs = storyBoard.instantiateViewController(withIdentifier: "editPostVC")
-            self.navigationController?.pushViewController(vs, animated: true)
+            let vc = storyBoard.instantiateViewController(withIdentifier: "editPostVC")
+            self.navigationController?.pushViewController(vc, animated: true)
         }
         alert.addAction(editBtn)
         

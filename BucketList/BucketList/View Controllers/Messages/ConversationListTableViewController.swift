@@ -26,9 +26,15 @@ class ConversationListTableViewController: UITableViewController {
         }    }
 
     // MARK: - Table view data source
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ConversationController.shared.conversations.count
+        let conversationCount = ConversationController.shared.conversations.count
+        
+        if conversationCount == 0 {
+            youHaveNoConversations()
+            return 0
+        } else {
+            return conversationCount
+        }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -78,6 +84,27 @@ class ConversationListTableViewController: UITableViewController {
 //    }
 
 
+    
+    func youHaveNoConversations() {
+        // Display statement that the user has no friends/Conversations
+        let alert = UIAlertController(title: "Looks like you don't have any conversations!", message: "Lets find some friends to talk to!", preferredStyle: .alert)
+        
+        let cancelBtn = UIAlertAction(title: "Close", style: .cancel) { _ in
+            self.dismiss(animated: true, completion: nil)
+        }
+        alert.addAction(cancelBtn)
+        
+        let startConversationBtn = UIAlertAction(title: "Find some Friends!", style: .default) { _ in
+            let storyboard: UIStoryboard = UIStoryboard(name: "justin", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "conversationCreationVC")
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        alert.addAction(startConversationBtn)
+        
+        present(alert, animated: true, completion: nil)
+        // Prompt the user to start a conversation
+    }
+    
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
