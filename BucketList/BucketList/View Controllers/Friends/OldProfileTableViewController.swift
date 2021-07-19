@@ -118,7 +118,7 @@ class OldProfileTableViewController: UITableViewController, UIImagePickerControl
         // This is the Firebase save stuff
         // This is where you set the file name, this should be random or something I guess
         guard let user = Auth.auth().currentUser else {return}
-        let ref = storage.child("images/profilePics/\(user.uid).png")
+        let ref = storage.child("images/\(user.uid)/profilePic/.png")
         // This is the Firebase command bit to actually store things
         ref.putData(imageData, metadata: nil, completion: { _, 🛑 in
             // Error handling

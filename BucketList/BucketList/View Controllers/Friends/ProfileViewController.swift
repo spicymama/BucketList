@@ -272,6 +272,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     
     // MARK: - Image Picker
+    // This will let the user pick their profile picture
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)
         
@@ -281,7 +282,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         let storage = Storage.storage().reference()
         guard let user = Auth.auth().currentUser else {return}
         
-        let ref = storage.child("images/profilePics/\(user.uid).profilePic.png")
+        let ref = storage.child("images/\(user.uid)/profilePic/.profilePic.png")
         ref.putData(imageData, metadata: nil, completion: { _, 🛑 in
             if let 🛑 = 🛑 {
                 print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")

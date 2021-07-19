@@ -259,8 +259,9 @@ class FirebaseFunctions {
     static func createPost(newPost: Post, image: UIImage?) {
         guard let currentUserID: String = Auth.auth().currentUser?.uid else { return }
         let postID: String = UUID().uuidString
+        let imageID: String = UUID().uuidString
         let storage = Storage.storage().reference()
-        let ref = storage.child("images/postPics/\(postID).post.jpeg")
+        let ref = storage.child("images/\(currentUserID)/posts\(postID)/\(imageID).jpeg")
         
         var urlString: String = ""
         if image != nil {
