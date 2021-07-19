@@ -281,7 +281,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         let storage = Storage.storage().reference()
         guard let user = Auth.auth().currentUser else {return}
         
-        let ref = storage.child("images/\(user.uid).profilePic.png")
+        let ref = storage.child("images/profilePics/\(user.uid).profilePic.png")
         ref.putData(imageData, metadata: nil, completion: { _, 🛑 in
             if let 🛑 = 🛑 {
                 print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")

@@ -260,7 +260,7 @@ class FirebaseFunctions {
         guard let currentUserID: String = Auth.auth().currentUser?.uid else { return }
         let postID: String = UUID().uuidString
         let storage = Storage.storage().reference()
-        let ref = storage.child("images/\(postID).post.jpeg")
+        let ref = storage.child("images/profilePics/\(postID).post.jpeg")
         
         var urlString: String = ""
         if image != nil {
