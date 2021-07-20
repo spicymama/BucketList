@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Select Friends To Start Talking-->
+        <!--Friends-->
         <scene sceneID="i1A-Ua-ZJg">
             <objects>
                 <tableViewController storyboardIdentifier="conversationCreationVC" id="6mq-gU-Rqs" customClass="ConversationCreationTableViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
@@ -42,7 +42,7 @@
                             <outlet property="delegate" destination="6mq-gU-Rqs" id="ceP-ox-5aa"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Select Friends To Start Talking" id="8Fb-YU-HAn">
+                    <navigationItem key="navigationItem" title="Friends" id="8Fb-YU-HAn">
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="cQy-sD-pgN">
                             <connections>
                                 <action selector="startConversationButtonTapped:" destination="6mq-gU-Rqs" id="ogg-j1-lC9"/>

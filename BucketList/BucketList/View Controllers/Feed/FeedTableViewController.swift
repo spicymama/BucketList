@@ -256,20 +256,20 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
     // MARK: - Navigation
     func conversationBtn() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "justin", bundle: nil)
-        let vs = storyBoard.instantiateViewController(withIdentifier: "conversationListVC")
-        self.navigationController?.pushViewController(vs, animated: true)
+        let vc = storyBoard.instantiateViewController(withIdentifier: "conversationListVC")
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func newPostBtn() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "NewPost", bundle: nil)
-        let vs = storyBoard.instantiateViewController(withIdentifier: "newPostVC")
-        self.navigationController?.pushViewController(vs, animated: true)
+        let vc = storyBoard.instantiateViewController(withIdentifier: "newPostVC")
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func newBucketBtn() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "NewBucket", bundle: nil)
-        let vs = storyBoard.instantiateViewController(withIdentifier: "BucketListTableVC")
-        self.navigationController?.pushViewController(vs, animated: true)
+        let vc = storyBoard.instantiateViewController(withIdentifier: "BucketListTableVC")
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func myProfileBtn() {
@@ -283,7 +283,9 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
     } // End of My Profile Button
     
     func myFriendsListBtn() {
-        
+        let storyBoard: UIStoryboard = UIStoryboard(name: "justin", bundle: nil)
+        let vc = storyBoard.instantiateViewController(withIdentifier: "conversationCreationVC")
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
 } // End of Class
