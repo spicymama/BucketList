@@ -75,6 +75,8 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.lilTableView.reloadData()
             }
         }
+        // This will put the keyboard back
+        self.view.endEditing(true)
     } // End of Post Comment Button Tapped
     
     @IBAction func editPostBtn(_ sender: Any) {
@@ -372,7 +374,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cell = tableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath)
         let commentData = self.postComments[indexPath.row]
         let username = commentData.authorUsername!
-        let timestamp: String = (commentData.timestamp?.formatToString())!
+        let timestamp: String = (commentData.timestamp?.formatToStringWithTime())!
         
         cell.textLabel?.text = commentData.note
         cell.detailTextLabel?.text = ("~" + username + ", " + timestamp)

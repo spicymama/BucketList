@@ -52,7 +52,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         resultSearchController?.hidesNavigationBarDuringPresentation = false
         resultSearchController?.dimsBackgroundDuringPresentation = true
         definesPresentationContext = true
-        view.backgroundColor = .lightGray
+        view.backgroundColor = GlobalFunctions.hexStringToUIColor(hex: "#d3d3d3")
         tableView.rowHeight = 650
         
         tableView.reloadData()
@@ -69,9 +69,14 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         if segmentedController.selectedSegmentIndex == 0 {
             if friendsPosts == [] {
             self.fetchFriendsPosts()
+                self.view.backgroundColor = .gray
+                self.tableView.backgroundColor = .lightGray
                 self.updateViews()
             } else {
-              return
+                self.dataSource = self.friendsPosts
+                self.view.backgroundColor = .gray
+                self.tableView.backgroundColor = GlobalFunctions.hexStringToUIColor(hex: "#d3d3d3")
+                self.updateViews()
             }
         }
         else if segmentedController.selectedSegmentIndex == 1 {
@@ -79,7 +84,9 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
             self.fetchPopularPosts()
                 self.updateViews()
             } else {
-                return
+                self.dataSource = self.popularPosts
+                self.tableView.backgroundColor = GlobalFunctions.hexStringToUIColor(hex: "#8cdffe")
+                self.updateViews()
             }
         }
     } // End of Setup post fetching
