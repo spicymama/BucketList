@@ -213,7 +213,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
     } // End of Height for row at
     
     
-    // MARK: - Alert Action
+    // MARK: - Menu Button
     @IBAction func menuBtn(_ sender: Any) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -250,10 +250,8 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         alert.addAction(myFriendsListBtn)
         
         self.present(alert, animated: true, completion: nil)
-    } // End of Menu Button
-    
-    
-    // MARK: - Navigation
+    }
+
     func conversationBtn() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "justin", bundle: nil)
         let vc = storyBoard.instantiateViewController(withIdentifier: "conversationListVC")
@@ -287,5 +285,6 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         let vc = storyBoard.instantiateViewController(withIdentifier: "conversationCreationVC")
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    // End of Menu Button
     
 } // End of Class

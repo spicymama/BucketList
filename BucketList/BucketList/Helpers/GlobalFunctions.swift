@@ -65,4 +65,5 @@ class GlobalFunctions: UITableViewController {
             alpha: CGFloat(1.0)
         )
     }
+    
 } // End of Class Global Functions

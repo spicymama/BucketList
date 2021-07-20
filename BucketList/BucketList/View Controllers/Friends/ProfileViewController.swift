@@ -91,10 +91,17 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
         alert.addAction(bucketBtn)
         
-        let signOutBtn = UIAlertAction(title: "Sign Out", style: .default) { _ in
-            signOutBtn()
-        }
-        alert.addAction(signOutBtn)
+        if loggedInUser?.uid == profileUser?.uid {
+            let signOutBtn = UIAlertAction(title: "Sign Out", style: .default) { _ in
+                signOutBtn()
+            }
+            alert.addAction(signOutBtn)
+        } else {
+            let profileBtn = UIAlertAction(title: "My Profile", style: .default) { _ in
+                myProfileBtn()
+            }
+            alert.addAction(profileBtn)
+        } // End of If logged in user is profile user menu button stuff
         
         let myFriendsListBtn = UIAlertAction(title: "My Friends", style: .default) { _ in
             myFriendsListBtn()
@@ -121,6 +128,16 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             self.navigationController?.pushViewController(vc, animated: true)
         }
 
+        func myProfileBtn() {
+            let storyBoard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
+           guard let vc = storyBoard.instantiateViewController(withIdentifier: "profileDetailVC") as? ProfileViewController else {return}
+            
+            FirebaseFunctions.fetchCurrentUserData { fetchedUser in
+                vc.profileUser = fetchedUser
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        } // End of My Profile Button
+        
         func signOutBtn() {
             let firebaseAuth = Auth.auth()
             do {
@@ -132,8 +149,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         } // End of Sign out Button
         
         func myFriendsListBtn() {
-            
-        } // End of Friends List Button
+            let storyBoard: UIStoryboard = UIStoryboard(name: "justin", bundle: nil)
+            let vc = storyBoard.instantiateViewController(withIdentifier: "conversationCreationVC")
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         
     } // End of Menu Button
     

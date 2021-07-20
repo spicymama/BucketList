@@ -302,7 +302,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     } // End of Keyboard will hide Function
     
     
-    // MARK: - Menu Button Stuff
+    // MARK: - Menu Button
     @IBAction func menuBtn(_ sender: Any) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -333,10 +333,14 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         alert.addAction(profileBtn)
         
+        let myFriendsListBtn = UIAlertAction(title: "My Friends", style: .default) { _ in
+            self.myFriendsListBtn()
+        }
+        alert.addAction(myFriendsListBtn)
+        
         self.present(alert, animated: true, completion: nil)
     }
-    
-    // MARK: - Navigation
+
     func conversationBtn() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "justin", bundle: nil)
         let vc = storyBoard.instantiateViewController(withIdentifier: "conversationListVC")
@@ -357,13 +361,20 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func myProfileBtn() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
-        guard let vc = storyBoard.instantiateViewController(withIdentifier: "profileDetailVC") as? ProfileViewController else {return}
+       guard let vc = storyBoard.instantiateViewController(withIdentifier: "profileDetailVC") as? ProfileViewController else {return}
         
         FirebaseFunctions.fetchCurrentUserData { fetchedUser in
             vc.profileUser = fetchedUser
             self.navigationController?.pushViewController(vc, animated: true)
         }
     } // End of My Profile Button
+    
+    func myFriendsListBtn() {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "justin", bundle: nil)
+        let vc = storyBoard.instantiateViewController(withIdentifier: "conversationCreationVC")
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    // End of Menu Button
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
