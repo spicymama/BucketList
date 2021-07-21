@@ -7,7 +7,11 @@
 
 import UIKit
 
-class ConversationCreationTableViewController: UITableViewController {
+class ConversationCreationTableViewController: UITableViewController, UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        
+    }
+    
 
     //MARK: - Outlets
     @IBOutlet weak var user1TextField: UITextField!
@@ -20,6 +24,7 @@ class ConversationCreationTableViewController: UITableViewController {
         super.viewDidLoad()
         updateStartConversationBtn()
         fetchFriends()
+        presentSearchController()
         self.tableView.isEditing = true
         self.tableView.allowsMultipleSelectionDuringEditing = true
 //        fetchUsers()
@@ -28,6 +33,11 @@ class ConversationCreationTableViewController: UITableViewController {
     //MARK: - Properties
     var users: [User] = []
     var selected: [User] = []
+
+    // Search controller stuff
+    var searchController = UISearchController()
+    var resultSearchController: UISearchController? = nil
+
     
     //MARK: - Actions
     
@@ -75,8 +85,6 @@ class ConversationCreationTableViewController: UITableViewController {
         alert.addAction(cancelBtn)
         
         let startConversationBtn = UIAlertAction(title: "Find some Friends!", style: .default) { _ in
-            //TODO(ethan+josh) Have this pull up a search bar for friends
-            print("\(#function)\(#line) : Function hasn't been setup yet")
         }
         alert.addAction(startConversationBtn)
         
@@ -89,6 +97,23 @@ class ConversationCreationTableViewController: UITableViewController {
             self.startConversationBtn.isEnabled = false
             self.startConversationBtn.title = nil
         }
+    }
+    
+    func presentSearchController() {
+        searchController.searchResultsUpdater = self
+        definesPresentationContext = true
+        let storyboard: UIStoryboard = UIStoryboard(name: "SearchBar", bundle: nil)
+        let userSearchTable = storyboard.instantiateViewController(identifier: "userSearchTable") as! SearchUserTableViewController
+        resultSearchController = UISearchController(searchResultsController: userSearchTable)
+        resultSearchController?.searchResultsUpdater = userSearchTable
+        
+        let searchBar = resultSearchController!.searchBar
+        searchBar.sizeToFit()
+        searchBar.placeholder = "Who are we looking for?"
+        navigationItem.searchController = resultSearchController
+        
+        resultSearchController?.hidesNavigationBarDuringPresentation = false
+        resultSearchController?.dimsBackgroundDuringPresentation = true
     }
     
 //    func fetchUsers() {
