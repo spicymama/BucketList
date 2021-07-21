@@ -70,4 +70,3 @@ class BucketItTableViewController: UITableViewController {
     } // End of Function Load Data
     
 } // End of Class Bucket-It VC
-

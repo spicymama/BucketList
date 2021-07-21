@@ -390,4 +390,4 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         return self.tableView.rowHeight
     } // End of Height for row at
     
-} // End of Extension
+} // End of Extensions

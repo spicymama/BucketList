@@ -176,9 +176,12 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
     func checkForFriendsPosts() {
         if segmentedController.selectedSegmentIndex == 0 {
             if friendsPosts.count == 0 {
-                let alert = GlobalFunctions.basicOkAlert(title: "Looks like you don't have any friends?", message: "Lets change that!")
+                let alert = UIAlertController(title: "Looks like you don't have any friends!", message: nil, preferredStyle: .alert)
+                let alertButton = UIAlertAction(title: "Lets change that!", style: .default)
+                alert.addAction(alertButton)
+                
                 present(alert, animated: true, completion: nil)
-                self.resultSearchController?.searchBar.placeholder = "Lets find some friends!"
+                self.resultSearchController?.searchBar.placeholder = "Lets find some new friends!"
             } else {
                 return
             }
