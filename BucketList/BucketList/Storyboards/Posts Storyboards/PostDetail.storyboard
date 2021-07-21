@@ -78,7 +78,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="UJb-cM-Cqk"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>

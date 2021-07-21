@@ -52,7 +52,7 @@ class ProfileTableViewCell: UITableViewCell {
             titleLabel.isHidden = true
         } else {
             titleLabel.isHidden = false
-            titleLabel.text = post.bucketTitle
+            titleLabel.text = "From Bucket: " + post.bucketTitle!
         }
     
         timestampLabel.text = post.timestamp?.formatToString()
