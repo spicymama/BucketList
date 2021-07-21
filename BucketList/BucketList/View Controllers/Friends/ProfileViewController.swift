@@ -41,7 +41,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchLoggedInUser()
-        fetchPostUser()
         fetchPosts()
         
         tableView.delegate = self
@@ -52,6 +51,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        fetchLoggedInUser()
+        fetchPosts()
+        
         updateView()
     } // End of View will appear
     
@@ -223,15 +226,12 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             self.profilePicImageView.image = self.cacheImage(user: profileUser)
         }
     } // End of Func fetch logged in user
-    
-    func fetchPostUser() {
-        
-    }
+
     
     func updateView() {
-        guard let profileUser = profileUser else { return }
+        let profileUsername = profileUser!.username
         
-        usernameLabel.text = ("~" + profileUser.username + "'s Buckets Page")
+        usernameLabel.text = ("~" + profileUsername + "'s Buckets Page")
         
         self.view.backgroundColor = GlobalFunctions.hexStringToUIColor(hex: "#8cdffe")
         self.tableView.backgroundColor = GlobalFunctions.hexStringToUIColor(hex: "#8cdffe")
@@ -273,7 +273,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             }
         }
         return picture
-    }
+    } // End of Cache Image
     
 //    func updateProfilePicture(profileUser: User) {
 //        FirebaseFunctions.fetchProfileImage(user: profileUser) { fetchedProfileImage in

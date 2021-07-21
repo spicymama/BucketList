@@ -312,8 +312,13 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating, U
 
 // MARK: - Extensions
 extension FeedTableViewController: SearchedUserWasSelectedDelegate {
-    func searchedUserWasSelected(viewController: UIViewController) {
-        self.navigationController?.pushViewController(viewController, animated: true)
-        print("Is line \(#line) working?")
+    func searchedUserWasSelected(selectedUserID: String) {
+        let storyboard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "profileDetailVC") as? ProfileViewController else {return}
+
+        FirebaseFunctions.fetchUserData(uid: selectedUserID) { fetchedUser in
+            vc.profileUser = fetchedUser
+            self.navigationController?.pushViewController(vc, animated: true)
+        } // End of Fetch user data
     }
 } // End of Extension

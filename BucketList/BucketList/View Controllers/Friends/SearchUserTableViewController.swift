@@ -11,7 +11,7 @@ import Firebase
 
 // MARK: - Protocols
 protocol SearchedUserWasSelectedDelegate: AnyObject {
-    func searchedUserWasSelected(viewController: UIViewController)
+    func searchedUserWasSelected(selectedUserID: String)
 } // End of Protocol
 
 
@@ -35,6 +35,7 @@ class SearchUserTableViewController: UITableViewController {
     // MARK: - Functions
     func fetchUsers(for searchTerm: String, completion: @escaping ([User]) -> Void) {
         var sortedUsers: [User] = []
+        
         db.collection("users").addSnapshotListener { snapshot, error in
             if let error = error {
                 print("did not fetch, sorry \(error)")
@@ -42,13 +43,20 @@ class SearchUserTableViewController: UITableViewController {
             if let snapshot = snapshot {
                 
                 for doc in snapshot.documents {
-                    let userData = doc.data()
-                    guard let firstName = userData["firstName"] as? String,
-                          let lastName = userData["lastName"] as? String else {return}
+                    let data = doc.data()
+                    
+                    let firstName: String = data["firstName"] as? String ?? "First Name"
+                    let lastName: String = data["lastName"] as? String ?? "Last Name"
+                    let username: String = data["username"] as? String ?? "User Name"
+                    let uid: String = data["uid"] as? String ?? "uid"
+                    let profilePicURL = data["profilePicUrl"] as? String ?? "defaultProfileImage"
+                    let friendsListID: String = data["friendsID"] as? String ?? "You have no friends"
                     
                     if firstName.lowercased().contains(searchTerm.lowercased()) || lastName.lowercased().contains(searchTerm.lowercased()) {
                         
-                        sortedUsers.append(User(firstName: firstName, lastName: lastName))
+                        let fetchedUser = User(firstName: firstName, lastName: lastName, username: username, profilePicUrl: profilePicURL, uid: uid, friendsListID: friendsListID)
+                        
+                        sortedUsers.append(fetchedUser)
                     }
                     self.users = sortedUsers
                 }
@@ -88,14 +96,16 @@ extension SearchUserTableViewController {
     } // End of Cell for row at
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let storyBoard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
-        guard let vc = storyBoard.instantiateViewController(withIdentifier: "profileDetailVC") as? ProfileViewController else { return }
-        let selectedUser: User = users[indexPath.row]
-        
-        vc.profileUser = selectedUser
+        let selectedUserID: String = users[indexPath.row].uid
 
         dismiss(animated: true) {
-            SearchUserTableViewController.delegate?.searchedUserWasSelected(viewController: vc)
+            let storyboard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
+            guard let vc = storyboard.instantiateViewController(withIdentifier: "profileDetailVC") as? ProfileViewController else {return}
+            
+            FirebaseFunctions.fetchUserData(uid: selectedUserID) { fetchedUser in
+                vc.profileUser = fetchedUser
+                SearchUserTableViewController.delegate?.searchedUserWasSelected(selectedUserID: selectedUserID)
+            } // End of Fetch user data
         }
     } // End of Did select row
     
