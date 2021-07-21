@@ -9,12 +9,15 @@
 import UIKit
 import FirebaseAuth
 
+
+// MARK: - Protocols
 protocol BucketItDelegate: AnyObject {
     func BucketItPicked(bucketTitle: String, bucketID: String)
-}
+} // End of Protocol
 
+
+// MARK: - Class
 class BucketItTableViewController: UITableViewController {
-    
     
     // MARK: - Lifecycle
     override func viewDidLoad() {

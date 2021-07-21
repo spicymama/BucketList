@@ -9,12 +9,21 @@ import UIKit
 import Firebase
 
 
+// MARK: - Protocols
+protocol SearchedUserWasSelectedDelegate: AnyObject {
+    func searchedUserWasSelected(viewController: UIViewController)
+} // End of Protocol
+
+
+// MARK: - Class
 class SearchUserTableViewController: UITableViewController {
     
     // MARK: - Properties
     let searchController = UISearchController(searchResultsController: nil)
     let db = Firestore.firestore()
     var users: [User] = []
+    static var delegate: SearchedUserWasSelectedDelegate?
+    
 
     // MARK: - Lifeycle
     override func viewDidLoad() {
@@ -84,28 +93,10 @@ extension SearchUserTableViewController {
         let selectedUser: User = users[indexPath.row]
         
         vc.profileUser = selectedUser
-        dismiss(animated: true) {
-            let feedStoryboard = UIStoryboard(name: "gavin", bundle: nil)
-            guard let feedVC = feedStoryboard.instantiateViewController(identifier: "FeedTableVC") as? FeedTableViewController else { return }
-//            self.navigationController?.pushViewController(feedVC, animated: true)
-//            feedVC.navigationController?.pushViewController(feedVC, animated: true)
-//            self.navigationController?.popToViewController(feedVC, animated: true)
-//            feedVC.navigationController?.popToViewController(feedVC, animated: true)
-            self.present(feedVC, animated: true, completion: nil)
-            print("Is line \(#line) working?")
-        }
-        /*
-        
-        let storyBoard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
-        let vc = storyBoard.instantiateViewController(withIdentifier: "profileDetailVC")
-        self.navigationController?.pushViewController(vc, animated: true)
-        
-        let storyboardName = "ProfileDetail"
-        let vcName = "profileDetailVC"
-        
-        let selectedUser: User = users[indexPath.row]
 
-        SearchUserTableViewController.delegate?.pushVC(storyboardName: storyboardName, vcName: vcName, userData: selectedUser)
-        */
+        dismiss(animated: true) {
+            SearchUserTableViewController.delegate?.searchedUserWasSelected(viewController: vc)
+        }
     } // End of Did select row
+    
 } // End of extension

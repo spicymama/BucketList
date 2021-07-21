@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
+class FeedTableViewController: UITableViewController, UISearchResultsUpdating, UINavigationControllerDelegate {
     
     func updateSearchResults(for searchController: UISearchController) {
         
@@ -32,6 +32,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        SearchUserTableViewController.delegate = self
         // Can't return to login screen
         self.navigationItem.setHidesBackButton(true, animated: true)
         
@@ -307,3 +308,12 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
     // End of Menu Button
     
 } // End of Class
+
+
+// MARK: - Extensions
+extension FeedTableViewController: SearchedUserWasSelectedDelegate {
+    func searchedUserWasSelected(viewController: UIViewController) {
+        self.navigationController?.pushViewController(viewController, animated: true)
+        print("Is line \(#line) working?")
+    }
+} // End of Extension
