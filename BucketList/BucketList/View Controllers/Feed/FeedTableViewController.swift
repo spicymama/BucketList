@@ -55,12 +55,15 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         view.backgroundColor = GlobalFunctions.hexStringToUIColor(hex: "#d3d3d3")
         tableView.rowHeight = 650
         
+        checkForFriendsPosts()
+        
         tableView.reloadData()
     } // End of View Did load
     
     // MARK: - Actions
     @IBAction func segmentWasChanged(_ sender: UISegmentedControl) {
         dataSource = []
+        checkForFriendsPosts()
         checkSegmentIndex()
     } // End of Segment was changed
     
@@ -170,6 +173,19 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         self.tableView.reloadData()
     }
    
+    func checkForFriendsPosts() {
+        if segmentedController.selectedSegmentIndex == 0 {
+            if friendsPosts.count == 0 {
+                let alert = GlobalFunctions.basicOkAlert(title: "Looks like you don't have any friends?", message: "Lets change that!")
+                present(alert, animated: true, completion: nil)
+                self.resultSearchController?.searchBar.placeholder = "Lets find some friends!"
+            } else {
+                return
+            }
+        } else if self.segmentedController.selectedSegmentIndex == 1 {
+            self.resultSearchController?.searchBar.placeholder = "Who are we looking for?"
+        }
+    } // End of Func no friends
     
     // MARK: - Table view data source
     
@@ -179,8 +195,8 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as? FeedTableViewCell
-        let post = dataSource[indexPath.row]
-        cell?.post = post
+            let post = dataSource[indexPath.row]
+            cell?.post = post
         
         return cell ?? UITableViewCell()
     } // End of Cell for row at

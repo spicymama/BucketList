@@ -25,7 +25,7 @@ class SearchUserTableViewController: UITableViewController {
         var sortedUsers: [User] = []
         db.collection("users").addSnapshotListener { snapshot, error in
             if let error = error {
-                print("did not fetch, sorry (error)")
+                print("did not fetch, sorry \(error)")
             }
             if let snapshot = snapshot {
                 
