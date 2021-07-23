@@ -7,17 +7,24 @@
 
 import UIKit
 
-class ConversationCreationTableViewController: UITableViewController {
+class ConversationCreationTableViewController: UITableViewController, UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        
+    }
+    
 
     //MARK: - Outlets
     @IBOutlet weak var user1TextField: UITextField!
     @IBOutlet weak var user2TextField: UITextField!
+    @IBOutlet weak var startConversationBtn: UIBarButtonItem!
     
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateStartConversationBtn()
         fetchFriends()
+        presentSearchController()
         self.tableView.isEditing = true
         self.tableView.allowsMultipleSelectionDuringEditing = true
 //        fetchUsers()
@@ -26,6 +33,11 @@ class ConversationCreationTableViewController: UITableViewController {
     //MARK: - Properties
     var users: [User] = []
     var selected: [User] = []
+
+    // Search controller stuff
+    var searchController = UISearchController()
+    var resultSearchController: UISearchController? = nil
+
     
     //MARK: - Actions
     
@@ -64,6 +76,46 @@ class ConversationCreationTableViewController: UITableViewController {
         
     }
     
+    func youHaveNoFriends() {
+        let alert = UIAlertController(title: "No Friends Found!", message: "Lets go look for them!", preferredStyle: .alert)
+        
+        let cancelBtn = UIAlertAction(title: "Close", style: .cancel) { _ in
+            self.dismiss(animated: true, completion: nil)
+        }
+        alert.addAction(cancelBtn)
+        
+        let startConversationBtn = UIAlertAction(title: "Find some Friends!", style: .default) { _ in
+        }
+        alert.addAction(startConversationBtn)
+        
+        present(alert, animated: true, completion: nil)
+    } // End of You have no friends
+    
+    
+    func updateStartConversationBtn() {
+        if selected.count == 0 {
+            self.startConversationBtn.isEnabled = false
+            self.startConversationBtn.title = nil
+        }
+    }
+    
+    func presentSearchController() {
+        searchController.searchResultsUpdater = self
+        definesPresentationContext = true
+        let storyboard: UIStoryboard = UIStoryboard(name: "SearchBar", bundle: nil)
+        let userSearchTable = storyboard.instantiateViewController(identifier: "userSearchTable") as! SearchUserTableViewController
+        resultSearchController = UISearchController(searchResultsController: userSearchTable)
+        resultSearchController?.searchResultsUpdater = userSearchTable
+        
+        let searchBar = resultSearchController!.searchBar
+        searchBar.sizeToFit()
+        searchBar.placeholder = "Who are we looking for?"
+        navigationItem.searchController = resultSearchController
+        
+        resultSearchController?.hidesNavigationBarDuringPresentation = false
+        resultSearchController?.dimsBackgroundDuringPresentation = true
+    }
+    
 //    func fetchUsers() {
 //        guard let friendsList = friendsList?.friends else {return}
 //        for friend in friendsList  {
@@ -81,7 +133,14 @@ class ConversationCreationTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+        let usersCount = users.count
+        
+        if usersCount == 0 {
+            youHaveNoFriends()
+            return 0
+        } else {
+            return usersCount
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -104,6 +163,7 @@ class ConversationCreationTableViewController: UITableViewController {
         guard let selectedCells = tableView.indexPathsForSelectedRows else {return}
         for cell in selectedCells {
             selected.append(users[cell.row])
+            self.updateStartConversationBtn()
         }
         selected.append(ConversationController.shared.currentUser!
         )

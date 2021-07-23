@@ -12,7 +12,7 @@ class BucketListTableViewController: UITableViewController {
     
     // MARK: - Properties
     static let shared = BucketListTableViewController()
-    var refresh: UIRefreshControl = UIRefreshControl()
+
     
     var bucketsList: [Bucket] = []
     let sectionNames: [String] = ["Public Bucket", "Private Bucket"]
@@ -26,24 +26,24 @@ class BucketListTableViewController: UITableViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
+        setupViews()
     } // End of View did load
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupView()
+        setupViews()
     } // End of View will appear
     
     
     // MARK: - Functions
-    
-    func setupView() {
+    func setupViews() {
         fetchBuckets()
-        tableView.addSubview(refresh)
-    } // End of Setup Views
+    }
     
-    func updateView() {
-        tableView.reloadData()
+    func updateViews() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     func fetchBuckets() {
@@ -69,7 +69,7 @@ class BucketListTableViewController: UITableViewController {
                     self.sections[1].append(bucket)
                 }
             }
-            updateView()
+            updateViews()
         }
     } // End of Update sections
     
@@ -92,7 +92,7 @@ class BucketListTableViewController: UITableViewController {
                          self.sections.remove(at: [indexPath.section][indexPath.row])
                          */
                         //self.tableView.deleteRows(at: [indexPath], with: .fade)
-                        self.setupView()
+                        self.setupViews()
                         self.tableView.reloadData()
                     case false:
                         print("Error deleting bucket")
@@ -133,7 +133,7 @@ class BucketListTableViewController: UITableViewController {
                   let destinationVC = segue.destination as? BucketItemTableViewController else {return}
             let itemsID = sections[indexPath.section][indexPath.row].itemsID
             let bucket = bucketsList[indexPath.row]
-            
+            destinationVC.bucketID = bucket.bucketID
             destinationVC.bucket = bucket
             destinationVC.bucketItemsID = itemsID
         }

@@ -14,10 +14,10 @@ class Comment {
     let commentID: String?
     let authorID: String?
     let authorUsername: String?
-    let timestamp: String?
+    let timestamp: Date?
     let note: String
     
-    init(commentsID: String, commentID: String = UUID().uuidString, authorID: String = "", timestamp: String = "", authorUsername: String, note: String) {
+    init(commentsID: String, commentID: String = UUID().uuidString, authorID: String = "", timestamp: Date = Date(), authorUsername: String, note: String) {
         self.commentsID = commentsID
         self.commentID = commentID
         self.authorID = authorID

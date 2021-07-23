@@ -18,10 +18,10 @@ class BucketItemTableViewController: UITableViewController {
     
     // MARK: - Properties
     static let shared = BucketItemTableViewController()
-    var refresh: UIRefreshControl = UIRefreshControl()
     var saveBtnDelegate: SaveBtnDelegate?
     
     var bucket: Bucket?
+    var bucketID: String?
     var bucketItemsArray: [BucketItem] = []
     var bucketItemsID: String? {
         didSet {
@@ -34,31 +34,28 @@ class BucketItemTableViewController: UITableViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViews()
-        loadData()
+       // loadData()
     }
     
     
     // MARK: - Functions
     @objc func loadData() {
+        bucketItemsArray.removeAll()
+        updateViews()
         guard let bucketItemsID = bucketItemsID else {return}
         BucketFirebaseFunctions.fetchBucketItems(bucketItemsID: bucketItemsID) { fetchedBucketItems in
             for bucketItem in fetchedBucketItems {
+                if !self.bucketItemsArray.contains(bucketItem) {
                 self.bucketItemsArray.append(bucketItem)
                 self.updateViews()
+                }
             }
         }
     } // End of Load data
     
-    func setupViews() {
-        refresh.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        tableView.addSubview(refresh)
-    } // End of Setup Views
-    
     func updateViews() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
-            self.refresh.endRefreshing()
         }
     } // End of Update views
     
@@ -80,11 +77,11 @@ class BucketItemTableViewController: UITableViewController {
         
         let saveAction = UIAlertAction(title: "Bucket It!", style: .default) { _ in
             // Save code here
-            let bucketID = self.bucket?.bucketID
-            guard let itemTitle = addItemAlert.textFields?[0].text, !itemTitle.isEmpty else { return }
+            guard let id = self.bucket?.bucketID,
+            let itemTitle = addItemAlert.textFields?[0].text, !itemTitle.isEmpty else { return }
             let itemNote = (addItemAlert.textFields?[1].text) ?? ""
             
-            let newBucketItem = BucketItem(bucketID: bucketID!, title: itemTitle, note: itemNote, completed: false)
+            let newBucketItem = BucketItem(bucketID: id, title: itemTitle, note: itemNote, completed: false)
             BucketFirebaseFunctions.createBucketItem(bucketItem: newBucketItem)
         }
         
@@ -108,7 +105,7 @@ class BucketItemTableViewController: UITableViewController {
         
         return cell
     }
-    
+   
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let bucketItem: BucketItem = bucketItemsArray[indexPath.row]

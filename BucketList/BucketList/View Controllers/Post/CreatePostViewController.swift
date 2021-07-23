@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseStorage
 
+
 // This whole thing should be presented Modally
 class CreatePostViewController: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     

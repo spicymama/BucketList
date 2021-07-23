@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
+class FeedTableViewController: UITableViewController, UISearchResultsUpdating, UINavigationControllerDelegate {
     
     func updateSearchResults(for searchController: UISearchController) {
         
@@ -32,6 +32,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        SearchUserTableViewController.delegate = self
         // Can't return to login screen
         self.navigationItem.setHidesBackButton(true, animated: true)
         
@@ -52,39 +53,61 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         resultSearchController?.hidesNavigationBarDuringPresentation = false
         resultSearchController?.dimsBackgroundDuringPresentation = true
         definesPresentationContext = true
-        view.backgroundColor = .lightGray
-        self.tableView.rowHeight = 650
+        view.backgroundColor = GlobalFunctions.hexStringToUIColor(hex: "#d3d3d3")
+        tableView.rowHeight = 650
+        
+        checkForFriendsPosts()
+        
+        tableView.reloadData()
     } // End of View Did load
     
     // MARK: - Actions
     @IBAction func segmentWasChanged(_ sender: UISegmentedControl) {
         dataSource = []
+        checkForFriendsPosts()
         checkSegmentIndex()
     } // End of Segment was changed
     
     // MARK: - Functions
     func checkSegmentIndex() {
         if segmentedController.selectedSegmentIndex == 0 {
+            if friendsPosts == [] {
             self.fetchFriendsPosts()
+                self.view.backgroundColor = .gray
+                self.tableView.backgroundColor = .lightGray
+                self.updateViews()
+            } else {
+                self.dataSource = self.friendsPosts
+                self.view.backgroundColor = .gray
+                self.tableView.backgroundColor = GlobalFunctions.hexStringToUIColor(hex: "#d3d3d3")
+                self.updateViews()
+            }
         }
         else if segmentedController.selectedSegmentIndex == 1 {
+            if popularPosts == [] {
             self.fetchPopularPosts()
+                self.updateViews()
+            } else {
+                self.dataSource = self.popularPosts
+                self.tableView.backgroundColor = GlobalFunctions.hexStringToUIColor(hex: "#8cdffe")
+                self.updateViews()
+            }
         }
     } // End of Setup post fetching
     
     func fetchPopularPosts() {
         FirebaseFunctions.fetchAllPosts { fetchedAllPosts in
+            self.popularPosts = []
+
             if fetchedAllPosts.count > 0 {
                 self.popularPosts.append(contentsOf: fetchedAllPosts)
                 
                 self.dataSource = self.popularPosts
-                self.popularPosts = []
-                self.view.backgroundColor = .blue
-                self.tableView.backgroundColor = .orange
-                self.tableView.reloadData()
                 
-                self.updateViews()
+                self.tableView.reloadData()
             }
+            self.tableView.backgroundColor = GlobalFunctions.hexStringToUIColor(hex: "#8cdffe")
+            self.updateViews()
         }
     } // End of Func fetch Popular Posts
     
@@ -103,6 +126,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
                         self.friendsPosts = []
                         self.view.backgroundColor = .gray
                         self.tableView.backgroundColor = .lightGray
+                        
                         self.tableView.reloadData()
                     } // End of Fetch all posts for users
                 } // End of Friend id in friends id loop
@@ -113,6 +137,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
     func setupViews() {
         refresh.attributedTitle = NSAttributedString(string: "Pull to refresh")
         tableView.addSubview(refresh)
+        self.tableView.reloadData()
     }
     
     func updateViews() {
@@ -146,8 +171,25 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         resultSearchController?.hidesNavigationBarDuringPresentation = false
         resultSearchController?.dimsBackgroundDuringPresentation = true
         definesPresentationContext = true
+        self.tableView.reloadData()
     }
    
+    func checkForFriendsPosts() {
+        if segmentedController.selectedSegmentIndex == 0 {
+            if friendsPosts.count == 0 {
+                let alert = UIAlertController(title: "Looks like you don't have any friends!", message: nil, preferredStyle: .alert)
+                let alertButton = UIAlertAction(title: "Lets change that!", style: .default)
+                alert.addAction(alertButton)
+                
+                present(alert, animated: true, completion: nil)
+                self.resultSearchController?.searchBar.placeholder = "Lets find some new friends!"
+            } else {
+                return
+            }
+        } else if self.segmentedController.selectedSegmentIndex == 1 {
+            self.resultSearchController?.searchBar.placeholder = "Who are we looking for?"
+        }
+    } // End of Func no friends
     
     // MARK: - Table view data source
     
@@ -157,12 +199,11 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as? FeedTableViewCell
-        let post = dataSource[indexPath.row]
-        cell?.post = post
+            let post = dataSource[indexPath.row]
+            cell?.post = post
         
         return cell ?? UITableViewCell()
-    }
-    
+    } // End of Cell for row at
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyboard: UIStoryboard = UIStoryboard(name: "PostDetail", bundle: nil)
@@ -173,7 +214,26 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    // MARK: - Alert Action
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let image = dataSource[indexPath.row].imageURL ?? ""
+        let title = dataSource[indexPath.row].bucketTitle ?? ""
+        var imageHeight = CGFloat(600)
+        
+        if image == "" {
+            imageHeight = imageHeight - 380
+        }
+        
+        if title == "" {
+            imageHeight = imageHeight - 64
+        }
+        
+        self.tableView.rowHeight = imageHeight
+        
+        return self.tableView.rowHeight
+    } // End of Height for row at
+    
+    
+    // MARK: - Menu Button
     @IBAction func menuBtn(_ sender: Any) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -210,26 +270,24 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
         alert.addAction(myFriendsListBtn)
         
         self.present(alert, animated: true, completion: nil)
-    } // End of Menu Button
-    
-    
-    // MARK: - Navigation
+    }
+
     func conversationBtn() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "justin", bundle: nil)
-        let vs = storyBoard.instantiateViewController(withIdentifier: "conversationListVC")
-        self.navigationController?.pushViewController(vs, animated: true)
+        let vc = storyBoard.instantiateViewController(withIdentifier: "conversationListVC")
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func newPostBtn() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "NewPost", bundle: nil)
-        let vs = storyBoard.instantiateViewController(withIdentifier: "newPostVC")
-        self.navigationController?.pushViewController(vs, animated: true)
+        let vc = storyBoard.instantiateViewController(withIdentifier: "newPostVC")
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func newBucketBtn() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "NewBucket", bundle: nil)
-        let vs = storyBoard.instantiateViewController(withIdentifier: "BucketListTableVC")
-        self.navigationController?.pushViewController(vs, animated: true)
+        let vc = storyBoard.instantiateViewController(withIdentifier: "BucketListTableVC")
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func myProfileBtn() {
@@ -243,10 +301,24 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating {
     } // End of My Profile Button
     
     func myFriendsListBtn() {
-        let storyboard: UIStoryboard = UIStoryboard(name: "Friends", bundle: nil)
-        guard let vc = storyboard.instantiateViewController(identifier: "FriendsListVC") as? FriendsListTableViewController else {return}
-        
+        let storyBoard: UIStoryboard = UIStoryboard(name: "justin", bundle: nil)
+        let vc = storyBoard.instantiateViewController(withIdentifier: "conversationCreationVC")
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    // End of Menu Button
     
 } // End of Class
+
+
+// MARK: - Extensions
+extension FeedTableViewController: SearchedUserWasSelectedDelegate {
+    func searchedUserWasSelected(selectedUserID: String) {
+        let storyboard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "profileDetailVC") as? ProfileViewController else {return}
+
+        FirebaseFunctions.fetchUserData(uid: selectedUserID) { fetchedUser in
+            vc.profileUser = fetchedUser
+            self.navigationController?.pushViewController(vc, animated: true)
+        } // End of Fetch user data
+    }
+} // End of Extension

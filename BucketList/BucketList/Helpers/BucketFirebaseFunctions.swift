@@ -24,7 +24,9 @@ class BucketFirebaseFunctions {
                     bucketIDs.append(document.documentID)
                 }
                 let group = DispatchGroup()
-                
+                if bucketIDs.count < 1 {
+                    return
+                }
                 var bucketData: [Bucket] = []
                 for i in bucketIDs {
                     group.enter()
@@ -45,28 +47,31 @@ class BucketFirebaseFunctions {
     
     // MARK: - Fetch Bucket
     static func fetchBucket(bucketID: String, 🐶: @escaping ( Bucket ) -> Void) {
-        let bucketID = bucketID
-        let bucketData = Firestore.firestore().collection("buckets").document(bucketID)
-        bucketData.getDocument { document, error in
-            if let error = error {
-                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
-            } else {
-                // Data to collect
-                guard let document = document else { return }
-                
-                let title = document["title"] as? String ?? ""
-                let bucketID = document["bucketID"] as? String ?? ""
-                let isPublic = document["isPublic"] as? Bool ?? false
-                let note = document["note"] as? String ?? ""
-                let commentsID = document["commentsID"] as? String ?? ""
-                let itemsID = document["itemsID"] as? String ?? ""
-                let completion = document["completion"] as? Int ?? 0
-                let reactions = document["reactions"] as? [String] ?? []
-                let timestamp = document["timestamp"] as? Date ?? Date()
-                
-                let fetchedBucket = Bucket(title: title, note: note, commentsID: commentsID, itemsID: itemsID, bucketID: bucketID, completion: completion, reactions: reactions, isPublic: isPublic, timestamp: timestamp)
-                
-                🐶(fetchedBucket)
+        if bucketID == "" {
+            return
+        } else {
+            let bucketData = Firestore.firestore().collection("buckets").document(bucketID)
+            bucketData.getDocument { document, error in
+                if let error = error {
+                    print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                } else {
+                    // Data to collect
+                    guard let document = document else { return }
+                    
+                    let title = document["title"] as? String ?? ""
+                    let bucketID = document["bucketID"] as? String ?? ""
+                    let isPublic = document["isPublic"] as? Bool ?? false
+                    let note = document["note"] as? String ?? ""
+                    let commentsID = document["commentsID"] as? String ?? ""
+                    let itemsID = document["itemsID"] as? String ?? ""
+                    let completion = document["completion"] as? Int ?? 0
+                    let reactions = document["reactions"] as? [String] ?? []
+                    let timestamp = document["timestamp"] as? Date ?? Date()
+                    
+                    let fetchedBucket = Bucket(title: title, note: note, commentsID: commentsID, itemsID: itemsID, bucketID: bucketID, completion: completion, reactions: reactions, isPublic: isPublic, timestamp: timestamp)
+                    
+                    🐶(fetchedBucket)
+                }
             }
         }
     } // End of Fetch Bucket
@@ -90,32 +95,36 @@ class BucketFirebaseFunctions {
                 let group = DispatchGroup()
                 
                 var usersBuckets: [Bucket] = []
-                for bucketID in bucketsIDs {
-                    group.enter()
-                    BucketFirebaseFunctions.fetchBucket(bucketID: bucketID) { bucket in
-                        let fetchedBucket: Bucket = bucket
-                        
-                        // Data to collect
-                        
-                        let title = fetchedBucket.title
-                        let bucketID = fetchedBucket.bucketID!
-                        let isPublic = fetchedBucket.isPublic
-                        let note = fetchedBucket.note
-                        let commentsID = fetchedBucket.commentsID ?? ""
-                        let itemsID = fetchedBucket.itemsID ?? ""
-                        let completion = fetchedBucket.completion
-                        let reactions = fetchedBucket.reactions ?? []
-                        let timestamp = fetchedBucket.timestamp ?? Date()
-                        
-                        let cleanFetchedBucket = Bucket(title: title, note: note, commentsID: commentsID, itemsID: itemsID, bucketID: bucketID, completion: completion, reactions: reactions, isPublic: isPublic, timestamp: timestamp)
-                        
-                        usersBuckets.append(cleanFetchedBucket)
-                        
-                        group.leave()
-                    } // End of fetch Bucket
-                } // End of For loop
-                group.notify(queue: DispatchQueue.main) {
-                    🐶(usersBuckets)
+                if bucketsIDs.count < 1 {
+                    return
+                } else {
+                    for bucketID in bucketsIDs {
+                        group.enter()
+                        BucketFirebaseFunctions.fetchBucket(bucketID: bucketID) { bucket in
+                            let fetchedBucket: Bucket = bucket
+                            
+                            // Data to collect
+                            
+                            let title = fetchedBucket.title
+                            let bucketID = fetchedBucket.bucketID!
+                            let isPublic = fetchedBucket.isPublic
+                            let note = fetchedBucket.note
+                            let commentsID = fetchedBucket.commentsID ?? ""
+                            let itemsID = fetchedBucket.itemsID ?? ""
+                            let completion = fetchedBucket.completion
+                            let reactions = fetchedBucket.reactions ?? []
+                            let timestamp = fetchedBucket.timestamp ?? Date()
+                            
+                            let cleanFetchedBucket = Bucket(title: title, note: note, commentsID: commentsID, itemsID: itemsID, bucketID: bucketID, completion: completion, reactions: reactions, isPublic: isPublic, timestamp: timestamp)
+                            
+                            usersBuckets.append(cleanFetchedBucket)
+                            
+                            group.leave()
+                        } // End of fetch Bucket
+                    } // End of For loop
+                    group.notify(queue: DispatchQueue.main) {
+                        🐶(usersBuckets)
+                    }
                 }
             }
         }
@@ -157,7 +166,8 @@ class BucketFirebaseFunctions {
     
     // MARK: - Update Bucket
     static func updateBucket(bucketToUpdate: Bucket) {
-        let bucket = bucketToUpdate
+    let bucket = bucketToUpdate
+       
         Firestore.firestore().collection("buckets").document(bucket.bucketID!).updateData([
             //Data to store
             "completion" : bucket.completion,
@@ -221,6 +231,28 @@ class BucketFirebaseFunctions {
             "completed" : bucketItem.completed,
             "timestamp" : FieldValue.serverTimestamp()
         ])
+        var completed = 0.0
+        
+        var completion: Double = 0.0
+        BucketFirebaseFunctions.fetchBucketItems(bucketItemsID: bucketItem.bucketID) { items in
+            for item in items {
+                if item.completed == true {
+                    completed += 1.0
+            }
+        }
+            if completed > 0.0 {
+                completion = (completed / Double(items.count) * 100)
+            }
+            fetchBucket(bucketID: bucketItem.bucketID) { bucket in
+                bucket.completion = Int(completion)
+                updateBucket(bucketToUpdate: bucket)
+            }
+            print(items.count)
+            print(completed)
+            print(completion)
+            completed = 0
+        }
+        
     } // End of Create Bucket Item
     
     

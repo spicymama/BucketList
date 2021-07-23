@@ -41,7 +41,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchLoggedInUser()
-        fetchPostUser()
         fetchPosts()
         
         tableView.delegate = self
@@ -52,6 +51,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        fetchLoggedInUser()
+        fetchPosts()
+        
         updateView()
     } // End of View will appear
     
@@ -91,10 +94,17 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
         alert.addAction(bucketBtn)
         
-        let signOutBtn = UIAlertAction(title: "Sign Out", style: .default) { _ in
-            signOutBtn()
-        }
-        alert.addAction(signOutBtn)
+        if loggedInUser?.uid == profileUser?.uid {
+            let signOutBtn = UIAlertAction(title: "Sign Out", style: .default) { _ in
+                signOutBtn()
+            }
+            alert.addAction(signOutBtn)
+        } else {
+            let profileBtn = UIAlertAction(title: "My Profile", style: .default) { _ in
+                myProfileBtn()
+            }
+            alert.addAction(profileBtn)
+        } // End of If logged in user is profile user menu button stuff
         
         let myFriendsListBtn = UIAlertAction(title: "My Friends", style: .default) { _ in
             myFriendsListBtn()
@@ -121,6 +131,16 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             self.navigationController?.pushViewController(vc, animated: true)
         }
 
+        func myProfileBtn() {
+            let storyBoard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
+           guard let vc = storyBoard.instantiateViewController(withIdentifier: "profileDetailVC") as? ProfileViewController else {return}
+            
+            FirebaseFunctions.fetchCurrentUserData { fetchedUser in
+                vc.profileUser = fetchedUser
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        } // End of My Profile Button
+        
         func signOutBtn() {
             let firebaseAuth = Auth.auth()
             do {
@@ -132,8 +152,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         } // End of Sign out Button
         
         func myFriendsListBtn() {
-            
-        } // End of Friends List Button
+            let storyBoard: UIStoryboard = UIStoryboard(name: "justin", bundle: nil)
+            let vc = storyBoard.instantiateViewController(withIdentifier: "conversationCreationVC")
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         
     } // End of Menu Button
     
@@ -202,19 +224,17 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             guard let profileUser = self.profileUser else {return}
             self.loggedInUser = FetchedUser
             self.profilePicImageView.image = self.cacheImage(user: profileUser)
-            
         }
     } // End of Func fetch logged in user
-    
-    func fetchPostUser() {
-        
-    }
+
     
     func updateView() {
-        guard let profileUser = profileUser else { return }
+        let profileUsername = profileUser!.username
         
-        usernameLabel.text = ("~" + profileUser.username + "'s Buckets Page")
-    
+        usernameLabel.text = ("~" + profileUsername + "'s Buckets Page")
+        
+        self.view.backgroundColor = GlobalFunctions.hexStringToUIColor(hex: "#8cdffe")
+        self.tableView.backgroundColor = GlobalFunctions.hexStringToUIColor(hex: "#8cdffe")
         
         tableView.reloadData()
     } // End of Func update view
@@ -227,15 +247,15 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         if let image = cache.object(forKey: cacheKey) {
             picture = image
         } else {
-            if user.profilePicUrl == "" {
+            if user.profilePicUrl == "" || user.profilePicUrl == "defaultProfileImage" || user.profilePicUrl == nil {
                 picture = UIImage(named: "defaultProfileImage") ?? UIImage()
             }
             
             let session = URLSession.shared
             
             if user.profilePicUrl != "" {
-                let url = URL(string: user.profilePicUrl ?? "")
-                let task = session.dataTask(with: url!) { (data, response, error) in
+                guard let url = URL(string: user.profilePicUrl ?? "") else {return UIImage(named: "defaultProfileImage") ?? UIImage()}
+                let task = session.dataTask(with: url) { (data, response, error) in
                     if let error = error {
                         print("Error in \(#function): On Line \(#line) : \(error.localizedDescription) \n---\n \(error)")
                         print("Unable to fetch image for \(user.username)")
@@ -253,7 +273,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             }
         }
         return picture
-    }
+    } // End of Cache Image
     
 //    func updateProfilePicture(profileUser: User) {
 //        FirebaseFunctions.fetchProfileImage(user: profileUser) { fetchedProfileImage in
@@ -271,6 +291,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     
     // MARK: - Image Picker
+    // This will let the user pick their profile picture
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)
         
@@ -280,7 +301,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         let storage = Storage.storage().reference()
         guard let user = Auth.auth().currentUser else {return}
         
-        let ref = storage.child("images/\(user.uid).profilePic.png")
+        let ref = storage.child("images/\(user.uid)/profilePic/.profilePic.png")
         ref.putData(imageData, metadata: nil, completion: { _, 🛑 in
             if let 🛑 = 🛑 {
                 print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
@@ -350,4 +371,23 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     
-} // End of Extensino
+    // Height for row at
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let image = posts[indexPath.row].imageURL ?? ""
+        let title = posts[indexPath.row].bucketTitle ?? ""
+        var imageHeight = CGFloat(600)
+        
+        if image == "" {
+            imageHeight = imageHeight - 380
+        }
+        
+        if title == "" {
+            imageHeight = imageHeight - 64
+        }
+        
+        self.tableView.rowHeight = imageHeight
+        
+        return self.tableView.rowHeight
+    } // End of Height for row at
+    
+} // End of Extensions
