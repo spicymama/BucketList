@@ -20,7 +20,7 @@ class BucketListTableViewController: UITableViewController {
     var thePublicList: [Bucket] = []
     var thePrivateList: [Bucket] = []
     
-    var sections: [[Bucket]] = [[], []]
+    var sections: [[Bucket]] = []
 
     
     // MARK: - Lifecycle

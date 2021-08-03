@@ -199,17 +199,20 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                 let unBlockBtn = UIAlertAction(title: "UnBlock", style: .default) { _ in
                     unBlockBtn()
                 }
+                unBlockBtn.setValue(UIColor.red, forKey: "titleTextColor")
                 alert.addAction(unBlockBtn)
             } else {
                 let blockBtn = UIAlertAction(title: "Block", style: .default) { _ in
                     blockBtn()
                 }
+                blockBtn.setValue(UIColor.red, forKey: "titleTextColor")
                 alert.addAction(blockBtn)
             }
             
             let reportBtn = UIAlertAction(title: "Report", style: .default) { _ in
                 reportBtn()
             }
+            reportBtn.setValue(UIColor.red, forKey: "titleTextColor")
             alert.addAction(reportBtn)
             
             self.present(alert, animated: true, completion: nil)
