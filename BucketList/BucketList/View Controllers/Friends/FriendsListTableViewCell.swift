@@ -10,11 +10,14 @@ import UIKit
 class FriendsListTableViewCell: UITableViewCell {
 //MARK: - Outlets
     
-    @IBOutlet weak var firstNameLabel: UILabel!
+   
+    @IBOutlet weak var nameLabel: UILabel!
     
-    @IBOutlet weak var lastNameLabel: UILabel!
+  
+    @IBOutlet weak var usernameLabel: UILabel!
     
-    @IBOutlet weak var signinLabel: UILabel!
+   
+    @IBOutlet weak var profileImage: UIImageView!
     
     //MARK: -Properties
     
@@ -31,10 +34,44 @@ class FriendsListTableViewCell: UITableViewCell {
     
     func updateViews() {
         guard let user = user else {return}
-        firstNameLabel.text = user.firstName
-        lastNameLabel.text = user.lastName
-        signinLabel.text = ("~" + user.username)
-        let profileToViewUID = user.uid
+        nameLabel.text = (user.firstName + " " + user.lastName)
+        usernameLabel.text = ("~" + user.username)
+        profileImage.image = cacheImage(user: user)
         
     }
-}
+    func cacheImage(user: User)-> UIImage {
+            var picture = UIImage()
+            let cache = ImageCacheController.shared.cache
+            let cacheKey = NSString(string: user.profilePicUrl ?? "")
+            if let image = cache.object(forKey: cacheKey) {
+                picture = image
+            } else {
+                if user.profilePicUrl == "" {
+                    picture = UIImage(named: "defaultProfileImage") ?? UIImage()
+                }
+                
+                let session = URLSession.shared
+                
+                if user.profilePicUrl != "" {
+                    let url = URL(string: user.profilePicUrl ?? "")!
+                    let task = session.dataTask(with: url) { (data, response, error) in
+                        if let error = error {
+                            print("Error in \(#function): On Line \(#line) : \(error.localizedDescription) \n---\n \(error)")
+                            print("Unable to fetch image for \(user.username)")
+                        }
+                        if let data = data {
+                            DispatchQueue.main.async {
+                                if let image = UIImage(data: data) {
+                                    picture = image
+                                    cache.setObject(image, forKey: cacheKey)
+                                }
+                            }
+                        }
+                    }
+                    task.resume()
+                }
+            }
+            return picture
+        }
+    
+}//end of class
