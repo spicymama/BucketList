@@ -36,25 +36,19 @@ class ConversationTableViewCell: UITableViewCell {
         guard let currentUser = ConversationController.shared.currentUser else {return}
         var usernameString = ""
         for user in conversation.users {
-            if user.uid == currentUser.uid {
-                //do nothing
-            } else {
+            if user.uid != currentUser.uid {
                 otherUser = user
-                if usernameString == "" {
-                    usernameString = usernameString + user.firstName
-                } else {
-                    usernameString = usernameString + ", \(user.firstName)"
-                }
             }
+        } // End of Loop
+        
+        if conversation.users.count < 3 {
+            guard let otherUser = otherUser else {return}
+            userAvatarImageView.image = cacheImage(user: otherUser )
         }
-                if conversation.users.count < 3 {
-                    guard let otherUser = otherUser else {return}
-                    userAvatarImageView.image = cacheImage(user: otherUser )
-                }
-                if conversation.users.count >= 3 {
-                    userAvatarImageView.image = UIImage(systemName: "defaultProfilePhoto")
-                }
-        usernameLabel.text = ("~" + usernameString)
+        if conversation.users.count >= 3 {
+            userAvatarImageView.image = UIImage(systemName: "defaultProfilePhoto")
+        }
+        usernameLabel.text = ("~" + otherUser!.username)
         recentMessageTextView.text = mostRecentMessage
         userAvatarImageView.layer.masksToBounds = false
         userAvatarImageView.clipsToBounds = true

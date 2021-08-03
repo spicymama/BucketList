@@ -74,7 +74,7 @@ class ConversationCreationTableViewController: UITableViewController, UISearchRe
                 }
             }
         }
-    }
+    } // End of Fetch Friends
     
     func updateUsers(conversation: Conversation) {
         
@@ -100,6 +100,8 @@ class ConversationCreationTableViewController: UITableViewController, UISearchRe
         if selected.count == 0 {
             self.startConversationBtn.isEnabled = false
             self.startConversationBtn.title = nil
+        } else {
+            self.startConversationBtn.isEnabled = true
         }
     }
     
