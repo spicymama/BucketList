@@ -30,8 +30,8 @@ class ConversationTableViewCell: UITableViewCell {
     var mostRecentMessage: String = ""
     var otherUser: User?
     
-    //MARK: - Functions
     
+    //MARK: - Functions
     func updateViews(for conversation: Conversation) {
         guard let currentUser = ConversationController.shared.currentUser else {return}
         var usernameString = ""
