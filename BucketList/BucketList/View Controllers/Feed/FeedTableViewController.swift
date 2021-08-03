@@ -56,23 +56,21 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating, U
         view.backgroundColor = GlobalFunctions.hexStringToUIColor(hex: "#d3d3d3")
         tableView.rowHeight = 650
         
-        checkForFriendsPosts()
-        
         tableView.reloadData()
     } // End of View Did load
     
     // MARK: - Actions
     @IBAction func segmentWasChanged(_ sender: UISegmentedControl) {
         dataSource = []
-        checkForFriendsPosts()
         checkSegmentIndex()
+        checkForFriendsPosts()
     } // End of Segment was changed
     
     // MARK: - Functions
     func checkSegmentIndex() {
         if segmentedController.selectedSegmentIndex == 0 {
             if friendsPosts == [] {
-            self.fetchFriendsPosts()
+                self.fetchFriendsPosts()
                 self.view.backgroundColor = .gray
                 self.tableView.backgroundColor = .lightGray
                 self.updateViews()
@@ -85,7 +83,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating, U
         }
         else if segmentedController.selectedSegmentIndex == 1 {
             if popularPosts == [] {
-            self.fetchPopularPosts()
+                self.fetchPopularPosts()
                 self.updateViews()
             } else {
                 self.dataSource = self.popularPosts
@@ -98,7 +96,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating, U
     func fetchPopularPosts() {
         FirebaseFunctions.fetchAllPosts { fetchedAllPosts in
             self.popularPosts = []
-
+            
             if fetchedAllPosts.count > 0 {
                 self.popularPosts.append(contentsOf: fetchedAllPosts)
                 
@@ -113,17 +111,17 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating, U
     
     func fetchFriendsPosts() {
         FirebaseFunctions.fetchCurrentUser { fetchedUser in
+            self.friendsPosts = []
             let friendsListID: String = fetchedUser.friendsListID!
             
             FirebaseFunctions.fetchFriends(friendsListID: friendsListID) { fetchedFriendsList in
                 let friendsIDs: [String] = fetchedFriendsList.friends
-                                
+                
                 for friendID in friendsIDs {
                     FirebaseFunctions.fetchAllPostsForUser(userID: friendID) { fetchedFriendsPosts in
                         self.friendsPosts.append(contentsOf: fetchedFriendsPosts)
-    
+                        
                         self.dataSource = self.friendsPosts
-                        self.friendsPosts = []
                         self.view.backgroundColor = .gray
                         self.tableView.backgroundColor = .lightGray
                         
@@ -173,7 +171,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating, U
         definesPresentationContext = true
         self.tableView.reloadData()
     }
-   
+    
     func checkForFriendsPosts() {
         if segmentedController.selectedSegmentIndex == 0 {
             if friendsPosts.count == 0 {
@@ -199,8 +197,8 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating, U
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as? FeedTableViewCell
-            let post = dataSource[indexPath.row]
-            cell?.post = post
+        let post = dataSource[indexPath.row]
+        cell?.post = post
         
         return cell ?? UITableViewCell()
     } // End of Cell for row at
@@ -271,7 +269,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating, U
         
         self.present(alert, animated: true, completion: nil)
     }
-
+    
     func conversationBtn() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "justin", bundle: nil)
         let vc = storyBoard.instantiateViewController(withIdentifier: "conversationListVC")
@@ -292,7 +290,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating, U
     
     func myProfileBtn() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
-       guard let vc = storyBoard.instantiateViewController(withIdentifier: "profileDetailVC") as? ProfileViewController else {return}
+        guard let vc = storyBoard.instantiateViewController(withIdentifier: "profileDetailVC") as? ProfileViewController else {return}
         
         FirebaseFunctions.fetchCurrentUserData { fetchedUser in
             vc.profileUser = fetchedUser
@@ -315,7 +313,7 @@ extension FeedTableViewController: SearchedUserWasSelectedDelegate {
     func searchedUserWasSelected(selectedUserID: String) {
         let storyboard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
         guard let vc = storyboard.instantiateViewController(withIdentifier: "profileDetailVC") as? ProfileViewController else {return}
-
+        
         FirebaseFunctions.fetchUserData(uid: selectedUserID) { fetchedUser in
             vc.profileUser = fetchedUser
             self.navigationController?.pushViewController(vc, animated: true)

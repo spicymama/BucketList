@@ -206,14 +206,15 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                 }
                 alert.addAction(blockBtn)
             }
+            
+            let reportBtn = UIAlertAction(title: "Report", style: .default) { _ in
+                reportBtn()
+            }
+            alert.addAction(reportBtn)
+            
+            self.present(alert, animated: true, completion: nil)
         } // End of Firebase fetch
         
-        let reportBtn = UIAlertAction(title: "Report", style: .default) { _ in
-            reportBtn()
-        }
-        alert.addAction(reportBtn)
-        
-        self.present(alert, animated: true, completion: nil)
         
         // Dot Dot Dot Button Functions
         func messageBtn() {

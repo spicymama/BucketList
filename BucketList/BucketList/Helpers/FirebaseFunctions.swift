@@ -119,10 +119,11 @@ class FirebaseFunctions {
                 let lastName: String = data["lastName"] as? String ?? "Last Name"
                 let username: String = data["username"] as? String ?? "User Name"
                 let uid: String = data["uid"] as? String ?? "uid"
+                let friendsListID = data["friendsListID"] as? String ?? ""
                 let conversationIDs = data["conversationsID"] as? [String] ?? ["conversationIDs"]
                 let profilePicURL = data["profilePicURL"] as? String
-                
-                let user = User(firstName: firstName, lastName: lastName, username: username, profilePicUrl: profilePicURL, uid: uid, conversationsIDs: conversationIDs)
+                +
+                let user = User(firstName: firstName, lastName: lastName, username: username, profilePicUrl: profilePicURL, uid: uid, friendsListID: friendsListID, conversationsIDs: conversationIDs)
                 🐶(user)
                 
                 group.leave()
