@@ -370,8 +370,8 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     } // End of My Profile Button
     
     func myFriendsListBtn() {
-        let storyBoard: UIStoryboard = UIStoryboard(name: "justin", bundle: nil)
-        let vc = storyBoard.instantiateViewController(withIdentifier: "conversationCreationVC")
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Friends", bundle: nil)
+        let vc = storyBoard.instantiateViewController(withIdentifier: "FriendsListVC")
         self.navigationController?.pushViewController(vc, animated: true)
     }
     // End of Menu Button
