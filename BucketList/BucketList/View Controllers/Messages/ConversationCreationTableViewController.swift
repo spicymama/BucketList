@@ -66,6 +66,10 @@ class ConversationCreationTableViewController: UITableViewController, UISearchRe
             FirebaseFunctions.fetchUsersData(passedUserIDs: result.friends) { users in
                 self.users = users
                 DispatchQueue.main.async {
+                    
+                    if users.count == 0 {
+                        self.youHaveNoFriends()
+                    }
                     self.tableView.reloadData()
                 }
             }
@@ -134,13 +138,8 @@ class ConversationCreationTableViewController: UITableViewController, UISearchRe
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let usersCount = users.count
-        
-        if usersCount == 0 {
-            youHaveNoFriends()
-            return 0
-        } else {
-            return usersCount
-        }
+       
+        return usersCount
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
