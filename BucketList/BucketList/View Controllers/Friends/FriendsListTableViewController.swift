@@ -17,7 +17,6 @@ class FriendsListTableViewController: UITableViewController {
     var friends: [User] = []
     
     
-    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +47,16 @@ class FriendsListTableViewController: UITableViewController {
             
         }
     } // End of Segue
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Pick the storyboard
+        let storyboard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "profileDetailVC") as? ProfileViewController else {return}
+        
+        // Pass over the user information
+        vc.profileUser = self.friends[indexPath.row]
+        navigationController?.pushViewController(vc, animated: true)
+    } // End of Did select row
     
 
     //MARK: - Functions
