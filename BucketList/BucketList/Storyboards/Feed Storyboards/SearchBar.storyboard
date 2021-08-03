@@ -45,16 +45,6 @@
             </objects>
             <point key="canvasLocation" x="7391.3043478260879" y="767.41071428571422"/>
         </scene>
-        <!--ProfileDetail-->
-        <scene sceneID="yPD-XJ-vDo">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="profileDetailVC" storyboardName="ProfileDetail" id="bzB-bf-Bkr" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="xJA-hH-LSf"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9vT-hr-5SH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="7918.115942028986" y="766.74107142857144"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="uhZ-qT-tfb">
             <objects>

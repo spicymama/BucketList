@@ -28,13 +28,11 @@
 		AA25B52A2683E44400B0E13F /* ConversationMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B5292683E44400B0E13F /* ConversationMessageViewController.swift */; };
 		AA25B52C2683E58200B0E13F /* FriendsListModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B52B2683E58200B0E13F /* FriendsListModelController.swift */; };
 		AA25B5302683E8A300B0E13F /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B52F2683E8A300B0E13F /* Post.swift */; };
-		AA25B5322683E90D00B0E13F /* OldProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B5312683E90D00B0E13F /* OldProfileTableViewController.swift */; };
 		AA25B5352683E93700B0E13F /* CreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B5342683E93700B0E13F /* CreatePostViewController.swift */; };
 		AA25B5372683E96400B0E13F /* FeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B5362683E96400B0E13F /* FeedTableViewController.swift */; };
 		AA25B5392683E99900B0E13F /* NewPost.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA25B5382683E99900B0E13F /* NewPost.storyboard */; };
 		AA25B53C2683E9FF00B0E13F /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B53B2683E9FF00B0E13F /* FeedTableViewCell.swift */; };
 		AA25B53E2683EA0E00B0E13F /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B53D2683EA0E00B0E13F /* ProfileCollectionViewCell.swift */; };
-		AA25B5402683EA1500B0E13F /* OldProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25B53F2683EA1500B0E13F /* OldProfileTableViewCell.swift */; };
 		AA349495268CE57D00467C0C /* ProfileDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA349494268CE57D00467C0C /* ProfileDetail.storyboard */; };
 		AA349497268CF30A00467C0C /* AddBlockReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA349496268CF30A00467C0C /* AddBlockReportViewController.swift */; };
 		AA524EA7268A28EA00DF39D4 /* BucketItTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA524EA6268A28EA00DF39D4 /* BucketItTableViewController.swift */; };
@@ -93,13 +91,11 @@
 		AA25B5292683E44400B0E13F /* ConversationMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationMessageViewController.swift; sourceTree = "<group>"; };
 		AA25B52B2683E58200B0E13F /* FriendsListModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListModelController.swift; sourceTree = "<group>"; };
 		AA25B52F2683E8A300B0E13F /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
-		AA25B5312683E90D00B0E13F /* OldProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldProfileTableViewController.swift; sourceTree = "<group>"; };
 		AA25B5342683E93700B0E13F /* CreatePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewController.swift; sourceTree = "<group>"; };
 		AA25B5362683E96400B0E13F /* FeedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewController.swift; sourceTree = "<group>"; };
 		AA25B5382683E99900B0E13F /* NewPost.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NewPost.storyboard; sourceTree = "<group>"; };
 		AA25B53B2683E9FF00B0E13F /* FeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
 		AA25B53D2683EA0E00B0E13F /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
-		AA25B53F2683EA1500B0E13F /* OldProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldProfileTableViewCell.swift; sourceTree = "<group>"; };
 		AA349494268CE57D00467C0C /* ProfileDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfileDetail.storyboard; sourceTree = "<group>"; };
 		AA349496268CF30A00467C0C /* AddBlockReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBlockReportViewController.swift; sourceTree = "<group>"; };
 		AA524EA6268A28EA00DF39D4 /* BucketItTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketItTableViewController.swift; sourceTree = "<group>"; };
@@ -262,7 +258,6 @@
 			isa = PBXGroup;
 			children = (
 				AA25B53D2683EA0E00B0E13F /* ProfileCollectionViewCell.swift */,
-				AA25B53F2683EA1500B0E13F /* OldProfileTableViewCell.swift */,
 				AAC794A32694F7A10029718E /* ProfileTableViewCell.swift */,
 			);
 			path = "Profile Cells";
@@ -343,7 +338,6 @@
 		AA8E96A626810D0B003DC8DA /* Friends */ = {
 			isa = PBXGroup;
 			children = (
-				AA25B5312683E90D00B0E13F /* OldProfileTableViewController.swift */,
 				9A2D612A268507AB00424AE4 /* FriendsListTableViewController.swift */,
 				9A2D613026862D1000424AE4 /* FriendsListTableViewCell.swift */,
 				9A4056C2268BB7B200307C77 /* SearchUserTableViewController.swift */,
@@ -541,7 +535,6 @@
 				AAC794A42694F7A20029718E /* ProfileTableViewCell.swift in Sources */,
 				AA25B52A2683E44400B0E13F /* ConversationMessageViewController.swift in Sources */,
 				AA25B5282683E42800B0E13F /* ConversationCreationTableViewController.swift in Sources */,
-				AA25B5322683E90D00B0E13F /* OldProfileTableViewController.swift in Sources */,
 				AA6EBBE2268F85280087EA34 /* EditPostViewController.swift in Sources */,
 				AA25B52026838B4200B0E13F /* FriendsList.swift in Sources */,
 				AA25B53E2683EA0E00B0E13F /* ProfileCollectionViewCell.swift in Sources */,
@@ -566,7 +559,6 @@
 				AA25B5222683E2B200B0E13F /* ConversationController.swift in Sources */,
 				AADB76E72697A00C00230479 /* BucketItemTableViewCell.swift in Sources */,
 				AA25B512268250B500B0E13F /* FirebaseFunctions.swift in Sources */,
-				AA25B5402683EA1500B0E13F /* OldProfileTableViewCell.swift in Sources */,
 				AA8E96AD26810D6F003DC8DA /* Bucket.swift in Sources */,
 				AAC794982693D1720029718E /* SignUpPersonalViewController.swift in Sources */,
 				AA524EAD268A6D7300DF39D4 /* BucketItem.swift in Sources */,

@@ -7,13 +7,17 @@
 //
 
 import UIKit
+import FirebaseAuth
 
+
+// MARK: - Protocols
 protocol BucketItDelegate: AnyObject {
     func BucketItPicked(bucketTitle: String, bucketID: String)
-}
+} // End of Protocol
 
+
+// MARK: - Class
 class BucketItTableViewController: UITableViewController {
-    
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -61,11 +65,11 @@ class BucketItTableViewController: UITableViewController {
     
     // MARK: - Functions
     func fetchBuckets() {
-        BucketFirebaseFunctions.fetchAllBuckets { data in
-            self.buckets = data
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        BucketFirebaseFunctions.fetchAllBucketsForUser(userID: userID) { fetchedBuckets in
+            self.buckets = fetchedBuckets
             self.tableView.reloadData()
         }
     } // End of Function Load Data
     
 } // End of Class Bucket-It VC
-

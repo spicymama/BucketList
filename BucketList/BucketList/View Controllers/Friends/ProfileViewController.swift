@@ -41,7 +41,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchLoggedInUser()
-        fetchPostUser()
         fetchPosts()
         
         tableView.delegate = self
@@ -52,6 +51,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        fetchLoggedInUser()
+        fetchPosts()
+        
         updateView()
     } // End of View will appear
     
@@ -91,10 +94,17 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
         alert.addAction(bucketBtn)
         
-        let signOutBtn = UIAlertAction(title: "Sign Out", style: .default) { _ in
-            signOutBtn()
-        }
-        alert.addAction(signOutBtn)
+        if loggedInUser?.uid == profileUser?.uid {
+            let signOutBtn = UIAlertAction(title: "Sign Out", style: .default) { _ in
+                signOutBtn()
+            }
+            alert.addAction(signOutBtn)
+        } else {
+            let profileBtn = UIAlertAction(title: "My Profile", style: .default) { _ in
+                myProfileBtn()
+            }
+            alert.addAction(profileBtn)
+        } // End of If logged in user is profile user menu button stuff
         
         let myFriendsListBtn = UIAlertAction(title: "My Friends", style: .default) { _ in
             myFriendsListBtn()
@@ -121,6 +131,16 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             self.navigationController?.pushViewController(vc, animated: true)
         }
 
+        func myProfileBtn() {
+            let storyBoard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
+           guard let vc = storyBoard.instantiateViewController(withIdentifier: "profileDetailVC") as? ProfileViewController else {return}
+            
+            FirebaseFunctions.fetchCurrentUserData { fetchedUser in
+                vc.profileUser = fetchedUser
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        } // End of My Profile Button
+        
         func signOutBtn() {
             let firebaseAuth = Auth.auth()
             do {
@@ -132,8 +152,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         } // End of Sign out Button
         
         func myFriendsListBtn() {
-            
-        } // End of Friends List Button
+            let storyBoard: UIStoryboard = UIStoryboard(name: "justin", bundle: nil)
+            let vc = storyBoard.instantiateViewController(withIdentifier: "conversationCreationVC")
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         
     } // End of Menu Button
     
@@ -147,31 +169,53 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             self.dismiss(animated: true, completion: nil)
         }
         cancelBtn.setValue(UIColor.red, forKey: "titleTextColor")
-        
         alert.addAction(cancelBtn)
         
-        let messageBtn = UIAlertAction(title: "Messsage", style: .default) { _ in
-            messageBtn()
-        }
-        alert.addAction(messageBtn)
         
-        let addFriendBtn = UIAlertAction(title: "Add Friend", style: .default) { _ in
-            addFriendButton()
-        }
-        alert.addAction(addFriendBtn)
+        // Unfriend and Message and Block check
+        guard let loggedInUserFriendsListID = loggedInUser?.friendsListID else { return }
+        guard let profileUserID = profileUser?.uid else { return }
+        FirebaseFunctions.fetchFriends(friendsListID: loggedInUserFriendsListID) { loggedInUserFriendsIDs in
+            if loggedInUserFriendsIDs.friends.contains(profileUserID) {
+                // Are friends
+                let messageBtn = UIAlertAction(title: "Messsage", style: .default) { _ in
+                    messageBtn()
+                }
+                alert.addAction(messageBtn)
+                
+                let removeFriendBtn = UIAlertAction(title: "Remove Friend", style: .default) { _ in
+                    removeFriendBtn()
+                }
+                alert.addAction(removeFriendBtn)
+            } else {
+                // Aren't friends
+                let addFriendBtn = UIAlertAction(title: "Add Friend", style: .default) { _ in
+                    addFriendButton()
+                }
+                alert.addAction(addFriendBtn)
+            }
+            
+            if loggedInUserFriendsIDs.blocked.contains(profileUserID) {
+                let unBlockBtn = UIAlertAction(title: "UnBlock", style: .default) { _ in
+                    unBlockBtn()
+                }
+                alert.addAction(unBlockBtn)
+            } else {
+                let blockBtn = UIAlertAction(title: "Block", style: .default) { _ in
+                    blockBtn()
+                }
+                alert.addAction(blockBtn)
+            }
+        } // End of Firebase fetch
         
         let reportBtn = UIAlertAction(title: "Report", style: .default) { _ in
             reportBtn()
         }
         alert.addAction(reportBtn)
         
-        let blockBtn = UIAlertAction(title: "Block", style: .default) { _ in
-            blockBtn()
-        }
-        alert.addAction(blockBtn)
-        
         self.present(alert, animated: true, completion: nil)
         
+        // Dot Dot Dot Button Functions
         func messageBtn() {
             let storyBoard: UIStoryboard = UIStoryboard(name: "justin", bundle: nil)
             let vs = storyBoard.instantiateViewController(withIdentifier: "conversationListVC")
@@ -179,19 +223,27 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             }
         
         func addFriendButton() {
-            guard let profileUserID = profileUser?.uid else { return }
             FriendsListModelController.sharedInstance.addFriend(newFriendUserID: profileUserID)
-            print("Added new friend (good thing too cuz you need them)")
+            //TODO(ethan) Display a little alert
+        }
+        
+        func removeFriendBtn() {
+            FriendsListModelController.sharedInstance.removeFriend(friendToRemoveID: profileUserID)
+            //TODO(ethan) Display a little alert
         }
         
         func reportBtn() {
-            print("We will review this report probably")
+            //TODO(ethan) Display a little alert
         }
 
         func blockBtn() {
-            guard let profileUserID = profileUser?.uid else { return }
-            FriendsListModelController.sharedInstance.blockUser(profileUID: profileUserID)
-            print("Blocked that nasty user")
+            FriendsListModelController.sharedInstance.blockUser(userToBlockID: profileUserID)
+            //TODO(ethan) Display a little alert
+        }
+        
+        func unBlockBtn() {
+            FriendsListModelController.sharedInstance.unBlockUser(userToUnblockID: profileUserID)
+            //TODO(ethan) Display a little alert
         }
     } // End of Dot dot dot button
     
@@ -204,15 +256,12 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             self.profilePicImageView.image = self.cacheImage(user: profileUser)
         }
     } // End of Func fetch logged in user
-    
-    func fetchPostUser() {
-        
-    }
+
     
     func updateView() {
-        guard let profileUser = profileUser else { return }
+        let profileUsername = profileUser!.username
         
-        usernameLabel.text = ("~" + profileUser.username + "'s Buckets Page")
+        usernameLabel.text = ("~" + profileUsername + "'s Buckets Page")
         
         self.view.backgroundColor = GlobalFunctions.hexStringToUIColor(hex: "#8cdffe")
         self.tableView.backgroundColor = GlobalFunctions.hexStringToUIColor(hex: "#8cdffe")
@@ -254,7 +303,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             }
         }
         return picture
-    }
+    } // End of Cache Image
     
 //    func updateProfilePicture(profileUser: User) {
 //        FirebaseFunctions.fetchProfileImage(user: profileUser) { fetchedProfileImage in
@@ -272,6 +321,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     
     // MARK: - Image Picker
+    // This will let the user pick their profile picture
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)
         
@@ -281,7 +331,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         let storage = Storage.storage().reference()
         guard let user = Auth.auth().currentUser else {return}
         
-        let ref = storage.child("images/\(user.uid).profilePic.png")
+        let ref = storage.child("images/\(user.uid)/profilePic/.profilePic.png")
         ref.putData(imageData, metadata: nil, completion: { _, 🛑 in
             if let 🛑 = 🛑 {
                 print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
@@ -370,4 +420,4 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         return self.tableView.rowHeight
     } // End of Height for row at
     
-} // End of Extension
+} // End of Extensions

@@ -68,6 +68,7 @@ class FirebaseFunctions {
                         print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
                     }
                 }
+
                 // This creates the base user's friends lis
                 Firestore.firestore().collection("friends").document(newUserID).setData( [
                     "friends" : [""],
@@ -79,7 +80,6 @@ class FirebaseFunctions {
                         print("Friend list for user \(newUserID) was created")
                     }
                 } // End of create users friends list
-               
             }
         } // End of base user creation
     }
@@ -258,8 +258,9 @@ class FirebaseFunctions {
     static func createPost(newPost: Post, image: UIImage?) {
         guard let currentUserID: String = Auth.auth().currentUser?.uid else { return }
         let postID: String = UUID().uuidString
+        let imageID: String = UUID().uuidString
         let storage = Storage.storage().reference()
-        let ref = storage.child("images/\(postID).post.jpeg")
+        let ref = storage.child("images/\(currentUserID)/posts\(postID)/\(imageID).jpeg")
         
         var urlString: String = ""
         if image != nil {
@@ -510,7 +511,7 @@ class FirebaseFunctions {
                         let commentID: String = data["commentID"] as? String ?? ""
                         let commentsID: String = data["commentsID"] as? String ?? ""
                         let note: String = data["note"] as? String ?? ""
-                        let timestamp: String = data["timestamp"] as? String ?? ""
+                        let timestamp: Date = data["timestamp"] as? Date ?? Date()
                         
                         let fetchedComment = Comment(commentsID: commentsID, commentID: commentID, authorID: authorID, timestamp: timestamp, authorUsername: authorUsername, note: note)
                         

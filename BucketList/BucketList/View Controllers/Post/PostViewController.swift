@@ -47,6 +47,11 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         NotificationCenter.default.addObserver(self, selector: #selector(PostViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     } // End of View did load
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchData()
+    }
+    
     // Makes the keyboard appear and dissapera
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -70,6 +75,8 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.lilTableView.reloadData()
             }
         }
+        // This will put the keyboard back
+        self.view.endEditing(true)
     } // End of Post Comment Button Tapped
     
     @IBAction func editPostBtn(_ sender: Any) {
@@ -85,8 +92,8 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         let editBtn = UIAlertAction(title: "Edit", style: .default) { _ in
             EditPostViewController.postID = self.postID
             let storyBoard: UIStoryboard = UIStoryboard(name: "EditPost", bundle: nil)
-            let vs = storyBoard.instantiateViewController(withIdentifier: "editPostVC")
-            self.navigationController?.pushViewController(vs, animated: true)
+            let vc = storyBoard.instantiateViewController(withIdentifier: "editPostVC")
+            self.navigationController?.pushViewController(vc, animated: true)
         }
         alert.addAction(editBtn)
         
@@ -142,7 +149,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
         if post.bucketTitle != "" {
-            self.titleLabel.text = post.bucketTitle
+            self.titleLabel.text = "From Bucket: " + post.bucketTitle!
             self.titleLabel.isHidden = false
         } else {
             self.titleLabel.isHidden = true
@@ -295,7 +302,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     } // End of Keyboard will hide Function
     
     
-    // MARK: - Menu Button Stuff
+    // MARK: - Menu Button
     @IBAction func menuBtn(_ sender: Any) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -326,10 +333,14 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         alert.addAction(profileBtn)
         
+        let myFriendsListBtn = UIAlertAction(title: "My Friends", style: .default) { _ in
+            self.myFriendsListBtn()
+        }
+        alert.addAction(myFriendsListBtn)
+        
         self.present(alert, animated: true, completion: nil)
     }
-    
-    // MARK: - Navigation
+
     func conversationBtn() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "justin", bundle: nil)
         let vc = storyBoard.instantiateViewController(withIdentifier: "conversationListVC")
@@ -350,13 +361,20 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func myProfileBtn() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
-        guard let vc = storyBoard.instantiateViewController(withIdentifier: "profileDetailVC") as? ProfileViewController else {return}
+       guard let vc = storyBoard.instantiateViewController(withIdentifier: "profileDetailVC") as? ProfileViewController else {return}
         
         FirebaseFunctions.fetchCurrentUserData { fetchedUser in
             vc.profileUser = fetchedUser
             self.navigationController?.pushViewController(vc, animated: true)
         }
     } // End of My Profile Button
+    
+    func myFriendsListBtn() {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "justin", bundle: nil)
+        let vc = storyBoard.instantiateViewController(withIdentifier: "conversationCreationVC")
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    // End of Menu Button
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -365,9 +383,12 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath)
+        let commentData = self.postComments[indexPath.row]
+        let username = commentData.authorUsername!
+        let timestamp: String = (commentData.timestamp?.formatToStringWithTime())!
         
-        cell.textLabel?.text = self.postComments[indexPath.row].note
-        cell.detailTextLabel?.text = ("~" + self.postComments[indexPath.row].authorUsername!)
+        cell.textLabel?.text = commentData.note
+        cell.detailTextLabel?.text = ("~" + username + ", " + timestamp)
         
         return cell
     }

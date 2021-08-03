@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="u0U-k2-hXt">
-                                <rect key="frame" x="8" y="96" width="412" height="601.66666666666663"/>
+                                <rect key="frame" x="8" y="96" width="412" height="550"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mZY-yG-8vY">
                                         <rect key="frame" x="0.0" y="0.0" width="412" height="72"/>
@@ -78,7 +78,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="UJb-cM-Cqk"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -89,16 +89,13 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="izn-qj-n6n">
-                                        <rect key="frame" x="0.0" y="476" width="412" height="72"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="72" id="4bx-Fx-kUB"/>
-                                        </constraints>
+                                        <rect key="frame" x="0.0" y="476" width="412" height="20.333333333333314"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="LNZ-bA-iU2">
-                                        <rect key="frame" x="0.0" y="556" width="412" height="45.666666666666629"/>
+                                        <rect key="frame" x="0.0" y="504.33333333333343" width="412" height="45.666666666666686"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Comment" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hjY-Rb-1gy">
                                                 <rect key="frame" x="0.0" y="6" width="358.33333333333331" height="34"/>
@@ -134,7 +131,7 @@
                                 </constraints>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QNU-kp-hIs">
-                                <rect key="frame" x="8" y="705.66666666666663" width="412" height="220.33333333333337"/>
+                                <rect key="frame" x="8" y="654" width="412" height="272"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="commentCell" textLabel="sfi-pz-A4W" detailTextLabel="r29-tD-0HZ" rowHeight="48" style="IBUITableViewCellStyleSubtitle" id="CIK-Bs-eIq" customClass="PostCommentsTableViewCell" customModule="BucketList" customModuleProvider="target">
