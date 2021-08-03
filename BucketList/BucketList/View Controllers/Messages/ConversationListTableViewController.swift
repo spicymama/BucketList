@@ -28,13 +28,8 @@ class ConversationListTableViewController: UITableViewController {
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let conversationCount = ConversationController.shared.conversations.count
-        
-        if conversationCount == 0 {
-            youHaveNoConversations()
-            return 0
-        } else {
-            return conversationCount
-        }
+
+        return conversationCount
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -65,6 +60,9 @@ class ConversationListTableViewController: UITableViewController {
             switch result {
             case true:
                 DispatchQueue.main.async {
+                    if ConversationController.shared.conversations.count == 0 {
+                        self.youHaveNoConversations()
+                    }
                     self.tableView.reloadData()
                 }
             case false:
