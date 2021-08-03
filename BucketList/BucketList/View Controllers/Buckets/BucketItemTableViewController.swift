@@ -34,8 +34,9 @@ class BucketItemTableViewController: UITableViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-       // loadData()
-    }
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
+        // loadData()
+    } // End of View did load
     
     
     // MARK: - Functions
@@ -46,8 +47,8 @@ class BucketItemTableViewController: UITableViewController {
         BucketFirebaseFunctions.fetchBucketItems(bucketItemsID: bucketItemsID) { fetchedBucketItems in
             for bucketItem in fetchedBucketItems {
                 if !self.bucketItemsArray.contains(bucketItem) {
-                self.bucketItemsArray.append(bucketItem)
-                self.updateViews()
+                    self.bucketItemsArray.append(bucketItem)
+                    self.updateViews()
                 }
             }
         }
@@ -78,7 +79,7 @@ class BucketItemTableViewController: UITableViewController {
         let saveAction = UIAlertAction(title: "Bucket It!", style: .default) { _ in
             // Save code here
             guard let id = self.bucket?.bucketID,
-            let itemTitle = addItemAlert.textFields?[0].text, !itemTitle.isEmpty else { return }
+                  let itemTitle = addItemAlert.textFields?[0].text, !itemTitle.isEmpty else { return }
             let itemNote = (addItemAlert.textFields?[1].text) ?? ""
             
             let newBucketItem = BucketItem(bucketID: id, title: itemTitle, note: itemNote, completed: false)
@@ -105,7 +106,7 @@ class BucketItemTableViewController: UITableViewController {
         
         return cell
     }
-   
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let bucketItem: BucketItem = bucketItemsArray[indexPath.row]
@@ -125,8 +126,8 @@ class BucketItemTableViewController: UITableViewController {
         self.view.endEditing(true)
     } // End of Function
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Show save button delegate thing
+    @objc func keyboardWillAppear() {
         saveBtnDelegate?.toggleSaveBtn(isVisible: true)
-    }
+    } // End of Function
+    
 } // End of Bucket Item Controller

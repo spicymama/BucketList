@@ -9,6 +9,7 @@ import UIKit
 
 class BucketItemTableViewCell: UITableViewCell {
     static let shared = BucketItemTableViewCell()
+    
     // MARK: - Outlets
     @IBOutlet weak var bucketItemTitleField: UITextField!
     @IBOutlet weak var bucketItemNoteField: UITextField!
@@ -34,12 +35,11 @@ class BucketItemTableViewCell: UITableViewCell {
         saveBtn.isHidden = true
         bucketItemTitleField.text = bucketItem.title
         bucketItemNoteField.text = bucketItem.note
-        bucketItemTimestampLabel.text = bucketItem.timestamp?.formatToString()
+        bucketItemTimestampLabel.text = (" Bucketed: " + bucketItem.timestamp!.formatToString())
         isCompleted = bucketItem.completed
         //bucketItemsArr.append(bucketItem)
         updateCompletedBtn()
     } // End of Update View
-    
     
     func updateCompletedBtn() {
         if isCompleted == false {
@@ -88,9 +88,11 @@ class BucketItemTableViewCell: UITableViewCell {
     
 } // End of Class Bucket Item Table View Cell
 
+
 // MARK: - Extensions
 extension BucketItemTableViewCell: SaveBtnDelegate {
     func toggleSaveBtn(isVisible: Bool) {
         saveBtn.isHidden = false
+        print("Is this thing on?")
     }
 } // End of Extension
