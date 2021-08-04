@@ -228,26 +228,31 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         func addFriendButton() {
             FriendsListModelController.sharedInstance.addFriend(newFriendUserID: profileUserID)
-            //TODO(ethan) Display a little alert
+            let alert = GlobalFunctions.basicOkAlert(title: "Friend Added", message: profileUser!.username)
+            present(alert, animated: true, completion: nil)
         }
         
         func removeFriendBtn() {
             FriendsListModelController.sharedInstance.removeFriend(friendToRemoveID: profileUserID)
-            //TODO(ethan) Display a little alert
+            let alert = GlobalFunctions.basicOkAlert(title: "Friend Removed", message: profileUser!.username)
+            present(alert, animated: true, completion: nil)
         }
         
         func reportBtn() {
-            //TODO(ethan) Display a little alert
+            let alert = GlobalFunctions.basicOkAlert(title: "User Reported", message: profileUser!.username)
+            present(alert, animated: true, completion: nil)
         }
 
         func blockBtn() {
             FriendsListModelController.sharedInstance.blockUser(userToBlockID: profileUserID)
-            //TODO(ethan) Display a little alert
+            let alert = GlobalFunctions.basicOkAlert(title: "User Blocked", message: profileUser!.username)
+            present(alert, animated: true, completion: nil)
         }
         
         func unBlockBtn() {
             FriendsListModelController.sharedInstance.unBlockUser(userToUnblockID: profileUserID)
-            //TODO(ethan) Display a little alert
+            let alert = GlobalFunctions.basicOkAlert(title: "User Unblocked", message: profileUser!.username)
+            present(alert, animated: true, completion: nil)
         }
     } // End of Dot dot dot button
     

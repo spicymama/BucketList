@@ -52,7 +52,7 @@ class FeedTableViewCell: UITableViewCell {
         if post.imageURL == "" {
             postImageView.isHidden = true
         } else {
-            postImageView.image = cachePostImage(post: post)
+            cachePostImage(post: post)
         }
         
         if post.bucketTitle == "" {
@@ -63,18 +63,13 @@ class FeedTableViewCell: UITableViewCell {
         
         timestampLabel.text = post.timestamp?.formatToString()
         noteLabel.text = post.note
-        profilePic.image = cacheImage(user: user)
+        cacheImage(user: user)
         
         self.beautifyCell()
     } // End of Update Views
+
     
-    func randomPhoto() -> String {
-        let randomNumber = Int.random(in: 0...9)
-        
-        return String(randomNumber)
-    }
-    
-    func cacheImage(user: User)-> UIImage {
+    func cacheImage(user: User) {
         var picture = UIImage()
         let cache = ImageCacheController.shared.cache
         let cacheKey = NSString(string: user.profilePicUrl ?? "")
@@ -107,10 +102,10 @@ class FeedTableViewCell: UITableViewCell {
                 }
             }
         }
-        return picture
+        profilePic.image = picture
     } // End of Cache Image
     
-    func cachePostImage(post: Post) -> UIImage {
+    func cachePostImage(post: Post){
         var picture = UIImage()
         let cache = ImageCacheController.shared.cache
         let cacheKey = NSString(string: post.imageURL ?? "" )
@@ -133,6 +128,8 @@ class FeedTableViewCell: UITableViewCell {
                                 picture = image
                                 cache.setObject(image, forKey: cacheKey)
                                 
+                                // Reload the cell
+                                
                             }
                         }
                     }
@@ -140,7 +137,7 @@ class FeedTableViewCell: UITableViewCell {
                 task.resume()
             }
         }
-        return picture
+        postImageView.image = picture
     } // End of Cache post
     
     

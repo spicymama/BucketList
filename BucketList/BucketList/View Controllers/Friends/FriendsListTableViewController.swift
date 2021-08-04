@@ -61,7 +61,7 @@ class FriendsListTableViewController: UITableViewController {
 
     //MARK: - Functions
     func fetchFriendsData() {
-        FirebaseFunctions.fetchFriends(friendsListID: uid ?? "0") { data in
+        FirebaseFunctions.fetchFriends(friendsListID: uid!) { data in
             for friend in data.friends {
                 self.friendsList.append(friend)
             }

@@ -57,6 +57,11 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating, U
         tableView.rowHeight = 650
         
         tableView.reloadData()
+        
+        // This should update the images
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+            self.tableView.reloadData()
+        }
     } // End of View Did load
     
     // MARK: - Actions
