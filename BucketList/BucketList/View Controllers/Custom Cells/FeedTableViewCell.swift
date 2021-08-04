@@ -151,9 +151,6 @@ class FeedTableViewCell: UITableViewCell {
 extension FeedTableViewCell {
     func beautifyCell() {
         self.contentView.backgroundColor = .white
-        self.layer.borderWidth = 3.0
-        self.layer.borderColor = UIColor.black.cgColor
-        self.layer.cornerRadius = 24.0
-        self.layer.frame = layer.frame.inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 0, right: 5))
+        self.layer.frame = layer.frame.inset(by: UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0))
     } // End of Function
 } // End of Extension
