@@ -19,7 +19,7 @@ class List {
 class Bucket {
     
     var title: String
-    var note: String
+    var note: String?
     var commentsID: String?
     var itemsID: String?
     var bucketID: String?
@@ -29,7 +29,7 @@ class Bucket {
     var timestamp: Date?
     
 
-    init(title: String, note: String, commentsID: String = "", itemsID: String = "", bucketID: String = "", completion: Int = 0, reactions: [String] = [], isPublic: Bool, timestamp: Date = Date()) {
+    init(title: String, note: String = "", commentsID: String = "", itemsID: String = "", bucketID: String = "", completion: Int = 0, reactions: [String] = [], isPublic: Bool, timestamp: Date = Date()) {
         self.title = title
         self.note = note
         self.commentsID = commentsID

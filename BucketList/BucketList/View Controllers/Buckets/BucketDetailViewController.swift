@@ -14,7 +14,6 @@ class BucketDetailViewController: UIViewController {
     @IBOutlet weak var visibilityLabel: UILabel!
     @IBOutlet weak var visibilitySwitch: UISwitch!
     @IBOutlet weak var bucketTitleField: UITextField!
-    @IBOutlet weak var bucketNoteField: UITextField!
     
     
     // MARK: - Properties
@@ -38,7 +37,6 @@ class BucketDetailViewController: UIViewController {
             createNewBucketLabel.text = bucket?.title
             self.isPublic = bucket!.isPublic
             bucketTitleField.text = bucket!.title
-            bucketNoteField.text = bucket!.note
         } else {
             isPublic = true
         }
@@ -55,20 +53,12 @@ class BucketDetailViewController: UIViewController {
             bucketTitleField.text = nil
             bucketTitleField.textColor = UIColor.black
         }
-        if bucketNoteField.textColor == UIColor.lightGray {
-            bucketNoteField.text = nil
-            bucketNoteField.textColor = UIColor.black
-        }
     } // End of Func
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if bucketTitleField.text?.isEmpty == true {
             bucketTitleField.text = "What would you like to do?"
             bucketTitleField.textColor = UIColor.lightGray
-        }
-        if bucketNoteField.text?.isEmpty == true {
-            bucketNoteField.text = "What would you like to do?"
-            bucketNoteField.textColor = UIColor.lightGray
         }
     } // End of Func
     
@@ -94,19 +84,17 @@ class BucketDetailViewController: UIViewController {
         if (BucketDetailViewController.bucket == nil) {
             // Create new Bucket
             guard let title = bucketTitleField.text else { return }
-            let note = bucketNoteField.text ?? ""
             let isPublic = isPublic ?? true
             
-            let newBucket = Bucket(title: title, note: note, isPublic: isPublic)
+            let newBucket = Bucket(title: title, isPublic: isPublic)
             
             BucketFirebaseFunctions.createBucket(newBucket: newBucket)
         } else {
             // Update bucket
             guard let title = bucketTitleField.text else { return }
-            let note = bucketNoteField.text ?? ""
             let isPublic = isPublic ?? true
             
-            let bucketToUpdate = Bucket(title: title, note: note, isPublic: isPublic)
+            let bucketToUpdate = Bucket(title: title, isPublic: isPublic)
             
             BucketFirebaseFunctions.updateBucket(bucketToUpdate: bucketToUpdate)
         }

@@ -72,30 +72,25 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="bucketItemCell" id="OIY-um-qYw" customClass="BucketItemTableViewCell" customModule="BucketList" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="24.333333969116211" width="428" height="134.33332824707031"/>
+                                <rect key="frame" x="0.0" y="24.333333969116211" width="428" height="107"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OIY-um-qYw" id="Gjs-fU-Ab8">
-                                    <rect key="frame" x="0.0" y="0.0" width="428" height="134.33332824707031"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="428" height="107"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="M3C-8k-J1w">
-                                            <rect key="frame" x="8" y="7.9999999999999929" width="412" height="118.33333333333331"/>
+                                            <rect key="frame" x="8" y="8" width="412" height="91"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="rKi-BE-FYQ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="324" height="118.33333333333333"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="324" height="91"/>
                                                     <subviews>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Item Title Here..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aJQ-eW-N3E">
-                                                            <rect key="frame" x="0.0" y="0.0" width="324" height="34"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                            <textInputTraits key="textInputTraits"/>
-                                                        </textField>
-                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Item Notes Here..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="y5h-ek-kpH">
-                                                            <rect key="frame" x="0.0" y="42" width="324" height="34.333333333333343"/>
-                                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="324" height="41.666666666666664"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits"/>
                                                         </textField>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timestamp" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UvL-cb-950">
-                                                            <rect key="frame" x="0.0" y="84.333333333333329" width="324" height="34"/>
+                                                            <rect key="frame" x="0.0" y="49.666666666666657" width="324" height="41.333333333333343"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -106,10 +101,10 @@
                                                     </constraints>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="DaH-9d-OD5">
-                                                    <rect key="frame" x="332" y="0.0" width="80" height="118.33333333333333"/>
+                                                    <rect key="frame" x="332" y="0.0" width="80" height="91"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fdf-n5-VbX">
-                                                            <rect key="frame" x="0.0" y="0.0" width="80" height="55.333333333333336"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="80" height="41.666666666666664"/>
                                                             <state key="normal" image="xmark.seal" catalog="system">
                                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="32"/>
                                                             </state>
@@ -118,7 +113,7 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sT1-ze-F23">
-                                                            <rect key="frame" x="0.0" y="63.333333333333329" width="80" height="55"/>
+                                                            <rect key="frame" x="0.0" y="49.666666666666657" width="80" height="41.333333333333343"/>
                                                             <state key="normal" title="Save"/>
                                                             <connections>
                                                                 <action selector="saveBtn:" destination="OIY-um-qYw" eventType="touchUpInside" id="Krc-Xq-hBz"/>
@@ -137,7 +132,6 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="bucketItemNoteField" destination="y5h-ek-kpH" id="Lb2-pK-Sol"/>
                                     <outlet property="bucketItemTimestampLabel" destination="UvL-cb-950" id="Cn3-CD-J13"/>
                                     <outlet property="bucketItemTitleField" destination="aJQ-eW-N3E" id="g5X-AO-ty6"/>
                                     <outlet property="completedBtn" destination="Fdf-n5-VbX" id="MQT-Gd-Zrr"/>
@@ -171,7 +165,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="xra-QK-Tze">
-                                <rect key="frame" x="32" y="120" width="364" height="374"/>
+                                <rect key="frame" x="32" y="120" width="364" height="287"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create New Bucket" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mLs-7V-D6b">
                                         <rect key="frame" x="0.0" y="0.0" width="364" height="55"/>
@@ -211,16 +205,8 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Notes about this Bucket List?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gRm-8x-ARz">
-                                        <rect key="frame" x="0.0" y="237" width="364" height="55"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="55" id="RHG-F2-cH7"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="XJF-kj-tYx">
-                                        <rect key="frame" x="0.0" y="324" width="364" height="50"/>
+                                        <rect key="frame" x="0.0" y="237" width="364" height="50"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oz7-T4-eoT">
                                                 <rect key="frame" x="0.0" y="0.0" width="364" height="50"/>
@@ -247,7 +233,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="FGO-RG-yES"/>
                     <connections>
-                        <outlet property="bucketNoteField" destination="gRm-8x-ARz" id="RSr-81-kNl"/>
                         <outlet property="bucketTitleField" destination="Kyi-X9-tOB" id="hRs-sr-xCq"/>
                         <outlet property="createNewBucketLabel" destination="mLs-7V-D6b" id="5nC-0h-KAT"/>
                         <outlet property="visibilityLabel" destination="Hzf-yJ-wkL" id="VqU-Rc-UoP"/>

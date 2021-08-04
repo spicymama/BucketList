@@ -11,7 +11,7 @@ class BucketItem {
     
     var bucketID: String
     var title: String
-    var note: String
+    var note: String?
     
     var itemID: String
     var commentsID: String
@@ -19,7 +19,7 @@ class BucketItem {
     var reactions: [String]
     var timestamp: Date?
     
-    init(bucketID: String, title: String, note: String, itemID: String = "", commentsID: String = "", completed: Bool, reactions: [String] = [], timestamp: Date = Date()) {
+    init(bucketID: String, title: String, note: String = "", itemID: String = "", commentsID: String = "", completed: Bool, reactions: [String] = [], timestamp: Date = Date()) {
         self.bucketID = bucketID
         self.title = title
         self.note = note

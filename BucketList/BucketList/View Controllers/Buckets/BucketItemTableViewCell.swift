@@ -12,7 +12,6 @@ class BucketItemTableViewCell: UITableViewCell {
     
     // MARK: - Outlets
     @IBOutlet weak var bucketItemTitleField: UITextField!
-    @IBOutlet weak var bucketItemNoteField: UITextField!
     @IBOutlet weak var bucketItemTimestampLabel: UILabel!
     @IBOutlet weak var completedBtn: UIButton!
     @IBOutlet weak var saveBtn: UIButton!
@@ -34,7 +33,6 @@ class BucketItemTableViewCell: UITableViewCell {
         guard let bucketItem = bucketItem else {return}
         saveBtn.isHidden = true
         bucketItemTitleField.text = bucketItem.title
-        bucketItemNoteField.text = bucketItem.note
         bucketItemTimestampLabel.text = (" Bucketed: " + bucketItem.timestamp!.formatToString())
         isCompleted = bucketItem.completed
         //bucketItemsArr.append(bucketItem)
@@ -76,10 +74,9 @@ class BucketItemTableViewCell: UITableViewCell {
     @IBAction func saveBtn(_ sender: Any) {
         guard let bucketID = bucketItem?.bucketID else { return }
         guard let title = bucketItemTitleField.text else { return }
-        let note = bucketItemNoteField.text ?? ""
         let completed = isCompleted ?? false
         
-        let bucketItem = BucketItem(bucketID: bucketID, title: title, note: note, completed: completed)
+        let bucketItem = BucketItem(bucketID: bucketID, title: title, completed: completed)
         
         BucketFirebaseFunctions.updateBucketItem(bucketItem: bucketItem)
         updateCompletedBtn()

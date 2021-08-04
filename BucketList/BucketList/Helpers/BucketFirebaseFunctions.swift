@@ -108,7 +108,7 @@ class BucketFirebaseFunctions {
                             let title = fetchedBucket.title
                             let bucketID = fetchedBucket.bucketID!
                             let isPublic = fetchedBucket.isPublic
-                            let note = fetchedBucket.note
+                            let note = fetchedBucket.note ?? ""
                             let commentsID = fetchedBucket.commentsID ?? ""
                             let itemsID = fetchedBucket.itemsID ?? ""
                             let completion = fetchedBucket.completion

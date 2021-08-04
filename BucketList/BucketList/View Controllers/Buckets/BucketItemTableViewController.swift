@@ -69,10 +69,6 @@ class BucketItemTableViewController: UITableViewController {
             textField.placeholder = "Item Title Here..."
         }
         
-        addItemAlert.addTextField { textField in
-            textField.placeholder = "Any notes about this item?"
-        }
-        
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         cancelAction.setValue(UIColor.red, forKey: "titleTextColor")
         
@@ -80,9 +76,8 @@ class BucketItemTableViewController: UITableViewController {
             // Save code here
             guard let id = self.bucket?.bucketID,
                   let itemTitle = addItemAlert.textFields?[0].text, !itemTitle.isEmpty else { return }
-            let itemNote = (addItemAlert.textFields?[1].text) ?? ""
             
-            let newBucketItem = BucketItem(bucketID: id, title: itemTitle, note: itemNote, completed: false)
+            let newBucketItem = BucketItem(bucketID: id, title: itemTitle, completed: false)
             BucketFirebaseFunctions.createBucketItem(bucketItem: newBucketItem)
         }
         
