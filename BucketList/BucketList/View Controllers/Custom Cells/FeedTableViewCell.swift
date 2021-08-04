@@ -44,9 +44,9 @@ class FeedTableViewCell: UITableViewCell {
         guard let post = post,
                let user = user else {return}
         if post.bucketTitle == "" {
-            usernameLabel.text = ("~" + (user.username) + " made a Post!")
+            usernameLabel.text = ("~" + (user.username) + " posted")
         } else {
-            usernameLabel.text = ("~" + (user.username) + " checked " + (post.bucketTitle ?? "something") + " off their list!")
+            usernameLabel.text = ("~" + (user.username) + " bucketed: " + (post.bucketTitle!))
         }
         
         if post.imageURL == "" {
