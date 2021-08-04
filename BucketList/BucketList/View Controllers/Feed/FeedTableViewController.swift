@@ -36,7 +36,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating, U
         // Can't return to login screen
         self.navigationItem.setHidesBackButton(true, animated: true)
         
-        checkSegmentIndex()
+        checkForFriendsPosts()
         
         searchController.searchResultsUpdater = self
         definesPresentationContext = true
@@ -180,7 +180,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating, U
     func checkForFriendsPosts() {
         if segmentedController.selectedSegmentIndex == 0 {
             if friendsPosts.count == 0 {
-                let alert = UIAlertController(title: "Looks like your friends havn't made any posts!", message: nil, preferredStyle: .alert)
+                let alert = UIAlertController(title: " There's nothing here?!", message: "Looks like your friends have not made any posts!", preferredStyle: .alert)
                 let alertButton = UIAlertAction(title: "Lets see what's popular!", style: .default)
                 alert.addAction(alertButton)
                 
