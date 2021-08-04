@@ -40,17 +40,24 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        profilePicBtn.isEnabled = false
+        
         fetchLoggedInUser()
         fetchPosts()
         
         tableView.delegate = self
         tableView.dataSource = self
         
+        isLoggedInUserProfileUser()
+        
         updateView()
     } // End of view did load
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        profilePicBtn.isEnabled = false
         
         fetchLoggedInUser()
         fetchPosts()
@@ -267,6 +274,12 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     } // End of Func fetch logged in user
 
     
+    func isLoggedInUserProfileUser() {
+        if loggedInUser?.uid == profileUser?.uid {
+            profilePicBtn.isEnabled = true
+        }
+    } // End of Function
+    
     func updateView() {
         let profileUsername = profileUser!.username
         
@@ -313,20 +326,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
         return picture
     } // End of Cache Image
-    
-//    func updateProfilePicture(profileUser: User) {
-//        FirebaseFunctions.fetchProfileImage(user: profileUser) { fetchedProfileImage in
-//            self.profilePicImageView.image = fetchedProfileImage
-//        }
-//
-//        if profileUser.uid == loggedInUser?.uid {
-//            // Show pick photo thing
-//            self.profilePicBtn.isHidden = false
-//        } else {
-//            // Hide pick photo thing
-//            self.profilePicBtn.isHidden = true
-//        }
-//    } // End of Update profile Picture
     
     
     // MARK: - Image Picker
