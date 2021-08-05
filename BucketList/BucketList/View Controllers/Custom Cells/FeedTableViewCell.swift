@@ -65,7 +65,7 @@ class FeedTableViewCell: UITableViewCell {
         noteLabel.text = post.note
         cacheImage(user: user)
         
-        self.beautifyCell()
+        beautifyCell()
     } // End of Update Views
 
     
@@ -139,7 +139,6 @@ class FeedTableViewCell: UITableViewCell {
         }
         postImageView.image = picture
     } // End of Cache post
-    
     
 } // End of Feed Table View Cell
 

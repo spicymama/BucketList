@@ -1,5 +1,5 @@
 //
-//  ProfileTableViewController.swift
+//  ProfileViewController.swift
 //  BucketList
 //
 //  Created by Gavin Woffinden on 6/21/21.
@@ -48,9 +48,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         tableView.delegate = self
         tableView.dataSource = self
-        
-        isLoggedInUserProfileUser()
-        
+
         updateView()
     } // End of view did load
     
@@ -61,7 +59,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         fetchLoggedInUser()
         fetchPosts()
-        
         updateView()
     } // End of View will appear
     
@@ -270,6 +267,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             guard let profileUser = self.profileUser else {return}
             self.loggedInUser = FetchedUser
             self.profilePicImageView.image = self.cacheImage(user: profileUser)
+            
+            self.isLoggedInUserProfileUser()
         }
     } // End of Func fetch logged in user
 
@@ -392,8 +391,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         
         return cell ?? UITableViewCell()
     } // End of Cell for row at
- 
-    
+     
     // Did select row at
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyboard: UIStoryboard = UIStoryboard(name: "PostDetail", bundle: nil)
@@ -407,25 +405,5 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         
         navigationController?.pushViewController(vc, animated: true)
     }
-    
-    
-    // Height for row at
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let image = posts[indexPath.row].imageURL ?? ""
-        let title = posts[indexPath.row].bucketTitle ?? ""
-        var imageHeight = CGFloat(600)
-        
-        if image == "" {
-            imageHeight = imageHeight - 380
-        }
-        
-        if title == "" {
-            imageHeight = imageHeight - 64
-        }
-        
-        self.tableView.rowHeight = imageHeight
-        
-        return self.tableView.rowHeight
-    } // End of Height for row at
     
 } // End of Extensions

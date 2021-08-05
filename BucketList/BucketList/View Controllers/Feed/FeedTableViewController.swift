@@ -71,6 +71,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating, U
         checkForFriendsPosts()
     } // End of Segment was changed
     
+    
     // MARK: - Functions
     func checkSegmentIndex() {
         if segmentedController.selectedSegmentIndex == 0 {
