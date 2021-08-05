@@ -277,8 +277,9 @@ class BucketFirebaseFunctions {
                         let commentsID: String = document["commentsID"] as? String ?? ""
                         let completed: Bool = document["completed"] as? Bool ?? false
                         let reactions: [String] = document["reactions"] as? [String] ?? []
-                        let timestamp: Date = document["timestamp"] as? Date ?? Date()
                         
+                        let serverTimestamp = document["timestamp"] as? Timestamp
+                        let timestamp = serverTimestamp?.dateValue() as! Date
                         
                         let fetchedItem = BucketItem(bucketID: bucketID, title: title, note: note, itemID: itemID, commentsID: commentsID, completed: completed, reactions: reactions, timestamp: timestamp)
                         
