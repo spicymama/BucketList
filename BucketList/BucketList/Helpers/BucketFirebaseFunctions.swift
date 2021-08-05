@@ -180,7 +180,6 @@ class BucketFirebaseFunctions {
                 print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
             }
         }
-        print("Bucket updated")
     } // End of Update Bucket
     
     
@@ -247,9 +246,6 @@ class BucketFirebaseFunctions {
                 bucket.completion = Int(completion)
                 updateBucket(bucketToUpdate: bucket)
             }
-            print(items.count)
-            print(completed)
-            print(completion)
             completed = 0
         }
         
@@ -279,7 +275,7 @@ class BucketFirebaseFunctions {
                         let reactions: [String] = document["reactions"] as? [String] ?? []
                         
                         let serverTimestamp = document["timestamp"] as? Timestamp
-                        let timestamp = serverTimestamp?.dateValue() as! Date
+                        let timestamp = serverTimestamp?.dateValue() as? Date ?? Date()
                         
                         let fetchedItem = BucketItem(bucketID: bucketID, title: title, note: note, itemID: itemID, commentsID: commentsID, completed: completed, reactions: reactions, timestamp: timestamp)
                         

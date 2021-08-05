@@ -20,12 +20,13 @@ class BucketItemTableViewCell: UITableViewCell {
     var selectedCell: UITableViewCell?
     var bucketItemsArr: [BucketItem] = []
     
+    
     // MARK: - Properties
     var bucketItem: BucketItem? {
         didSet {
             updateView()
         }
-    } // End of Var Bucket Item
+    } // End of Bucket Item
     
     
     // MARK: - Functions
@@ -56,6 +57,7 @@ class BucketItemTableViewCell: UITableViewCell {
             BucketFirebaseFunctions.updateBucketItem(bucketItem: item)
         }
     }
+    
     func toggleButton() {
         if completedBtn.imageView?.image == UIImage(systemName: "xmark.seal") {
             completedBtn.setImage(UIImage(systemName: "checkmark.seal.fill"), for: .normal)
@@ -63,12 +65,13 @@ class BucketItemTableViewCell: UITableViewCell {
             completedBtn.setImage(UIImage(systemName: "xmark.seal"), for: .normal)
         }
     }
+    
     // MARK: - Actions
     @IBAction func completedBtn(_ sender: Any) {
         guard let item = self.bucketItem else {return}
-        toggleCompletion(item: item)
-        updateCompletedBtn()
         toggleButton()
+//        updateCompletedBtn()
+        toggleCompletion(item: item)
     } // End of Completed Btn
     
     @IBAction func saveBtn(_ sender: Any) {
