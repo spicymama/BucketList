@@ -270,7 +270,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         postID = PostViewController.currentPost?.postID
         FirebaseFunctions.fetchCommentsData(postID: postID!) { Comments in
             DispatchQueue.main.async {
-                self.postComments = Comments
+                self.postComments = Comments.reversed()
                 
                 self.updateViews()
                 self.lilTableView.reloadData()

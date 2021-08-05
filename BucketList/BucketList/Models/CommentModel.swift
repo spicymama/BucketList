@@ -9,7 +9,7 @@ import Foundation
 
 class Comment {
     
-    /// Comments ID is the same as the PostsID or hte BucketID
+    /// Comments ID is the same as the PostsID or the BucketID
     let commentsID: String?
     let commentID: String?
     let authorID: String?

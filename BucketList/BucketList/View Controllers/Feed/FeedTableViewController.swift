@@ -58,8 +58,8 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating, U
         
         tableView.reloadData()
         
-        // This should update the images
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+        // This should clean anything weird the images
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             self.tableView.reloadData()
         }
     } // End of View Did load
