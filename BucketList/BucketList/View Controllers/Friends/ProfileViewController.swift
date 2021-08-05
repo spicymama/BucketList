@@ -25,6 +25,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var profilePicBtn: UIButton!
     @IBOutlet weak var profilePicImageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var dotDotDotBtn: UIButton!
     
     
     // MARK: - Properties
@@ -42,6 +43,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         super.viewDidLoad()
         
         profilePicBtn.isEnabled = false
+        dotDotDotBtn.isHidden = false
+        dotDotDotBtn.isEnabled = true
         
         fetchLoggedInUser()
         fetchPosts()
@@ -56,6 +59,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         super.viewWillAppear(animated)
         
         profilePicBtn.isEnabled = false
+        dotDotDotBtn.isHidden = false
+        dotDotDotBtn.isEnabled = true
         
         fetchLoggedInUser()
         fetchPosts()
@@ -276,6 +281,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     func isLoggedInUserProfileUser() {
         if loggedInUser?.uid == profileUser?.uid {
             profilePicBtn.isEnabled = true
+            
+            dotDotDotBtn.isHidden = true
+            dotDotDotBtn.isEnabled = false
         }
     } // End of Function
     

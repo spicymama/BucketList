@@ -159,6 +159,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="dotDotDotBtn" destination="SMm-sv-aVs" id="JKy-X4-NWU"/>
                         <outlet property="profilePicBtn" destination="Mca-Tt-XdY" id="LcR-N6-Zyt"/>
                         <outlet property="profilePicImageView" destination="Ane-kH-phx" id="HbB-xB-wE4"/>
                         <outlet property="tableView" destination="5kZ-bp-WiS" id="pC0-A8-Et4"/>
