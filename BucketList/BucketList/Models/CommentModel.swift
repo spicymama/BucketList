@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Comment {
+struct Comment {
     
     /// Comments ID is the same as the PostsID or the BucketID
     let commentsID: String?

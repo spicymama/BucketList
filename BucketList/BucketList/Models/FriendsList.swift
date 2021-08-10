@@ -7,7 +7,7 @@
 
 import Foundation
 
-class FriendsList {
+struct FriendsList {
     
     // MARK: - Properties
     var friends: [String]
@@ -20,5 +20,5 @@ class FriendsList {
         self.blocked = blocked
     }
 
-} // End of Class Friends List
+} // End of Struct Friends List
 

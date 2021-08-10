@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Friend {
+struct Friend {
     let firstName: String
     let lastName: String
     let username: String
@@ -19,8 +19,5 @@ class Friend {
         self.lastName = lastName
         self.username = username
         self.uid = uid
-         
-        
-        
     }
 }
