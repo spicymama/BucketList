@@ -95,7 +95,7 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="24" id="KSy-nw-zLQ"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -133,6 +133,7 @@
                                             <outlet property="noteLabel" destination="Pj1-oF-VcG" id="I1Q-mA-nnW"/>
                                             <outlet property="timestampLabel" destination="fXt-6y-wmg" id="GSr-xs-OXW"/>
                                             <outlet property="titleLabel" destination="z8e-5B-TAD" id="tQJ-fB-UOk"/>
+                                            <segue destination="Cy1-vZ-X3S" kind="show" identifier="toBucketItemsPostVC" id="4uf-AD-SzP"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -170,20 +171,21 @@
             </objects>
             <point key="canvasLocation" x="7313.5514018691583" y="-607.12742980561563"/>
         </scene>
-        <!--View Controller-->
+        <!--Buckets Posts View Controller-->
         <scene sceneID="ZBi-IF-gkz">
             <objects>
-                <viewController id="iYq-d0-CDa" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="bucketPostsVC" id="iYq-d0-CDa" customClass="BucketsPostsViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FgG-Jh-NSN">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="oKN-sb-oKf"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="eeF-98-zqa"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jSd-p5-jsj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8200" y="-607"/>
+            <point key="canvasLocation" x="9210" y="-607"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3wY-Dx-Djh">
@@ -202,6 +204,86 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jjk-fX-18r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6418" y="-607"/>
+        </scene>
+        <!--Bucket Items Post View Controller-->
+        <scene sceneID="fsf-vm-LHZ">
+            <objects>
+                <viewController id="Cy1-vZ-X3S" customClass="BucketItemsPostViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6QX-kV-g3o">
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Y4n-Ya-lXJ">
+                                <rect key="frame" x="8" y="96" width="412" height="62"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bucket Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="49q-Di-wRB">
+                                        <rect key="frame" x="0.0" y="0.0" width="412" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m2D-Iu-uqp">
+                                        <rect key="frame" x="0.0" y="32" width="412" height="30"/>
+                                        <state key="normal" title="To Bucketed Posts"/>
+                                        <connections>
+                                            <action selector="toBucketedPostsBtn:" destination="Cy1-vZ-X3S" eventType="touchUpInside" id="tUF-NZ-GQ0"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tPH-Yh-Szj">
+                                <rect key="frame" x="8" y="174" width="412" height="718"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" restorationIdentifier="bucketItemCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="bucketItemCell" textLabel="lJT-4m-KCg" detailTextLabel="nmO-ga-YGw" style="IBUITableViewCellStyleValue1" id="Ijn-1z-adH">
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="412" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="bucketCell" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ijn-1z-adH" id="6w8-1D-KVf">
+                                            <rect key="frame" x="0.0" y="0.0" width="412" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lJT-4m-KCg">
+                                                    <rect key="frame" x="20" y="15.999999999999998" width="31.666666666666668" height="19.333333333333332"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nmO-ga-YGw">
+                                                    <rect key="frame" x="332.66666666666669" y="8.0000000000000018" width="59.333333333333336" height="28.666666666666668"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="bPR-QG-lKr"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="bPR-QG-lKr" firstAttribute="trailing" secondItem="tPH-Yh-Szj" secondAttribute="trailing" constant="8" id="Kgh-5N-Kjo"/>
+                            <constraint firstItem="tPH-Yh-Szj" firstAttribute="leading" secondItem="bPR-QG-lKr" secondAttribute="leading" constant="8" id="SeJ-ld-vaF"/>
+                            <constraint firstItem="Y4n-Ya-lXJ" firstAttribute="leading" secondItem="bPR-QG-lKr" secondAttribute="leading" constant="8" id="Z3d-iv-zWo"/>
+                            <constraint firstItem="bPR-QG-lKr" firstAttribute="trailing" secondItem="Y4n-Ya-lXJ" secondAttribute="trailing" constant="8" id="Zse-0b-GnW"/>
+                            <constraint firstItem="bPR-QG-lKr" firstAttribute="bottom" secondItem="tPH-Yh-Szj" secondAttribute="bottom" id="hT7-eF-vCC"/>
+                            <constraint firstItem="Y4n-Ya-lXJ" firstAttribute="top" secondItem="bPR-QG-lKr" secondAttribute="top" constant="8" id="lSf-6i-UMq"/>
+                            <constraint firstItem="Y4n-Ya-lXJ" firstAttribute="leading" secondItem="6QX-kV-g3o" secondAttribute="leading" constant="8" id="sjq-x3-gkX"/>
+                            <constraint firstItem="tPH-Yh-Szj" firstAttribute="top" secondItem="Y4n-Ya-lXJ" secondAttribute="bottom" constant="16" id="xi1-KC-cAM"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="yF9-wa-pbP"/>
+                    <connections>
+                        <outlet property="bucketItemsTable" destination="tPH-Yh-Szj" id="Xky-5x-tdM"/>
+                        <outlet property="bucketTitleLabel" destination="49q-Di-wRB" id="HTm-up-ou2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OdT-bW-MoC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="8321" y="-607"/>
         </scene>
     </scenes>
     <resources>

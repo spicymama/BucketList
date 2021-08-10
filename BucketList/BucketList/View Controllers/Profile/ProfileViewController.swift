@@ -411,6 +411,18 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
     } // End of Fetch Buckets
     
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toBucketItemsPostVC" {
+            guard let indexPath = tableView.indexPathForSelectedRow,
+                  let destination = segue.destination as? BucketItemsPostViewController else { return }
+            
+            let bucket = buckets[indexPath.row]
+            destination.bucket = bucket
+        }
+    } // End of segue
+    
 } // End of Profile Table View Controller
 
 
@@ -429,19 +441,5 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         
         return cell ?? UITableViewCell()
     } // End of Cell for row at
-     
-    // Did select row at
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let storyboard: UIStoryboard = UIStoryboard(name: "PostDetail", bundle: nil)
-        guard let vc = storyboard.instantiateViewController(withIdentifier: "postDetailVC") as? PostViewController else { return }
-        
-        let post = posts[indexPath.row]
-        let commentsID = post.commentsID
-        let userID: String = post.authorID ?? ""
-       
-        PostViewController.currentPost = post
-        
-        navigationController?.pushViewController(vc, animated: true)
-    }
     
 } // End of Extensions

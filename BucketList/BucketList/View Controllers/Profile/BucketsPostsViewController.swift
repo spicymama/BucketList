@@ -9,13 +9,22 @@ import UIKit
 
 class BucketsPostsViewController: UIViewController {
 
+    // MARK: - Properties
+    var bucket: Bucket?
+    
+    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
+        
+        fetchData()
+    } // End of View did load
     
     
+    // MARK: - Functions
+    func fetchData() {
+        
+    } // End of Fetch Data
     
 
 } // End of Class

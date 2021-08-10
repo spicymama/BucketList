@@ -17,8 +17,9 @@ class ProfileTableViewCell: UITableViewCell {
     @IBOutlet weak var timestampLabel: UILabel!
     @IBOutlet weak var bucketImageView: UIImageView!
     @IBOutlet weak var noteLabel: UILabel!
-
-
+    @IBOutlet weak var bucketItemsLabel: UITextField!
+    
+    
     // MARK: - Properties
     var user: User?
 
@@ -45,7 +46,7 @@ class ProfileTableViewCell: UITableViewCell {
         } else {
             noteLabel.isHidden = true
         }
-        
+                
         titleLabel.text = bucket.title
         timestampLabel.text = bucket.timestamp?.formatToString()
         
