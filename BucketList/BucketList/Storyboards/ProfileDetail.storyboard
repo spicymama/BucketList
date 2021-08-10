@@ -65,15 +65,15 @@
                                 <autoresizingMask key="autoresizingMask"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="profilePostCell" id="hEu-FW-8gO" userLabel="ProfileViewCell" customClass="ProfileTableViewCell" customModule="BucketList" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.333333969116211" width="412" height="492.33334350585938"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="profilePostCell" rowHeight="560" id="hEu-FW-8gO" userLabel="ProfileViewCell" customClass="ProfileTableViewCell" customModule="BucketList" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="412" height="560"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hEu-FW-8gO" id="Xu5-nf-dpu">
-                                            <rect key="frame" x="0.0" y="0.0" width="412" height="492.33334350585938"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="412" height="560"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="redraw" axis="vertical" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="y0V-c5-0hW" userLabel="Cell Stack View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="412" height="492.33333333333331"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="412" height="560"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z8e-5B-TAD">
                                                             <rect key="frame" x="8" y="0.0" width="396" height="32"/>
@@ -100,7 +100,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timestamp" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fXt-6y-wmg">
-                                                            <rect key="frame" x="8" y="460" width="396" height="32.333333333333314"/>
+                                                            <rect key="frame" x="8" y="460" width="396" height="100"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="32" id="igZ-tF-Rec"/>
                                                             </constraints>
@@ -168,7 +168,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="11c-Jf-ijX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7314" y="-607"/>
+            <point key="canvasLocation" x="7313.5514018691583" y="-607.12742980561563"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="ZBi-IF-gkz">

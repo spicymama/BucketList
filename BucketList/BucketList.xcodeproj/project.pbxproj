@@ -56,6 +56,7 @@
 		AAC794A22694DC030029718E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC794A12694DC030029718E /* ProfileViewController.swift */; };
 		AAC794A42694F7A20029718E /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC794A32694F7A10029718E /* ProfileTableViewCell.swift */; };
 		AACAC853268525A9002E9E43 /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACAC852268525A9002E9E43 /* GlobalFunctions.swift */; };
+		AACD2E2D26C2FDEB003A2408 /* BucketsPostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACD2E2C26C2FDEB003A2408 /* BucketsPostsViewController.swift */; };
 		AADB76E72697A00C00230479 /* BucketItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADB76E62697A00C00230479 /* BucketItemTableViewCell.swift */; };
 		EA2F64BF268D04D500AD2619 /* BucketListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F64BE268D04D500AD2619 /* BucketListTableViewController.swift */; };
 		EA2F64C1268D04E700AD2619 /* BucketDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F64C0268D04E700AD2619 /* BucketDetailViewController.swift */; };
@@ -119,6 +120,7 @@
 		AAC794A12694DC030029718E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		AAC794A32694F7A10029718E /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		AACAC852268525A9002E9E43 /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
+		AACD2E2C26C2FDEB003A2408 /* BucketsPostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketsPostsViewController.swift; sourceTree = "<group>"; };
 		AADB76E62697A00C00230479 /* BucketItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketItemTableViewCell.swift; sourceTree = "<group>"; };
 		C3188C93C2B51D68B5DDF585 /* Pods-BucketList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BucketList.release.xcconfig"; path = "Target Support Files/Pods-BucketList/Pods-BucketList.release.xcconfig"; sourceTree = "<group>"; };
 		D3317EECED0B32C26F983252 /* Pods_BucketList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BucketList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -294,6 +296,7 @@
 				AA25B53A2683E9D400B0E13F /* Custom Cells */,
 				AACAC8542686529A002E9E43 /* Post */,
 				AA25B5332683E92900B0E13F /* Feed */,
+				AACD2E2E26C2FDEF003A2408 /* Profile */,
 				AA8E96A626810D0B003DC8DA /* Friends */,
 				AA8E969D26810CB8003DC8DA /* Buckets */,
 				AA8E969B26810C96003DC8DA /* Messages */,
@@ -342,7 +345,6 @@
 				9A2D613026862D1000424AE4 /* FriendsListTableViewCell.swift */,
 				9A4056C2268BB7B200307C77 /* SearchUserTableViewController.swift */,
 				AA349496268CF30A00467C0C /* AddBlockReportViewController.swift */,
-				AAC794A12694DC030029718E /* ProfileViewController.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -381,6 +383,15 @@
 				AA524EA6268A28EA00DF39D4 /* BucketItTableViewController.swift */,
 			);
 			path = Post;
+			sourceTree = "<group>";
+		};
+		AACD2E2E26C2FDEF003A2408 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				AAC794A12694DC030029718E /* ProfileViewController.swift */,
+				AACD2E2C26C2FDEB003A2408 /* BucketsPostsViewController.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		EA2F64BA268CCC8700AD2619 /* Recovered References */ = {
@@ -533,6 +544,7 @@
 				AA25B4F726814A5300B0E13F /* SignUpFinalViewController.swift in Sources */,
 				AAC7949A2693D18F0029718E /* SignUpEmailViewController.swift in Sources */,
 				AA8E96A326810D03003DC8DA /* ConversationListTableViewController.swift in Sources */,
+				AACD2E2D26C2FDEB003A2408 /* BucketsPostsViewController.swift in Sources */,
 				AAC794A42694F7A20029718E /* ProfileTableViewCell.swift in Sources */,
 				AA25B52A2683E44400B0E13F /* ConversationMessageViewController.swift in Sources */,
 				AA25B5282683E42800B0E13F /* ConversationCreationTableViewController.swift in Sources */,
