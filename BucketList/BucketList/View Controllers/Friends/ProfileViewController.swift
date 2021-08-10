@@ -346,7 +346,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         let storage = Storage.storage().reference()
         guard let user = Auth.auth().currentUser else {return}
         
-//        let ref = storage.child("\(user.uid)_profilePic.png")
         let ref = storage.child("images/\(user.uid)/profilePic.png")
         ref.putData(imageData, metadata: nil, completion: { _, 🛑 in
             if let 🛑 = 🛑 {
@@ -366,6 +365,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                         print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
                     }
                 }
+                let alert = GlobalFunctions.basicOkAlert(title: "Profile Image Uploaded", message: "Please allow some time for the updates")
+                self.fetchLoggedInUser()
+                self.present(alert, animated: true, completion: nil)
             })
         })
     } // End of Image picker Function
