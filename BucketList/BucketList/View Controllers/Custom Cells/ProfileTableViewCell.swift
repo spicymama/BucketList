@@ -15,19 +15,18 @@ class ProfileTableViewCell: UITableViewCell {
     // MARK: - Outlets
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var timestampLabel: UILabel!
-    @IBOutlet weak var postImageView: UIImageView!
+    @IBOutlet weak var bucketImageView: UIImageView!
     @IBOutlet weak var noteLabel: UILabel!
 
 
     // MARK: - Properties
     var user: User?
 
-    var post: Post? {
+    var bucket: Bucket? {
         didSet {
             updateView()
         }
     } // End of Post variable
-
 
     // MARK: - LIfecycle
     override func awakeFromNib() {
@@ -37,31 +36,52 @@ class ProfileTableViewCell: UITableViewCell {
 
     // MARK: - Functions
     func updateView() {
-        guard let post = post else {return}
+        guard let bucket = bucket else {return}
 
-        noteLabel.text = post.note
-
-        // Image
-        if post.imageURL == "" || post.imageURL == nil {
-            postImageView.isHidden = true
+        bucketImageView.isHidden = true
+        
+        if bucket.note != "" {
+            noteLabel.text = bucket.note
         } else {
-            postImageView.image = cachePostImage(post: post)
+            noteLabel.isHidden = true
         }
         
-        if post.bucketTitle == "" || post.bucketTitle == nil {
-            titleLabel.isHidden = true
-        } else {
-            titleLabel.isHidden = false
-            titleLabel.text = "From Bucket: " + post.bucketTitle!
-        }
-    
-        timestampLabel.text = post.timestamp?.formatToString()
+        titleLabel.text = bucket.title
+        timestampLabel.text = bucket.timestamp?.formatToString()
         
-        beautifyCell()
+//        beautifyCell()
     } // End of Update Views
+    
+    
+    /* Old update View
+     func updateView() {
+             guard let post = post else {return}
+
+             noteLabel.text = post.note
+
+             // Image
+             if post.imageURL == "" || post.imageURL == nil {
+                 postImageView.isHidden = true
+             } else {
+                 postImageView.image = cachePostImage(post: post)
+             }
+             
+             if post.bucketTitle == "" || post.bucketTitle == nil {
+                 titleLabel.isHidden = true
+             } else {
+                 titleLabel.isHidden = false
+                 titleLabel.text = "From Bucket: " + post.bucketTitle!
+             }
+         
+             timestampLabel.text = post.timestamp?.formatToString()
+             
+             beautifyCell()
+         } // End of Update Views
+     */
 
 
     // MARK: - Image loading
+    // This will all eventually be updated to bucket image, because buckets hold posts
     // Cache post image
     func cachePostImage(post: Post) -> UIImage {
         var picture = UIImage()

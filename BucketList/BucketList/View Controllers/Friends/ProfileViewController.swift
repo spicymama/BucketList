@@ -36,6 +36,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     var loggedInUser: User?
     
     var posts: [Post] = []
+    var buckets: [Bucket] = []
     
     
     // MARK: - Lifecycle
@@ -47,7 +48,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         dotDotDotBtn.isEnabled = true
         
         fetchLoggedInUser()
-        fetchPosts()
+//        fetchPosts()
+        // We are going to fetch Buckets first - Posts do work flawlessly
+        fetchBuckets()
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -63,7 +66,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         dotDotDotBtn.isEnabled = true
         
         fetchLoggedInUser()
-        fetchPosts()
+        
+//        fetchPosts()
+        // We are going to fetch Buckets first - Posts do work flawlessly
+        fetchBuckets()
+        
         updateView()
     } // End of View will appear
     
@@ -376,6 +383,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         picker.dismiss(animated: true, completion: nil)
     } // End of Function
     
+    
+    // MARK: - Fetch Data
     func fetchPosts() {
         FirebaseFunctions.fetchAllPostsForUser(userID: profileUser?.uid ?? "") { UsersPosts in
             self.posts = UsersPosts
@@ -384,6 +393,24 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         // Might need an update View here
     } // End of Fetch posts
     
+    func fetchBuckets() {
+        BucketFirebaseFunctions.fetchAllBucketsForUser(userID: profileUser?.uid ?? "") { FetchedBuckets in
+            // Public and private
+            // Check who is logged in
+            if self.profileUser?.uid == self.loggedInUser?.uid {
+                self.buckets = FetchedBuckets
+            } else {
+                for bucket in FetchedBuckets {
+                    if bucket.isPublic == true {
+                        self.buckets.append(bucket)
+                    }
+                }
+            }
+            
+            self.tableView.reloadData()
+        }
+    } // End of Fetch Buckets
+    
 } // End of Profile Table View Controller
 
 
@@ -391,14 +418,14 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return posts.count
+        return buckets.count
     } // End of Row count
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "profilePostCell", for: indexPath) as? ProfileTableViewCell
-        let post = posts[indexPath.row]
+        let bucket = buckets[indexPath.row]
         
-        cell?.post = post
+        cell?.bucket = bucket
         
         return cell ?? UITableViewCell()
     } // End of Cell for row at
