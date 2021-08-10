@@ -27,9 +27,10 @@ class Bucket {
     var reactions: [String]?
     var isPublic: Bool
     var timestamp: Date?
+    var postsIDs: [String]?
     
 
-    init(title: String, note: String = "", commentsID: String = "", itemsID: String = "", bucketID: String = "", completion: Int = 0, reactions: [String] = [], isPublic: Bool, timestamp: Date = Date()) {
+    init(title: String, note: String = "", commentsID: String = "", itemsID: String = "", bucketID: String = "", completion: Int = 0, reactions: [String] = [], isPublic: Bool, timestamp: Date = Date(), postsIDs: [String] = []) {
         self.title = title
         self.note = note
         self.commentsID = commentsID
@@ -39,6 +40,7 @@ class Bucket {
         self.reactions = reactions
         self.isPublic = isPublic
         self.timestamp = timestamp
+        self.postsIDs = postsIDs
     }
 
 

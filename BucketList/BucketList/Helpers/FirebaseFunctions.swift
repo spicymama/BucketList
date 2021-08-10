@@ -289,7 +289,8 @@ class FirebaseFunctions {
             "bucketID" : newPost.bucketID ?? "",
             "bucketTitle" : newPost.bucketTitle ?? "",
             "commentsID" : newPost.postID,
-            "reactionsArr" : []
+            "reactionsArr" : [],
+            "postsIDs" : []
         ]) { err in
             if let err = err {
                 print("Error in \(#function)\(#line) : \(err.localizedDescription) \n---\n \(err)")
@@ -463,6 +464,30 @@ class FirebaseFunctions {
     } // End of Fetch All posts for Users
     
     
+    // MARK: - Fetch All Posts for Bucket
+    static func fetchAllPostsForBucket(bucketID: String, 🐶: @escaping ( [Post] ) -> Void) {
+        BucketFirebaseFunctions.fetchBucket(bucketID: bucketID) { FetchedBucket in
+            let postsIDs: [String] = FetchedBucket.postsIDs ?? []
+            
+            let group = DispatchGroup()
+            var bucketPosts: [Post] = []
+            
+            for postID in postsIDs {
+                group.enter()
+                FirebaseFunctions.fetchPost(postID: postID) { Post in
+                    let post = Post
+                    bucketPosts.append(post)
+                    
+                    group.leave()
+                } // End of Fetch Post
+            } // End of For loop
+            group.notify(queue: DispatchQueue.main) {            
+                🐶(bucketPosts)
+            }
+        } // End of Fetch Bucket
+    } // End of Fetch All Posts
+    
+    
     // MARK: - Delete Post
     static func deletePost(postID: String) {
         Firestore.firestore().collection("posts").document(postID).delete() { 🛑 in
@@ -543,10 +568,9 @@ class FirebaseFunctions {
         })
         task.resume()
     } // End of Fetch Profile Image
+
     
 } // End of Class
-
-
 
 
 

@@ -197,7 +197,6 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating, U
     } // End of Func no friends
     
     // MARK: - Table view data source
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.count
     }

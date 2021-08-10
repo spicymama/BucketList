@@ -66,11 +66,12 @@ class BucketFirebaseFunctions {
                     let itemsID = document["itemsID"] as? String ?? ""
                     let completion = document["completion"] as? Int ?? 0
                     let reactions = document["reactions"] as? [String] ?? []
+                    let postsIDs = document["postsIDs"] as? [String] ?? []
                     
                     let serverTimestamp = document["timestamp"] as? Timestamp
                     let timestamp = serverTimestamp?.dateValue() as? Date ?? Date()
                     
-                    let fetchedBucket = Bucket(title: title, note: note, commentsID: commentsID, itemsID: itemsID, bucketID: bucketID, completion: completion, reactions: reactions, isPublic: isPublic, timestamp: timestamp)
+                    let fetchedBucket = Bucket(title: title, note: note, commentsID: commentsID, itemsID: itemsID, bucketID: bucketID, completion: completion, reactions: reactions, isPublic: isPublic, timestamp: timestamp, postsIDs: postsIDs)
                     
                     🐶(fetchedBucket)
                 }

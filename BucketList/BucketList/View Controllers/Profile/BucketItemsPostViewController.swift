@@ -11,7 +11,6 @@ class BucketItemsPostViewController: UIViewController {
 
     
     // MARK: - Outlets
-    
     @IBOutlet weak var bucketTitleLabel: UILabel!
     @IBOutlet weak var bucketItemsTable: UITableView!
     
@@ -45,12 +44,18 @@ class BucketItemsPostViewController: UIViewController {
     
     
     func updateView() {
-        bucketTitleLabel.text = bucket?.title
+        bucketTitleLabel.text = "Bucket: " + bucket!.title
     } // End of Update view
+    
     
     // MARK: - Actions
     @IBAction func toBucketedPostsBtn(_ sender: Any) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "ProfileDetail", bundle: nil)
+        let vc = storyBoard.instantiateViewController(withIdentifier: "bucketPostsVC")
         
+        BucketsPostsTableViewController.bucket = bucket
+        
+        self.navigationController?.pushViewController(vc, animated: true)
     } // End of Action
     
 } // End of Class

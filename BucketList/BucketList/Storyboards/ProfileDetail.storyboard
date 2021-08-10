@@ -171,22 +171,6 @@
             </objects>
             <point key="canvasLocation" x="7313.5514018691583" y="-607.12742980561563"/>
         </scene>
-        <!--Buckets Posts View Controller-->
-        <scene sceneID="ZBi-IF-gkz">
-            <objects>
-                <viewController storyboardIdentifier="bucketPostsVC" id="iYq-d0-CDa" customClass="BucketsPostsViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="FgG-Jh-NSN">
-                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="oKN-sb-oKf"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="eeF-98-zqa"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jSd-p5-jsj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="9210" y="-607"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="3wY-Dx-Djh">
             <objects>
@@ -232,7 +216,7 @@
                                 </subviews>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tPH-Yh-Szj">
-                                <rect key="frame" x="8" y="174" width="412" height="718"/>
+                                <rect key="frame" x="8" y="166" width="412" height="726"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" restorationIdentifier="bucketItemCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="bucketItemCell" textLabel="lJT-4m-KCg" detailTextLabel="nmO-ga-YGw" style="IBUITableViewCellStyleValue1" id="Ijn-1z-adH">
@@ -272,7 +256,7 @@
                             <constraint firstItem="bPR-QG-lKr" firstAttribute="bottom" secondItem="tPH-Yh-Szj" secondAttribute="bottom" id="hT7-eF-vCC"/>
                             <constraint firstItem="Y4n-Ya-lXJ" firstAttribute="top" secondItem="bPR-QG-lKr" secondAttribute="top" constant="8" id="lSf-6i-UMq"/>
                             <constraint firstItem="Y4n-Ya-lXJ" firstAttribute="leading" secondItem="6QX-kV-g3o" secondAttribute="leading" constant="8" id="sjq-x3-gkX"/>
-                            <constraint firstItem="tPH-Yh-Szj" firstAttribute="top" secondItem="Y4n-Ya-lXJ" secondAttribute="bottom" constant="16" id="xi1-KC-cAM"/>
+                            <constraint firstItem="tPH-Yh-Szj" firstAttribute="top" secondItem="Y4n-Ya-lXJ" secondAttribute="bottom" constant="8" id="xi1-KC-cAM"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="yF9-wa-pbP"/>
@@ -284,6 +268,77 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OdT-bW-MoC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="8321" y="-607"/>
+        </scene>
+        <!--Buckets Posts Table View Controller-->
+        <scene sceneID="3CY-Qv-2TL">
+            <objects>
+                <tableViewController storyboardIdentifier="bucketPostsVC" id="Rd1-qw-n0M" customClass="BucketsPostsTableViewController" customModule="BucketList" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="MYt-si-kk3">
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="postCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="postCell" id="F8g-IU-RpV" customClass="BucketPostsTableViewCell" customModule="BucketList" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="24.333333969116211" width="428" height="424"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="F8g-IU-RpV" id="3x2-Mr-Fhg">
+                                    <rect key="frame" x="0.0" y="0.0" width="428" height="424"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="redraw" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="kES-cp-fbk" userLabel="Cell Stack View">
+                                            <rect key="frame" x="0.0" y="0.0" width="428" height="424"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ueC-OO-NX4">
+                                                    <rect key="frame" x="16" y="0.0" width="396" height="32"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="32" id="jfs-dZ-y9b"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vGK-l8-SjQ">
+                                                    <rect key="frame" x="36.333333333333343" y="40" width="355.33333333333326" height="355.33333333333331"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="vGK-l8-SjQ" secondAttribute="height" multiplier="1:1" id="8pK-0n-HEL"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wfb-NN-5kG" userLabel="Note Label">
+                                                    <rect key="frame" x="16" y="403.33333333333331" width="396" height="20.666666666666686"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="wfb-NN-5kG" firstAttribute="leading" secondItem="kES-cp-fbk" secondAttribute="leading" constant="16" id="Nwc-4J-2Yg"/>
+                                                <constraint firstItem="ueC-OO-NX4" firstAttribute="leading" secondItem="kES-cp-fbk" secondAttribute="leading" constant="16" id="Zko-Di-eIp"/>
+                                            </constraints>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="kES-cp-fbk" firstAttribute="leading" secondItem="3x2-Mr-Fhg" secondAttribute="leading" id="A01-Sy-hl5"/>
+                                        <constraint firstAttribute="trailing" secondItem="kES-cp-fbk" secondAttribute="trailing" id="EBa-Bz-ne1"/>
+                                        <constraint firstItem="kES-cp-fbk" firstAttribute="top" secondItem="3x2-Mr-Fhg" secondAttribute="top" id="bYK-Tc-71m"/>
+                                        <constraint firstAttribute="bottom" secondItem="kES-cp-fbk" secondAttribute="bottom" id="x9F-og-Y4x"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="noteLabel" destination="wfb-NN-5kG" id="gDb-Pu-7ZN"/>
+                                    <outlet property="postImageView" destination="vGK-l8-SjQ" id="ZGA-2n-waw"/>
+                                    <outlet property="postTitle" destination="ueC-OO-NX4" id="Rit-d6-iXR"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Rd1-qw-n0M" id="AON-Ks-uVS"/>
+                            <outlet property="delegate" destination="Rd1-qw-n0M" id="1oD-i0-Tbp"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IHf-nI-G9a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="9230" y="-607"/>
         </scene>
     </scenes>
     <resources>
