@@ -12,7 +12,7 @@ import FirebaseStorage
 class FirebaseFunctions {
     var sourceOfTruth: FriendsList = FriendsList()
     
-    // MARK: - Username is avaliable checker
+    // MARK: - Username and User
     static func usernameIsAvaliable(username: String, 🐶: @escaping ( Bool ) -> Void) {
         var usernameIsAvaliable: Bool = false
         Firestore.firestore().collection("users").getDocuments { QuerySnapshot, 🛑 in
@@ -43,7 +43,6 @@ class FirebaseFunctions {
         }
     } // End of Username Is Avaliable
     
-    // MARK: - Create User
     static func createUser(email: String, password: String, firstName: String, lastName: String, dob: Date, username: String) {
         // This creates the user
         var newUserID: String = ""
@@ -68,7 +67,7 @@ class FirebaseFunctions {
                         print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
                     }
                 }
-
+                
                 // This creates the base user's friends lis
                 Firestore.firestore().collection("friends").document(newUserID).setData( [
                     "friends" : [""],
@@ -84,8 +83,6 @@ class FirebaseFunctions {
         } // End of base user creation
     }
     
-    
-    // MARK: - Sign in
     static func signInUser(email: String, password: String, 🐶: @escaping (Result <Bool, Error>) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { result, 🛑 in
             switch result {
@@ -99,9 +96,7 @@ class FirebaseFunctions {
             }
         } // End of Auth
     } // End of Function Sign In
-    
-    
-    // MARK: - Fetch Current User Data
+
     static func fetchCurrentUserData(🐶: @escaping ( User ) -> Void) {
         // Get current user UID
         let uid = Auth.auth().currentUser?.uid
@@ -159,8 +154,6 @@ class FirebaseFunctions {
         } // End of getDocument
     } // End of Function fetchData
     
-    
-    // MARK: - Fetch all Users data
     static func fetchUsersData(passedUserIDs: [String]?, 🐶: @escaping ( [User] ) -> Void) {
         Firestore.firestore().collection("users").getDocuments { snapshot, 🛑 in
             if let 🛑 = 🛑 {
@@ -202,9 +195,7 @@ class FirebaseFunctions {
             } // End of Snapshot
         }
     } // End of FetchUsers Function
-    
-    
-    // MARK: - Fetch User Data
+
     static func fetchUserData(uid: String, 🐶: @escaping ( User ) -> Void) {
         // Get current user UID
         let uid = uid
@@ -255,37 +246,19 @@ class FirebaseFunctions {
     } // End of Function fetch friends
     
     
-    // MARK: - Create Post
+    // MARK: - Posts
     static func createPost(newPost: Post, image: UIImage?) {
         guard let currentUserID: String = Auth.auth().currentUser?.uid else { return }
         let postID: String = UUID().uuidString
-        let imageID: String = UUID().uuidString
-        let storage = Storage.storage().reference()
-        let ref = storage.child("images/\(currentUserID)/posts\(postID)/\(imageID).jpeg")
+        let postRef = Firestore.firestore().collection("posts").document(postID)
         
-        var urlString: String = ""
-        if image != nil {
-            let imageData = image!.jpegData(compressionQuality: 0.25)!
-            ref.putData(imageData, metadata: nil) { _, 🛑 in
-                if let 🛑 = 🛑 {
-                    print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
-                    return
-                }
-            }
-        }
-        ref.downloadURL(completion:) { url, 🛑 in
-            if let 🛑 = 🛑 {
-                print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
-            }
-            urlString = url?.absoluteString ?? ""
-        }
-        
-        Firestore.firestore().collection("posts").document(postID).setData([
+        // Data place
+        postRef.setData([
             "postID" : postID,
             "authorID" : currentUserID,
             "timestamp" : FieldValue.serverTimestamp(),
             "note" : newPost.note,
-            "imageURL" : urlString,
+            "imageURL" : "",
             "bucketID" : newPost.bucketID ?? "",
             "bucketTitle" : newPost.bucketTitle ?? "",
             "commentsID" : newPost.postID,
@@ -312,11 +285,35 @@ class FirebaseFunctions {
                 print("Post for user \(currentUserID) was created")
             }
         }
+        
+        // Image check
+        let imageID: String = UUID().uuidString
+        let storage = Storage.storage().reference()
+        let ref = storage.child("images/\(currentUserID)/posts/\(postID)/\(imageID).jpeg")
+        var urlString: String = ""
+        
+        if image != nil {
+            let imageData = image!.jpegData(compressionQuality: 0.25)!
+            ref.putData(imageData, metadata: nil) { _, 🛑 in
+                if let 🛑 = 🛑 {
+                    print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
+                    return
+                }
+                ref.downloadURL(completion:) { url, 🛑 in
+                    if let 🛑 = 🛑 {
+                        print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
+                    }
+                    urlString = url?.absoluteString ?? ""
+                    
+                    postRef.updateData([
+                        "imageURL" : urlString
+                    ])
+                } // End of Download URL
+            } // End of Put data
+        } // End of If image exists
+        
     } // End of Create Post
     
-    
-    
-    // MARK: - Edit Post
     static func editPost(postID: String?, note: String, imageID: String, bucketID: String, oldBucketID: String, bucketTitle: String) {
         guard let postID = postID else { return }
         Firestore.firestore().collection("posts").document(postID).updateData( [
@@ -348,8 +345,6 @@ class FirebaseFunctions {
         }
     } // End of Create Post
     
-    
-    // MARK: - Fetch All Posts
     static func fetchAllPosts(completion: @escaping ( [Post] ) -> Void) {
         Firestore.firestore().collectionGroup("posts").addSnapshotListener { (QuerySnapshot, error) in
             if let snapshot = QuerySnapshot {
@@ -388,8 +383,6 @@ class FirebaseFunctions {
         } // End of Firestore function
     } // End of Fetch all posts
     
-    
-    // MARK: - FetchPost
     static func fetchPost(postID: String, 🐶: @escaping ( Post ) -> Void) {
         let id = postID
         let data = Firestore.firestore().collection("posts").document(id)
@@ -416,8 +409,6 @@ class FirebaseFunctions {
         }
     } // End of Fetch Post
     
-    
-    // MARK: - Fetch all posts for user
     static func fetchAllPostsForUser(userID: String, 🐶: @escaping ( [Post] ) -> Void) {
         Firestore.firestore().collectionGroup("posts").addSnapshotListener { (QuerySnapshot, error) in
             if let 🛑 = error {
@@ -462,9 +453,7 @@ class FirebaseFunctions {
             }
         } // End of Firestore function
     } // End of Fetch All posts for Users
-    
-    
-    // MARK: - Fetch All Posts for Bucket
+
     static func fetchAllPostsForBucket(bucketID: String, 🐶: @escaping ( [Post] ) -> Void) {
         BucketFirebaseFunctions.fetchBucket(bucketID: bucketID) { FetchedBucket in
             let postsIDs: [String] = FetchedBucket.postsIDs ?? []
@@ -487,20 +476,24 @@ class FirebaseFunctions {
         } // End of Fetch Bucket
     } // End of Fetch All Posts
     
-    
-    // MARK: - Delete Post
-    static func deletePost(postID: String) {
-        Firestore.firestore().collection("posts").document(postID).delete() { 🛑 in
+    static func deletePost(post: Post) {
+        Firestore.firestore().collection("posts").document(post.postID!).delete() { 🛑 in
             if let 🛑 = 🛑 {
                 print("Error in \(#function)\(#line) : \(🛑.localizedDescription) \n---\n \(🛑)")
             } else {
-                print("Post deleted")
+                if post.bucketID != "" || post.bucketID == nil {
+                    // Removes the post to the Bucket's array of post ID's if it exists
+                    Firestore.firestore().collection("buckets").document(post.bucketID!).updateData([
+                        "postsIDs" : FieldValue.arrayRemove([post.postID!])
+                    ])
+                    print("Post deleted")
+                }
             }
         }
     } // End of Delete Post
     
     
-    // MARK: - Post Comment
+    // MARK: - Comments
     static func postComment(comment: Comment) {
         let authorID: String = comment.authorID ?? ""
         let commentsID: String = comment.commentsID ?? ""
@@ -518,8 +511,6 @@ class FirebaseFunctions {
         print("Comment posted")
     } // End of Post comment
     
-    
-    // MARK: - Fetch Comments
     static func fetchCommentsData(postID: String, 🐶: @escaping ( [Comment] ) -> Void) {
         Firestore.firestore().collection("comments").document(postID).collection("comment").addSnapshotListener { QuerySnapshot, 🛑 in
             if let 🛑 = 🛑 {
@@ -539,9 +530,9 @@ class FirebaseFunctions {
                         let note: String = data["note"] as? String ?? ""
                         
                         let serverTimestamp = data["timestamp"] as? Timestamp
-                        let timestamp = serverTimestamp?.dateValue() as! Date
+                        let timestamp = serverTimestamp?.dateValue()
                         
-                        let fetchedComment = Comment(commentsID: commentsID, commentID: commentID, authorID: authorID, timestamp: timestamp, authorUsername: authorUsername, note: note)
+                        let fetchedComment = Comment(commentsID: commentsID, commentID: commentID, authorID: authorID, timestamp: timestamp ?? Date(), authorUsername: authorUsername, note: note)
                         
                         commentsData.append(fetchedComment)
                     }
@@ -568,7 +559,7 @@ class FirebaseFunctions {
         })
         task.resume()
     } // End of Fetch Profile Image
-
+    
     
 } // End of Class
 

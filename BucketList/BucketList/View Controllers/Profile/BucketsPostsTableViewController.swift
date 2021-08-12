@@ -57,4 +57,13 @@ class BucketsPostsTableViewController: UITableViewController {
         navigationController?.pushViewController(vc, animated: true)
     } // End of did select row
     
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if posts[indexPath.row].imageURL != "" {
+            return 424
+        } else {
+            return 32
+        }
+    } // End of Height for row atw
+    
 } // End of Class

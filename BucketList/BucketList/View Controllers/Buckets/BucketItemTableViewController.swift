@@ -7,22 +7,17 @@
 
 import UIKit
 
-// MARK: - Protocols
-protocol SaveBtnDelegate: AnyObject {
-    func toggleSaveBtn(isVisible: Bool)
-} // End of Protocol
-
 
 // MARK: - Class
-class BucketItemTableViewController: UITableViewController {
+class BucketItemTableViewController: UITableViewController, UITextFieldDelegate {
     
     // MARK: - Properties
     static let shared = BucketItemTableViewController()
-    var saveBtnDelegate: SaveBtnDelegate?
     
     var bucket: Bucket?
     var bucketID: String?
     var bucketItemsArray: [BucketItem] = []
+    
     var bucketItemsID: String? {
         didSet {
             loadData()
@@ -30,13 +25,17 @@ class BucketItemTableViewController: UITableViewController {
     } // End of Items ID Variable
     
     
-    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
+
         // loadData()
     } // End of View did load
+    
+    // This function makes the keyboard go away when typing around
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    } // End of Function
     
     
     // MARK: - Functions
@@ -67,6 +66,8 @@ class BucketItemTableViewController: UITableViewController {
         
         addItemAlert.addTextField { textField in
             textField.placeholder = "Item Title Here..."
+            textField.autocapitalizationType = .sentences
+            textField.autocorrectionType = .default
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -112,17 +113,6 @@ class BucketItemTableViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     } // End of Delete
-    
-    
-    
-    // MARK: - Keyboard Stuff
-    // This function makes the keyboard go away when typing around
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    } // End of Function
-    
-    @objc func keyboardWillAppear() {
-        saveBtnDelegate?.toggleSaveBtn(isVisible: true)
-    } // End of Function
+
     
 } // End of Bucket Item Controller

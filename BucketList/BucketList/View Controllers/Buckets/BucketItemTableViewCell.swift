@@ -7,14 +7,14 @@
 
 import UIKit
 
-class BucketItemTableViewCell: UITableViewCell {
+// MARK: - Class
+class BucketItemTableViewCell: UITableViewCell, UITextFieldDelegate {
     static let shared = BucketItemTableViewCell()
     
     // MARK: - Outlets
     @IBOutlet weak var bucketItemTitleField: UITextField!
     @IBOutlet weak var bucketItemTimestampLabel: UILabel!
     @IBOutlet weak var completedBtn: UIButton!
-    @IBOutlet weak var saveBtn: UIButton!
     
     var isCompleted: Bool?
     var selectedCell: UITableViewCell?
@@ -24,6 +24,7 @@ class BucketItemTableViewCell: UITableViewCell {
     // MARK: - Properties
     var bucketItem: BucketItem? {
         didSet {
+            bucketItemTitleField.delegate = self
             updateView()
         }
     } // End of Bucket Item
@@ -32,11 +33,10 @@ class BucketItemTableViewCell: UITableViewCell {
     // MARK: - Functions
     func updateView() {
         guard let bucketItem = bucketItem else {return}
-        saveBtn.isHidden = true
+
         bucketItemTitleField.text = bucketItem.title
         bucketItemTimestampLabel.text = (" Bucketed: " + bucketItem.timestamp!.formatToString())
         isCompleted = bucketItem.completed
-        //bucketItemsArr.append(bucketItem)
         updateCompletedBtn()
     } // End of Update View
     
@@ -52,9 +52,11 @@ class BucketItemTableViewCell: UITableViewCell {
         if item.completed == true {
             item.completed = false
             BucketFirebaseFunctions.updateBucketItem(bucketItem: item)
+            print("Bucket updated")
         } else {
             item.completed = true
             BucketFirebaseFunctions.updateBucketItem(bucketItem: item)
+            print("Bucket updated")
         }
     }
     
@@ -66,33 +68,32 @@ class BucketItemTableViewCell: UITableViewCell {
         }
     }
     
+    // This function makes the keyboard go away when typing around
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.contentView.endEditing(true)
+        updateView()
+    } // End of Function
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        editTextDoneBtn()
+        self.contentView.endEditing(true)
+        return true
+    } // End of Func
+    
+    func editTextDoneBtn() {
+        guard let item = bucketItem else { return }
+        item.title = bucketItemTitleField.text ?? ""
+        BucketFirebaseFunctions.updateBucketItem(bucketItem: item)
+        print("Bucket updated")
+    } // End of Func
+    
+    
     // MARK: - Actions
     @IBAction func completedBtn(_ sender: Any) {
         guard let item = self.bucketItem else {return}
         toggleButton()
-//        updateCompletedBtn()
         toggleCompletion(item: item)
     } // End of Completed Btn
-    
-    @IBAction func saveBtn(_ sender: Any) {
-        guard let bucketID = bucketItem?.bucketID else { return }
-        guard let title = bucketItemTitleField.text else { return }
-        let completed = isCompleted ?? false
-        
-        let bucketItem = BucketItem(bucketID: bucketID, title: title, completed: completed)
-        
-        BucketFirebaseFunctions.updateBucketItem(bucketItem: bucketItem)
-        updateCompletedBtn()
-        saveBtn.isHidden = true
-    } // End of Save Btn
+
     
 } // End of Class Bucket Item Table View Cell
-
-
-// MARK: - Extensions
-extension BucketItemTableViewCell: SaveBtnDelegate {
-    func toggleSaveBtn(isVisible: Bool) {
-        saveBtn.isHidden = false
-        print("Is this thing on?")
-    }
-} // End of Extension

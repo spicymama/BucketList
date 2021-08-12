@@ -9,6 +9,10 @@ import UIKit
 
 class SignUpPasswordViewController: UIViewController, UITextFieldDelegate {
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+    }
+    
     // MARK: - Properties
     static var username: String?
     static var firstName: String?
@@ -54,15 +58,18 @@ class SignUpPasswordViewController: UIViewController, UITextFieldDelegate {
     } // End of Function
     
     func setupKeyboard() {
-        self.passwordField.delegate = self
-        self.confirmPasswordField.delegate = self
+        passwordField.delegate = self
+        confirmPasswordField.delegate = self
         
         //TODO(ethan) suggest a new password 
-        self.passwordField.textContentType = .newPassword
-        self.passwordField.isSecureTextEntry = true
+        passwordField.textContentType = .newPassword
+        //        passwordField.passwordRules = .none
         
-        self.confirmPasswordField.isSecureTextEntry = true
-        self.confirmPasswordField.textContentType = .password
+        passwordField.isSecureTextEntry = true
+        
+        confirmPasswordField.isSecureTextEntry = true
+        confirmPasswordField.textContentType = .newPassword
+        //        confirmPasswordField.passwordRules = .none
     } // End of Function setup keyboard
     
     func validatePassword() -> Bool {

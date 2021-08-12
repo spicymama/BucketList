@@ -313,14 +313,14 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         if let image = cache.object(forKey: cacheKey) {
             picture = image
         } else {
-            if user.profilePicUrl == "" || user.profilePicUrl == "defaultProfileImage" || user.profilePicUrl == nil {
+            if user.profilePicUrl == "" || user.profilePicUrl == "defaultProfileImage" {
                 picture = UIImage(named: "defaultProfileImage") ?? UIImage()
             }
             
             let session = URLSession.shared
             
             if user.profilePicUrl != "" {
-                guard let url = URL(string: user.profilePicUrl ?? "") else {return UIImage(named: "defaultProfileImage") ?? UIImage()}
+                let url = URL(string: user.profilePicUrl ?? "")!
                 let task = session.dataTask(with: url) { (data, response, error) in
                     if let error = error {
                         print("Error in \(#function): On Line \(#line) : \(error.localizedDescription) \n---\n \(error)")
@@ -339,7 +339,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             }
         }
         return picture
-    } // End of Cache Image
+    } // End of Cache user image
     
     
     // MARK: - Image Picker
@@ -375,8 +375,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                 let alert = GlobalFunctions.basicOkAlert(title: "Profile Image Uploaded", message: "Please allow some time for the updates")
                 self.fetchLoggedInUser()
                 self.present(alert, animated: true, completion: nil)
-            })
-        })
+            }) // End of Download URL
+        }) // End of Put Ref
     } // End of Image picker Function
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

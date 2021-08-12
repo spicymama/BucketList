@@ -7,8 +7,13 @@
 
 import UIKit
 
-class SignUpEmailViewController: UIViewController {
+class SignUpEmailViewController: UIViewController, UITextFieldDelegate {
 
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+    }
+    
     // MARK: - Properties
     static var username: String?
     static var firstName: String?
@@ -43,6 +48,9 @@ class SignUpEmailViewController: UIViewController {
 
     // MARK: - Functions
     func setupKeyboard() {
+        emailField.delegate = self
+        confirmEmailField.delegate = self
+        
         self.emailField.keyboardType = .emailAddress
         self.emailField.textContentType = .emailAddress
         

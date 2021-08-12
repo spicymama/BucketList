@@ -12,6 +12,9 @@ class EditPostViewController: UIViewController, UITextViewDelegate, UIImagePicke
     // MARK: - Outlets
     @IBOutlet weak var noteTextView: UITextView!
     @IBOutlet weak var bucketItBtn: UIButton!
+    
+    //TODO
+    // Images on Edit posts is WIP
     @IBOutlet weak var postPicImageView: UIImageView!
     @IBOutlet weak var postPicButton: UIButton!
     

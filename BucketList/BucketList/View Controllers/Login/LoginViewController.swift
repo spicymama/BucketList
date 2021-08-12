@@ -9,11 +9,10 @@ import UIKit
 
 // Provides the login authentication, and produces some data for the initial creation
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     
     
     // MARK: - Outlets
-    
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var loginBtn: UIButton!
@@ -71,12 +70,14 @@ class LoginViewController: UIViewController {
 
     // MARK: - Function
     func setupKeyboard() {
-        //TODO(ethan) Auto fill doesn't work, make this two items?
-        self.emailField.keyboardType = .emailAddress
-        self.emailField.textContentType = .emailAddress
+        emailField.delegate = self
+        passwordField.delegate = self
         
-        self.passwordField.isSecureTextEntry = true
-        self.passwordField.textContentType = .password
+        emailField.keyboardType = .emailAddress
+        emailField.textContentType = .emailAddress
+        
+        passwordField.isSecureTextEntry = true
+        passwordField.textContentType = .password
     } // End of Func setup Keyboard
     
     // This function makes the keyboard go away when typing around
@@ -84,6 +85,9 @@ class LoginViewController: UIViewController {
         self.view.endEditing(true)
     } // End of Function
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+    }
     
     func validateFields() -> Bool {
         // Simply checks if the fields are not empty

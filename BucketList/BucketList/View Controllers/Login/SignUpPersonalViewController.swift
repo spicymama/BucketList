@@ -7,7 +7,11 @@
 
 import UIKit
 
-class SignUpPersonalViewController: UIViewController {
+class SignUpPersonalViewController: UIViewController, UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+    }
     
     // MARK: - Outlets
     @IBOutlet weak var usernameField: UITextField!
@@ -18,6 +22,9 @@ class SignUpPersonalViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        usernameField.delegate = self
+        firstNameField.delegate = self
+        lastNameField.delegate = self
     } // End of View did load
     
     

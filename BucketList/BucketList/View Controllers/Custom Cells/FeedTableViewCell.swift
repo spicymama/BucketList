@@ -105,7 +105,7 @@ class FeedTableViewCell: UITableViewCell {
         profilePic.image = picture
     } // End of Cache Image
     
-    func cachePostImage(post: Post){
+    func cachePostImage(post: Post) {
         var picture = UIImage()
         let cache = ImageCacheController.shared.cache
         let cacheKey = NSString(string: post.imageURL ?? "" )

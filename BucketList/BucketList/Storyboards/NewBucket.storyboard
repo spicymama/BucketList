@@ -72,25 +72,25 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="bucketItemCell" id="OIY-um-qYw" customClass="BucketItemTableViewCell" customModule="BucketList" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="24.333333969116211" width="428" height="107"/>
+                                <rect key="frame" x="0.0" y="24.333333969116211" width="428" height="92.333335876464844"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OIY-um-qYw" id="Gjs-fU-Ab8">
-                                    <rect key="frame" x="0.0" y="0.0" width="428" height="107"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="428" height="92.333335876464844"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="M3C-8k-J1w">
-                                            <rect key="frame" x="8" y="8" width="412" height="91"/>
+                                            <rect key="frame" x="8" y="8" width="412" height="76.333333333333329"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="rKi-BE-FYQ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="324" height="91"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="324" height="76.333333333333329"/>
                                                     <subviews>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Item Title Here..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aJQ-eW-N3E">
-                                                            <rect key="frame" x="0.0" y="0.0" width="324" height="41.666666666666664"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="324" height="34.333333333333336"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits"/>
+                                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" spellCheckingType="yes" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                                         </textField>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timestamp" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UvL-cb-950">
-                                                            <rect key="frame" x="0.0" y="49.666666666666657" width="324" height="41.333333333333343"/>
+                                                            <rect key="frame" x="0.0" y="42.333333333333336" width="324" height="34.000000000000007"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -101,22 +101,15 @@
                                                     </constraints>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="DaH-9d-OD5">
-                                                    <rect key="frame" x="332" y="0.0" width="80" height="91"/>
+                                                    <rect key="frame" x="332" y="0.0" width="80" height="76.333333333333329"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fdf-n5-VbX">
-                                                            <rect key="frame" x="0.0" y="0.0" width="80" height="41.666666666666664"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="80" height="76.333333333333329"/>
                                                             <state key="normal" image="xmark.seal" catalog="system">
                                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="32"/>
                                                             </state>
                                                             <connections>
                                                                 <action selector="completedBtn:" destination="OIY-um-qYw" eventType="touchUpInside" id="i8u-NE-Y9x"/>
-                                                            </connections>
-                                                        </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sT1-ze-F23">
-                                                            <rect key="frame" x="0.0" y="49.666666666666657" width="80" height="41.333333333333343"/>
-                                                            <state key="normal" title="Save"/>
-                                                            <connections>
-                                                                <action selector="saveBtn:" destination="OIY-um-qYw" eventType="touchUpInside" id="Krc-Xq-hBz"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -135,7 +128,6 @@
                                     <outlet property="bucketItemTimestampLabel" destination="UvL-cb-950" id="Cn3-CD-J13"/>
                                     <outlet property="bucketItemTitleField" destination="aJQ-eW-N3E" id="g5X-AO-ty6"/>
                                     <outlet property="completedBtn" destination="Fdf-n5-VbX" id="MQT-Gd-Zrr"/>
-                                    <outlet property="saveBtn" destination="sT1-ze-F23" id="eFH-Ti-y49"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -203,7 +195,7 @@
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="55" id="akk-eN-Dng"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                     </textField>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="XJF-kj-tYx">
                                         <rect key="frame" x="0.0" y="237" width="364" height="50"/>

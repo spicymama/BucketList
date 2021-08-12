@@ -106,7 +106,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
             deleteAlert.addAction(cancelBtn)
             
             let confirmDeleteBtn = UIAlertAction(title: "Yes, Delete", style: .default) { _ in
-                FirebaseFunctions.deletePost(postID: self.postID!)
+                FirebaseFunctions.deletePost(post: PostViewController.currentPost!)
                 self.navigationController?.popViewController(animated: true)
             }
             confirmDeleteBtn.setValue(UIColor.red, forKey: "titleTextColor")
@@ -162,7 +162,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
             postImageView.isHidden = true
         } else {
             postImageView.isHidden = false
-            self.postImageView.image = UIImage(named: PostViewController.currentPost!.imageURL!)
+            cachePostImage(post: post)
         }
 
         self.postNote.text = PostViewController.currentPost?.note
@@ -220,9 +220,9 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
         return picture
-    }
+    } // End of Cache user image
     
-    func cachePostImage(post: Post) -> UIImage {
+    func cachePostImage(post: Post) {
         var picture = UIImage()
         let cache = ImageCacheController.shared.cache
         let cacheKey = NSString(string: post.imageURL ?? "" )
@@ -233,7 +233,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
             let session = URLSession.shared
             
             if post.imageURL != "" {
-                let url = URL(string: post.imageURL ?? "")!
+                let url = URL(string: post.imageURL!)!
                 let task = session.dataTask(with: url) { (data, response, error) in
                     if let error = error {
                         print("Error in \(#function): On Line \(#line) : \(error.localizedDescription) \n---\n \(error)")
@@ -244,6 +244,9 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
                             if let image = UIImage(data: data) {
                                 picture = image
                                 cache.setObject(image, forKey: cacheKey)
+                                
+                                // Reload the cell
+                                
                             }
                         }
                     }
@@ -251,9 +254,8 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
                 task.resume()
             }
         }
-        return picture
-    }
-    
+        postImageView.image = picture
+    } // End of Cache post image
     
     func fetchCurrentUser() {
         guard let post = PostViewController.currentPost else {return}
@@ -287,7 +289,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         if PostViewController.currentPost?.imageURL != "" {
             //TODO(ethan) After getting post images to work, this might need adjustment
-            changeAmount = changeAmount - keyboardSize.height
+            changeAmount = changeAmount + keyboardSize.height
         }
         //TODO(ethan) - Make this shrink the lilTable for the comments based on how many comments there are?
         // This will shrink the Comments Table
