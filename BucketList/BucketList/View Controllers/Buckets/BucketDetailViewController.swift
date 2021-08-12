@@ -26,11 +26,17 @@ class BucketDetailViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        noVisibilityOption()
         updateView()
     } // End of View did load
     
     
     // MARK: - Functions
+    func noVisibilityOption() {
+        visibilitySwitch.isHidden = true
+        visibilitySwitch.isEnabled = false
+    } // End of Function
+    
     func updateView() {
         let bucket = BucketDetailViewController.bucket
         if bucket != nil {

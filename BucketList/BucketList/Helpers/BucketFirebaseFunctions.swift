@@ -187,20 +187,20 @@ class BucketFirebaseFunctions {
     
     
     // MARK: - Delete Bucket
-    static func deleteBucket(bucketID: String, completion: @escaping (Bool)-> Void) {
+    static func deleteBucket(bucketID: String, 🐶: @escaping ( Bool ) -> Void) -> Void {
         guard let userID = Auth.auth().currentUser?.uid else { return }
-        // Delete the bucket from the buckets array
+        // Delete the bucket from the buckets collection
         Firestore.firestore().collection("buckets").document(bucketID).delete() { error in
             if let error = error {
                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
             } else {
                 // Delete the bucket from the User's array
                 Firestore.firestore().collection("users").document(userID).updateData([
-                    "bucketIDs" : FieldValue.arrayRemove([bucketID])
+                    "bucketsIDs" : FieldValue.arrayRemove([bucketID])
                 ])
                 // Delete the Bucket Items
                 Firestore.firestore().collection("bucketItems").document(bucketID).delete()
-                completion(true)
+                🐶(true)
             }
         }
     } // End of Delete Bucket
