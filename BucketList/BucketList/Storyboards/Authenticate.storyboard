@@ -17,22 +17,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="ige-j0-nCJ">
-                                <rect key="frame" x="64" y="152" width="300" height="380"/>
+                                <rect key="frame" x="64" y="152" width="300" height="280"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WjT-Th-b1T">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="71"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="46"/>
                                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES" textContentType="email"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ydw-eV-Br4">
-                                        <rect key="frame" x="0.0" y="103" width="300" height="71"/>
+                                        <rect key="frame" x="0.0" y="78" width="300" height="46"/>
                                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES" textContentType="password"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZTG-kf-sxo">
-                                        <rect key="frame" x="0.0" y="206" width="300" height="71"/>
+                                        <rect key="frame" x="0.0" y="156" width="300" height="46"/>
                                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                                         <state key="normal" title="Login"/>
                                         <connections>
@@ -40,7 +40,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mNQ-qh-tR9">
-                                        <rect key="frame" x="0.0" y="309" width="300" height="71"/>
+                                        <rect key="frame" x="0.0" y="234" width="300" height="46"/>
                                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                                         <state key="normal" title="Create Account"/>
                                         <connections>
@@ -48,6 +48,9 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="280" id="lIh-Sk-Xpi"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="BZm-F1-Lhh"/>
@@ -56,7 +59,6 @@
                             <constraint firstItem="ige-j0-nCJ" firstAttribute="top" secondItem="BZm-F1-Lhh" secondAttribute="top" constant="64" id="7TC-j8-Fap"/>
                             <constraint firstItem="ige-j0-nCJ" firstAttribute="leading" secondItem="BZm-F1-Lhh" secondAttribute="leading" constant="64" id="DHn-1x-y2J"/>
                             <constraint firstItem="BZm-F1-Lhh" firstAttribute="trailing" secondItem="ige-j0-nCJ" secondAttribute="trailing" constant="64" id="n00-lm-QYc"/>
-                            <constraint firstItem="BZm-F1-Lhh" firstAttribute="bottom" secondItem="ige-j0-nCJ" secondAttribute="bottom" constant="360" id="xOu-vc-JWt"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Authenticate" id="KvO-O4-epd"/>
