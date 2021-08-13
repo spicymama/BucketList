@@ -36,6 +36,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating, U
         // Can't return to login screen
         self.navigationItem.setHidesBackButton(true, animated: true)
         
+        fetchFriendsPosts()
         checkForFriendsPosts()
         
         searchController.searchResultsUpdater = self
@@ -179,22 +180,24 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating, U
     }
     
     func checkForFriendsPosts() {
-        if segmentedController.selectedSegmentIndex == 0 {
-            if friendsPosts.count == 0 {
-                let alert = UIAlertController(title: " There's nothing here?!", message: "Looks like your friends have not made any posts!", preferredStyle: .alert)
-                let alertButton = UIAlertAction(title: "Lets see what's popular!", style: .default)
-                alert.addAction(alertButton)
-                
-                present(alert, animated: true) {
-                    // Change back to popular
-                    self.segmentedController.selectedSegmentIndex = 1
-                    self.checkSegmentIndex()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            if self.segmentedController.selectedSegmentIndex == 0 {
+                if self.friendsPosts.count == 0 {
+                    let alert = UIAlertController(title: " There's nothing here?!", message: "Looks like your friends have not made any posts!", preferredStyle: .alert)
+                    let alertButton = UIAlertAction(title: "Lets see what's popular!", style: .default)
+                    alert.addAction(alertButton)
+                    
+                    self.present(alert, animated: true) {
+                        // Change back to popular
+                        self.segmentedController.selectedSegmentIndex = 1
+                        self.checkSegmentIndex()
+                    }
+                } else {
+                    return
                 }
-            } else {
-                return
-            }
-        }
-    } // End of Func no friends
+            } // End of If statement
+        } // End of Dispatch Queue
+    } // End of Func no friends posts
     
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -34,8 +34,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func konamiCode() {
-        emailField.text = "AndersenEthanG@gmail.com"
-        passwordField.text = "Bucketeers"
+        emailField.text = "hannabeemarie@gmail.com"
+        passwordField.text = "dorathex"
     }
     
     
