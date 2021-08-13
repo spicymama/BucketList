@@ -116,7 +116,7 @@ class FirebaseFunctions {
                 let uid: String = data["uid"] as? String ?? "uid"
                 let friendsListID = data["friendsListID"] as? String ?? ""
                 let conversationIDs = data["conversationsID"] as? [String] ?? ["conversationIDs"]
-                let profilePicURL = data["profilePicURL"] as? String
+                let profilePicURL = data["profilePicUrl"] as? String
                 
                 let user = User(firstName: firstName, lastName: lastName, username: username, profilePicUrl: profilePicURL, uid: uid, friendsListID: friendsListID, conversationsIDs: conversationIDs)
                 🐶(user)

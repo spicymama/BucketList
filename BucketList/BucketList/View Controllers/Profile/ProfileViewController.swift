@@ -278,9 +278,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         FirebaseFunctions.fetchCurrentUserData { FetchedUser in
             guard let profileUser = self.profileUser else {return}
             self.loggedInUser = FetchedUser
-            self.profilePicImageView.image = self.cacheImage(user: profileUser)
             
             self.isLoggedInUserProfileUser()
+            self.profilePicImageView.image = self.cacheImage(user: profileUser)
         }
     } // End of Func fetch logged in user
 
@@ -306,7 +306,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     } // End of Func update view
     
     
-    func cacheImage(user: User)-> UIImage {
+    func cacheImage(user: User) -> UIImage {
         var picture = UIImage()
         let cache = ImageCacheController.shared.cache
         let cacheKey = NSString(string: user.profilePicUrl ?? "")

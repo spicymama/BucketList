@@ -224,11 +224,11 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating, U
         var imageHeight = CGFloat(600)
         
         if image == "" {
-            imageHeight = imageHeight - 380
+            imageHeight = imageHeight - 440
         }
         
         if title == "" {
-            imageHeight = imageHeight - 64
+            imageHeight = imageHeight - 12
         }
         
         self.tableView.rowHeight = imageHeight
