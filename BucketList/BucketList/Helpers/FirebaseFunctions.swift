@@ -235,9 +235,13 @@ class FirebaseFunctions {
             } else {
                 guard let data = document?.data() else { return }
                 
-                let friends: [String] = data["friends"] as? [String] ?? []
+                var friends: [String] = data["friends"] as? [String] ?? []
                 let blocked: [String] = data["blocked"] as? [String] ?? []
                 group.leave()
+                
+                // Adds yourself to your friends list (might need a change?)
+                guard let currentUserUid = Auth.auth().currentUser?.uid else { return }
+                friends.append(currentUserUid)
                 
                 group.notify(queue: DispatchQueue.main) {
                     completion(FriendsList(friends: friends, blocked: blocked))
