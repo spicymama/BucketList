@@ -56,6 +56,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         tableView.dataSource = self
 
         updateView()
+        
+        // This should clean anything weird the images
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            self.tableView.reloadData()
+        }
     } // End of view did load
     
     override func viewWillAppear(_ animated: Bool) {
@@ -280,7 +285,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             self.loggedInUser = FetchedUser
             
             self.isLoggedInUserProfileUser()
-            self.profilePicImageView.image = self.cacheImage(user: profileUser)
+            self.cacheImage(user: profileUser)
         }
     } // End of Func fetch logged in user
 
@@ -306,40 +311,41 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     } // End of Func update view
     
     
-    func cacheImage(user: User) -> UIImage {
+    func cacheImage(user: User) {
         var picture = UIImage()
         let cache = ImageCacheController.shared.cache
         let cacheKey = NSString(string: user.profilePicUrl ?? "")
-        if let image = cache.object(forKey: cacheKey) {
-            picture = image
+        
+        if user.profilePicUrl == "" || user.profilePicUrl == "defaultProfileImage" {
+            picture = UIImage(named: "defaultProfileImage") ?? UIImage()
         } else {
-            if user.profilePicUrl == "" || user.profilePicUrl == "defaultProfileImage" {
-                picture = UIImage(named: "defaultProfileImage") ?? UIImage()
-            }
-            
-            let session = URLSession.shared
-            
-            if user.profilePicUrl != "" {
-                let url = URL(string: user.profilePicUrl ?? "")!
-                let task = session.dataTask(with: url) { (data, response, error) in
-                    if let error = error {
-                        print("Error in \(#function): On Line \(#line) : \(error.localizedDescription) \n---\n \(error)")
-                        print("Unable to fetch image for \(user.username)")
-                    }
-                    if let data = data {
-                        DispatchQueue.main.async {
-                            if let image = UIImage(data: data) {
-                                picture = image
-                                cache.setObject(image, forKey: cacheKey)
+            if let image = cache.object(forKey: cacheKey) {
+                picture = image
+            } else {
+                let session = URLSession.shared
+                
+                if user.profilePicUrl != "" {
+                    let url = URL(string: user.profilePicUrl ?? "")!
+                    let task = session.dataTask(with: url) { (data, response, error) in
+                        if let error = error {
+                            print("Error in \(#function): On Line \(#line) : \(error.localizedDescription) \n---\n \(error)")
+                            print("Unable to fetch image for \(user.username)")
+                        }
+                        if let data = data {
+                            DispatchQueue.main.async {
+                                if let image = UIImage(data: data) {
+                                    picture = image
+                                    cache.setObject(image, forKey: cacheKey)
+                                    self.profilePicImageView.image = picture
+                                }
                             }
                         }
                     }
+                    task.resume()
                 }
-                task.resume()
             }
         }
-        return picture
-    } // End of Cache user image
+    } // End of Cache Image
     
     
     // MARK: - Image Picker
