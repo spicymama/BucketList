@@ -21,6 +21,11 @@ class FriendsListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.fetchFriendsData()
+        
+        // This should clean anything weird the images
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.tableView.reloadData()
+        }
     } // End of View Did Load
     
     

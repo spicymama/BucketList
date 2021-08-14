@@ -183,8 +183,9 @@ class FirebaseFunctions {
                         let firstName = data.firstName
                         let lastName = data.lastName
                         let username = data.username
+                        let profilePicUrl = data.profilePicUrl
                         
-                        usersData.append(User(firstName: firstName, lastName: lastName, username: username, uid: uid))
+                        usersData.append(User(firstName: firstName, lastName: lastName, username: username, profilePicUrl: profilePicUrl, uid: uid))
                         
                         group.leave()
                     }

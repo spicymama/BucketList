@@ -26,42 +26,43 @@ class FriendsListTableViewCell: UITableViewCell {
     func updateViews() {
         guard let user = user else {return}
         usernameLabel.text = ("~" + user.username)
-        profileImage.image = cacheImage(user: user)
+        cacheImage(user: user)
     }
     
-    func cacheImage(user: User)-> UIImage {
+    func cacheImage(user: User) {
         var picture = UIImage()
         let cache = ImageCacheController.shared.cache
         let cacheKey = NSString(string: user.profilePicUrl ?? "")
-        if let image = cache.object(forKey: cacheKey) {
-            picture = image
+        
+        if user.profilePicUrl == "" || user.profilePicUrl == "defaultProfileImage" {
+            picture = UIImage(named: "defaultProfileImage") ?? UIImage()
         } else {
-            if user.profilePicUrl == "" {
-                picture = UIImage(named: "defaultProfileImage") ?? UIImage()
-            }
-            
-            let session = URLSession.shared
-            
-            if user.profilePicUrl != "" {
-                let url = URL(string: user.profilePicUrl ?? "")!
-                let task = session.dataTask(with: url) { (data, response, error) in
-                    if let error = error {
-                        print("Error in \(#function): On Line \(#line) : \(error.localizedDescription) \n---\n \(error)")
-                        print("Unable to fetch image for \(user.username)")
-                    }
-                    if let data = data {
-                        DispatchQueue.main.async {
-                            if let image = UIImage(data: data) {
-                                picture = image
-                                cache.setObject(image, forKey: cacheKey)
+            if let image = cache.object(forKey: cacheKey) {
+                picture = image
+            } else {
+                let session = URLSession.shared
+                
+                if user.profilePicUrl != "" {
+                    let url = URL(string: user.profilePicUrl ?? "")!
+                    let task = session.dataTask(with: url) { (data, response, error) in
+                        if let error = error {
+                            print("Error in \(#function): On Line \(#line) : \(error.localizedDescription) \n---\n \(error)")
+                            print("Unable to fetch image for \(user.username)")
+                        }
+                        if let data = data {
+                            DispatchQueue.main.async {
+                                if let image = UIImage(data: data) {
+                                    picture = image
+                                    cache.setObject(image, forKey: cacheKey)
+                                }
                             }
                         }
                     }
+                    task.resume()
                 }
-                task.resume()
             }
         }
-        return picture
+        profileImage.image = picture
     } // End of Cache Image
     
 } // End of Class
