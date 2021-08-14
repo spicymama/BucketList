@@ -24,7 +24,7 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, UIImagePic
     
     // MARK: - Properties
     let noteTextViewPlaceholder: String = "Notes, Thoughts, Questions?"
-    var bucketID = "0"
+    var bucketID = ""
     var bucketTitle = ""
     var selectedImage: UIImage?
     //TODO(ethan) V2.0 - You can post to individual Bucket Items
@@ -82,14 +82,21 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, UIImagePic
         
         let newPost = Post(note: note, bucketID: bucketID, bucketTitle: bucketTitle)
         
-        FirebaseFunctions.createPost(newPost: newPost, image: image)
-        
-        // Go to the Post's page, in front of the Feed page
-        let storyBoard: UIStoryboard = UIStoryboard(name: "gavin", bundle: nil)
-        let vc = storyBoard.instantiateViewController(withIdentifier: "FeedTableVC")
-        // TODO(ethan) -- Might need to go through the whole app and make sure every view pops off
-        self.navigationController?.popViewController(animated: true)
-        self.navigationController?.pushViewController(vc, animated: true)
+        FirebaseFunctions.createPost(newPost: newPost, image: image) { NewPost in
+            // Go to the Post's page, in front of the Feed page
+            let storyBoard: UIStoryboard = UIStoryboard(name: "gavin", bundle: nil)
+            let vc = storyBoard.instantiateViewController(withIdentifier: "FeedTableVC")
+            
+            let postStoryBoard: UIStoryboard = UIStoryboard(name: "PostDetail", bundle: nil)
+            let postVc = postStoryBoard.instantiateViewController(withIdentifier: "postDetailVC")
+            
+            self.navigationController?.popViewController(animated: true)
+            
+            self.navigationController?.pushViewController(vc, animated: false)
+            
+            PostViewController.currentPost = NewPost
+            self.navigationController?.pushViewController(postVc, animated: true)
+        }
     } // End of Save button
     
     

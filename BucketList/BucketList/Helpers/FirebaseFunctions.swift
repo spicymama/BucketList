@@ -252,7 +252,7 @@ class FirebaseFunctions {
     
     
     // MARK: - Posts
-    static func createPost(newPost: Post, image: UIImage?) {
+    static func createPost(newPost: Post, image: UIImage?, 🐶: @escaping ( Post ) -> Void) {
         guard let currentUserID: String = Auth.auth().currentUser?.uid else { return }
         let postID: String = UUID().uuidString
         let postRef = Firestore.firestore().collection("posts").document(postID)
@@ -269,6 +269,7 @@ class FirebaseFunctions {
             "commentsID" : newPost.postID,
             "reactionsArr" : [],
             "postsIDs" : []
+            
         ]) { err in
             if let err = err {
                 print("Error in \(#function)\(#line) : \(err.localizedDescription) \n---\n \(err)")
@@ -290,6 +291,9 @@ class FirebaseFunctions {
                 print("Post for user \(currentUserID) was created")
             }
         }
+        
+        let finishedPost = Post(postID: postID, authorID: currentUserID, note: newPost.note!, commentsID: newPost.commentsID!, imageURL: "", bucketID: newPost.bucketID ?? "", bucketTitle: newPost.bucketTitle ?? "", timestamp: Date())
+        🐶(finishedPost)
         
         // Image check
         let imageID: String = UUID().uuidString
@@ -313,8 +317,10 @@ class FirebaseFunctions {
                     postRef.updateData([
                         "imageURL" : urlString
                     ])
+                    
                 } // End of Download URL
             } // End of Put data
+            
         } // End of If image exists
         
     } // End of Create Post
