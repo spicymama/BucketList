@@ -23,6 +23,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = nil
         self.navigationItem.setHidesBackButton(true, animated: true);
+        
         setupKeyboard()
         konamiCode()
     } // End of Function
