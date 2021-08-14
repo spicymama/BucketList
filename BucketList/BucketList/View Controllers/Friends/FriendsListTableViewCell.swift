@@ -39,6 +39,7 @@ class FriendsListTableViewCell: UITableViewCell {
         } else {
             if let image = cache.object(forKey: cacheKey) {
                 picture = image
+                profileImage.image = picture
             } else {
                 let session = URLSession.shared
                 

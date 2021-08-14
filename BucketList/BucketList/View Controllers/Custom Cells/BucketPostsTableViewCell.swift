@@ -58,6 +58,7 @@ class BucketPostsTableViewCell: UITableViewCell {
         let cacheKey = NSString(string: post.imageURL ?? "" )
         if let image = cache.object(forKey: cacheKey) {
             picture = image
+            postImageView.image = picture
         } else {
             
             let session = URLSession.shared

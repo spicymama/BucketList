@@ -80,6 +80,7 @@ class ConversationTableViewCell: UITableViewCell {
         } else {
             if let image = cache.object(forKey: cacheKey) {
                 picture = image
+                userAvatarImageView.image = picture
             } else {
                 let session = URLSession.shared
                 
