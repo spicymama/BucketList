@@ -58,7 +58,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         updateView()
         
         // This should clean anything weird the images
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.tableView.reloadData()
         }
     } // End of view did load
@@ -321,6 +321,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         } else {
             if let image = cache.object(forKey: cacheKey) {
                 picture = image
+                self.profilePicImageView.image = picture
             } else {
                 let session = URLSession.shared
                 
