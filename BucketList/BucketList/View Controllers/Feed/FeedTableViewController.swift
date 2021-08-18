@@ -201,15 +201,32 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating, U
     
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        /*
+         //WIP Limit cell return count
+        if dataSource.count > 20 {
+            return 20
+        } else {
+            return dataSource.count
+        }
+         */
+        
         return dataSource.count
-    }
+    } // End of Number of rolls
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as? FeedTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as? FeedTableViewCell else { return FeedTableViewCell() }
         let post = dataSource[indexPath.row]
-        cell?.post = post
         
-        return cell ?? UITableViewCell()
+        cell.backgroundColor = UIColor.white
+        cell.layer.borderColor = UIColor.black.cgColor
+        cell.layer.borderWidth = 1
+        cell.layer.cornerRadius = 16
+        cell.clipsToBounds = true
+        
+        cell.post = post
+        
+        return cell
     } // End of Cell for row at
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

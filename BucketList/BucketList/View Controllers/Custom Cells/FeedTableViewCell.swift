@@ -64,8 +64,7 @@ class FeedTableViewCell: UITableViewCell {
         timestampLabel.text = post.timestamp?.formatToString()
         noteLabel.text = post.note
         cacheImage(user: user)
-        
-        beautifyCell()
+    
     } // End of Update Views
 
     
@@ -142,12 +141,3 @@ class FeedTableViewCell: UITableViewCell {
     } // End of Cache post
     
 } // End of Feed Table View Cell
-
-
-// MARK: - Extensions
-extension FeedTableViewCell {
-    func beautifyCell() {
-        self.contentView.backgroundColor = .white
-        self.layer.frame = layer.frame.inset(by: UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0))
-    } // End of Function
-} // End of Extension
