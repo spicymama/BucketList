@@ -218,11 +218,57 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating, U
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as? FeedTableViewCell else { return FeedTableViewCell() }
         let post = dataSource[indexPath.row]
         
+        
+        // Cell stuff
         cell.backgroundColor = UIColor.white
         cell.layer.borderColor = UIColor.black.cgColor
         cell.layer.borderWidth = 1
         cell.layer.cornerRadius = 16
         cell.clipsToBounds = true
+        
+        // Post title
+        if post.bucketTitle == "" {
+            cell.postTitle.isHidden = true
+        } else {
+            cell.postTitle.isHidden = false
+            cell.postTitle.text = post.bucketTitle
+        }
+        
+        // Post image
+        if post.imageURL == "" {
+            cell.postImageView.isHidden = true
+        } else {
+            cell.postImageView.isHidden = false
+            var picture = UIImage()
+            let cache = ImageCacheController.shared.cache
+            let cacheKey = NSString(string: post.imageURL ?? "" )
+            if let image = cache.object(forKey: cacheKey) {
+                picture = image
+            } else {
+                let session = URLSession.shared
+                
+                if post.imageURL != "" {
+                    let url = URL(string: post.imageURL!)!
+                    let task = session.dataTask(with: url) { (data, response, error) in
+                        if let error = error {
+                            print("Error in \(#function): On Line \(#line) : \(error.localizedDescription) \n---\n \(error)")
+                        }
+                        if let data = data {
+                            DispatchQueue.main.async {
+                                if let image = UIImage(data: data) {
+                                    picture = image
+                                    cache.setObject(image, forKey: cacheKey)
+                                    
+                                    // Reload the cell
+                                }
+                            }
+                        }
+                    }
+                    task.resume()
+                }
+            }
+            cell.postImageView.image = picture
+        } // End of Cache post
         
         cell.post = post
         
@@ -236,7 +282,7 @@ class FeedTableViewController: UITableViewController, UISearchResultsUpdating, U
         
         PostViewController.currentPost = post
         navigationController?.pushViewController(vc, animated: true)
-    }
+    } // End of Did select row
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let image = dataSource[indexPath.row].imageURL ?? ""
